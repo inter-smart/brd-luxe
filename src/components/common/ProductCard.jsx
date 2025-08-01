@@ -47,7 +47,7 @@ export default function ProductCard({ item }) {
           <div className="ml-[7px] sm:ml-[10px] lg:ml-[15px] 2xl:ml-[18px] 3xl:ml-[25px]">
             <Link
               href={item?.enquire_link}
-              className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black w-fit h-auto bg-white p-[5px_8px] sm:p-[8px_12px] 2xl:p-[10px_15px] 3xl:p-[12px_20px] rounded-[5px] sm:rounded-[7px] xl:rounded-[10px] border-1 border-[#BEBEBE] block hover:bg-black hover:border-white hover:text-white transition-all duration-300 ease-in-out"
+              className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black w-fit h-auto bg-white p-[5px_8px] sm:p-[8px_12px] 2xl:p-[10px_15px] 3xl:p-[12px_20px] rounded-[5px] sm:rounded-[7px] 3xl:rounded-[10px] border-1 border-[#BEBEBE] block hover:bg-black hover:border-white hover:text-white transition-all duration-300 ease-in-out"
             >
               Enquire Now
             </Link>
