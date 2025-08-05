@@ -287,7 +287,7 @@ export default function ProductListSection() {
   return (
     <section className="w-full h-auto py-[25px_125px] block">
       <div className="container">
-        <Breadcrumb items={breadcrumbItems} />
+        {/* <Breadcrumb items={breadcrumbItems} /> */}
         <div>
           <div className="mb-[25px] lg:mb-[35px] 2xl:mb-[45px] 3xl:mb-[55px] flex max-sm:flex-wrap items-center">
             <div className="w-full md:w-1/2">
@@ -302,9 +302,7 @@ export default function ProductListSection() {
             <div className="w-full md:w-1/2">
               <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
                 {isDesktop ? (
-                  <div className="md:pr-[20px] lg:pr-[60px] 2xl:pr-[75px] 3xl:pr-[90px] max-sm:mb-[15px]">
-                    <ProductFilterBox />
-                  </div>
+                  <ProductFilterBox variant="search" />
                 ) : (
                   <div className="w-full h-auto">
                     <button
@@ -336,7 +334,7 @@ export default function ProductListSection() {
                     }`}
                     >
                       <div className="w-full h-auto flex items-center justify-center">
-                        <ProductFilterBox />
+                        <ProductFilterBox variant="search" />
                       </div>
                     </div>
                   </div>

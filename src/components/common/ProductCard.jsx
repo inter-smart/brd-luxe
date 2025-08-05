@@ -35,7 +35,7 @@ export default function ProductCard({ item }) {
             href={item?.link}
             target="_blank"
             aria-label="whatsapp"
-            className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center relative z-0"
+            className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center transition-all duration-300 ease-in-out relative z-0 hover:opacity-50"
           >
             <Image
               src="/images/whatsapp_icon.svg"

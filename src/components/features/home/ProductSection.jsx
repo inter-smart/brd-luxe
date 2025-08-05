@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 import { Heading } from "../../utils/Heading";
 import { useMediaQuery } from "react-responsive";
 import ProductCard from "../../common/ProductCard";
@@ -122,7 +121,7 @@ const product_data = {
 };
 
 export default function ProductSection() {
-  const [isOpen, setIsOpen] = useState(false);
+
   const isDesktop = useMediaQuery({
     query: "(min-width: 640px)",
   });
@@ -141,44 +140,9 @@ export default function ProductSection() {
           </div>
           <div className="w-full md:w-1/2">
             <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
-              {isDesktop ? (
+              {isDesktop && (
                 <div className="md:pr-[20px] lg:pr-[60px] 2xl:pr-[75px] 3xl:pr-[90px] max-sm:mb-[15px]">
                   <ProductFilterBox />
-                </div>
-              ) : (
-                <div className="w-full h-auto">
-                  <button
-                    onClick={() => setIsOpen((prev) => !prev)}
-                    className="text-[12px] leading-[1.2] font-medium font-base2 tracking-[1px] text-white p-[10px_15px] border-1 border-white rounded-[5px] mb-[15px] flex mx-auto"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-4 h-4 mr-[5px]"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="white"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V20a1 1 0 01-1.447.894l-4-2A1 1 0 019 18v-4.586L3.293 6.707A1 1 0 013 6V4z"
-                      />
-                    </svg>
-                    Filter
-                  </button>
-                  <div
-                    className={`transition-all duration-300 ease-in-out overflow-hidden
-                    ${
-                      isOpen
-                        ? "max-sm:opacity-100 mb-[15px]"
-                        : "max-sm:max-h-0 max-sm:opacity-0"
-                    }`}
-                  >
-                    <div className="w-full h-auto flex items-center justify-center">
-                      <ProductFilterBox />
-                    </div>
-                  </div>
                 </div>
               )}
               <Link
