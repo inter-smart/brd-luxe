@@ -1,5 +1,7 @@
 import InnerHero from "@/components/common/InnerHero";
+import HowWorkSection from "@/components/features/sell/HowWorkSection";
 import SellInfoSection from "@/components/features/sell/SellInfoSection";
+import VideoSection from "@/components/features/sell/VideoSection";
 
 export default function Page() {
   return (
@@ -11,6 +13,8 @@ export default function Page() {
         alt="Sell Your Car Hero"
       />
       <SellInfoSection />
+      <VideoSection />
+      <HowWorkSection />
     </>
   );
 }

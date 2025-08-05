@@ -239,7 +239,7 @@
   }
 
   .container-sp {
-    @apply lg:max-w-[var(--breakpoint-lg)] xl:max-w-[calc(100%-var(--breakpoint-xl))] 2xl:max-w-[var(--breakpoint-2xl)] 3xl:max-w-[var(--breakpoint-3xl)];
+    @apply max-w-full xl:ml-[calc((100%-var(--breakpoint-xl))/2)] 2xl:ml-[calc((100%-var(--breakpoint-2xl))/2)] 3xl:ml-[calc((100%-var(--breakpoint-3xl))/2)];
   }
 
   .container-sm {
