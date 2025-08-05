@@ -137,34 +137,12 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
-
 import { useRef } from "react";
-import { useScroll, useTransform, motion } from "framer-motion";
 import { Text } from "../utils/Text";
 import { Heading } from "../utils/Heading";
 import { ShineBorder } from "../magicui/shine-border";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -195,21 +173,24 @@ const brd_advantage_data = {
     {
       title: "Buyback Assurance",
       description:
-        "We offer buyback and exchange options, letting you upgrade to another luxury brand or sell your car easily — no middlemen, no unwanted calls.",
+        "We offer buyback and exchange options, letting you upgrade to another luxury brand or sell your car easily — no middlemen, no unwanted calls.Ask ChatGPT",
     },
   ],
 };
 
 export default function BrdAdvantageSection() {
+  
   const sectionRef = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.30, 0.35], [0, 1, 0]);
-  const contentOpacity = useTransform(scrollYProgress, [0.30, 0.50], [0, 1]);
-  const contentY = useTransform(scrollYProgress, [0.3, 0.4], [50, 0]);
+  const titleFade = useTransform(scrollYProgress, [0, 0.3, 0.4], [0, 1, 0]);
+  const headerFade = useTransform(scrollYProgress, [0.4, 0.5], [0, 1]);
+  const sliderFade = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
+  const headerMoveY = useTransform(scrollYProgress, [0.3, 0.4], [50, 0]);
 
   return (
     <section
@@ -217,17 +198,16 @@ export default function BrdAdvantageSection() {
       className="w-full h-auto block py-[30px] sm:py-[60px] lg:py-[70px] 2xl:py-[90px] 3xl:py-[115px] relative z-0"
     >
       <motion.div
-        style={{ opacity: titleOpacity }}
+        style={{ opacity: titleFade }}
         className="text-[32px] sm:text-[48px] md:text-[58px] lg:text-[64px] xl:text-[74px] 2xl:text-[88px] 3xl:text-[110px] leading-[1.5] font-light font-base1 text-white w-full h-full bg-black absolute inset-0 z-2 flex items-center justify-center"
       >
         {brd_advantage_data?.hide_title}
       </motion.div>
-
-      <motion.div
-        style={{ opacity: contentOpacity, y: contentY }}
-        className="container relative z-3"
-      >
-        <div className="max-sm:text-center mb-[30px] sm:mb-[40px] lg:mb-[30px] 2xl:mb-[40px] 3xl:mb-[70px] flex flex-wrap items-center">
+      <div className="container">
+        <motion.div
+          style={{ opacity: headerFade, y: headerMoveY }}
+          className="max-sm:text-center mb-[30px] sm:mb-[40px] lg:mb-[30px] 2xl:mb-[40px] 3xl:mb-[70px] flex flex-wrap items-center"
+        >
           <div className="w-full sm:w-1/2 md:pr-[25%]">
             <Heading
               as="h2"
@@ -245,9 +225,8 @@ export default function BrdAdvantageSection() {
               {brd_advantage_data?.description}
             </Text>
           </div>
-        </div>
-
-        <div className="w-full h-auto">
+        </motion.div>
+        <motion.div style={{ opacity: sliderFade }} className="w-full h-auto">
           <Swiper
             modules={[Autoplay]}
             loop={true}
@@ -284,7 +263,17 @@ export default function BrdAdvantageSection() {
           >
             {brd_advantage_data?.brd_advantage_list?.map((item, index) => (
               <SwiperSlide key={`advantage-${index}`} className="!h-auto">
-                <div className="w-full h-full p-[15px] sm:p-[20px] 2xl:p-[25px] 3xl:p-[30px] bg-white/2 border-1-white/10 overflow-hidden block transition-all duration-500 hover:lg:translate-y-[-15px] relative z-0">
+                <motion.div
+                  initial={{ opacity: 0, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{
+                    duration: 0.8,
+                    delay: index * 0.4,
+                    ease: [0.15, 0.25, 0.35, 0.85],
+                  }}
+                  className="w-full h-full p-[15px] sm:p-[20px] 2xl:p-[25px] 3xl:p-[30px] bg-white/2 border-1-white/10 overflow-hidden block transition-all duration-500 hover:lg:translate-y-[-15px] relative z-0"
+                >
                   <motion.div
                     className="absolute inset-0 -z-1"
                     initial={{ backgroundPosition: "20% 30%" }}
@@ -310,12 +299,12 @@ export default function BrdAdvantageSection() {
                   <div className="text-[11px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white">
                     {item?.description}
                   </div>
-                </div>
+                </motion.div>
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

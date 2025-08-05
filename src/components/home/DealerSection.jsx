@@ -58,9 +58,13 @@ export default function DealerSection() {
           <div className="max-sm:max-w-[280px] max-md:!w-[320px] md:w-full h-auto aspect-[510/645] overflow-hidden flex items-center justify-center">
             <motion.div
               ref={ref}
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: "100%" } : { opacity: "50%" }}
-              transition={{ duration: 1, ease: "easeInOut" }}
+              initial={{ opacity: 0, height: "50%" }}
+              animate={
+                isInView
+                  ? { opacity: 1, height: "100%" }
+                  : { opacity: 0.5, height: "100%" }
+              }
+              transition={{ duration: 0.8, ease: "easeInOut" }}
               className="w-full h-full relative z-0 max-sm:mb-[30px] max-md:mb-[40px]"
             >
               <Image
