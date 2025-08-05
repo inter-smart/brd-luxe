@@ -28,7 +28,7 @@ export default function Header() {
       const scrollY = current;
       const direction = scrollY - lastScrollY.current;
 
-      if (scrollY < 0.05) {
+      if (scrollY < 0.01) {
         if (visible !== true || isScrolled !== false) {
           setVisible(true);
           setIsScrolled(false);
@@ -64,8 +64,8 @@ export default function Header() {
             y: visible ? 0 : -100,
             opacity: visible ? 1 : 0,
           }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] fixed top-0 inset-x-0 z-2 ${
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] overflow-hidden fixed top-0 inset-x-0 z-5 ${
             isScrolled &&
             visible &&
             "bg-white/10 backdrop-blur-[50px] shadow-md"
@@ -89,10 +89,10 @@ export default function Header() {
               </Link>
               <div className="hidden lg:flex items-center">
                 <a className="font-base3 mr-[10px]" href="">
-                  <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1.5] font-normal text-[#706D6D] text-right block">
+                  <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right block">
                     Quick Contact
                   </span>
-                  <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1.5] font-normal text-white">
+                  <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white">
                     +91 415‑555‑0132
                   </span>
                 </a>

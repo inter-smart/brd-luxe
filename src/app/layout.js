@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}>
         <Header />
-        <main className="flex-grow">
+        <main className="flex-grow overflow-hidden">
           {children}
         </main>
         <Footer/>
