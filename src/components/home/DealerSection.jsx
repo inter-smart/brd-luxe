@@ -59,7 +59,7 @@ export default function DealerSection() {
             <motion.div
               ref={ref}
               initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: "100%" } : { opacity: "10%" }}
+              animate={isInView ? { opacity: "100%" } : { opacity: "50%" }}
               transition={{ duration: 1, ease: "easeInOut" }}
               className="w-full h-full relative z-0 max-sm:mb-[30px] max-md:mb-[40px]"
             >

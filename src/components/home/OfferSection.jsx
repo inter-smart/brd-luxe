@@ -107,8 +107,8 @@ export default function OfferSection() {
 
     ScrollTrigger.matchMedia({
       "(min-width: 769px)": () => {
-        gsap.set(overlay, { backgroundColor: "rgba(0, 0, 0, 0.10)" });
-        gsap.set(topHeader, { opacity: 0, y: -50 });
+        gsap.set(overlay, { backgroundColor: "rgba(0, 0, 0, 0.15)" });
+        gsap.set(topHeader, { opacity: 0, y: 20 });
         gsap.set(centerContent, { opacity: 0, y: 50 });
         gsap.set(cornerItems, { opacity: 0, scale: 0.8 });
 
@@ -116,13 +116,13 @@ export default function OfferSection() {
           overlay,
           { backgroundColor: "rgba(0, 0, 0, 1)" },
           {
-            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            backgroundColor: "rgba(0, 0, 0, 0.15)",
             duration: 1.2,
             ease: "power2.out",
             scrollTrigger: {
               trigger: section,
-              start: "top 70%",
-              end: "top 20%",
+              start: "top 50%",
+              end: "bottom 10%",
               scrub: 1,
             },
           }
@@ -140,7 +140,7 @@ export default function OfferSection() {
         });
 
         tl.to(overlay, {
-          backgroundColor: "rgba(0, 0, 0, 0.15)",
+          // backgroundColor: "rgba(0, 0, 0, 0.15)",
           duration: 0.4,
           ease: "power2.out",
         })
@@ -149,8 +149,14 @@ export default function OfferSection() {
             {
               opacity: 1,
               y: 0,
-              duration: 0.3,
+              duration: 0.5,
               ease: "power2.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                end: "bottom 20%",
+                scrub: 1,
+              },
             },
             0.1
           )

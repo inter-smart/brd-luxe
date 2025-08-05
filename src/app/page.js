@@ -5,7 +5,11 @@ import DealerSection from "@/components/home/DealerSection";
 import ProductSection from "@/components/home/ProductSection";
 import SellCarSection from "@/components/home/SellCarSection";
 import BestCarsSection from "@/components/home/BestCarsSection";
+import LatestBrdSection from "@/components/home/LatestBrdSection";
+import ExperienceSection from "@/components/home/TestimonialSection";
 import BrdAdvantageSection from "@/components/home/BrdAdvantageSection";
+import JourneyFrameSection from "@/components/home/JourneyFrameSection";
+import LetsTalkSection from "@/components/home/LetsTalkSection";
 
 export default function Page() {
   return (
@@ -18,6 +22,10 @@ export default function Page() {
       <BrandSection />
       <BrdAdvantageSection />
       <SellCarSection />
+      <ExperienceSection />
+      <LatestBrdSection />
+      <JourneyFrameSection />
+      <LetsTalkSection />
     </>
   );
 }
