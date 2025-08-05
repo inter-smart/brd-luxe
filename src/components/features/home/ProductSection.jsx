@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Heading } from "../utils/Heading";
-import ProductCard from "../common/ProductCard";
+import { Heading } from "../../utils/Heading";
+import ProductCard from "../../common/ProductCard";
 import { useMediaQuery } from "react-responsive";
-import ProductFilterBox from "../common/ProductFilterBox";
+import ProductFilterBox from "../../common/ProductFilterBox";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";

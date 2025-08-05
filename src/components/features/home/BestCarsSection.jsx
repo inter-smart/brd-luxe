@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Text } from "@/components/utils/Text";
 import { Heading } from "@/components/utils/Heading";
-import { ShineBorder } from "../magicui/shine-border";
+import { ShineBorder } from "../../magicui/shine-border";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";

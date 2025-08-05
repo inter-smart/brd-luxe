@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Heading } from "../utils/Heading";
-import { StyledLink } from "../utils/Button";
+import { Heading } from "../../utils/Heading";
+import { StyledLink } from "../../utils/Button";
 
 const lets_talk_data = {
   heading: {

@@ -139,9 +139,9 @@
 
 "use client";
 import { useRef } from "react";
-import { Text } from "../utils/Text";
-import { Heading } from "../utils/Heading";
-import { ShineBorder } from "../magicui/shine-border";
+import { Text } from "../../utils/Text";
+import { Heading } from "../../utils/Heading";
+import { ShineBorder } from "../../magicui/shine-border";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";

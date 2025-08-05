@@ -1,15 +1,15 @@
-import HeroSection from "@/components/home/HeroSection";
-import OfferSection from "@/components/home/OfferSection";
-import BrandSection from "@/components/home/BrandSection";
-import DealerSection from "@/components/home/DealerSection";
-import ProductSection from "@/components/home/ProductSection";
-import SellCarSection from "@/components/home/SellCarSection";
-import BestCarsSection from "@/components/home/BestCarsSection";
-import LatestBrdSection from "@/components/home/LatestBrdSection";
-import ExperienceSection from "@/components/home/TestimonialSection";
-import BrdAdvantageSection from "@/components/home/BrdAdvantageSection";
-import JourneyFrameSection from "@/components/home/JourneyFrameSection";
-import LetsTalkSection from "@/components/home/LetsTalkSection";
+import HeroSection from "@/components/features/home/HeroSection";
+import OfferSection from "@/components/features/home/OfferSection";
+import BrandSection from "@/components/features/home/BrandSection";
+import DealerSection from "@/components/features/home/DealerSection";
+import ProductSection from "@/components/features/home/ProductSection";
+import SellCarSection from "@/components/features/home/SellCarSection";
+import BestCarsSection from "@/components/features/home/BestCarsSection";
+import LatestBrdSection from "@/components/features/home/LatestBrdSection";
+import ExperienceSection from "@/components/features/home/TestimonialSection";
+import BrdAdvantageSection from "@/components/features/home/BrdAdvantageSection";
+import JourneyFrameSection from "@/components/features/home/JourneyFrameSection";
+import LetsTalkSection from "@/components/features/home/LetsTalkSection";
 
 export default function Page() {
   return (

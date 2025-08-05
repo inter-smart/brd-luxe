@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function SellInfoSection() {
   return (
     <section className="w-full h-auto block">
-      <div className="container ">
+      <div className="bg-red-500 sm:[width:calc(var(--breakpoint-sm)-((100%-var(--breakpoint-sm))/2))] sm:mr-0 ">
         <div className="flex flex-wrap items-center -mx-[-15px] sm:-mx-[20px] xl:-mx-[40px] 2xl:-mx-[60px] [&>*]:px-[15px] sm:[&>*]:px-[20px] xl:[&>*]:px-[40px] 2xl:[&>*]:px-[60px]">
           <div className="w-full sm:w-1/2">
             <div>
