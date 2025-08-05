@@ -2,6 +2,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import { Cormorant_Garamond, Raleway } from "next/font/google";
 import Header from "../components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 // Load CeraPro Font
 const CeraPro = localFont({
@@ -75,6 +76,7 @@ export default function RootLayout({ children }) {
         <main className="flex-grow">
           {children}
         </main>
+        <Footer/>
       </body>
     </html>
   );

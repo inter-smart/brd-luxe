@@ -1,14 +1,13 @@
 "use client";
 import Image from "next/image";
-import { Text } from "../utils/Text";
-import { Heading } from "../utils/Heading";
 import { StyledLink } from "../utils/Button";
-import { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useState, useRef, useEffect } from "react";
+import { TextAnimate } from "../magicui/text-animate";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
-import "swiper/css";
 import "swiper/css/effect-fade";
+import "swiper/css";
 
 const hero_slides = [
   {
@@ -176,18 +175,23 @@ export default function HeroSection() {
                       isActive ? "opacity-100 translate-0" : "opacity-0"
                     }`}
                   >
-                    <Text
-                      as="div"
+                    <TextAnimate
+                      animation="slideUp"
+                      by="word"
+                      animate={activeIndex === index ? "show" : "hidden"}
                       className="text-[12px] sm:text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.4] font-normal font-base2 max-sm:text-center text-white mb-[15px] sm:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px]"
                     >
                       {item?.description}
-                    </Text>
-                    <Heading
-                      as="h1"
+                    </TextAnimate>
+                    <TextAnimate
+                      animation="slideUp"
+                      by="word"
+                      duration={0.7}
+                      animate={activeIndex === index ? "show" : "hidden"}
                       className="text-[32px] sm:text-[42px] lg:text-[54px] 2xl:text-[64px] 3xl:text-[80px] leading-[1] font-light font-base1 text-white max-sm:text-center mb-[20px] sm:mb-[30px] lg:mb-[40px] 2xl:mb-[45px] 3xl:mb-[60px]"
                     >
                       {item?.title}
-                    </Heading>
+                    </TextAnimate>
                     <div className="w-full h-full [&>*]:pr-[10px] lg:[&>*]:pr-[15px] 2xl:[&>*]:pr-[20px] flex flex-wrap items-center max-sm:justify-center">
                       {item?.hero_buttons?.map((item, index) => (
                         <div
@@ -239,6 +243,7 @@ function CustomPaginationDots({
   const progressInterval = useRef(null);
   const startTimeRef = useRef(null);
   const pausedAtRef = useRef(0);
+
   useEffect(() => {
     setProgress(0);
     pausedAtRef.current = 0;

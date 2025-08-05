@@ -1,6 +1,6 @@
 const sizes = {
   heading1:
-    "text-[24px] sm:text-[22px] lg:text-[26px] xl:text-[32px] 2xl:text-[40px] 3xl:text-[55px] font-light leading-tight font-base1",
+    "text-[24px] sm:text-[26px] lg:text-[32px] xl:text-[37px] 2xl:text-[44px] 3xl:text-[55px] font-light leading-tight font-base1",
   heading2:
     "text-[22px] sm:text-[24px] lg:text-[32px] xl:text-[36px] 2xl:text-[42px] 3xl:text-[48px] font-semibold leading-tight tracking-tight",
   heading3:
