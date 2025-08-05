@@ -48,9 +48,9 @@ export default function BrdAdvantageSection() {
     offset: ["start end", "end start"],
   });
 
-  const titleFade = useTransform(scrollYProgress, [0, 0.3, 0.4], [0, 1, 0]);
-  const headerFade = useTransform(scrollYProgress, [0.4, 0.5], [0, 1]);
-  const sliderFade = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
+  const titleFade = useTransform(scrollYProgress, [0, 0.25, 0.35], [0, 1, 0]);
+  const headerFade = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
+  const sliderFade = useTransform(scrollYProgress, [0.45, 0.55], [0, 1]);
   const headerMoveY = useTransform(scrollYProgress, [0.3, 0.4], [50, 0]);
 
   return (

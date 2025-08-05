@@ -96,7 +96,8 @@ export default function BestCarsSection() {
             slidesPerView={1}
             spaceBetween={0}
             autoplay={{
-              delay: 3000,
+              delay: 300000,
+              pauseOnMouseEnter: true,
               disableOnInteraction: false,
               reverseDirection: true,
             }}

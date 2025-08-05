@@ -115,7 +115,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="w-full h-screen flex items-center justify-center relative z-0">
+    <section className="w-full h-[480px] sm:h-screen flex items-center justify-center relative z-0">
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect={"fade"}

@@ -105,11 +105,11 @@ export default function SellCarSection() {
         <div>
           <Swiper
             modules={[Autoplay]}
-            loop={true}
+            loop={false}
             slidesPerView={2}
             spaceBetween={15}
             autoplay={{
-              delay: 50,
+              delay: 2500,
               disableOnInteraction: false,
             }}
             speed={800}

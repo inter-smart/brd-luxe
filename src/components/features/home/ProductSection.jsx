@@ -2,8 +2,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Heading } from "../../utils/Heading";
-import ProductCard from "../../common/ProductCard";
 import { useMediaQuery } from "react-responsive";
+import ProductCard from "../../common/ProductCard";
 import ProductFilterBox from "../../common/ProductFilterBox";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
