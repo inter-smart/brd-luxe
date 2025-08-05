@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
-import { Text } from "../utils/Text";
-import { Heading } from "../utils/Heading";
-import { StyledLink } from "../utils/Button";
+import { Text } from "../../utils/Text";
+import { Heading } from "../../utils/Heading";
+import { StyledLink } from "../../utils/Button";
 import { useMediaQuery } from "react-responsive";
-import { ShineBorder } from "../magicui/shine-border";
+import { ShineBorder } from "../../magicui/shine-border";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";

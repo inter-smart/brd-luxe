@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import { StyledLink } from "../utils/Button";
+import { StyledLink } from "../../utils/Button";
 import { useMediaQuery } from "react-responsive";
 import { useState, useRef, useEffect } from "react";
-import { TextAnimate } from "../magicui/text-animate";
+import { TextAnimate } from "../../magicui/text-animate";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css/effect-fade";
