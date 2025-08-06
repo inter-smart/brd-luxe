@@ -239,7 +239,7 @@
   }
 
   .container-sp {
-    @apply max-w-full xl:ml-[calc((100%-var(--breakpoint-xl))/2)] 2xl:ml-[calc((100%-var(--breakpoint-2xl))/2)] 3xl:ml-[calc((100%-var(--breakpoint-3xl))/2)];
+    @apply max-w-full sm:ml-[calc((100%-var(--breakpoint-sm))/2)] md:ml-[calc((100%-var(--breakpoint-md))/2)] lg:ml-[calc((100%-var(--breakpoint-lg))/2)] xl:ml-[calc((100%-var(--breakpoint-xl))/2)] 2xl:ml-[calc((100%-var(--breakpoint-2xl))/2)] 3xl:ml-[calc((100%-var(--breakpoint-3xl))/2)];
   }
 
   .container-sm {

@@ -1,7 +1,10 @@
 import InnerHero from "@/components/common/InnerHero";
+import FaqSection from "@/components/features/sell/FaqSection";
 import HowWorkSection from "@/components/features/sell/HowWorkSection";
 import SellInfoSection from "@/components/features/sell/SellInfoSection";
+import SellNowSection from "@/components/features/sell/SellNowSection";
 import VideoSection from "@/components/features/sell/VideoSection";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
@@ -12,9 +15,13 @@ export default function Page() {
         desktopImage={"/images/banner-sell-1.jpg"}
         alt="Sell Your Car Hero"
       />
-      <SellInfoSection />
-      <VideoSection />
-      <HowWorkSection />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SellInfoSection />
+        <VideoSection />
+        <HowWorkSection />
+        <SellNowSection />
+        <FaqSection />
+      </Suspense>
     </>
   );
 }

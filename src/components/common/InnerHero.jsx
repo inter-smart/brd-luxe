@@ -17,6 +17,7 @@ export default function InnerHero({
           fill
           sizes="100vw"
           className="-z-1 object-cover"
+          priority
         />
       </picture>
       <div className="w-full h-full bg-gradient-to-t from-black to-transparent pointer-events-none absolute -z-1 top-0 left-0 bg-black/10" />

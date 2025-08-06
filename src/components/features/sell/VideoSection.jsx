@@ -1,4 +1,3 @@
-import { Text } from "@/components/utils/Text";
 import Image from "next/image";
 
 const videoData = {
@@ -7,9 +6,6 @@ const videoData = {
     path: "/videos/sell-video-1.mp4",
     alt: "Sell Your Car",
   },
-  title: "We make selling your car easy",
-  description:
-    "<p>The Range Rover stands as a symbol of refined luxury, cutting-edge technology, and peerless off-road capability. With its bold design, powerful performance, and sophisticated interiors, the Range Rover delivers an unmatched driving experience both on and off the road. Every detail is meticulously crafted—from its sleek, aerodynamic silhouette to the plush, high-quality cabin materials.</p><br /><p> Equipped with advanced terrain response systems, premium infotainment, and driver-assist technologies, the Range Rover offers both comfort and confidence for every journey. Whether navigating city streets or exploring the wilderness, it ensures elegance, strength, and innovation in perfect harmony.</p>",
   spec_items: [
     {
       media: {
@@ -17,7 +13,7 @@ const videoData = {
         path: "/images/sell-video-1.svg",
         alt: "Sell Your Car",
       },
-      title: "We make selling your car easy",
+      title: "Great price",
     },
     {
       media: {
@@ -48,16 +44,16 @@ const videoData = {
 
 export default function VideoSection({ data = videoData }) {
   return (
-    <section className="w-full h-auto min-h-screen flex items-end relative z-0 py-[40px] sm:py-[80px] xl:py-[120px] 2xl:py-[140px] 3xl:py-[180px]">
+    <section className="w-full h-auto min-h-screen overflow-hidden flex items-end relative z-0 py-[30px] sm:py-[40px] xl:py-[60px] 2xl:py-[60px] 3xl:py-[80px]">
       {data?.media?.type === "video" ? (
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover absolute -z-1 inset-0"
+          className="w-full h-full object-cover absolute -z-1 inset-0 scale-160"
         >
-          <source src={data?.media?.url} type="video/mp4" />
+          <source src={data?.media?.path} type="video/mp4" />
         </video>
       ) : (
         <picture className="absolute -z-1 inset-0">
@@ -75,20 +71,23 @@ export default function VideoSection({ data = videoData }) {
         </picture>
       )}
       <div className="container">
-        <div className="flex flex-wrap justify-center -mx-[10px] sm:-mx-[15px] xl:-mx-[20px] 2xl:-mx-[30px] [&>*]:px-[10px] sm:[&>*]:px-[15px] xl:[&>*]:px-[20px] 2xl:[&>*]:px-[30px]">
+        <div className="flex flex-wrap justify-center -mx-[10px] sm:-mx-[10px] xl:-mx-[20px] 2xl:-mx-[30px] [&>*]:p-[10px] sm:[&>*]:p-[10px] xl:[&>*]:p-[20px] 2xl:[&>*]:p-[30px]">
           {data?.spec_items?.map((item, index) => (
-            <div key={"spec_items" + index} className="w-full sm:w-1/2 xl:w-1/4">
-              <div className="w-full h-auto p-[10px_15px] sm:p-[15px_20px] xl:p-[20px_30px] bg-gradient-to-tr from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)] flex items-center border-[1px] border-solid border-white/10 rounded-[10px] backdrop-blur-[20px] shadow-sm">
+            <div
+              key={"spec_items" + index}
+              className="w-1/2 sm:w-1/2 md:w-1/4"
+            >
+              <div className="w-full h-full p-[10px_15px] sm:p-[15px_20px] xl:p-[20px_30px] bg-gradient-to-tr from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)] flex items-center border-[1px] border-solid border-white/10 rounded-[10px] backdrop-blur-[20px] shadow-sm transition duration-300 hover:border-white/20 hover:from-[rgba(217,217,217,0.1)] hover:translate-y-1">               
                 <Image
                   src={item?.media?.path}
                   alt={item?.media?.alt}
                   width={50}
                   height={50}
-                  className="w-[20px] sm:w-[30px] xl:w-[35px] 2xl:w-[40px] h-auto aspect-square object-contain mr-[15px]"
+                  className="w-[20px] sm:w-[30px] xl:w-[35px] 2xl:w-[40px] h-auto aspect-square object-contain mr-[5px] sm:mr-[10px] xl:mr-[15px]"
                 />
-                <Text as="h3" size="text2" className="text-white">
+                <h3 className="text-[12px] sm:text-[14px] xl:text-[20px] 2xl:text-[24px] 3xl:text-[30px] leading-none font-normal font-base1 line-clamp-2 text-white">
                   {item?.title}
-                </Text>
+                </h3>
               </div>
             </div>
           ))}
