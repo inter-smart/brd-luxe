@@ -69,7 +69,7 @@ const hero_slides = [
   },
 ];
 
-export default function HeroSection() {
+export default function HeroSection({ data = hero_slides }) {
   const isDesktop = useMediaQuery({
     query: "(min-width: 640px)",
   });
@@ -115,7 +115,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="w-full h-[480px] sm:h-screen flex items-center justify-center relative z-0">
+    <section className="w-full h-[570px] sm:h-screen flex items-center justify-center relative z-0">
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect={"fade"}
@@ -133,7 +133,7 @@ export default function HeroSection() {
         onSlideChange={handleSlideChange}
         className="w-full h-full"
       >
-        {hero_slides?.map((item, index) => (
+        {data?.map((item, index) => (
           <SwiperSlide key={`slide-${index}`}>
             {({ isActive }) => (
               <div
@@ -213,14 +213,14 @@ export default function HeroSection() {
       </Swiper>
       {isDesktop && (
         <CustomPaginationDots
-          slides={hero_slides}
+          slides={data}
           activeIndex={activeIndex}
           isPlaying={isPlaying}
           autoplayDelay={autoplayDelay}
           onTogglePlayPause={() => controlPlayback(!isPlaying)}
           onSlideClick={navigateToSlide}
           onProgressComplete={() => {
-            const nextIndex = (activeIndex + 1) % hero_slides.length;
+            const nextIndex = (activeIndex + 1) % data.length;
             setIsPlaying(true);
             navigateToSlide(nextIndex);
           }}

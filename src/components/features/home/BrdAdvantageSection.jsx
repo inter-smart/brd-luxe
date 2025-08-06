@@ -39,7 +39,7 @@ const brd_advantage_data = {
   ],
 };
 
-export default function BrdAdvantageSection() {
+export default function BrdAdvantageSection({ data = brd_advantage_data }) {
   
   const sectionRef = useRef(null);
 
@@ -62,7 +62,7 @@ export default function BrdAdvantageSection() {
         style={{ opacity: titleFade }}
         className="text-[32px] sm:text-[48px] md:text-[58px] lg:text-[64px] xl:text-[74px] 2xl:text-[88px] 3xl:text-[110px] leading-[1.5] font-light font-base1 text-white w-full h-full bg-black absolute inset-0 z-2 flex items-center justify-center"
       >
-        {brd_advantage_data?.hide_title}
+        {data?.hide_title}
       </motion.div>
       <div className="container">
         <motion.div
@@ -75,7 +75,7 @@ export default function BrdAdvantageSection() {
               size={"heading1"}
               className="text-white max-sm:mb-[15px]"
             >
-              {brd_advantage_data?.heading?.title}
+              {data?.heading?.title}
             </Heading>
           </div>
           <div className="w-full sm:w-1/2 sm:pl-[10%]">
@@ -83,7 +83,7 @@ export default function BrdAdvantageSection() {
               as="div"
               className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white"
             >
-              {brd_advantage_data?.description}
+              {data?.description}
             </Text>
           </div>
         </motion.div>
@@ -122,7 +122,7 @@ export default function BrdAdvantageSection() {
             }}
             className="lg:!py-[30px] 2xl:!py-[40px]"
           >
-            {brd_advantage_data?.brd_advantage_list?.map((item, index) => (
+            {data?.brd_advantage_list?.map((item, index) => (
               <SwiperSlide key={`advantage-${index}`} className="!h-auto">
                 <motion.div
                   initial={{ opacity: 0, y: 0 }}

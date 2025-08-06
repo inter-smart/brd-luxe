@@ -58,7 +58,7 @@ function BreadcrumbPage({ className, ...props }) {
 
 function BreadcrumbSeparator({ children, className, ...props }) {
   return (
-    <li
+    <span
       data-slot="breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
@@ -66,12 +66,13 @@ function BreadcrumbSeparator({ children, className, ...props }) {
       {...props}
     >
       {children ?? (
-        <div className="w-[10px] h-auto aspect-[10/5] flex items-center justify-center">
+        <div className="w-[8px] sm:w-[10px] h-auto aspect-square flex items-center justify-center">
           <svg
             width="5"
             height="10"
             viewBox="0 0 5 10"
             fill="none"
+            className="w-full h-full object-contain"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -81,7 +82,7 @@ function BreadcrumbSeparator({ children, className, ...props }) {
           </svg>
         </div>
       )}
-    </li>
+    </span>
   );
 }
 

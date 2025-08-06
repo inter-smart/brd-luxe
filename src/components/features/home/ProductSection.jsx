@@ -120,7 +120,7 @@ const product_data = {
   ],
 };
 
-export default function ProductSection() {
+export default function ProductSection({data = product_data}) {
 
   const isDesktop = useMediaQuery({
     query: "(min-width: 640px)",
@@ -135,7 +135,7 @@ export default function ProductSection() {
               size={"heading1"}
               className="text-white max-sm:mb-[15px] max-md:text-center sm:text-left"
             >
-              {product_data?.heading?.title}
+              {data?.heading?.title}
             </Heading>
           </div>
           <div className="w-full md:w-1/2">
@@ -156,7 +156,7 @@ export default function ProductSection() {
         </div>
         {isDesktop ? (
           <div className="mx-[-7px] sm:mx-[-10px] lg:mx-[-12px] 2xl:mx-[-15px] 3xl:mx-[-20px] [&>*]:w-full [&>*]:sm:w-1/2 [&>*]:md:w-1/3 [&>*]:xl:w-1/4 [&>*]:p-[10px_7px] [&>*]:sm:p-[15px_10px] [&>*]:lg:p-[25px_12px] [&>*]:2xl:p-[35px_15px] [&>*]:3xl:p-[45px_20px] flex flex-wrap">
-            {product_data?.product_list?.map((item, index) => (
+            {data?.product_list?.map((item, index) => (
               <div key={`product-${index}`} className="w-full h-full block">
                 <ProductCard item={item} />
               </div>
@@ -174,7 +174,7 @@ export default function ProductSection() {
             }}
             speed={500}
           >
-            {product_data?.product_list?.map((item, index) => (
+            {data?.product_list?.map((item, index) => (
               <SwiperSlide key={`product_slide-${index}`} className="!h-auto">
                 <div className="w-full h-full block">
                   <ProductCard item={item} />

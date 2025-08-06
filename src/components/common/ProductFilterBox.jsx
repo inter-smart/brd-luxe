@@ -1,6 +1,9 @@
 "use client";
-import { useState } from "react";
+import SearchForm from "./SearchForm";
 import { Button } from "@/components/ui/button";
+import "react-range-slider-input/dist/style.css";
+import RangeSlider from "react-range-slider-input";
+import React, { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -8,12 +11,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useMediaQuery } from "react-responsive";
 
 export default function ProductFilterBox({ variant = "default" }) {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
-  const [query, setQuery] = useState("");
-
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1280px)",
+  });
   const handleSearch = () => {};
 
   const inputFormStyle =
@@ -32,9 +37,18 @@ export default function ProductFilterBox({ variant = "default" }) {
       }}
       className="w-full h-auto"
     >
-      <div className="w-full h-auto space-x-[10px] sm:space-x-[15px] lg:space-x-[20px] 2xl:space-x-[25px] 3xl:space-x-[35px] flex items-center max-sm:justify-center">
+      <div
+        className={`w-full h-auto space-x-[10px] sm:space-x-[15px] lg:space-x-[20px] 2xl:space-x-[25px] 3xl:space-x-[35px] flex items-center max-sm:justify-center ${
+          variant === "ProductListing" &&
+          "max-xl:block max-xl:space-y-[25px]"
+        }`}
+      >
         <Select value={brand} onValueChange={setBrand}>
-          <SelectTrigger className={`${inputFormStyle}`}>
+          <SelectTrigger
+            className={`${inputFormStyle} ${
+              variant === "ProductListing" && "max-xl:w-[100%]"
+            }`}
+          >
             <SelectValue placeholder="Brand" />
             <span className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
               <svg
@@ -52,19 +66,23 @@ export default function ProductFilterBox({ variant = "default" }) {
             </span>
           </SelectTrigger>
           <SelectContent className={`${selectStyle}`}>
-            <SelectItem className={`${inputSelectStyle}`} value="brand1">
+            <SelectItem className={`${inputSelectStyle}`} value="SUV">
               SUV
             </SelectItem>
-            <SelectItem className={`${inputSelectStyle}`} value="brand2">
+            <SelectItem className={`${inputSelectStyle}`} value="SEDAN">
               SEDAN
             </SelectItem>
-            <SelectItem className={`${inputSelectStyle}`} value="brand3">
+            <SelectItem className={`${inputSelectStyle}`} value="MUV">
               MUV
             </SelectItem>
           </SelectContent>
         </Select>
         <Select value={model} onValueChange={setModel}>
-          <SelectTrigger className={`${inputFormStyle}`}>
+          <SelectTrigger
+            className={`${inputFormStyle} ${
+              variant === "ProductListing" && "max-xl:w-[100%]"
+            }`}
+          >
             <SelectValue placeholder="Model" />
             <span className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
               <svg
@@ -82,52 +100,24 @@ export default function ProductFilterBox({ variant = "default" }) {
             </span>
           </SelectTrigger>
           <SelectContent className={`${selectStyle}`}>
-            <SelectItem className={`${inputSelectStyle}`} value="model1">
+            <SelectItem className={`${inputSelectStyle}`} value="SUPER LUXURY">
               SUPER LUXURY
             </SelectItem>
-            <SelectItem className={`${inputSelectStyle}`} value="model2">
+            <SelectItem className={`${inputSelectStyle}`} value="SUV">
               SUV
             </SelectItem>
-            <SelectItem className={`${inputSelectStyle}`} value="model3">
+            <SelectItem className={`${inputSelectStyle}`} value="MUV">
               MUV
             </SelectItem>
           </SelectContent>
         </Select>
-        {variant === "search" ? (
-          <div className="flex w-full max-w-md rounded-[10px] overflow-hidden border border-white bg-black">
-            <div className="flex items-center px-4 text-white">
-              <svg
-                width="16"
-                height="16"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <circle cx="10" cy="10" r="6" stroke="white" strokeWidth="2" />
-                <line
-                  x1="14.5"
-                  y1="14.5"
-                  x2="20"
-                  y2="20"
-                  stroke="white"
-                  strokeWidth="2"
-                />
-              </svg>
+        {variant === "ProductListing" ? (
+          <>
+            <div className="w-[100%] h-auto xl:pl-[25px]">
+              <PriceRangeSlider />
             </div>
-            <input
-              type="text"
-              placeholder="Search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 bg-black text-white placeholder-white px-2 py-2 outline-none text-[14px]"
-            />
-            <button
-              type="submit"
-              className="bg-white text-black px-6 py-2 text-[16px] font-serif hover:bg-white/80 transition-all"
-            >
-              Search
-            </button>
-          </div>
+            {isDesktop && <SearchForm />}
+          </>
         ) : (
           <Button
             type="submit"
@@ -154,3 +144,102 @@ export default function ProductFilterBox({ variant = "default" }) {
     </form>
   );
 }
+
+function PriceRangeSlider() {
+  const [range, setRange] = useState([0, 2100000]);
+  const formatValue = (val) =>
+    val >= 100000 ? `₹${val / 100000} L` : `₹${val}`;
+
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .custom-slider {
+        width: 100%;
+        height: 2px;
+      }
+      .range-slider__thumb{
+        width: 15px !important; 
+        height: 15px !important;
+        background: white !important;
+        @media only screen and (max-width: 1536px) {
+          width: 10px !important; 
+          height: 10px !important;
+        }
+      }  
+      .range-slider__range{
+        height: 2px !important;
+        background: linear-gradient(to right, #8C5600, #F29A0D) !important;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
+  return (
+    <div className="w-full h-auto bg-black max-lg:mb-[20px] flex items-end">
+      <label className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-medium font-base3 text-white text-nowrap w-fit xl:w-[35%] max-xl:pr-[25px]">
+        Price Range:
+      </label>
+      <div className="w-full xl:w-[65%]">
+        <div className="mb-[10px] 2xl:mb-[15px] flex justify-between items-center">
+          <span className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-normal font-base3 text-white">
+            {formatValue(range[0])}
+          </span>
+          <span className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-normal font-base3 text-white">
+            {formatValue(range[1])}
+          </span>
+        </div>
+        <RangeSlider
+          min={0}
+          max={2100000}
+          step={100000}
+          value={range}
+          onInput={setRange}
+          className="custom-slider"
+        />
+      </div>
+    </div>
+  );
+}
+
+// export function SearchForm() {
+//   const [query, setQuery] = useState("");
+//   return (
+//     <>
+//       <div className="w-full h-[30px] 2xl:h-[35px] 3xl:h-[45px] xl:max-w-[285px] 2xl:max-w-[340px] 3xl:max-w-[420px] bg-black border-1 border-white rounded-[5px] 2xl:rounded-[8px] 3xl:rounded-[10px] overflow-hidden flex">
+//         <div className="w-[15px] h-auto aspect-square ml-[10px] 2xl:ml-[15px] text-white flex items-center justify-center">
+//           <svg
+//             width="16"
+//             height="16"
+//             fill="none"
+//             viewBox="0 0 24 24"
+//             stroke="currentColor"
+//           >
+//             <circle cx="10" cy="10" r="6" stroke="white" strokeWidth="2" />
+//             <line
+//               x1="14.5"
+//               y1="14.5"
+//               x2="20"
+//               y2="20"
+//               stroke="white"
+//               strokeWidth="2"
+//             />
+//           </svg>
+//         </div>
+//         <input
+//           type="text"
+//           placeholder=""
+//           value={query}
+//           onChange={(e) => setQuery(e.target.value)}
+//           className="text-[12px] 2xl:text-[14px] font-light font-base2 flex-1 bg-black text-white px-2 py-2 outline-none"
+//         />
+//         <button
+//           type="submit"
+//           className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-black bg-white px-6 py-2 transition-all duration-300 flex items-center justify-center hover:bg-[#F29A0D] hover:text-white"
+//         >
+//           Search
+//         </button>
+//       </div>
+//     </>
+//   );
+// }

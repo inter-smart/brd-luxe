@@ -168,8 +168,8 @@ function MenuIcon() {
         ref={menuRef}
         className={`fixed top-[120px] right-0 w-full bg-white text-black z-50 shadow-2xl overflow-hidden transition-all duration-500 transform ${
           menuIsOpen
-            ? "max-h-[600px] opacity-100 scale-100"
-            : "max-h-0 opacity-0 scale-95 pointer-events-none"
+            ? "max-h-[600px] opacity-100 scale-100 z-[-1000]"
+            : " opacity-0  pointer-events-none"
         }`}
       >
         <div className="container mx-auto px-6 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">

@@ -74,14 +74,14 @@ const brands_data = {
   ],
 };
 
-export default function BrandSection() {
+export default function BrandSection({ data = brands_data }) {
   return (
     <section className="w-full h-auto block py-[40px_50px] sm:py-[55px_70px] lg:py-[70px_110px] 2xl:py-[85px_130px] 3xl:py-[110px_170px] overflow-hidden relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:z-0 after:w-full after:h-[30%] after:bg-linear-to-b after:from-black/0 after:to-black after:absolute after:bottom-0 after:z-0">
       <div className="w-full h-full bg-black/10 absolute inset-0 z-0"></div>
       <div className="w-full h-full block absolute inset-0 -z-1">
         <Image
-          src={brands_data?.media?.path}
-          alt={brands_data?.media?.alt}
+          src={data?.media?.path}
+          alt={data?.media?.alt}
           fill
           sizes="100vw"
           className="object-cover -z-2 blur-[5px]"
@@ -95,7 +95,7 @@ export default function BrandSection() {
               size={"heading1"}
               className="text-white max-sm:mb-[15px]"
             >
-              {brands_data?.heading?.title}
+              {data?.heading?.title}
             </Heading>
           </div>
           <div className="w-full sm:w-1/2">
@@ -103,7 +103,7 @@ export default function BrandSection() {
               as="div"
               className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white"
             >
-              {brands_data?.description}
+              {data?.description}
             </Text>
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function BrandSection() {
           }}
           className="!p-[40px] 2xl:!p-[50px] !m-[-40px] 2xl:!m-[-50px]"
         >
-          {brands_data?.brand_list?.map((item, index) => (
+          {data?.brand_list?.map((item, index) => (
             <SwiperSlide key={`brand-${index}`} className="!h-auto">
               <div className="w-full h-auto aspect-square p-[15px] sm:p-[20px] lg:p-[25px] 2xl:p-[30px] 3xl:p-[40px] rounded-full bg-transparent border-1 border-transparent  overflow-hidden flex items-center justify-center transition-all duration-500 hover:bg-[#D9D9D9]/10 hover:border-[#D9D9D9] hover:shadow-[0_0_50px_rgba(255,255,255,0.55)]">
                 <div className="w-[50px] sm:w-[60px] lg:w-[70px] 2xl:w-[80px] 3xl:w-[100px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0">

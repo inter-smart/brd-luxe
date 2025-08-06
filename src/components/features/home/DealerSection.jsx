@@ -18,7 +18,7 @@ const dealer_data = {
   title: "India's Only Stock Exchange - Listed LuxuryCar Dealers",
 };
 
-export default function DealerSection() {
+export default function DealerSection({ data = dealer_data }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: "-150px", once: false });
   const fadeUp = (delay = 0) => {
@@ -49,10 +49,10 @@ export default function DealerSection() {
               size={"heading1"}
               className="text-white mb-[15px] sm:mb-[20px] 2xl:mb-[25px] 3xl:mb-[35px]"
             >
-              {dealer_data?.heading?.title}
+              {data?.heading?.title}
             </Heading>
             <Text as="div" size={"text1"} className="text-white">
-              {dealer_data?.heading?.description}
+              {data?.heading?.description}
             </Text>
           </motion.div>
           <div className="max-sm:max-w-[280px] max-md:!w-[320px] md:w-full h-auto aspect-[510/645] overflow-hidden flex items-center justify-center">
@@ -68,8 +68,8 @@ export default function DealerSection() {
               className="w-full h-full relative z-0 max-sm:mb-[30px] max-md:mb-[40px]"
             >
               <Image
-                src={dealer_data?.media?.path}
-                alt={dealer_data?.media?.path}
+                src={data?.media?.path}
+                alt={data?.media?.path}
                 fill
                 sizes="100vw"
                 className="object-cover transition-all duration-300 ease-in-out group-hover:scale-105 "
@@ -82,7 +82,7 @@ export default function DealerSection() {
               size={"heading1"}
               className="text-white mb-[20px] sm:mb-[30px] lg:mb-[45px] 2xl:mb-[55px] 3xl:mb-[70px]"
             >
-              {dealer_data?.title}
+              {data?.title}
             </Heading>
             <StyledLink href="/">Learn More</StyledLink>
           </motion.div>

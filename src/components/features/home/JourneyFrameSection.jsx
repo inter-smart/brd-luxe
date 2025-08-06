@@ -55,13 +55,13 @@ const journey_frame_data = {
   ],
 };
 
-export default function JourneyFrameSection() {
+export default function JourneyFrameSection({data = journey_frame_data}) {
   return (
     <section className="w-full h-auto py-[40px] sm:py-[50px] lg:py-[75px] 2xl:py-[90px] 3xl:py-[110px] block">
       <div className="container">
         <div className="w-full h-auto mb-[30px] lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px]">
           <Heading as="div" size={"heading1"} className="text-white max-sm:text-center">
-            {journey_frame_data?.heading?.title}
+            {data?.heading?.title}
           </Heading>
         </div>
         <div className="w-full h-auto">
@@ -94,7 +94,7 @@ export default function JourneyFrameSection() {
               },
             }}
           >
-            {journey_frame_data?.frames_list?.map((item, index) => (
+            {data?.frames_list?.map((item, index) => (
               <SwiperSlide key={`product_slide-${index}`} className="!h-auto">
                 <div className="w-full h-full block">
                   <div className="group w-full h-auto aspect-[275/300] overflow-hidden flex items-center justify-center relative z-0">

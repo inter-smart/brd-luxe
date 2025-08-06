@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import { Text } from "../../utils/Text";
+import { useEffect, useRef } from "react";
 import { Heading } from "../../utils/Heading";
 import { StyledLink } from "../../utils/Button";
-import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
 
@@ -67,7 +67,7 @@ const offer_data = {
   ],
 };
 
-export default function OfferSection() {
+export default function OfferSection({data = offer_data}) {
   const handleHighlight = (highlight, title) => {
     return highlight?.reduce(
       (acc, phrase) => {
@@ -233,7 +233,7 @@ export default function OfferSection() {
       ></div>
       <div className="w-full h-full block absolute inset-0 -z-1">
         <Image
-          src={offer_data?.media?.path}
+          src={data?.media?.path}
           alt="Background_Image"
           fill
           sizes="100vw"
@@ -251,15 +251,15 @@ export default function OfferSection() {
               className="text-[14px] sm:text-[16px] lg:text-[18px] 2xl:text-[22px] 3xl:text-[28px] leading-[1.2] font-semibold font-base1 text-white [&>span]:text-[#E09812] mb-[10px] 3xl:mb-[15px]"
             >
               {handleHighlight(
-                offer_data?.heading?.highlight,
-                offer_data?.heading?.title
+                data?.heading?.highlight,
+                data?.heading?.title
               )}
             </Heading>
             <div className="space-x-[7px] sm:space-x-[10px] 2xl:space-x-[15px] 3xl:space-x-[20px] flex items-center justify-center">
               <span className="text-[10px] 2xl:text-[12px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white">
                 Share with friends
               </span>
-              {offer_data?.heading?.social_links?.map((item, index) => (
+              {data?.heading?.social_links?.map((item, index) => (
                 <a
                   key={`social-${index}`}
                   href={item?.url}
@@ -286,17 +286,17 @@ export default function OfferSection() {
               size={"heading1"}
               className="text-white mb-[10px] lg:mb-[15px] 2xl:mb-[20px] 3xl:mb-[25px]"
             >
-              {offer_data?.offer_list?.[0]?.title}
+              {data?.offer_list?.[0]?.title}
             </Heading>
             <Text
               as="div"
               className="text-[11px] sm:text-[12px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white mb-[15px] lg:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px]"
             >
-              {offer_data?.offer_list?.[0]?.description}
+              {data?.offer_list?.[0]?.description}
             </Text>
-            {offer_data?.offer_list?.[0]?.button?.url && (
+            {data?.offer_list?.[0]?.button?.url && (
               <StyledLink
-                href={offer_data?.offer_list?.[0]?.button?.url}
+                href={data?.offer_list?.[0]?.button?.url}
                 className=""
               >
                 Know More
@@ -304,8 +304,8 @@ export default function OfferSection() {
             )}
           </div>
           <div className="max-md:text-center w-full h-full md:absolute inset-0 max-sm:mt-[40px] max-md:mt-[50px]">
-            {Array.isArray(offer_data?.offer_list) &&
-              offer_data?.offer_list?.slice(1, 5).map((item, index) => (
+            {Array.isArray(data?.offer_list) &&
+              data?.offer_list?.slice(1, 5).map((item, index) => (
                 <div
                   key={`offer-${index}`}
                   ref={(el) => (cornerItemsRef.current[index] = el)}
