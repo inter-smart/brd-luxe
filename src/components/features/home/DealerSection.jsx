@@ -62,7 +62,7 @@ export default function DealerSection({ data = dealer_data }) {
               animate={
                 isInView
                   ? { opacity: 1, height: "100%" }
-                  : { opacity: 0.5, height: "100%" }
+                  : { opacity: 0.5, height: "50%" }
               }
               transition={{ duration: 0.8, ease: "easeInOut" }}
               className="w-full h-full relative z-0 max-sm:mb-[30px] max-md:mb-[40px]"

@@ -40,7 +40,6 @@ const brd_advantage_data = {
 };
 
 export default function BrdAdvantageSection({ data = brd_advantage_data }) {
-  
   const sectionRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -48,8 +47,8 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
     offset: ["start end", "end start"],
   });
 
-  const titleFade = useTransform(scrollYProgress, [0, 0.25, 0.35], [0, 1, 0]);
-  const headerFade = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
+  const titleFade = useTransform(scrollYProgress, [0, 0.2, 0.3], [0, 1, 0]);
+  const headerFade = useTransform(scrollYProgress, [0.3, 0.45], [0, 1]);
   const sliderFade = useTransform(scrollYProgress, [0.45, 0.55], [0, 1]);
   const headerMoveY = useTransform(scrollYProgress, [0.3, 0.4], [50, 0]);
 
@@ -124,17 +123,7 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
           >
             {data?.brd_advantage_list?.map((item, index) => (
               <SwiperSlide key={`advantage-${index}`} className="!h-auto">
-                <motion.div
-                  initial={{ opacity: 0, y: 0 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{
-                    duration: 0.8,
-                    delay: index * 0.4,
-                    ease: [0.15, 0.25, 0.35, 0.85],
-                  }}
-                  className="w-full h-full p-[15px] sm:p-[20px] 2xl:p-[25px] 3xl:p-[30px] bg-white/2 border-1-white/10 overflow-hidden block transition-all duration-500 hover:lg:translate-y-[-15px] relative z-0"
-                >
+                <div className="w-full h-full p-[15px] sm:p-[20px] 2xl:p-[25px] 3xl:p-[30px] bg-white/2 border-1-white/10 overflow-hidden block transition-all duration-500 hover:lg:translate-y-[-15px] relative z-0">
                   <motion.div
                     className="absolute inset-0 -z-1"
                     initial={{ backgroundPosition: "20% 30%" }}
@@ -160,7 +149,7 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
                   <div className="text-[11px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white">
                     {item?.description}
                   </div>
-                </motion.div>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
