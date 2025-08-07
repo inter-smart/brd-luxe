@@ -175,7 +175,7 @@
   body {
     font-family: var(--font-base1), Arial, sans-serif;
     scroll-behavior: smooth;
-    @apply [--header-y:40px] lg:[--header-y:46px] xl:[--header-y:58px] 2xl:[--header-y:72px] 3xl:[--header-y:86px];
+    @apply [--header-y:40px] lg:[--header-y:75px] xl:[--header-y:82px] 2xl:[--header-y:100px] 3xl:[--header-y:125px];
   }
 }
 

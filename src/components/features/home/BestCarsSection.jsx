@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { Text } from "@/components/utils/Text";
+import React, { useState, useEffect } from "react";
 import { Heading } from "@/components/utils/Heading";
+import { motion, useAnimation } from "framer-motion";
 import { ShineBorder } from "../../magicui/shine-border";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -68,7 +68,7 @@ const best_cars_data = {
   ],
 };
 
-export default function BestCarsSection() {
+export default function BestCarsSection({ data = best_cars_data }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   return (
     <section className="w-full h-auto block py-[40px_30px] lg:py-[45px_35px] 2xl:py-[50px_40px] 3xl:py-[70px_50px] border-y-1 border-[#404040]">
@@ -80,12 +80,12 @@ export default function BestCarsSection() {
               size={"heading1"}
               className="text-white max-sm:mb-[15px]"
             >
-              {best_cars_data?.heading?.title}
+              {data?.heading?.title}
             </Heading>
           </div>
           <div className="w-full sm:w-1/2">
             <Text as="div" size={"text1"} className="text-white">
-              {best_cars_data?.heading?.description}
+              {data?.heading?.description}
             </Text>
           </div>
         </div>
@@ -96,7 +96,8 @@ export default function BestCarsSection() {
             slidesPerView={1}
             spaceBetween={0}
             autoplay={{
-              delay: 3000,
+              delay: 300000,
+              pauseOnMouseEnter: true,
               disableOnInteraction: false,
               reverseDirection: true,
             }}
@@ -109,7 +110,7 @@ export default function BestCarsSection() {
               1920: { slidesPerView: 5 },
             }}
           >
-            {best_cars_data?.cars_list?.map((item, index) => (
+            {data?.cars_list?.map((item, index) => (
               <SwiperSlide key={`slide-${index}`} className="!h-auto">
                 <Link
                   href={item?.url}
@@ -123,29 +124,10 @@ export default function BestCarsSection() {
                     shineColor={["#252529"]}
                     className={"opacity-0 group-hover:opacity-100 "}
                   />
-                  <motion.div
-                    animate={hoveredIndex === index ? "wiggle" : "still"}
-                    variants={{
-                      still: { x: 0 },
-                      wiggle: {
-                        x: [-5, 5, -2, 2, -1, 1, 0],
-                        transition: {
-                          duration: 1.5,
-                          ease: "easeInOut",
-                          repeat: Infinity,
-                        },
-                      },
-                    }}
-                    className="w-full h-auto aspect-[230/65] mb-[10px] lg:mb-[15px] 3xl:mb-[20px] flex items-center justify-center relative z-0"
-                  >
-                    <Image
-                      src={item?.media?.path}
-                      alt={item?.media?.alt}
-                      fill
-                      sizes="100vw, 230px"
-                      className="object-contain transition duration-300"
-                    />
-                  </motion.div>
+                  <div className="relative w-full h-auto ">
+                    <CarMotion item={item} hovered={hoveredIndex === index} />
+                    <SpeedCarAnimation isActive={hoveredIndex === index} />
+                  </div>
                   <div className="flex items-center justify-center">
                     <Text
                       as="div"
@@ -175,5 +157,115 @@ export default function BestCarsSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function CarMotion({ item, hovered }) {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    const startSequence = async () => {
+      await controls.start({
+        x: "150%",
+        transition: { duration: 0.25, ease: "easeIn" },
+      });
+      if (isCancelled) return;
+      controls.set({ x: "-100%" });
+
+      if (isCancelled) return;
+      await controls.start({
+        x: 0,
+        transition: { duration: 0.2, ease: "easeOut" },
+      });
+
+      if (isCancelled) return;
+      await controls.start({
+        x: [0, -1, 1, -1, 1, 0],
+        y: [0, -1, 1, 1, -1, 0],
+        transition: {
+          duration: 0.6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+      });
+    };
+
+    if (hovered) {
+      controls.stop();
+      controls.set({ x: 0, y: 0 });
+      startSequence();
+    } else {
+      isCancelled = true;
+      controls.stop();
+      controls.set({ x: 0, y: 0 });
+    }
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [hovered]);
+
+  return (
+    <motion.div
+      animate={controls}
+      className="w-full h-auto aspect-[230/65] mb-[10px] lg:mb-[15px] 3xl:mb-[20px] flex items-center justify-center relative z-0"
+    >
+      <div className="relative w-full h-full">
+        <Image
+          src={item?.media?.path}
+          alt={item?.media?.alt}
+          fill
+          sizes="100vw, 230px"
+          className="object-contain transition duration-300"
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+function SpeedCarAnimation({ isActive }) {
+  const lines = Array.from({ length: 5 }, (_, i) => i);
+  return (
+    <>
+      <div className="absolute inset-0  pointer-events-none">
+        {lines.map((line) => (
+          <motion.div
+            key={`line-${line}`}
+            className="absolute h-0.5 bg-gradient-to-r from-transparent via-[#D9D9D9] to-transparent opacity-50"
+            style={{
+              top: `${25 + line * 12}%`,
+              width: `${20 + Math.random() * 30}px`,
+              right: "25%",
+            }}
+            initial={{ x: "100%" }}
+            animate={
+              isActive
+                ? {
+                    x: [100, -150],
+                    opacity: [0, 0.7, 0],
+                  }
+                : {
+                    x: 100,
+                    opacity: 0,
+                  }
+            }
+            transition={{
+              duration: 0.5,
+              delay: line * 0.06,
+              repeat: isActive ? Infinity : 0,
+              repeatDelay: 0.4,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+          />
+        ))}
+      </div>
+      <motion.div
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isActive ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      />
+    </>
   );
 }

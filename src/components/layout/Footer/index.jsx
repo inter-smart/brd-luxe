@@ -77,7 +77,7 @@ export default function Footer() {
             {footer_data?.quickLinks?.left_links.map((item, index) => (
               <div
                 key={`quick links ${index}`}
-                className={`sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 text-white max-sm:text-center max-sm:mb-[5px] break-inside-avoid hover:underline 
+                className={`sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 text-white max-sm:text-center max-sm:mb-[5px] break-inside-avoid transition duration-300 hover:text-white/50 
                   ${index % 2 === 0 ? "sm:text-left" : "sm:text-right"}`}
               >
                 <Link href={item?.url}>{item?.label}</Link>
@@ -102,10 +102,10 @@ export default function Footer() {
             {footer_data?.quickLinks?.right_links.map((item, index) => (
               <div
                 key={`quick links ${index}`}
-                className={`sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 text-white max-sm:text-center max-sm:mb-[5px]  break-inside-avoid
+                className={`sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 text-white max-sm:text-center max-sm:mb-[5px] break-inside-avoid relative z-0
                   ${index % 2 === 0 ? "sm:text-left" : "sm:text-right"}`}
               >
-                <Link className=" hover:underline" href={item?.url}>
+                <Link className="transition duration-300 hover:text-white/50" href={item?.url}>
                   {item?.label}
                 </Link>
               </div>
@@ -119,7 +119,7 @@ export default function Footer() {
                 <a
                   target="_blank"
                   href={item?.url}
-                  className="w-[15px] lg:w-[17px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:scale-110"
+                  className="w-[15px] lg:w-[17px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
                 >
                   <Image
                     src={item?.icon}
@@ -136,6 +136,7 @@ export default function Footer() {
         <div>
           <PlaceholdersAndVanishInput
             placeholders={footer_data.get_updates?.placeholder}
+            label="Submit"
           />
         </div>
         <TextHoverEffect

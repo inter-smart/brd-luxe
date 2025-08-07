@@ -66,13 +66,13 @@ const sell_car_data = {
   ],
 };
 
-export default function SellCarSection() {
+export default function SellCarSection({data = sell_car_data}) {
   return (
     <section className="w-full h-auto block py-[40px_50px] sm:py-[50px_70px] lg:py-[60px_90px] 2xl:py-[80px_150px] 3xl:py-[95px_185px] border-y border-[#404040] relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:-z-1">
       <div className="w-full h-full block absolute inset-0 -z-3">
         <Image
-          src={sell_car_data?.media?.path}
-          alt={sell_car_data?.media?.alt}
+          src={data?.media?.path}
+          alt={data?.media?.alt}
           fill
           sizes="100vw"
           className="object-cover"
@@ -87,7 +87,7 @@ export default function SellCarSection() {
               size={"heading1"}
               className="text-white max-sm:mb-[15px]"
             >
-              {sell_car_data?.heading?.title}
+              {data?.heading?.title}
             </Heading>
           </div>
           <div className="w-full sm:w-1/2 sm:pl-[10%]">
@@ -95,9 +95,9 @@ export default function SellCarSection() {
               as="div"
               className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white mb-[30px]"
             >
-              {sell_car_data?.description}
+              {data?.description}
             </Text>
-            <StyledLink href={sell_car_data?.button?.link}>
+            <StyledLink href={data?.button?.link}>
               Book A Call
             </StyledLink>
           </div>
@@ -105,11 +105,11 @@ export default function SellCarSection() {
         <div>
           <Swiper
             modules={[Autoplay]}
-            loop={true}
+            loop={false}
             slidesPerView={2}
             spaceBetween={15}
             autoplay={{
-              delay: 50,
+              delay: 2500,
               disableOnInteraction: false,
             }}
             speed={800}
@@ -141,7 +141,7 @@ export default function SellCarSection() {
             }}
             className="!p-[40px] 2xl:!p-[50px] !m-[-40px] 2xl:!m-[-50px]"
           >
-            {sell_car_data?.sell_info_list?.map((item, index) => (
+            {data?.sell_info_list?.map((item, index) => (
               <SwiperSlide
                 key={`sell_info-${index}`}
                 className="!h-auto overflow-visible"

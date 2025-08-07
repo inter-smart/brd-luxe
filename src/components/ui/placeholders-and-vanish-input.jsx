@@ -1,5 +1,4 @@
 "use client";
-
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -197,14 +196,14 @@ export function PlaceholdersAndVanishInput({
         value={value}
         type="text"
         className={cn(
-          "w-full relative text-sm sm:text-base z-50 border-none  text-white h-full bg-black focus:outline-none focus:ring-0 pl-[10px] lg:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px]",
+          "w-full relative text-sm sm:text-base z-50 border-none max-sm:h-[30px]  text-white h-full bg-black focus:outline-none focus:ring-0 pl-[10px] lg:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px]",
           animating && "text-transparent dark:text-transparent"
         )}
       />
       <button
         disabled={!value}
         type="submit"
-        className="lg:text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-black bg-white absolute right-0 top-0 z-50 h-full w-auto sm:p-[7px_15px] lg:p-[10px_20px] 2xl:p-[10px_25px] 3xl:p-[12px_30px]  transition duration-200 flex items-center justify-center"
+        className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-black bg-white absolute right-0 top-0 z-50 h-full w-auto p-[7px_15px] lg:p-[10px_20px] 2xl:p-[10px_25px] 3xl:p-[12px_30px]  transition duration-200 flex items-center justify-center"
       >
         Submit
       </button>
@@ -229,7 +228,7 @@ export function PlaceholdersAndVanishInput({
                 duration: 0.3,
                 ease: "linear",
               }}
-              className="dark:text-zinc-500 sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-white pl-[10px] lg:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px] text-left w-[calc(100%-2rem)] truncate"
+              className="dark:text-zinc-500 text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-white pl-[10px] lg:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px] text-left w-[calc(100%-2rem)] truncate"
             >
               {placeholders[currentPlaceholder]}
             </motion.p>

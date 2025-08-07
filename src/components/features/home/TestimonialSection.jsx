@@ -75,7 +75,7 @@ const testimonial_data = {
   ],
 };
 
-export default function ExperienceSection() {
+export default function ExperienceSection({data = testimonial_data}) {
   const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -103,13 +103,13 @@ export default function ExperienceSection() {
               size={"heading1"}
               className="text-white mb-[10px] sm:mb-[15px] lg:mb-[20px] 2xl:mb-[30px] 3xl:mb-[40px]"
             >
-              {testimonial_data?.heading?.title}
+              {data?.heading?.title}
             </Heading>
             <Text
               as="div"
               className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white max-w-[85%] mb-[20px] lg:mb-[30px]"
             >
-              {testimonial_data?.description}
+              {data?.description}
             </Text>
             <StyledLink href="/">View All</StyledLink>
           </div>
@@ -123,6 +123,7 @@ export default function ExperienceSection() {
                 autoplay={{
                   delay: 1500,
                   disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
                 }}
                 speed={800}
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -154,7 +155,7 @@ export default function ExperienceSection() {
                   },
                 }}
               >
-                {testimonial_data?.testimonial_list?.map((item, index) => (
+                {data?.testimonial_list?.map((item, index) => (
                   <SwiperSlide key={`testimonial-${index}`} className="!h-auto">
                     {item?.type === "video" ? (
                       <>
