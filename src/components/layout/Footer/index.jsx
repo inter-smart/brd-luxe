@@ -42,7 +42,7 @@ const footer_data = {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-auto py-[40px] lg:py-[50px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
+    <footer className="w-full h-auto border-t border-[#202020] py-[40px] lg:py-[50px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
       <div className="container relative">
         <div className="w-full h-full mb-[30px] sm:mb-[40px] lg:mb-[50px] 2xl:mb-[70px] pt-[50px] flex flex-wrap items-center justify-between">
           <div className="w-full sm:w-1/3 [&>*]:w-full [&>*]:sm:w-1/2 flex flex-wrap">

@@ -92,7 +92,7 @@ export default function EnquiryForm() {
           control={form.control}
           name="fullName"
           render={({ field }) => (
-            <FormItem className="w-full sm:w-1/2 xl:w-1/3">
+            <FormItem className="w-full sm:w-1/2 lg:w-1/3">
               <FormLabel className="sr-only">Full Name</FormLabel>
               <FormControl>
                 <Input
@@ -111,7 +111,7 @@ export default function EnquiryForm() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="w-full sm:w-1/2 xl:w-1/3">
+            <FormItem className="w-full sm:w-1/2 lg:w-1/3">
               <FormLabel className="sr-only">Email</FormLabel>
               <FormControl>
                 <Input
@@ -131,7 +131,7 @@ export default function EnquiryForm() {
           control={form.control}
           name="phone"
           render={({ field }) => (
-            <FormItem className="w-full sm:w-1/2 xl:w-1/3">
+            <FormItem className="w-full sm:w-1/2 lg:w-1/3">
               <FormLabel className="sr-only">Phone</FormLabel>
               <FormControl>
                 <Input

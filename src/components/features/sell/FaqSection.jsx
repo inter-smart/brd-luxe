@@ -57,7 +57,7 @@ export default function FaqSection({ data = faqData }) {
     <section className="w-full h-auto block py-[40px] sm:py-[60px] xl:py-[100px] 2xl:py-[120px] 3xl:py-[140px]">
       <div className="container">
         <div className="flex flex-wrap justify-center -mx-[15px] sm:-mx-[20px] xl:-mx-[30px] 2xl:-mx-[40px] [&>*]:px-[15px] sm:[&>*]:px-[20px] xl:[&>*]:px-[30px] 2xl:[&>*]:px-[40px]">
-          <div className="w-full md:w-1/2 xl:w-w-[calc(100%-520px)] 2xl:w-w-[calc(100%-576px)] 3xl:w-[calc(100%-720px)]">
+          <div className="w-full md:w-1/2 xl:w-[calc(100%-520px)] 2xl:w-[calc(100%-576px)] 3xl:w-[calc(100%-720px)]">
             <div className="w-full max-md:mb-[30px]">
               <Heading
                 as="h2"

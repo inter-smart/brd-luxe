@@ -1,9 +1,11 @@
+import BreadCrumb from "@/components/common/BreadCrumb";
 import { Heading } from "@/components/utils/Heading";
 import { Text } from "@/components/utils/Text";
 import Image from "next/image";
 
 const sellInfoData = {
   media: {
+    type: "image",
     path: "/images/sell-sellinfo-1.jpg",
     alt: "Sell Your Car",
   },
@@ -15,10 +17,20 @@ const sellInfoData = {
 export default function SellInfoSection({ data = sellInfoData }) {
   return (
     <section className="w-full h-auto block">
-      <div className="container sm:container-sp sm:!mr-0 sm:!pr-0">
+      <div className="container container-sp sm:!mr-0 sm:!pr-0">
+        <div className="relative z-0">
+          <div className="w-1/2 absolute z-0 left-0 top-[10px] sm:top-[10px] xl:top-[15px] 2xl:top-[30px]">
+            <BreadCrumb
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Sell Your Car", href: "/sell" },
+              ]}
+            />
+          </div>
+        </div>
         <div className="flex flex-wrap items-center -mx-[15px] sm:-mx-[20px] xl:-mx-[40px] 2xl:-mx-[60px] [&>*]:px-[15px] sm:[&>*]:px-[20px] xl:[&>*]:px-[40px] 2xl:[&>*]:px-[60px]">
           <div className="w-full sm:w-1/2 xl:w-[45%]">
-            <div className="w-full 2xl:max-w-[768px] py-[30px] sm:py-[40px] xl:py-[60px] 2xl:py-[60px] 3xl:py-[80px]">
+            <div className="w-full 2xl:max-w-[768px] py-[60px_40px] sm:py-[60px] xl:py-[80px] 2xl:py-[100px] 3xl:py-[120px]">
               <Heading
                 as="h2"
                 size="heading1"

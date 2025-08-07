@@ -39,7 +39,7 @@ const latest_brd_data = {
   ],
 };
 
-export default function LatestBrdSection({data = latest_brd_data}) {
+export default function LatestBrdSection({ data = latest_brd_data }) {
   return (
     <section className="w-full h-auto border-y border-[#9C9C9C]/40 block">
       <div className="w-full sm:h-[380px] md:h-[430px] 2xl:h-[520px] 3xl:h-[650px] flex flex-wrap">
@@ -67,9 +67,7 @@ export default function LatestBrdSection({data = latest_brd_data}) {
                   <div className="text-[10px] sm:text-[11px] lg:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white line-clamp-2 mb-[10px] sm:mb-[15px] 2xl:mb-[25px]">
                     {data?.latest_info?.[0]?.description}
                   </div>
-                  <StyledLink
-                    href={data?.latest_info?.[0]?.link?.url}
-                  >
+                  <StyledLink href={data?.latest_info?.[0]?.link?.url}>
                     Read More
                   </StyledLink>
                 </div>

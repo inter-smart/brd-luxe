@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function InnerHero({ title, desktopImage, mobileImage, alt }) {
   return (
-    <section className="w-full h-auto min-h-[376px] xl:min-h-[468px] 2xl:min-h-[576px] 3xl:min-h-[768px] relative z-0 flex items-end py-[30px] sm:py-[40px] xl:py-[50px] 2xl:py-[60px]">
+    <section className="w-full h-auto min-h-[376px] xl:min-h-[468px] 2xl:min-h-[576px] 3xl:min-h-[768px] border-b border-[#202020] relative z-0 flex items-end py-[30px] sm:py-[40px] xl:py-[50px] 2xl:py-[60px]">
       <picture className="w-full h-full absolute -z-1 inset-0">
         <source media="(min-width: 640px)" srcSet={desktopImage}></source>
         <Image
