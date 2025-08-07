@@ -8,7 +8,7 @@
 /*        Theme Layer       */
 /* ======================== */
 :root {
-  --radius: 0.625rem; 
+  --radius: 0.625rem;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -156,14 +156,14 @@
   --breakpoint-gap-3xl: 100px;
   --animate-shine: shine var(--duration) infinite linear;
   @keyframes shine {
-  0% {
-    background-position: 0% 0%;
+    0% {
+      background-position: 0% 0%;
     }
-  50% {
-    background-position: 100% 100%;
+    50% {
+      background-position: 100% 100%;
     }
-  to {
-    background-position: 0% 0%;
+    to {
+      background-position: 0% 0%;
     }
   }
 }
@@ -184,34 +184,34 @@
 /* ======================== */
 @layer components {
   .typography {
-    &>* {
+    & > * {
       @apply my-[10px] lg:my-[15px];
     }
 
     p,
     &,
     li {
-      @apply 3xl:text-[20px] 2xl:text-[18px] xl:text-[16px] lg:text-[14px] text-[12px] font-normal leading-normal text-[#656565];
+      @apply text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-normal font-base3 text-white;
     }
 
     h1 {
-      @apply text-[24px] lg:text-[36px] xl:text-[43px] 2xl:text-[48px] 3xl:text-[65px] font-semibold leading-tight text-black;
+      @apply text-[24px] sm:text-[26px] lg:text-[32px] xl:text-[37px] 2xl:text-[44px] 3xl:text-[55px] leading-tight font-light font-base1 text-white;
     }
 
     h2 {
-      @apply text-[20px] lg:text-[26px] xl:text-[32px] 2xl:text-[44px] 3xl:text-[54px] font-semibold leading-tight text-black;
+      @apply text-[16px] sm:text-[20px] xl:text-[24px] 2xl:text-[28px] leading-tight font-light font-base1 text-white;
     }
 
     h3 {
-      @apply text-[14px] lg:text-[16px] xl:text-[20px] 2xl:text-[26px] 3xl:text-[30px] font-semibold leading-tight text-black;
+      @apply text-[14px] sm:text-[16px] xl:text-[18px] 2xl:text-[20px] leading-tight font-light font-base1 text-white;
     }
 
     h5 {
-      @apply text-[13px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] 3xl:text-[25px] font-semibold leading-tight text-black;
+      @apply text-[12px] sm:text-[14px] xl:text-[16px] 2xl:text-[18px] leading-tight font-light font-base1 text-white;
     }
 
     h6 {
-      @apply 3xl:text-[20px] 2xl:text-[16px] xl:text-[13px] lg:text-[12px] text-[12px] font-semibold leading-tight text-black;
+      @apply text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-tight font-light font-base1 text-white;
     }
 
     ul,
@@ -219,12 +219,12 @@
       @apply pl-[20px] lg:pl-[30px];
     }
 
-    ul>li,
-    ol>li {
+    ul > li,
+    ol > li {
       @apply my-[10px] lg:my-[15px];
     }
 
-    ul>li {
+    ul > li {
       @apply list-disc;
     }
   }

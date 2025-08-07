@@ -31,13 +31,22 @@ export default function NewsDetailSection({ data = newsDetailData }) {
         </div>
         <Heading
           as="h2"
-          size="heading1"
+          size="heading2"
           className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
         >
           {data?.title}
         </Heading>
-        <div className="flex flex-wrap -mx-[10px] sm:-mx-[10px] xl:-mx-[20px] 2xl:-mx-[30px] [&>*]:p-[10px] sm:[&>*]:p-[10px] xl:[&>*]:p-[20px] 2xl:[&>*]:p-[30px]">
-          <div>sadjhsd</div>
+        <div className="w-full h-auto aspect-4/2 overflow-hidden">
+          <Image
+            src={data?.media?.path}
+            alt={data?.media?.alt}
+            width={1700}
+            height={560}
+            className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+          />
+        </div>
+        <div className="typography">
+          <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         </div>
       </div>
     </section>
