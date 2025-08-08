@@ -1,5 +1,6 @@
 import InnerHero from "@/components/common/InnerHero";
 import NewsDetailSection from "@/components/features/news/NewsDetailSection";
+import RelatedSection from "@/components/features/news/RelatedSection";
 
 export default function Page() {
   return (
@@ -11,6 +12,7 @@ export default function Page() {
         alt="news"
       />
       <NewsDetailSection />
+      <RelatedSection />
     </>
   );
 }
