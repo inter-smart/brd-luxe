@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
+import SocialMediaComp from "@/components/common/SocialMediaComp";
 
 const footer_data = {
   logo: {
@@ -31,35 +32,6 @@ const footer_data = {
       },
     ],
   },
-  socialMedia: {
-    links: [
-      {
-        url: "/",
-        icon: "/images/footer_faceook.svg",
-        name: "facebook",
-      },
-      {
-        url: "/",
-        icon: "/images/footer_youtube.svg",
-        name: "youtube",
-      },
-      {
-        url: "/",
-        icon: "/images/footer_instagram.svg",
-        name: "instagram",
-      },
-      {
-        url: "/",
-        icon: "/images/footer_linkedin.svg",
-        name: "linkedin",
-      },
-      {
-        url: "/",
-        icon: "/images/footer_twitter.svg",
-        name: "twitter",
-      },
-    ],
-  },
   get_updates: {
     placeholder: ["Get Luxe Updates", "Let's Talk Luxury", "Get Car Info"],
   },
@@ -70,7 +42,7 @@ const footer_data = {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-auto py-[40px] lg:py-[50px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
+    <footer className="w-full h-auto border-t border-[#202020] py-[40px] lg:py-[50px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
       <div className="container relative">
         <div className="w-full h-full mb-[30px] sm:mb-[40px] lg:mb-[50px] 2xl:mb-[70px] pt-[50px] flex flex-wrap items-center justify-between">
           <div className="w-full sm:w-1/3 [&>*]:w-full [&>*]:sm:w-1/2 flex flex-wrap">
@@ -105,7 +77,10 @@ export default function Footer() {
                 className={`sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 text-white max-sm:text-center max-sm:mb-[5px] break-inside-avoid relative z-0
                   ${index % 2 === 0 ? "sm:text-left" : "sm:text-right"}`}
               >
-                <Link className="transition duration-300 hover:text-white/50" href={item?.url}>
+                <Link
+                  className="transition duration-300 hover:text-white/50"
+                  href={item?.url}
+                >
                   {item?.label}
                 </Link>
               </div>
@@ -113,25 +88,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="w-full h-auto mb-[25px] sm:mb-[30px] lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px] flex items-center justify-center">
-          <ul className="flex space-x-[15px] sm:space-x-[40px] lg:space-x-[50px] 2xl:space-x-[70px] 3xl:space-x-[90px]">
-            {footer_data?.socialMedia?.links.map((item, index) => (
-              <li key={`social media ${index}`}>
-                <a
-                  target="_blank"
-                  href={item?.url}
-                  className="w-[15px] lg:w-[17px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
-                >
-                  <Image
-                    src={item?.icon}
-                    alt={item?.name}
-                    fill
-                    sizes="24px"
-                    className="object-contain"
-                  />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <SocialMediaComp />
         </div>
         <div>
           <PlaceholdersAndVanishInput

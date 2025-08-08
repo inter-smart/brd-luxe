@@ -1,54 +1,60 @@
+import BreadCrumb from "@/components/common/BreadCrumb";
 import { Heading } from "@/components/utils/Heading";
 import { Text } from "@/components/utils/Text";
 import Image from "next/image";
 
-export default function SellInfoSection() {
+const sellInfoData = {
+  media: {
+    type: "image",
+    path: "/images/sell-sellinfo-1.jpg",
+    alt: "Sell Your Car",
+  },
+  title: "We Make Selling Your Car Easy",
+  description:
+    "<p>The Range Rover stands as a symbol of refined luxury, cutting-edge technology, and peerless off-road capability. With its bold design, powerful performance, and sophisticated interiors, the Range Rover delivers an unmatched driving experience both on and off the road. Every detail is meticulously crafted—from its sleek, aerodynamic silhouette to the plush, high-quality cabin materials.</p><br /><p> Equipped with advanced terrain response systems, premium infotainment, and driver-assist technologies, the Range Rover offers both comfort and confidence for every journey. Whether navigating city streets or exploring the wilderness, it ensures elegance, strength, and innovation in perfect harmony.</p>",
+};
+
+export default function SellInfoSection({ data = sellInfoData }) {
   return (
     <section className="w-full h-auto block">
-      <div className="bg-red-500 sm:[width:calc(var(--breakpoint-sm)-((100%-var(--breakpoint-sm))/2))] sm:mr-0 ">
-        <div className="flex flex-wrap items-center -mx-[-15px] sm:-mx-[20px] xl:-mx-[40px] 2xl:-mx-[60px] [&>*]:px-[15px] sm:[&>*]:px-[20px] xl:[&>*]:px-[40px] 2xl:[&>*]:px-[60px]">
-          <div className="w-full sm:w-1/2">
-            <div>
+      <div className="container container-sp sm:!mr-0 sm:!pr-0">
+        <div className="relative z-0">
+          <div className="w-1/2 absolute z-0 left-0 top-[10px] sm:top-[10px] xl:top-[15px] 2xl:top-[30px]">
+            <BreadCrumb
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Sell Your Car", href: "/sell" },
+              ]}
+            />
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center -mx-[15px] sm:-mx-[20px] xl:-mx-[40px] 2xl:-mx-[60px] [&>*]:px-[15px] sm:[&>*]:px-[20px] xl:[&>*]:px-[40px] 2xl:[&>*]:px-[60px]">
+          <div className="w-full sm:w-1/2 xl:w-[45%]">
+            <div className="w-full 2xl:max-w-[768px] py-[60px_40px] sm:py-[60px] xl:py-[80px] 2xl:py-[100px] 3xl:py-[120px]">
               <Heading
                 as="h2"
                 size="heading1"
-                className="text-white mb-[15px] sm:mb-[20px] xl:mb-[30px] 2xl:mb-[40px]"
+                className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
               >
-                We make selling your car easy
+                {data?.title}
               </Heading>
               <Text
                 as="div"
                 size="text3"
-                className="text-white mb-[15px] sm:mb-[20px] xl:mb-[30px] 2xl:mb-[40px]"
+                className="!font-light text-white mb-[15px] sm:mb-[20px] xl:mb-[30px] 2xl:mb-[40px]"
               >
-                <p>
-                  The Range Rover stands as a symbol of refined luxury,
-                  cutting-edge technology, and peerless off-road capability.
-                  With its bold design, powerful performance, and sophisticated
-                  interiors, the Range Rover delivers an unmatched driving
-                  experience both on and off the road. Every detail is
-                  meticulously crafted—from its sleek, aerodynamic silhouette to
-                  the plush, high-quality cabin materials.
-                </p>
-                <br />
-                <p>
-                  Equipped with advanced terrain response systems, premium
-                  infotainment, and driver-assist technologies, the Range Rover
-                  offers both comfort and confidence for every journey. Whether
-                  navigating city streets or exploring the wilderness, it
-                  ensures elegance, strength, and innovation in perfect harmony.
-                </p>
+                <div dangerouslySetInnerHTML={{ __html: data?.description }} />
               </Text>
             </div>
           </div>
-          <div className="w-full sm:w-1/2">
+          <div className="w-full sm:w-1/2 xl:w-[55%]">
             <div className="w-full h-auto aspect-square [mask-image:linear-gradient(to_left,white_0%,white_70%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_left,white_0%,white_70%,transparent_100%)] overflow-hidden">
               <Image
-                src="/images/sell-sellinfo-1.jpg"
-                alt="Sell Your Car"
-                width={882}
+                src={data?.media?.path}
+                alt={data?.media?.alt}
+                width={880}
                 height={850}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition origin-right duration-300"
               />
             </div>
           </div>
