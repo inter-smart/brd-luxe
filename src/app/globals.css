@@ -175,7 +175,7 @@
   body {
     font-family: var(--font-base1), Arial, sans-serif;
     scroll-behavior: smooth;
-    @apply [--header-y:40px] lg:[--header-y:75px] xl:[--header-y:82px] 2xl:[--header-y:100px] 3xl:[--header-y:125px];
+    @apply [--header-y:65px] lg:[--header-y:75px] xl:[--header-y:82px] 2xl:[--header-y:100px] 3xl:[--header-y:100px];
   }
 }
 
@@ -191,7 +191,7 @@
     p,
     &,
     li {
-      @apply 3xl:text-[20px] 2xl:text-[18px] xl:text-[16px] lg:text-[14px] text-[12px] font-normal leading-normal text-[#656565];
+      @apply 3xl:text-[20px] 2xl:text-[16px] xl:text-[14px] lg:text-[14px] text-[12px] font-light leading-normal font-base2 text-white lg:mb-[18px] 2xl:mb-[25px] 3xl:mb-[35px];
     }
 
     h1 {

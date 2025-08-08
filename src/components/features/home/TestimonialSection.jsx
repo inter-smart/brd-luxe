@@ -75,7 +75,7 @@ const testimonial_data = {
   ],
 };
 
-export default function ExperienceSection({data = testimonial_data}) {
+export default function ExperienceSection({ data = testimonial_data }) {
   const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
 
   const [isModalOpen, setIsModalOpen] = useState(false);

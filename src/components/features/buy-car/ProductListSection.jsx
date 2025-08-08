@@ -355,7 +355,7 @@ function FilterBox() {
         <div className="container">
           <div className="max-w-[500px] mx-auto relative z-0">
             <DrawerClose asChild>
-              <div className="w-[25px] sm:w-[30px] h-auto aspect-square bg-white/20 p-[6px] rounded-full absolute z-1 right-0 md:right-[-10%] top-0 flex items-center justify-center ">
+              <div className="w-[25px] sm:w-[30px] h-auto aspect-square bg-white/20 p-[6px] rounded-full absolute z-1 right-0 md:right-[-10%] top-0 max-sm:opacity-0 max-sm:pointer-events-none flex items-center justify-center">
                 <Image
                   src="/images/close_button.png"
                   alt="close"
