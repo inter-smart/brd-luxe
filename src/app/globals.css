@@ -184,6 +184,10 @@
 /* ======================== */
 @layer components {
   .typography {
+    & {
+      @apply [--text-color:white];
+    }
+
     & > * {
       @apply my-[10px] lg:my-[15px];
     }
@@ -191,27 +195,27 @@
     p,
     &,
     li {
-      @apply text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-normal font-base2 text-white;
+      @apply text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-normal font-base2 text-[var(--text-color)];
     }
 
     h1 {
-      @apply text-[24px] sm:text-[26px] lg:text-[32px] xl:text-[37px] 2xl:text-[44px] 3xl:text-[55px] leading-tight font-light font-base1 text-white;
+      @apply text-[24px] sm:text-[26px] lg:text-[32px] xl:text-[37px] 2xl:text-[44px] 3xl:text-[55px] leading-tight font-light font-base1 text-[var(--text-color)];
     }
 
     h2 {
-      @apply text-[16px] sm:text-[20px] xl:text-[24px] 2xl:text-[28px] leading-tight font-light font-base1 text-white;
+      @apply text-[16px] sm:text-[20px] xl:text-[24px] 2xl:text-[28px] leading-tight font-light font-base1 text-[var(--text-color)];
     }
 
     h3 {
-      @apply text-[14px] sm:text-[16px] xl:text-[18px] 2xl:text-[20px] leading-tight font-light font-base1 text-white;
+      @apply text-[14px] sm:text-[16px] xl:text-[18px] 2xl:text-[20px] leading-tight font-light font-base1 text-[var(--text-color)];
     }
 
     h5 {
-      @apply text-[12px] sm:text-[14px] xl:text-[16px] 2xl:text-[18px] leading-tight font-light font-base1 text-white;
+      @apply text-[12px] sm:text-[14px] xl:text-[16px] 2xl:text-[18px] leading-tight font-light font-base1 text-[var(--text-color)];
     }
 
     h6 {
-      @apply text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-tight font-light font-base1 text-white;
+      @apply text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-tight font-light font-base1 text-[var(--text-color)];
     }
 
     ul,

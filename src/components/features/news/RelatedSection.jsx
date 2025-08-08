@@ -219,7 +219,11 @@ export default function RelatedSection({ data = relatedData }) {
   return (
     <section className="w-full h-auto py-[10px_40px] sm:py-[10px_60px] xl:py-[15px_80px] 2xl:py-[20px_100px] 3xl:py-[20px_120px]">
       <div className="container">
-        <Heading as="h2" size="heading1" className="text-white">
+        <Heading
+          as="h2"
+          size="heading1"
+          className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
+        >
           {data?.title}
         </Heading>
 
@@ -228,10 +232,10 @@ export default function RelatedSection({ data = relatedData }) {
           <button
             onClick={slidePrev}
             disabled={isBeginning}
-            className={` transition-all duration-300 hover:scale-105 absolute top-1/2 right-[101%] -translate-y-1/2 ${
+            className={`w-8 sm:w-10 aspect-square text-white rounded-md transition-all duration-300 hover:scale-105 absolute z-2 top-[32%] sm:top-1/2 right-[90%] sm:right-[101%] -translate-y-1/2 ${
               isBeginning
-                ? "bg-white/5 text-white/30 cursor-not-allowed"
-                : "bg-white/10 hover:bg-white/20"
+                ? "bg-black/10 text-white/30 cursor-not-allowed"
+                : "bg-black/10 hover:bg-white/20"
             }`}
             aria-label="Previous slide"
           >
@@ -255,10 +259,10 @@ export default function RelatedSection({ data = relatedData }) {
           <button
             onClick={slideNext}
             disabled={isEnd}
-            className={`w-10 h-10 text-white transition-all duration-300 hover:scale-105 absolute top-1/2 left-[101%]  -translate-y-1/2 ${
+            className={`w-8 sm:w-10 aspect-square text-white rounded-md transition-all duration-300 hover:scale-105 absolute z-2 top-[32%] sm:top-1/2 left-[90%] sm:left-[101%] -translate-y-1/2 ${
               isEnd
-                ? "bg-white/5 text-white/30 cursor-not-allowed"
-                : "bg-white/10 hover:bg-white/20"
+                ? "bg-black/10 text-white/30 cursor-not-allowed"
+                : "bg-black/10 hover:bg-white/20"
             }`}
             aria-label="Next slide"
           >
@@ -296,19 +300,23 @@ export default function RelatedSection({ data = relatedData }) {
             breakpoints={{
               320: {
                 slidesPerView: 1,
-                spaceBetween: 20,
+                spaceBetween: 10,
+              },
+              448: {
+                slidesPerView: 2,
+                spaceBetween: 10,
               },
               640: {
                 slidesPerView: 2,
-                spaceBetween: 30,
+                spaceBetween: 15,
               },
               1024: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-              },
-              1280: {
                 slidesPerView: 4,
-                spaceBetween: 50,
+                spaceBetween: 20,
+              },
+              1536: {
+                slidesPerView: 4,
+                spaceBetween: 30,
               },
             }}
             // Event handlers
@@ -341,7 +349,7 @@ export default function RelatedSection({ data = relatedData }) {
                       <div className="text-[13px] sm:text-[14px] xl:text-[18px] 2xl:text-[20px] 3xl:text-[24px] leading-tight font-light font-base1 line-clamp-2 text-white mb-[5px] xl:mb-[10px] group-hover:text-blue-400 transition-colors duration-300">
                         {item?.title}
                       </div>
-                      <div className="text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-light font-base2 line-clamp-3 text-white/80 mb-[5px] xl:mb-[20px]">
+                      <div className="text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-light font-base2 line-clamp-3 text-white/80 mb-[10px] sm:mb-[15px] xl:mb-[20px]">
                         {item?.description}
                       </div>
                       <div className="block">
