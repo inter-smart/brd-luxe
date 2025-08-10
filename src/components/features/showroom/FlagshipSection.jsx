@@ -18,6 +18,7 @@ const flagShip = [
 ];
 
 // chunk into groups of 3 only (since both layouts use 3 images)
+
 function createSlideGroups(data) {
     const slides = [];
     for (let i = 0; i < data.length; i += 3) {

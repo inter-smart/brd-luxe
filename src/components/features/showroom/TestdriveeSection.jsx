@@ -1,8 +1,7 @@
-import EnquiryForm from "@/components/common/EnquiryForm";
-import { Heading } from "../../utils/Heading";
+ 
 import Image from "next/image";
 import Link from "next/link";
-export default function EnquirySection() {
+export default function TestdriveeSection() {
     return (
         <section>
             <div className="container">
@@ -57,8 +56,7 @@ export default function EnquirySection() {
                     </div>
                 </div>
 
-                {/* enquiry */}
-                <EnquiryForm />
+             
             </div>
         </section>
     )

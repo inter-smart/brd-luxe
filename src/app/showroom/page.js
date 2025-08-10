@@ -1,9 +1,11 @@
-import InnerHero from '@/components/common/InnerHero'
-import EnquirySection from '@/components/features/showroom/EnquirySection'
+import InnerHero from '@/components/common/InnerHero' 
 import FlagshipSection from '@/components/features/showroom/FlagshipSection'
 import PremiumSection from '@/components/features/showroom/PremiumSection'
 import VisitUsSection from '@/components/features/showroom/VisitUsSection'
 import WhatWitsSection from '@/components/features/showroom/WhatWitsSection'
+import TestdriveeSection from '@/components/features/showroom/TestdriveeSection' 
+import EnquirySection from "@/components/features/contact/EnquirySection"
+
  
 
 export default function page() {
@@ -18,8 +20,9 @@ export default function page() {
             <PremiumSection />
             <WhatWitsSection />
             <VisitUsSection />
-            <FlagshipSection />
-            <EnquirySection />
+            <FlagshipSection /> 
+            <TestdriveeSection />
+             <EnquirySection />
         </>
     )
 }
