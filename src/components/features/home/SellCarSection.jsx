@@ -185,3 +185,4 @@ export default function SellCarSection({data = sell_car_data}) {
     </section>
   );
 }
+

@@ -1,6 +1,6 @@
 import InnerHero from "@/components/common/InnerHero";
 import Breadcrumb from "@/components/common/BreadCrumb";
-import ProductListSection from "@/components/features/buy-car/ProductListSection";
+import ProductListSection from "@/components/features/buy/ProductListSection";
 
 export default function Page() {
   return (
