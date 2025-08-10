@@ -1,8 +1,10 @@
 import "./globals.css";
 import localFont from "next/font/local";
-import { Cormorant_Garamond, Raleway } from "next/font/google";
-import Header from "../components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Header from "../components/layout/Header";
+import LenisWrapper from "@/components/utils/LenisWrapper";
+import { Cormorant_Garamond, Raleway } from "next/font/google";
+
 
 // Load CeraPro Font
 const CeraPro = localFont({
@@ -55,9 +57,7 @@ const cormorantGaramond = Cormorant_Garamond({
 // Load Raleway Font
 const raleway = Raleway({
   subsets: ["latin"],
-  weight: [
-    "100", "200", "300", "400", "500", "600", "700", "800", "900"
-  ],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-raleway",
@@ -71,12 +71,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}>
+      <body
+        className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}
+      >
         <Header />
         <main className="flex-grow">
-          {children}
+          <LenisWrapper>{children}</LenisWrapper>
         </main>
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );
