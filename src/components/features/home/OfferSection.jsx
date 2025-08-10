@@ -140,7 +140,6 @@ export default function OfferSection({data = offer_data}) {
         });
 
         tl.to(overlay, {
-          // backgroundColor: "rgba(0, 0, 0, 0.15)",
           duration: 0.4,
           ease: "power2.out",
         })

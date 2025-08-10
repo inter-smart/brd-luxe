@@ -7,7 +7,7 @@ import SellCarSection from "@/components/features/home/SellCarSection";
 import BestCarsSection from "@/components/features/home/BestCarsSection";
 import LatestBrdSection from "@/components/features/home/LatestBrdSection";
 import ExperienceSection from "@/components/features/home/TestimonialSection";
-import BrdAdvantageSection from "@/components/features/home/BrdAdvantageSection";
+import BrdAdvantageSection from "@/components/common/BrdAdvantageSection";
 import JourneyFrameSection from "@/components/features/home/JourneyFrameSection";
 import LetsTalkSection from "@/components/features/home/LetsTalkSection";
 
