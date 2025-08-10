@@ -5,7 +5,7 @@ export default function TestdriveeSection() {
     return (
         <section>
             <div className="container">
-                <div className="flex flex-wrap -m-[5px] xl:-m-[8px] 2xl:-m-[10px] 3xl:-m-[15px] mb-[25px] lg:mb-[35px] 2xl:mb-[45px] 3xl:mb-[55px]">
+                <div className="flex flex-wrap -m-[5px] xl:-m-[8px] 2xl:-m-[10px] 3xl:-m-[15px] mb-[25px] lg:!mb-[35px] 2xl:!mb-[45px] 3xl:!mb-[55px]">
                     <div className="w-full sm:w-1/2 p-[5px] xl:p-[8px] 2xl:p-[10px] 3xl:p-[15px]">
                         <div className="w-full h-full p-[15px] lg:p-[30px_25px] xl:p-[35px_25px] 2xl:p-[40px_25] bg-gradient-to-tr 
                                   from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)]
@@ -40,7 +40,7 @@ export default function TestdriveeSection() {
                                   flex flex-wrap items-center justify-between max-lg:text-center">
                             <div className="p-[5px] max-lg:w-full">
                                 <div className="text-[18px] leading-[22px] lg:text-[23px] lg:leading-[23px] xl:text-[30px] xl:leading-[30px] 2xl:text-[35px] 
-                                2xl:leading-[35px] 3xl:text-[45px] 3xl:leading-[45px] text-white font-base1 max-w-[400px] max-lg:m-auto">
+                                2xl:leading-[35px] 3xl:text-[45px] 3xl:leading-[45px] text-white font-base1 lg:max-w-[220px] xl:max-w-[250px] 2xl:max-w-[350px] 3xl:max-w-[400px] max-lg:m-auto">
                                     Come Visit. Feel the Luxe Difference.
                                 </div>
                             </div>

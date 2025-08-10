@@ -10,15 +10,16 @@ import {
 } from "framer-motion";
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import SocialMediaComp from "@/components/common/SocialMediaComp";
+import { useRouter } from "next/router";
 
 const nav_button = [
   {
     label: "Buy Car",
-    url: "/",
+    url: "/buy",
   },
   {
     label: "Sell Your Car",
-    url: "/",
+    url: "/sell",
   },
 ];
 
@@ -34,15 +35,15 @@ const mega_menu_data = {
     },
     {
       label: "Showroom",
-      url: "/md",
+      url: "/showroom",
     },
     {
       label: "News & Insights",
-      url: "/",
+      url: "/news",
     },
     {
       label: "Contact",
-      url: "/",
+      url: "/contact",
     },
   ],
   media: {

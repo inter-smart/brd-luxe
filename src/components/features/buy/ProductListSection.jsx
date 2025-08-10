@@ -11,6 +11,7 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import BreadCrumb from "@/components/common/BreadCrumb";
 
 const product_data = {
   heading: {
@@ -285,8 +286,16 @@ export default function ProductListSection({ data = product_data }) {
     query: "(min-width: 1280px)",
   });
   return (
-    <section className="w-full h-auto py-[20px_50px] sm:py-[50px_60px] lg:py-[60px_80px] 2xl:py-[75px_100px] 3xl:py-[95px_125px] block">
+    <section className="w-full h-auto py-[20px_50px] sm:py-[20px_60px] lg:py-[20px_80px] 2xl:py-[20px_100px] 3xl:py-[20px_125px] block">
       <div className="container">
+        <div className="mb-[20] sm:mb-[50] lg:mb-[60] 2xl:mb-[75] 3xl:mb-[95]">
+          <BreadCrumb
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Buy A Car", href: "/buy-car" },
+            ]}
+          />
+        </div>
         <div>
           <div className="mb-[25px] lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px] flex max-sm:flex-wrap items-center">
             <div className="w-full md:w-[30%]">
