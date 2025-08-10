@@ -169,7 +169,7 @@ export default function ListSection({ data = testimonialData }) {
                 alt={data?.review?.media?.alt}
                 width={260}
                 height={70}
-                className="w-[80px] sm:w-[120px] xl:w-[200px] 3xl:w-[268px] 3xl:w-[320px]"
+                className="w-[80px] sm:w-[120px] xl:w-[200px] 2xl:w-[268px] 3xl:w-[320px]"
               />
             </div>
           </div>
