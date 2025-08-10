@@ -1,4 +1,5 @@
 import InnerHero from '@/components/common/InnerHero'
+import EnquirySection from '@/components/features/showroom/EnquirySection'
 import FlagshipSection from '@/components/features/showroom/FlagshipSection'
 import PremiumSection from '@/components/features/showroom/PremiumSection'
 import VisitUsSection from '@/components/features/showroom/VisitUsSection'
@@ -18,6 +19,7 @@ export default function page() {
             <WhatWitsSection />
             <VisitUsSection />
             <FlagshipSection />
+            <EnquirySection />
         </>
     )
 }
