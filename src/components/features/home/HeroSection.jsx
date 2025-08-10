@@ -70,9 +70,19 @@ const hero_slides = [
 ];
 
 export default function HeroSection({ data = hero_slides }) {
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 640px)",
-  });
+  // const isDesktop = useMediaQuery({
+  //   query: "(min-width: 640px)",
+  // });
+
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 640px)");
+    setIsDesktop(mediaQuery.matches);
+    const handleResize = () => setIsDesktop(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleResize);
+    return () => mediaQuery.removeEventListener("change", handleResize);
+  }, []);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);

@@ -19,6 +19,9 @@ export default function ProductFilterBox({ variant = "default" }) {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
+  // useEffect(() => {
+  //   setIsMounted(true); 
+  // }, []);
   const handleSearch = () => {};
 
   const inputFormStyle =
@@ -39,8 +42,7 @@ export default function ProductFilterBox({ variant = "default" }) {
     >
       <div
         className={`w-full h-auto space-x-[10px] sm:space-x-[15px] lg:space-x-[20px] 2xl:space-x-[25px] 3xl:space-x-[35px] flex items-center max-sm:justify-center ${
-          variant === "ProductListing" &&
-          "max-xl:block max-xl:space-y-[25px]"
+          variant === "ProductListing" && "max-xl:block max-xl:space-y-[25px]"
         }`}
       >
         <Select value={brand} onValueChange={setBrand}>

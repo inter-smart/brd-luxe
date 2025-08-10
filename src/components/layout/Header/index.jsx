@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import SocialMediaComp from "@/components/common/SocialMediaComp";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 const nav_button = [
   {
@@ -80,6 +80,10 @@ export default function Header() {
   const ticking = useRef(false);
   const menuRef = useRef(null);
   const menuButtonRef = useRef(null);
+  const pathname = usePathname();
+  useEffect(() => {
+    closeMenu();
+  }, [pathname]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -249,13 +253,14 @@ export default function Header() {
               </button>
               <Link
                 href={"/"}
-                className="w-[100px] lg:w-[120px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] absolute left-0 right-0 ml-auto lg:mx-auto"
+                className="group w-[110px] lg:w-[120px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] absolute left-0 right-0 ml-auto lg:mx-auto"
               >
                 <Image
                   src="/images/logo.svg"
                   alt="logo"
                   width={187}
                   height={50}
+                  className="w-full h-full object-contain group-hover:scale-102 transition-all duration-300"
                 />
               </Link>
               <div className="hidden lg:flex items-center">
@@ -357,7 +362,11 @@ export default function Header() {
                         <Link
                           href={link.url}
                           onClick={closeMenu}
-                          className="text-[16px] sm:text-[18px] leading-[1.2] font-light font-base1 text-white mb-[10px] sm:mb-[15px] block"
+                          className={`text-[16px] sm:text-[18px] leading-[1.2] font-light font-base1 mb-[10px] sm:mb-[15px] block ${
+                            pathname === link.url
+                              ? "text-[#F29A0D]"
+                              : "text-white"
+                          }`}
                         >
                           {link.label}
                         </Link>
@@ -451,7 +460,11 @@ export default function Header() {
                         <div key={`mega-menu-${index}`}>
                           <Link
                             href={item?.url}
-                            className="text-[18px] sm:text-[20px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 text-white mb-[10px] sm:mb-[15px] lg:mb-[15px] 3xl:mb-[20px] block transition-all duration-300 hover:text-[#F29A0D]"
+                            className={`text-[18px] sm:text-[20px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 mb-[10px] sm:mb-[15px] lg:mb-[15px] 3xl:mb-[20px] block transition-all duration-300 ${
+                              pathname === item.url
+                                ? "text-[#F29A0D]"
+                                : "text-white"
+                            } hover:text-[#F29A0D]`}
                           >
                             {item?.label}
                           </Link>
