@@ -28,7 +28,7 @@ const footer_data = {
       },
       {
         label: "Privacy",
-        url: "/",
+        url: "/privacy",
       },
     ],
   },
