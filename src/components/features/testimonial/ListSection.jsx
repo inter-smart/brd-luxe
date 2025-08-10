@@ -4,12 +4,21 @@ import { StyledButton } from "@/components/utils/Button";
 import { Heading } from "@/components/utils/Heading";
 import { useState } from "react";
 import TestimonialBox from "@/components/common/TestimonialBox";
+import Image from "next/image";
+import SelectVehicleForm from "@/components/common/SelectVehicleForm";
 
 const INITIAL_VISIBLE_COUNT = 8;
 const LOAD_MORE_COUNT = 8;
 
 const testimonialData = {
   media: null,
+  review: {
+    media: {
+      type: "image",
+      path: "/images/testimonial-google-review.svg",
+      alt: "bg",
+    },
+  },
   title: "Voices of Trust: Experiences That Define Luxury",
   description: null,
   testimonial_list: [
@@ -140,13 +149,31 @@ export default function ListSection({ data = testimonialData }) {
             ]}
           />
         </div>
-        <Heading
-          as="h2"
-          size="heading1"
-          className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
-        >
-          {data?.title}
-        </Heading>
+        <div className="w-full flex flex-col lg:flex-row xl:space-x-[20px] mb-[30px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]">
+          <div className="flex-1">
+            <Heading
+              as="h2"
+              size="heading1"
+              className="text-white max-lg:mb-[20px]"
+            >
+              {data?.title}
+            </Heading>
+          </div>
+          <div className="flex flex-wrap items-end space-x-[20px]">
+            <div className="xl:mb-[10px]">
+              <SelectVehicleForm />
+            </div>
+            <div>
+              <Image
+                src={data?.review?.media?.path}
+                alt={data?.review?.media?.alt}
+                width={260}
+                height={70}
+                className="w-[80px] sm:w-[120px] xl:w-[200px] 3xl:w-[268px] 3xl:w-[320px]"
+              />
+            </div>
+          </div>
+        </div>
         <div className="flex flex-wrap -mx-[5px] sm:-mx-[10px] xl:-mx-[15px] 2xl:-mx-[25px] 3xl:-mx-[30px] [&>*]:p-[5px] sm:[&>*]:p-[10px] xl:[&>*]:p-[15px] 2xl:[&>*]:p-[25px] 3xl:[&>*]:p-[30px]">
           {testimonials?.slice(0, visibleCount).map((item, index) => {
             return (
