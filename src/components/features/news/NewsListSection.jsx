@@ -10,10 +10,7 @@ const INITIAL_VISIBLE_COUNT = 8;
 const LOAD_MORE_COUNT = 8;
 
 const newsListData = {
-  media: {
-    path: "/images/sell-sellinfo-1.jpg",
-    alt: "Sell Your Car",
-  },
+  media: null,
   title: "News & Insights",
   description: null,
   news_list: [
@@ -190,20 +187,18 @@ const newsListData = {
 
 export default function NewsListSection({ data = newsListData }) {
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
-
+  const news = data.news_list;
   const handleLoadToggle = () => {
-    if (visibleCount >= data.news_list.length) {
+    if (visibleCount >= news.length) {
       // Collapse to initial count
       setVisibleCount(INITIAL_VISIBLE_COUNT);
     } else {
       // Load more items
-      setVisibleCount((prev) =>
-        Math.min(prev + LOAD_MORE_COUNT, data.news_list.length)
-      );
+      setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, news.length));
     }
   };
 
-  const isAllLoaded = visibleCount >= data.news_list.length;
+  const isAllLoaded = visibleCount >= news.length;
 
   return (
     <section className="w-full h-auto py-[10px_40px] sm:py-[10px_60px] xl:py-[15px_80px] 2xl:py-[20px_100px] 3xl:py-[20px_120px]">
@@ -224,7 +219,7 @@ export default function NewsListSection({ data = newsListData }) {
           {data?.title}
         </Heading>
         <div className="flex flex-wrap -mx-[10px] sm:-mx-[10px] xl:-mx-[20px] 2xl:-mx-[30px] [&>*]:p-[10px] sm:[&>*]:p-[10px] xl:[&>*]:p-[20px] 2xl:[&>*]:p-[30px]">
-          {data?.news_list?.slice(0, visibleCount).map((item, index) => (
+          {news?.slice(0, visibleCount).map((item, index) => (
             <div key={"news" + index} className="w-full sm:w-1/2 md:w-1/2">
               <Suspense fallback={<NewsListSkeleton />}>
                 <div className="group w-full h-auto aspect-4/3 flex items-end overflow-hidden relative z-0">
@@ -261,7 +256,7 @@ export default function NewsListSection({ data = newsListData }) {
           ))}
         </div>
 
-        {data?.news_list?.length > INITIAL_VISIBLE_COUNT && (
+        {news?.length > INITIAL_VISIBLE_COUNT && (
           <div className="flex justify-center mt-[30px] xl:mt-[40px]">
             <StyledButton
               onClick={handleLoadToggle}

@@ -174,7 +174,7 @@ export default function EnquiryForm() {
             size="button1"
             type="submit"
             disabled={isSubmitting}
-            className="min-w-[120px] sm:min-w-[100px] xl:min-w-[120px] 2xl:min-w-[130px] cursor-pointer disabled:cursor-not-allowed"
+            
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </StyledButton>

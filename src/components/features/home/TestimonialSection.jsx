@@ -10,6 +10,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import TestimonialBox from "@/components/common/TestimonialBox";
 
 const testimonial_data = {
   heading: {
@@ -17,6 +18,106 @@ const testimonial_data = {
   },
   description:
     "Hear from those who chose BRD LUXE. From seamless service to unforgettable drives, our customers share their experiences of buying and selling luxury cars with complete confidence.",
+  // testimonial_list: [
+  //   {
+  //     rating: null,
+  //     type: "video",
+  //     media: {
+  //       type: null,
+  //       path: "/videos/home_banner.mp4",
+  //       alt: "bg",
+  //     },
+  //     description: null,
+  //     author: {
+  //       media: {
+  //         type: null,
+  //         path: "/images/testimonial-1.jpg",
+  //         alt: "author",
+  //       },
+  //       title: "Sameer Thomas",
+  //       description: "Bangalore",
+  //     },
+  //   },
+  //   {
+  //     rating: 4,
+  //     type: "text",
+  //     media: null,
+  //     description: `<p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p><p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p>`,
+  //     author: {
+  //       media: {
+  //         type: null,
+  //         path: "/images/testimonial-2.jpg",
+  //         alt: "author",
+  //       },
+  //       title: "Rahul Menon",
+  //       description: "Kochi, MG Road",
+  //     },
+  //   },
+  //   {
+  //     rating: null,
+  //     type: "video",
+  //     media: {
+  //       type: null,
+  //       path: "/videos/home_banner.mp4",
+  //       alt: "bg",
+  //     },
+  //     description: null,
+  //     author: {
+  //       media: {
+  //         type: null,
+  //         path: "/images/testimonial-3.jpg",
+  //         alt: "author",
+  //       },
+  //       title: "Anjali Nair",
+  //       description: "Kochi, MG Road",
+  //     },
+  //   },
+  //   {
+  //     rating: 5,
+  //     type: "text",
+  //     media: null,
+  //     description: `<p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p>`,
+  //     author: {
+  //       media: {
+  //         type: null,
+  //         path: "/images/testimonial-2.jpg",
+  //         alt: "author",
+  //       },
+  //       title: "Rahul Menon",
+  //       description: "Kochi, MG Road",
+  //     },
+  //   },
+  //   {
+  //     rating: 5,
+  //     type: "text",
+  //     media: null,
+  //     description: `<p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p>`,
+  //     author: {
+  //       media: {
+  //         type: null,
+  //         path: "/images/testimonial-2.jpg",
+  //         alt: "author",
+  //       },
+  //       title: "Rahul Menon",
+  //       description: "Kochi, MG Road",
+  //     },
+  //   },
+  //   {
+  //     rating: 4,
+  //     type: "text",
+  //     media: null,
+  //     description: `<p>"BRD LUXE made buying my dream car effortless. From the first call to the final delivery, the experience was nothing short of premium."</p>`,
+  //     author: {
+  //       media: {
+  //         type: null,
+  //         path: "/images/testimonial-2.jpg",
+  //         alt: "author",
+  //       },
+  //       title: "Rahul Menon",
+  //       description: "Kochi, MG Road",
+  //     },
+  //   },
+  // ],
   testimonial_list: [
     {
       type: "video",
@@ -97,7 +198,7 @@ export default function ExperienceSection({ data = testimonial_data }) {
     <section className="w-full h-auto block py-[40px] sm:py-[50px] md:py-[70px] lg:py-[90px] 2xl:py-[110px] 3xl:py-[140px]">
       <div className="container">
         <div className="flex flex-wrap items-center">
-          <div className="w-full xl:w-[45%] xl:pr-[50px] 2xl:pr-[60px] 3xl:pr-[75px] mb-[30px] md:mb-[40px] xl:mb-0 max-xl:flex max-xl:flex-col max-xl:items-center max-xl:justify-center max-xl:text-center">
+          <div className="w-full xl:w-[40%] 2xl:w-[45%] xl:pr-[50px] 2xl:pr-[60px] 3xl:pr-[75px] mb-[30px] md:mb-[40px] xl:mb-0 max-xl:flex max-xl:flex-col max-xl:items-center max-xl:justify-center max-xl:text-center">
             <Heading
               as="h2"
               size={"heading1"}
@@ -113,7 +214,7 @@ export default function ExperienceSection({ data = testimonial_data }) {
             </Text>
             <StyledLink href="/">View All</StyledLink>
           </div>
-          <div className="w-full xl:w-[55%] xl:flex xl:items-center">
+          <div className="w-full xl:w-[60%] 2xl:w-[55%] xl:flex xl:items-center">
             <div className="w-full xl:w-[90%] xl:mr-auto">
               <Swiper
                 modules={[Autoplay]}
