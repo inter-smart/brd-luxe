@@ -16,7 +16,7 @@ const sellInfoData = {
 
 export default function SellInfoSection({ data = sellInfoData }) {
   return (
-    <section className="w-full h-auto block">
+    <section className="w-full h-auto block overflow-hidden">
       <div className="container container-sp sm:!mr-0 sm:!pr-0">
         <div className="relative z-0">
           <div className="w-1/2 absolute z-0 left-0 top-[10px] sm:top-[10px] xl:top-[15px] 2xl:top-[30px]">

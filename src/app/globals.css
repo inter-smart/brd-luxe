@@ -195,7 +195,7 @@
     p,
     &,
     li {
-      @apply text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-normal font-base2 text-white;
+      @apply text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-normal font-base2 text-[var(--text-color)];
     }
 
     h1 {

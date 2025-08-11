@@ -13,6 +13,8 @@ const LOAD_MORE_COUNT = 8;
 const testimonialData = {
   media: null,
   review: {
+    rating: 4.7,
+    count: 2384,
     media: {
       type: "image",
       path: "/images/testimonial-google-review.svg",
@@ -159,18 +161,33 @@ export default function ListSection({ data = testimonialData }) {
               {data?.title}
             </Heading>
           </div>
-          <div className="flex flex-wrap items-end space-x-[20px]">
+          <div className="flex flex-wrap items-end space-x-[20px] space-y-[20px]">
             <div className="xl:mb-[10px]">
               <SelectVehicleForm />
             </div>
             <div>
-              <Image
-                src={data?.review?.media?.path}
-                alt={data?.review?.media?.alt}
-                width={260}
-                height={70}
-                className="w-[80px] sm:w-[120px] xl:w-[200px] 2xl:w-[268px] 3xl:w-[320px]"
-              />
+              <div className="w-[140px] sm:w-[160px] xl:w-[200px] 2xl:w-[260px] h-auto relative z-0">
+                <Image
+                  src={data?.review?.media?.path}
+                  alt={data?.review?.media?.alt}
+                  width={260}
+                  height={70}
+                  className="w-[90px] sm:w-[100px] xl:w-[130px] 2xl:w-[176px]"
+                />
+                <div className="text-[10px] xl:text-[12px] 2xl:text-[14px] leading-none font-light font-base3 text-white flex items-center mt-[-2px] sm:mt-[-5px] xl:mt-[-10px]">
+                  <Image
+                    src="/images/testimonial-google-review-star.svg"
+                    alt="testimonial-google-review-star"
+                    width={14}
+                    height={14}
+                    className="w-[8px] sm:w-[10px] xl:w-[12px] 2xl:w-[14px] mr-[2px] xl:mr-[5px] 2xl:mr-[10px] block"
+                  />
+                  {data?.review?.rating} {"Ratings"}
+                </div>
+                <div className="text-[10px] xl:text-[14px] 2xl:text-[16px] leading-tight font-light font-base3 text-white w-full max-w-[40px]  xl:max-w-[60px] m-auto absolute z-1 right-0 top-1/2 -translate-y-1/2">
+                  {data?.review?.count} {"Reviews"}
+                </div>
+              </div>
             </div>
           </div>
         </div>
