@@ -43,7 +43,7 @@ const offer_data = {
       description:
         "At BRD LUXE, we redefine the pre-owned luxury car experience through trust, precision, and legacy. As a division of the renowned BRD Group, our commitment is to offer only the finest selection of pre-owned premium vehicles, each thoroughly inspected and backed by over four decades of automotive excellence.",
       button: {
-        url: "/warranty/engine",
+        url: "/",
       },
     },
     {
