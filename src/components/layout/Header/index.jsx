@@ -280,7 +280,9 @@ export default function Header() {
                     <ShinyButton
                       href={item?.url}
                       className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[1px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${
-                        pathname === item?.url ? "bg-white text-black" : "bg-transparent text-white"
+                        pathname === item?.url
+                          ? "bg-white text-black"
+                          : "bg-transparent text-white"
                       }`}
                     >
                       {item?.label}
