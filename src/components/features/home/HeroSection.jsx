@@ -25,7 +25,7 @@ const hero_slides = [
       },
       {
         label: "Sell Your Car",
-        url: "/cars/sell",
+        url: "/sell",
       },
     ],
   },
@@ -44,7 +44,7 @@ const hero_slides = [
       },
       {
         label: "Sell Your Car",
-        url: "/cars/sell",
+        url: "/sell",
       },
     ],
   },
@@ -63,7 +63,7 @@ const hero_slides = [
       },
       {
         label: "Sell Your Car",
-        url: "/cars/sell",
+        url: "/sell",
       },
     ],
   },
