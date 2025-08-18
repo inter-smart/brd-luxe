@@ -11,7 +11,7 @@ import "swiper/css";
 
 const hero_slides = [
   {
-    title: "Your Next Luxury Ride Awaits",
+    title: "Your Next Luxury Ride Awa fcgfdhits",
     description:
       "Discover top-tier used cars that match your lifestyle and legacy.",
     media: {
@@ -39,6 +39,7 @@ const hero_slides = [
     },
     hero_buttons: [
       {
+        status: true,
         label: "Buy Now",
         url: "/",
       },
@@ -181,9 +182,8 @@ export default function HeroSection({ data = hero_slides }) {
                 </div>
                 <div className="container">
                   <div
-                    className={`w-full h-auto pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] sm:max-w-[380px] lg:max-w-[450px] 2xl:max-w-[550px] 3xl:max-w-[700px] transition-all ease-in-out duration-500 ${
-                      isActive ? "opacity-100 translate-0" : "opacity-0"
-                    }`}
+                    className={`w-full h-auto pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] sm:max-w-[380px] lg:max-w-[450px] 2xl:max-w-[550px] 3xl:max-w-[700px] transition-all ease-in-out duration-500 ${isActive ? "opacity-100 translate-0" : "opacity-0"
+                      }`}
                   >
                     <TextAnimate
                       animation="slideUp"
@@ -208,9 +208,11 @@ export default function HeroSection({ data = hero_slides }) {
                           key={`hero-button-${index}`}
                           className="w-fit h-auto"
                         >
+                          {/* {item?.status && ( */}
                           <StyledLink href={item?.url}>
                             {item?.label}
                           </StyledLink>
+                          {/* )} */}
                         </div>
                       ))}
                     </div>
@@ -337,9 +339,8 @@ function CustomPaginationDots({
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeDasharray={`${2 * Math.PI * 28}`}
-                  strokeDashoffset={`${
-                    2 * Math.PI * 28 * (1 - progress / 100)
-                  }`}
+                  strokeDashoffset={`${2 * Math.PI * 28 * (1 - progress / 100)
+                    }`}
                   style={{
                     transition:
                       pausedAtRef.current === 0 && progress === 0
