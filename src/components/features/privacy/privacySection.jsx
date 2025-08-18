@@ -2,7 +2,7 @@ import BreadCrumb from "@/components/common/BreadCrumb";
 
 export default function PrivacySection() {
   return (
-    <section className="w-full h-auto block py-[20px_40px] sm:py-[20px_50px] lg:py-[20px_70px] 2xl:py-[20px_80px] 3xl:py-[20px_100px] mt-[var(--header-y)]">
+    <section className="w-full h-auto block py-[20px_40px] sm:py-[20px_50px] lg:py-[20px_70px] 2xl:py-[20px_80px] 3xl:py-[20px_100px] border-t-1 border-[#808080]/50 mt-[var(--header-y)]">
       <div className="container">
         <div className="lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px]">
           <BreadCrumb

@@ -2,6 +2,7 @@ import EnquiryForm from "@/components/common/EnquiryForm";
 import SocialMediaComp from "@/components/common/SocialMediaComp";
 import { Heading } from "@/components/utils/Heading";
 import Image from "next/image";
+import clsx from "clsx";
 
 const enquiryData = {
   title: "Enquiry Form",
@@ -12,7 +13,10 @@ const enquiryData = {
   },
 };
 
-export default function EnquirySection({ data = enquiryData }) {
+export default function EnquirySection({
+  data = enquiryData,
+  socialMedia = false,
+}) {
   return (
     <section className="w-full h-auto block pb-[40px] sm:pb-[60px] xl:pb-[100px] 2xl:pb-[120px] 3xl:pb-[140px]">
       <div className="container">
@@ -20,7 +24,13 @@ export default function EnquirySection({ data = enquiryData }) {
           <div className="flex flex-wrap items-center -mx-[15px] sm:-mx-[20px] xl:-mx-[30px] 2xl:-mx-[40px] [&>*]:px-[15px] sm:[&>*]:px-[20px] xl:[&>*]:px-[30px] 2xl:[&>*]:px-[40px]">
             <div className="w-full md:w-[276px] xl:w-[376px] 2xl:w-[468px] 3xl:w-[520px]">
               <div className="w-full max-w-[320px] xl:max-w-[376px] 2xl:max-w-[420px] h-auto block md:mx-auto max-md:mb-[40px]">
-                <div className="w-full mb-[20px] sm:mb-[30px] xl:mb-[40px] 2xl:mb-[60px]">
+                <div
+                  className={clsx(
+                    "w-full",
+                    socialMedia &&
+                      "mb-[20px] sm:mb-[30px] xl:mb-[40px] 2xl:mb-[60px]"
+                  )}
+                >
                   <Image
                     src={data?.media?.path}
                     alt={data?.media?.alt}
@@ -29,7 +39,7 @@ export default function EnquirySection({ data = enquiryData }) {
                     className="w-[168px] md:w-[220px] xl:w-[268px] 2xl:w-[300px] 3xl:w-[376px] h-auto block"
                   />
                 </div>
-                <SocialMediaComp />
+                {socialMedia && <SocialMediaComp />}
               </div>
             </div>
             <div className="w-full md:w-[calc(100%-276px)] xl:w-[calc(100%-376px)] 2xl:w-[calc(100%-468px)] 3xl:w-[calc(100%-520px)]">

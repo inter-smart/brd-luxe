@@ -214,6 +214,7 @@ export default function ListSection({ data = testimonialData }) {
             </StyledButton>
           </div>
         )}
+        <button className="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-light font-base1 text-white text-center w-full mt-[20px] lg:mt-[35px]">Loading More...</button>
       </div>
     </section>
   );

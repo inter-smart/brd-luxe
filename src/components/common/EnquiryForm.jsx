@@ -34,7 +34,7 @@ const enquiryFormSchema = z.object({
 
 // Shared input styles
 const inputStyle = `
-  text-[12px] sm:text-[14px] xl:text-[16px] 3xl:text-[18px] leading-tight font-base1 font-semibold text-white placeholder:text-[#9f9f9f] data-[placeholder]:text-[#9f9f9f] w-full !h-[35px] sm:!h-[40px] 2xl:!h-[45px] bg-black px-[15px] sm:px-[15px] 2xl:px-[20px] border-[1px] border-white/60 rounded-[10px] focus:outline-none focus:ring-0 focus-visible:ring-2 selection:bg-blue-800 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-non`
+  text-[12px] sm:text-[14px] xl:text-[16px] 3xl:text-[18px] leading-tight font-base1 font-semibold text-white placeholder:text-white data-[placeholder]:text-[#9f9f9f] w-full !h-[35px] sm:!h-[40px] 2xl:!h-[45px] bg-black px-[15px] sm:px-[15px] 2xl:px-[20px] border-[1px] border-white/60 rounded-[10px] focus:outline-none focus:ring-0 focus-visible:ring-2 selection:bg-blue-800 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-non`
   .replace(/\s+/g, " ")
   .trim();
 
@@ -93,31 +93,11 @@ export default function EnquiryForm() {
           name="fullName"
           render={({ field }) => (
             <FormItem className="w-full sm:w-1/2 lg:w-1/3">
-              <FormLabel className="sr-only">Full Name</FormLabel>
+              <FormLabel className="sr-only">Your Name</FormLabel>
               <FormControl>
                 <Input
                   className={inputStyle}
-                  placeholder="Full Name*"
-                  disabled={isSubmitting}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="w-full sm:w-1/2 lg:w-1/3">
-              <FormLabel className="sr-only">Email</FormLabel>
-              <FormControl>
-                <Input
-                  className={inputStyle}
-                  type="email"
-                  placeholder="Email*"
+                  placeholder="Your Name*"
                   disabled={isSubmitting}
                   {...field}
                 />
@@ -138,6 +118,26 @@ export default function EnquiryForm() {
                   className={inputStyle}
                   type="tel"
                   placeholder="Phone*"
+                  disabled={isSubmitting}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="w-full sm:w-1/2 lg:w-1/3">
+              <FormLabel className="sr-only">Email</FormLabel>
+              <FormControl>
+                <Input
+                  className={inputStyle}
+                  type="email"
+                  placeholder="Email*"
                   disabled={isSubmitting}
                   {...field}
                 />
@@ -174,7 +174,6 @@ export default function EnquiryForm() {
             size="button1"
             type="submit"
             disabled={isSubmitting}
-            
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </StyledButton>
