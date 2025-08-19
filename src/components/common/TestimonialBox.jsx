@@ -95,7 +95,7 @@ export default function TestimonialBox({ item }) {
               initialValue={parseInt(item?.rating)}
             />
             <div
-              className="max-h-[calc(100%-30px)] py-[5px] sm:py-[10px] xl:py-[10px] 2xl:py-[20px] overflow-y-auto typography [&>*]:mt-0 [--text-color:black] @[276px]:[&_p,&_li]:text-[16px] @[320px]:[&_p,&_li]:text-[20px] @[420px]:[&_p,&_li]:text-[24px] @[468px]:[&_p,&_li]:text-[30px] @[320px]:py-[20px] @[420px]:py-[30px] @[468px]:py-[40px]"
+              className="max-h-[calc(100%-30px)] pr-[20px] py-[5px] sm:py-[10px] xl:py-[10px] 2xl:py-[20px] overflow-y-auto typography [&>*]:mt-0 [--text-color:black] @[276px]:[&_p,&_li]:text-[15px] @[320px]:[&_p,&_li]:text-[20px] @[420px]:[&_p,&_li]:text-[24px] @[468px]:[&_p,&_li]:text-[30px] @[320px]:py-[20px] @[420px]:py-[30px] @[468px]:py-[40px]"
               dangerouslySetInnerHTML={{
                 __html: sanitizedDescription,
               }}

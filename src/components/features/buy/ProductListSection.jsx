@@ -300,7 +300,7 @@ export default function ProductListSection({ data = product_data }) {
           <div className="mb-[25px] lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px] flex max-sm:flex-wrap items-center">
             <div className="w-full md:w-[30%]">
               <Heading
-                as="h1"
+                as="h2"
                 size={"heading1"}
                 className="text-white max-sm:mb-[15px] max-md:text-center sm:text-left"
               >
@@ -332,6 +332,9 @@ export default function ProductListSection({ data = product_data }) {
             ))}
           </div>
         </div>
+        <button className="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]">
+          Loading More...
+        </button>
       </div>
     </section>
   );

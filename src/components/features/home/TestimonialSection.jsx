@@ -343,7 +343,7 @@ export default function ExperienceSection({ data = testimonial_data }) {
                     alt="icon"
                     width={24}
                     height={24}
-                    className="w-full h-full block rotate-180 transition duration-300 group-hover:opacity-0.7 scale-105"
+                    className="w-full h-full block rotate-180 scale-150 transition duration-300 group-hover:opacity-0.7"
                   />
                 </button>
                 <button
@@ -355,7 +355,7 @@ export default function ExperienceSection({ data = testimonial_data }) {
                     alt="icon"
                     width={24}
                     height={24}
-                    className="w-full h-full block transition duration-300 group-hover:opacity-0.7"
+                    className="w-full h-full block scale-150 transition duration-300 group-hover:opacity-0.7"
                   />
                 </button>
               </div>
