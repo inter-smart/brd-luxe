@@ -45,7 +45,7 @@ const CeraPro = localFont({
   preload: true,
   display: "swap",
 });
-
+       
 // Load Cormorant_Garamond Font
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
