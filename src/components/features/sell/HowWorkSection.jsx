@@ -132,7 +132,7 @@ export default function HowWorkSection({ data = howWorkData }) {
                       {index < 9 ? "0" + (index + 1) : index + 1}
                     </div>
                   </div>
-                  <div className="text-[12px] sm:text-[12px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[20px] leading-tight font-medium font-base2 text-center text-white">
+                  <div className="text-[12px] sm:text-[12px] xl:text-[13px] 2xl:text-[18px] 3xl:text-[20px] leading-tight font-medium font-base2 text-center text-white">
                     {item?.title}
                   </div>
                 </div>

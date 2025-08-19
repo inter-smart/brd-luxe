@@ -88,8 +88,8 @@ export default function BrandSection({ data = brands_data }) {
         />
       </div>
       <div className="container">
-        <div className="max-sm:text-center mb-[15px] sm:mb-[20px] lg:mb-[25px] flex flex-wrap items-center relative z-2">
-          <div className="w-full sm:w-1/2 sm:pr-[15%]">
+        <div className="max-sm:text-center mb-[15px] sm:mb-[10px] flex flex-wrap items-center relative z-2">
+          <div className="w-full sm:w-[35%] sm:pr-[15%]">
             <Heading
               as="h2"
               size={"heading1"}
@@ -98,7 +98,7 @@ export default function BrandSection({ data = brands_data }) {
               {data?.heading?.title}
             </Heading>
           </div>
-          <div className="w-full sm:w-1/2">
+          <div className="w-full sm:w-1/2 ml-auto">
             <Text
               as="div"
               className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white"

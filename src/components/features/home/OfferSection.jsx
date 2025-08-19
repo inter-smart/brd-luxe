@@ -14,7 +14,7 @@ const offer_data = {
     path: "/images/offer_background_image.webp",
   },
   heading: {
-    title: "We Offer One Year Warranty on Your Dream Car",
+    title: "We Offer One Year Warranty on Your Dream Car*",
     highlight: ["One"],
     social_links: [
       {
@@ -248,7 +248,7 @@ export default function OfferSection({ data = offer_data }) {
             >
               <Heading
                 as="h1"
-                className="text-[14px] sm:text-[16px] lg:text-[18px] 2xl:text-[22px] 3xl:text-[28px] leading-[1.2] font-semibold font-base1 text-white [&>span]:text-[#E09812] mb-[10px] 3xl:mb-[15px]"
+                className="text-[14px] sm:text-[16px] lg:text-[18px] 2xl:text-[22px] 3xl:text-[28px] leading-[1.2] font-semibold font-base1 text-white [&>span]:text-[#E09812] [&>span]:text-[22px] sm:[&>span]:text-[26px] lg:[&>span]:text-[30px] 2xl:[&>span]:text-[36px] 3xl:[&>span]:text-[45px] mb-[10px] 3xl:mb-[15px]"
               >
                 {handleHighlight(
                   data?.heading?.highlight,
@@ -264,7 +264,7 @@ export default function OfferSection({ data = offer_data }) {
                     key={`social-${index}`}
                     href={item?.url}
                     target="_blank"
-                    className="w-[15px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0"
+                    className="w-[13px] 2xl:w-[18px] 3xl:w-[20px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0"
                   >
                     <Image
                       src={item?.media?.path}
@@ -279,25 +279,25 @@ export default function OfferSection({ data = offer_data }) {
             </div>
             <div
               ref={centerContentRef}
-              className="text-center w-full sm:w-[85%] md:w-[60%] h-full md:pb-[80px] lg:pb-[100px] 2xl:pb-[120px] 3xl:pb-[155px] mx-auto flex flex-col items-center justify-end relative z-5"
+              className="text-center w-full sm:w-[85%] md:w-[60%] h-full md:pb-[80px] lg:pb-[60px] 2xl:pb-[120px] 3xl:pb-[130px] mx-auto flex flex-col items-center justify-end relative z-5"
             >
               <Heading
                 as="h1"
                 size={"heading1"}
-                className="text-white mb-[10px] lg:mb-[15px] 2xl:mb-[20px] 3xl:mb-[25px]"
+                className="text-white mb-[10px] 2xl:mb-[20px] 3xl:mb-[25px]"
               >
                 {data?.offer_list?.[0]?.title}
               </Heading>
               <Text
                 as="div"
-                className="text-[11px] sm:text-[12px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white mb-[15px] lg:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px]"
+                className="text-[11px] sm:text-[11px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white mb-[15px] lg:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px] lg:max-w-[80%]"
               >
                 {data?.offer_list?.[0]?.description}
               </Text>
               {data?.offer_list?.[0]?.button?.url && (
                 <StyledLink
                   href={data?.offer_list?.[0]?.button?.url}
-                  className=""
+                  className="lg:!py-[12px] 3xl:!py-[15px]"
                 >
                   Know More
                 </StyledLink>

@@ -7,7 +7,7 @@ export default function Page() {
       <InnerHero
         title="Testimonials"
         mobileImage={"/images/banner-testimonial-1.jpg"}
-        desktopImage={"/images/banner-testimonial-1.jpg"}
+        desktopImage={"/images/testimonial_banner.jpg"}
         alt="news"
       />
       <ListSection />

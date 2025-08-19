@@ -244,7 +244,7 @@ export default function Header() {
           className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] overflow-hidden fixed top-0 inset-x-0 z-5 bg-linear-to-b from-black to-black/0 ${
             isScrolled &&
             visible &&
-            "bg-white/10 backdrop-blur-[50px] shadow-md bg-linear-to-b from-black/0 to-black/0"
+            "bg-white/10 backdrop-blur-[5px] shadow-md bg-linear-to-b from-black/0 to-black/0"
           }`}
         >
           <div className="container">

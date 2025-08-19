@@ -364,21 +364,21 @@ export default function ProductDetailSection({ data = product_detail_data }) {
                   </div>
                 </div>
                 <div className="w-[25%]">
-                  <div className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-medium font-base2 text-white w-fit h-auto p-[5px_10px] ml-auto rounded-[10px] relative z-0">
+                  <div className="text-[11px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-medium font-base2 text-white w-fit h-auto p-[5px_10px] ml-auto rounded-[10px] relative z-0">
                     {data?.car_detail?.registration_Type}
-                    <span className="text-[10px] sm:text-[11px] 2xl:text-[12px] 3xl:text-[14px] leading-[1.5] font-medium font-base2 text-[#727272] block">
+                    <span className="text-[10px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1.5] font-medium font-base2 text-[#727272] block">
                       Registration
                     </span>
                     <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
                   </div>
                 </div>
               </div>
-              <div className="[&>*]:w-1/2 [&>*]:3xs:w-1/3 [&>*]:sm:w-1/5 [&>*]:p-[5px] [&>*]:sm:p-[7px] [&>*]:3xl:p-[10px] mx-[-5px] sm:mx-[-7px] 3xl:mx-[-10px] flex flex-wrap">
+              <div className="[&>*]:w-1/2 [&>*]:3xs:w-1/3 [&>*]:sm:w-1/5 [&>*]:p-[5px] [&>*]:3xl:p-[10px] mx-[-5px] 3xl:mx-[-10px] flex flex-wrap">
                 {data?.car_detail?.car_specs?.map((item, index) => (
                   <div key={`car_spec-${index}`} className="h-auto block">
                     <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
-                      <div className="w-[30px] sm:w-[32px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                      <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
                           src={item?.icon?.path}
                           alt={item?.icon?.alt}
@@ -390,7 +390,7 @@ export default function ProductDetailSection({ data = product_detail_data }) {
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
                         {item?.value}
                       </div>
-                      <div className="text-[11px] sm:text-[12px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                      <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
                         {item?.name}
                       </div>
                       <ShineBorder
