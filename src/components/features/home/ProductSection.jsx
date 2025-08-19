@@ -127,7 +127,7 @@ export default function ProductSection({ data = product_data }) {
   return (
     <section className="w-full h-auto py-[40px_50px] sm:py-[45px_70px] lg:py-[55px_95px] 2xl:py-[65px_110px] 3xl:py-[85px_140px] border-b-1 border-[#404040] block">
       <div className="container">
-        <div className="mb-[25px] lg:mb-[10px] 2xl:mb-[25px] 3xl:mb-[30px] flex max-sm:flex-wrap items-center">
+        <div className="mb-[25px] lg:mb-[10px] 3xl:mb-[30px] flex max-sm:flex-wrap items-center">
           <div className="w-full md:w-1/2">
             <Heading
               as="h1"

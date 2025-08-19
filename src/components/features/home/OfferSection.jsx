@@ -279,7 +279,7 @@ export default function OfferSection({ data = offer_data }) {
             </div>
             <div
               ref={centerContentRef}
-              className="text-center w-full sm:w-[85%] md:w-[60%] h-full md:pb-[80px] lg:pb-[60px] 2xl:pb-[120px] 3xl:pb-[130px] mx-auto flex flex-col items-center justify-end relative z-5"
+              className="text-center w-full sm:w-[85%] md:w-[60%] h-full md:pb-[80px] lg:pb-[60px] 2xl:pb-[80px] 3xl:pb-[130px] mx-auto flex flex-col items-center justify-end relative z-5"
             >
               <Heading
                 as="h1"
