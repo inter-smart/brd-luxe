@@ -73,7 +73,7 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
     >
       <motion.div
         style={{ opacity: titleFade }}
-        className="text-[32px] sm:text-[48px] md:text-[58px] lg:text-[64px] xl:text-[74px] 2xl:text-[88px] 3xl:text-[110px] leading-[1.5] font-light font-base1 text-white w-full h-full bg-black absolute inset-0 z-2 flex items-center justify-center"
+        className="text-[32px] sm:text-[48px] md:text-[58px] lg:text-[64px] xl:text-[74px] 2xl:text-[88px] 3xl:text-[110px] leading-[1.5] font-light font-base1 text-white w-full h-full bg-black absolute inset-0 z-2 pointer-events-none flex items-center justify-center"
       >
         {data?.hide_title}
       </motion.div>

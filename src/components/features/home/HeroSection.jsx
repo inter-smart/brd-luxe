@@ -11,7 +11,7 @@ import "swiper/css";
 
 const hero_slides = [
   {
-    title: "Your Next Luxury Ride Awaits",
+    title: "YOUR NEXT LUXURY RIDE AWAITS",
     description:
       "Discover top-tier used cars that match your lifestyle and legacy.",
     media: {
@@ -30,7 +30,7 @@ const hero_slides = [
     ],
   },
   {
-    title: "Your Next Luxury Ride Awaits - 02",
+    title: "YOUR NEXT LUXURY RIDE AWAITS - 02",
     description:
       "Discover top-tier used cars that match your lifestyle and legacy.",
     media: {
@@ -49,7 +49,7 @@ const hero_slides = [
     ],
   },
   {
-    title: "Your Next Luxury Ride Awaits - 03",
+    title: "YOUR NEXT LUXURY RIDE AWAITS - 03",
     description:
       "Discover top-tier used cars that match your lifestyle and legacy.",
     media: {
@@ -68,7 +68,7 @@ const hero_slides = [
     ],
   },
   {
-    title: "Your Next Luxury Ride Awaits - 04",
+    title: "YOUR NEXT LUXURY RIDE AWAITS - 04",
     description:
       "Discover top-tier used cars that match your lifestyle and legacy.",
     media: {
@@ -200,7 +200,7 @@ export default function HeroSection({ data = hero_slides }) {
                 </div>
                 <div className="container">
                   <div
-                    className={`w-full h-auto pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] sm:max-w-[380px] lg:max-w-[450px] 2xl:max-w-[550px] 3xl:max-w-[700px] transition-all ease-in-out duration-500 ${
+                    className={`w-full h-auto pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] sm:max-w-[420px] lg:max-w-[550px] 2xl:max-w-[670px] 3xl:max-w-[840px] transition-all ease-in-out duration-500 ${
                       isActive ? "opacity-100 translate-0" : "opacity-0"
                     }`}
                   >

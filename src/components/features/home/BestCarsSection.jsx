@@ -84,7 +84,7 @@ export default function BestCarsSection({ data = best_cars_data }) {
             </Heading>
           </div>
           <div className="w-full sm:w-[40%]">
-            <Text as="div" size={"text1"} className="text-white">
+            <Text as="div" className="text-[12px] sm:text-[12px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-normal font-light tracking-tight font-base2 text-white">
               {data?.heading?.description}
             </Text>
           </div>

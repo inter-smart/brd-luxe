@@ -300,11 +300,11 @@ export default function Header() {
                 />
               </Link>
               <div className="hidden lg:flex items-center">
-                <a className="font-base3 mr-[10px]" href="">
+                <a className="group font-base3 mr-[10px]" href="">
                   <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right block">
                     Quick Contact
                   </span>
-                  <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white">
+                  <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white transition duration-300 group-hover:text-[#F29A0D]">
                     +91 415‑555‑0132
                   </span>
                 </a>

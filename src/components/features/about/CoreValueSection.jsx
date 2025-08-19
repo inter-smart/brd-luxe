@@ -41,7 +41,7 @@ const core_value_data = {
         path: "/images/core_value_5.svg",
         alt: "Core_Value_1",
       },
-      title: "Sell, Buy and Exchange Luxury cars at the best price.",
+      title: "Finance up to 90% and insurance facility",
     },
     {
       media: {

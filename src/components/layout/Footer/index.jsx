@@ -153,7 +153,9 @@ export default function Footer() {
           <div className="text-[10px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.2] font-normal font-base2 text-white flex items-center">
             <span className="pr-2">Designed By:</span>
             <a
-              href=""
+              href="https://www.intersmartsolution.com/"
+              target="_blank"
+              aria-label="Intersmart Solution"
               className="w-[70px] 3xl:w-[120px] h-auto aspect-[80/15] flex items-center justify-center"
             >
               <Image
