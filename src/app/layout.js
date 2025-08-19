@@ -55,7 +55,7 @@ const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant",
 });
 
-// Load Raleway Font
+// Load Raleway Font   
 const raleway = Raleway({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
