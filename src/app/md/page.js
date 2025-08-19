@@ -1,16 +1,31 @@
 import InnerHero from "@/components/common/InnerHero";
 import MdMessageSection from "@/components/features/md/MdMessageSection";
 
-export default function Page() {
+export default async function Page() {
+  // Fetch privacy policy data from WP API
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/md-message`,
+    { next: { revalidate: 60 } } // ISR optional
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch Privacy Policy data");
+  }
+
+  const data = await res.json();
+    const banner = data?.md_message_acf?.banner;
+
   return (
     <>
+    {banner?.enable__disable_banner === true ? (
       <InnerHero
-        title="MD’s message"
-        mobileImage={"/images/md_message_banner.webp"}
-        desktopImage={"/images/md_message_banner.webp"}
-        alt="md_message_banner Hero"
+        title={banner?.title ?? ""}
+        mobileImage={banner?.mobile_image?.url ?? ""}
+        desktopImage={banner?.desktop_image?.url ?? ""}
+        alt={banner?.desktop_image?.alt ?? "banner"}
       />
-      <MdMessageSection />
+    ) : null}
+      <MdMessageSection data={data}/>
     </>
   );
 }
