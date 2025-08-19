@@ -20,7 +20,7 @@ const WebLoader = ({ onLoadingComplete }) => {
       <img
         src="/images/logo.svg"
         alt="Luxury Cars Loading"
-        className="w-[120px] lg:w-[140px] 3xl:w-[170px] h-auto aspect-square object-contain absolute top-0 left-0 right-0 bottom-0 m-auto opacity-0 flex items-center justify-center animate-logo-premium"
+        className="w-[120px] lg:w-[140px] 3xl:w-[170px] h-auto aspect-square object-contain absolute top-0 left-0 right-0 bottom-0 m-auto opacity-1 flex items-center justify-center animate-logo-premium"
       />
       <style jsx>{`
         @keyframes logoPremium {
@@ -30,7 +30,7 @@ const WebLoader = ({ onLoadingComplete }) => {
             filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
           }
           50% {
-            opacity: 0.85;
+            opacity: 0.50;
             transform: scale(1);
             filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7));
           }
@@ -41,7 +41,7 @@ const WebLoader = ({ onLoadingComplete }) => {
           }
         }
         .animate-logo-premium {
-          animation: logoPremium 2.2s cubic-bezier(0.36, 0, 0.66, 1) forwards;
+          animation: logoPremium 1s cubic-bezier(0.36, 0, 0.66, 1) forwards;
         }
       `}</style>
     </div>
@@ -68,3 +68,4 @@ const LoadingWrapper = ({ children }) => {
 };
 
 export default LoadingWrapper;
+

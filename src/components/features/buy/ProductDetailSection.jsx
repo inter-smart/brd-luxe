@@ -196,7 +196,7 @@ export default function ProductDetailSection({ data = product_detail_data }) {
           <BreadCrumb
             items={[
               { label: "Home", href: "/" },
-              { label: "Buy A Car", href: "/buy-car" },
+              { label: "Buy A Car", href: "/buy" },
               {
                 label: "RANGE ROVER VELAR",
                 href: "/buy-car/RANGE ROVER VELAR",

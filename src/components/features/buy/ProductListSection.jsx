@@ -28,7 +28,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -41,7 +41,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: false,
     },
     {
@@ -54,7 +54,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -67,7 +67,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -80,7 +80,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -93,7 +93,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -106,7 +106,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: true,
     },
     {
@@ -119,7 +119,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -132,7 +132,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -145,7 +145,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: false,
     },
     {
@@ -158,7 +158,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -171,7 +171,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -184,7 +184,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -197,7 +197,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -210,7 +210,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: true,
     },
     {
@@ -223,7 +223,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -236,7 +236,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -249,7 +249,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: false,
     },
     {
@@ -262,7 +262,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -275,7 +275,7 @@ const product_data = {
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
   ],
