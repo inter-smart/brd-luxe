@@ -95,7 +95,7 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
           <div className="w-full sm:w-1/2 sm:pl-[10%]">
             <Text
               as="div"
-              className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white"
+              className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white"
             >
               {data?.description}
             </Text>

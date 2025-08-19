@@ -13,7 +13,7 @@ function BreadcrumbList({ className, ...props }) {
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5",
+        "text-muted-foreground flex flex-wrap items-center gap-[4px] sm:gap-[6px] 3xl:gap-[8px] text-sm break-words",
         className
       )}
       {...props}
@@ -25,7 +25,7 @@ function BreadcrumbItem({ className, ...props }) {
   return (
     <li
       data-slot="breadcrumb-item"
-      className={cn("inline-flex items-center gap-1.5", className)}
+      className={cn("inline-flex items-center gap-[4px] sm:gap-[6px] 3xl:gap-[8px]", className)}
       {...props}
     />
   );
@@ -66,7 +66,7 @@ function BreadcrumbSeparator({ children, className, ...props }) {
       {...props}
     >
       {children ?? (
-        <div className="w-[8px] sm:w-[10px] h-auto aspect-square flex items-center justify-center">
+        <div className="w-full h-full">
           <svg
             width="5"
             height="10"

@@ -42,7 +42,7 @@ export default function ContactInfoSection({ data = contactInfoSection }) {
                 <h3 className="text-[16px] sm:text-[18px] xl:text-[22px] 2xl:text-[26px] 3xl:text-[34px] leading-none font-light font-base1 text-white mb-[10px] xl:mb-[15px]">
                   Address
                 </h3>
-                <div className="text-[12px] sm:text-[14px] xl:text-[18px] 2xl:text-[20px] 3xl:text-[24px] leading-normal font-light font-base1 text-white">
+                <div className="text-[11px] sm:text-[13px] 2xl:text-[20px] 3xl:text-[24px] leading-normal font-light font-base2 text-white">
                   {data?.address}
                 </div>
               </div>

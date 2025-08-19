@@ -18,7 +18,7 @@ export default function Page() {
       <BestCarsSection />
       <ProductSection />
       <DealerSection />
-      <OfferSection /> 
+      <OfferSection />
       <BrandSection />
       <BrdAdvantageSection />
       <SellCarSection />
@@ -29,4 +29,3 @@ export default function Page() {
     </>
   );
 }
-

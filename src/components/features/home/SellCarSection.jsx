@@ -357,7 +357,7 @@ export default function SellCarSection({ data = sell_car_data }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <section className="w-full h-auto block py-[40px_50px] sm:py-[50px_70px] lg:py-[60px_90px] 2xl:py-[80px_150px] 3xl:py-[95px_185px] border-y border-[#404040] overflow-hidden relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:-z-1">
+    <section className="w-full h-auto block py-[40px_50px] sm:py-[50px_70px] lg:py-[60px_90px] 2xl:py-[80px_150px] 3xl:py-[95px_185px] border-y border-[#404040]/50 overflow-hidden relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:-z-1">
       <div className="w-full h-full block absolute inset-0 -z-3">
         <Image
           src={data?.media?.path}
@@ -382,7 +382,7 @@ export default function SellCarSection({ data = sell_car_data }) {
           <div className="w-full sm:w-1/2 sm:pl-[10%]">
             <Text
               as="div"
-              className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white mb-[30px]"
+              className="text-[12px] sm:text-[10px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white mb-[30px]"
             >
               {data?.description}
             </Text>

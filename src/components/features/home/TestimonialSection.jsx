@@ -209,7 +209,7 @@ export default function ExperienceSection({ data = testimonial_data }) {
             </Heading>
             <Text
               as="div"
-              className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white max-w-[85%] mb-[20px] lg:mb-[30px]"
+              className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white max-w-[85%] mb-[20px] lg:mb-[30px]"
             >
               {data?.description}
             </Text>
@@ -286,7 +286,7 @@ export default function ExperienceSection({ data = testimonial_data }) {
                             <source src={item?.media?.path} type="video/mp4" />
                           </video>
                           <div className="w-full h-auto p-[8px] sm:p-[10px] 2xl:p-[15px] 3xl:p-[20px] absolute z-10 bottom-0 left-0 right-0 flex items-center">
-                            <div className="w-[35px] 2xl:w-[40px] 3xl:w-[50px] h-auto aspect-square rounded-full flex items-center justify-center relative z-0">
+                            <div className="w-[35px] 2xl:w-[40px] 3xl:w-[50px] h-auto aspect-square bg-white/10 rounded-full backdrop-blur-[15px] flex items-center justify-center relative z-0">
                               <Image
                                 src="/images/play_button.svg"
                                 alt="play"
@@ -296,7 +296,8 @@ export default function ExperienceSection({ data = testimonial_data }) {
                               />
                               <ShineBorder
                                 borderWidth={2}
-                                shineColor={["#76767b"]}
+                                duration={6}
+                                shineColor={["#84838a"]}
                               />
                             </div>
                             <div className="w-[calc(100%-30px)] 2xl:w-[calc(100%-40px)] 3xl:w-[calc(100%-50px)] pl-[10px] 3xl:pl-[15px]">

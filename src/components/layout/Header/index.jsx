@@ -69,6 +69,33 @@ const mega_menu_data = {
       url: "mailto:info@brdluxe.com",
     },
   ],
+  socialMedia: [
+    {
+      url: "/",
+      icon: "/images/footer_faceook.svg",
+      name: "facebook",
+    },
+    {
+      url: "/",
+      icon: "/images/footer_youtube.svg",
+      name: "youtube",
+    },
+    {
+      url: "/",
+      icon: "/images/footer_instagram.svg",
+      name: "instagram",
+    },
+    {
+      url: "/",
+      icon: "/images/footer_linkedin.svg",
+      name: "linkedin",
+    },
+    {
+      url: "/",
+      icon: "/images/footer_twitter.svg",
+      name: "twitter",
+    },
+  ],
 };
 
 export default function Header() {
@@ -183,35 +210,37 @@ export default function Header() {
       <div className="w-[29px] h-[16px] relative cursor-pointer flex items-center justify-center">
         <AnimatePresence mode="wait">
           {isOpen ? (
-            <motion.svg
-              key="close-icon"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.2 }}
-              width="29"
-              height="16"
-              viewBox="0 0 29 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="2.77094"
-                y1="1.92035"
-                x2="14.0847"
-                y2="13.2341"
-                stroke="white"
-                strokeWidth="1.2"
-              />
-              <line
-                x1="14.4243"
-                y1="1.42426"
-                x2="2.42426"
-                y2="13.4243"
-                stroke="white"
-                strokeWidth="1.2"
-              />
-            </motion.svg>
+            <div className="lg:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center">
+              <motion.svg
+                key="close-icon"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.2 }}
+                width="25"
+                height="16"
+                viewBox="0 0 29 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="2.77094"
+                  y1="1.92035"
+                  x2="14.0847"
+                  y2="13.2341"
+                  stroke="white"
+                  strokeWidth="1.2"
+                />
+                <line
+                  x1="14.4243"
+                  y1="1.42426"
+                  x2="2.42426"
+                  y2="13.4243"
+                  stroke="white"
+                  strokeWidth="1.2"
+                />
+              </motion.svg>
+            </div>
           ) : (
             <motion.div
               key="open-icon"
@@ -219,7 +248,7 @@ export default function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className={`w-[30px] h-[15px] flex flex-col justify-between`}
+              className={`w-[20px] 2xl:w-[25px] 3xl:w-[30px] h-[12px] 2xl:h-[15px] flex flex-col justify-between`}
             >
               <span className="w-[65%] h-[1px] bg-white transition-all duration-300"></span>
               <span className="w-[40%] h-[1px] bg-white transition-all duration-300"></span>
@@ -286,7 +315,7 @@ export default function Header() {
                   >
                     <ShinyButton
                       href={item?.url}
-                      className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[1px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${
+                      className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[0.5px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${
                         pathname === item?.url
                           ? "bg-white text-black"
                           : "bg-transparent text-white"
@@ -517,10 +546,28 @@ export default function Header() {
                         {mega_menu_data?.menu_title}
                       </div>
                       <div>
-                        <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1] font-light font-base1 text-white mb-[15px] 3xl:mb-[25px]">
+                        <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1] font-light font-base1 text-white mb-[15px] lg:mb-[25px]">
                           Follow Us
                         </div>
-                        <SocialMediaComp />
+                        <ul className="flex space-x-[15px] sm:space-x-[20px] lg:justify-between">
+                          {mega_menu_data?.socialMedia?.map((item, index) => (
+                            <li key={"social media" + index}>
+                              <a
+                                href={item?.url}
+                                target="_blank"
+                                className="w-[15px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
+                              >
+                                <Image
+                                  src={item?.icon}
+                                  alt={item?.name}
+                                  width={20}
+                                  height={20}
+                                  className="w-full h-full object-contain"
+                                />
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -542,7 +589,7 @@ export default function Header() {
                           <div className="text-[18px] sm:text-[20px] lg:text-[24px] 2xl:text-[28px] 3xl:text-[35px] leading-[1] font-light font-base1 text-white max-lg:mb-[10px]">
                             Address
                           </div>
-                          <div className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.3] font-light font-base3 text-white lg:pl-[25px] 2xl:pl-[30px] 3xl:pl-[40px]">
+                          <div className="text-[11px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.3] font-light font-base3 text-white lg:pl-[25px] 2xl:pl-[30px] 3xl:pl-[40px]">
                             {mega_menu_data?.address}
                           </div>
                         </div>
@@ -552,10 +599,10 @@ export default function Header() {
                               <a
                                 href={item?.url}
                                 target="_blank"
-                                className="group text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] transition-all duration-300 hover:text-[#F29A0D]"
+                                className="group text-[12px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] transition-all duration-300 hover:text-[#F29A0D]"
                               >
                                 {item?.title}
-                                <span className="text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block transition-all duration-300 group-hover:text-[#F29A0D]">
+                                <span className="text-[13px] lg:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block transition-all duration-300 group-hover:text-[#F29A0D]">
                                   {item?.label}
                                 </span>
                               </a>

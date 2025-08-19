@@ -11,7 +11,7 @@ import { Suspense, useCallback, useState } from "react";
 
 const relatedData = {
   media: null,
-  title: "News & Insights",
+  title: "Recent News & Insights",
   description: null,
   news_list: [
     {
@@ -232,7 +232,7 @@ export default function RelatedSection({ data = relatedData }) {
           <button
             onClick={slidePrev}
             disabled={isBeginning}
-            className={`w-8 sm:w-10 aspect-square text-white rounded-md transition-all duration-300 hover:scale-105 absolute z-2 top-[32%] sm:top-1/2 right-[90%] sm:right-[101%] -translate-y-1/2 ${
+            className={`w-7 sm:w-[20px] lg:w-[25px] 2xl:w-[30px] 3xl:w-[40px] h-auto aspect-square text-white rounded-md transition-all duration-300 hover:scale-105 absolute z-2 top-[32%] sm:top-1/2 right-[90%] sm:right-[101%] -translate-y-1/2 ${
               isBeginning
                 ? "bg-black/10 text-white/30 cursor-not-allowed"
                 : "bg-black/10 hover:bg-white/20"
@@ -259,7 +259,7 @@ export default function RelatedSection({ data = relatedData }) {
           <button
             onClick={slideNext}
             disabled={isEnd}
-            className={`w-8 sm:w-10 aspect-square text-white rounded-md transition-all duration-300 hover:scale-105 absolute z-2 top-[32%] sm:top-1/2 left-[90%] sm:left-[101%] -translate-y-1/2 ${
+            className={`w-7 sm:w-[20px] lg:w-[25px] 2xl:w-[30px] 3xl:w-[40px] h-auto aspect-square text-white rounded-md transition-all duration-300 hover:scale-105 absolute z-2 top-[32%] sm:top-1/2 left-[90%] sm:left-[101%] -translate-y-1/2 ${
               isEnd
                 ? "bg-black/10 text-white/30 cursor-not-allowed"
                 : "bg-black/10 hover:bg-white/20"

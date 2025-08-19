@@ -71,7 +71,7 @@ const best_cars_data = {
 export default function BestCarsSection({ data = best_cars_data }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   return (
-    <section className="w-full h-auto block py-[40px_30px] lg:py-[45px_35px] 2xl:py-[50px_40px] 3xl:py-[70px_50px] border-y-1 border-[#404040]">
+    <section className="w-full h-auto block py-[40px_30px] lg:py-[45px_35px] 2xl:py-[50px_40px] 3xl:py-[70px_50px] border-y-1 border-[#404040]/50">
       <div className="container">
         <div className="mb-[20px] sm:mb-[30px] lg:mb-[35px] 2xl:mb-[40px] 3xl:mb-[50px] max-sm:text-center flex flex-wrap justify-between">
           <div className="w-full sm:w-1/2">

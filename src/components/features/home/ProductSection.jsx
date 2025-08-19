@@ -19,7 +19,7 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
@@ -32,7 +32,7 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
@@ -45,7 +45,7 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
@@ -58,7 +58,7 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
@@ -71,7 +71,7 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
@@ -84,7 +84,7 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
@@ -97,7 +97,7 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
@@ -110,7 +110,7 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
@@ -125,7 +125,7 @@ export default function ProductSection({ data = product_data }) {
     query: "(min-width: 640px)",
   });
   return (
-    <section className="w-full h-auto py-[40px_50px] sm:py-[45px_70px] lg:py-[55px_95px] 2xl:py-[65px_110px] 3xl:py-[85px_140px] border-b-1 border-[#404040] block">
+    <section className="w-full h-auto py-[40px_50px] sm:py-[45px_70px] lg:py-[55px_95px] 2xl:py-[65px_110px] 3xl:py-[85px_140px] border-b-1 border-[#404040]/40 block">
       <div className="container">
         <div className="mb-[25px] lg:mb-[10px] 3xl:mb-[30px] flex max-sm:flex-wrap items-center">
           <div className="w-full md:w-1/2">

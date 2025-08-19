@@ -225,7 +225,7 @@ export default function OfferSection({ data = offer_data }) {
     <section className="w-full h-full !overflow-hidden">
       <div
         ref={sectionRef}
-        className="w-full h-full md:h-screen py-[40px] lg:py-[50px] 2xl:py-[65px] 3xl:py-[80px] border-y border-[#404040] will-change-transform overflow-hidden relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:z-0"
+        className="w-full h-full md:h-screen py-[40px] lg:py-[50px] 2xl:py-[65px] 3xl:py-[80px] border-y border-[#404040]/50 will-change-transform overflow-hidden relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:z-0"
       >
         <div
           ref={overlayRef}

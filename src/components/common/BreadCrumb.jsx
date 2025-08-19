@@ -10,7 +10,7 @@ import {
 
 export default function BreadCrumb({ items = [] }) {
   const breadcrumbStyle =
-    "text-[10px] sm:text-[12px] 3xl:text-[14px] leading-[1] font-light font-base2 text-white uppercase transition duration-200 group-hover:!text-[#F29A0D]";
+    "text-[10px] sm:text-[11px] 3xl:text-[14px] leading-[1] font-light font-base2 text-white uppercase transition duration-200 group-hover:!text-[#F29A0D]";
 
   return (
     <Breadcrumb>
@@ -29,7 +29,7 @@ export default function BreadCrumb({ items = [] }) {
                 </BreadcrumbLink>
                 <BreadcrumbSeparator
                   aria-hidden="true"
-                  className="mx-[3px] lg:mx-[5px] 3xl:mx-[10px] group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
+                  className="w-[7.5px] sm:w-[8px] 3xl:w-[10px] h-auto aspect-square flex items-center justify-center group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
                 />
               </>
             ) : (

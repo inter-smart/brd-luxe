@@ -67,6 +67,25 @@ const hero_slides = [
       },
     ],
   },
+  {
+    title: "Your Next Luxury Ride Awaits - 04",
+    description:
+      "Discover top-tier used cars that match your lifestyle and legacy.",
+    media: {
+      type: "video",
+      path: "/videos/home_banner.mp4",
+    },
+    hero_buttons: [
+      {
+        label: "Buy Now",
+        url: "/",
+      },
+      {
+        label: "Sell Your Car",
+        url: "/sell",
+      },
+    ],
+  },
 ];
 
 export default function HeroSection({ data = hero_slides }) {
@@ -208,7 +227,7 @@ export default function HeroSection({ data = hero_slides }) {
                           key={`hero-button-${index}`}
                           className="w-fit h-auto"
                         >
-                          <StyledLink href={item?.url}>
+                          <StyledLink href={item?.url} className="!tracking-[0]">
                             {item?.label}
                           </StyledLink>
                         </div>
@@ -311,13 +330,13 @@ function CustomPaginationDots({
 
   return (
     <div className="container w-fit h-auto absolute right-0 bottom-0 z-10 pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] flex items-end justify-end">
-      <div className="flex items-center space-x-[12px]">
+      <div className="flex items-center sm:space-x-[8px] 2xl:space-x-[10px] 3xl:space-x-[12px]">
         {slides.map((_, index) => {
           const isActive = index === activeIndex;
           return isActive ? (
-            <div key={index} className="relative">
+            <div key={index} className="sm:w-[25px] lg:w-[28px] 2xl:w-[40px] h-auto aspect-square flex items-center justify-center relative">
               <svg
-                className="w-[40px] 2xl:w-[40px] h-auto aspect-square transform -rotate-90"
+                className="sm:w-[25px] lg:w-[28px] 2xl:w-[40px] h-auto aspect-square transform -rotate-90"
                 viewBox="0 0 64 64"
               >
                 <circle
@@ -350,7 +369,7 @@ function CustomPaginationDots({
               </svg>
               <button
                 onClick={onTogglePlayPause}
-                className="w-full h-full absolute inset-0 cursor-pointer bg-transparent flex items-center justify-center hover:bg-white/10 rounded-full transition-all duration-200"
+                className="w-full h-full absolute inset-0 cursor-pointer bg-transparent flex items-center justify-center hover:bg-white/10 rounded-full transition-all duration-200 sm:scale-[.55] 2xl:scale-[.90]"
                 aria-label={isPlaying ? "Pause" : "Play"}
               >
                 {isPlaying ? (
@@ -380,7 +399,7 @@ function CustomPaginationDots({
             <button
               key={index}
               onClick={() => onSlideClick(index)}
-              className="w-[8px] h-auto aspect-square bg-white rounded-full hover:bg-white/80 transition-all duration-200 hover:scale-110 cursor-pointer"
+              className="sm:w-[5px] 2xl:w-[7px] 3xl:w-[8px] h-auto aspect-square bg-white rounded-full hover:bg-white/80 transition-all duration-200 hover:scale-110 cursor-pointer"
               aria-label={`Go to slide ${index + 1}`}
             />
           );

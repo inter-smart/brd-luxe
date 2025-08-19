@@ -1,11 +1,11 @@
 import { Heading } from "../../utils/Heading";
 export default function VisitUsSection() {
     return (
-        <section className="relative w-full h-ful min-h-[550px] xl:min-h-[650px] 2xl:min-h-[750px] 3xl:min-h-[850px]">
+        <section className="relative w-full h-[380px] sm:h-[520px] md:min-h-screen overflow-hidden">
             <Heading
                 as="h2"
                 size="heading1"
-                className="text-black text-center bg-white min-w-[250px] lg:min-w-[300px] xl:min-w-[390px] 2xl:min-w-[470px] 3xl:min-w-[585px] h-[35px] sm:h-[40px] lg:h-[50px] xl:h-[60px] 2xl:h-[75px] 3xl:h-[90px]
+                className=" text-white text-center bg-black min-w-[250px] lg:min-w-[300px] xl:min-w-[390px] 2xl:min-w-[470px] 3xl:min-w-[585px] h-[35px] sm:h-[40px] lg:h-[50px] xl:h-[60px] 2xl:h-[75px] 3xl:h-[90px]
                      m-auto !w-fit line-clamp-1
                      [clip-path:polygon(0%_0%,100%_0,85%_100%,15%_100%)]"
             >
