@@ -2,9 +2,12 @@
   "name": "brd-luxe",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm rebuild @tailwindcss/oxide lightningcss && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
