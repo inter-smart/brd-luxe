@@ -14,7 +14,7 @@ const enquiryData = {
 };
 
 export default function EnquirySection({
-  data = enquiryData,
+  data,
   socialMedia = false,
 }) {
   return (
@@ -32,8 +32,8 @@ export default function EnquirySection({
                   )}
                 >
                   <Image
-                    src={data?.media?.path}
-                    alt={data?.media?.alt}
+                    src={data?.image?.url}
+                    alt={data?.image?.alt}
                     width={412}
                     height={116}
                     className="w-[168px] md:w-[220px] xl:w-[268px] 2xl:w-[300px] 3xl:w-[376px] h-auto block"

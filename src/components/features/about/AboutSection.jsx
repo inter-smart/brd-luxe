@@ -43,7 +43,7 @@ const about_section_data = {
   },
 };
 
-export default function AboutSection({ data = about_section_data }) {
+export default function AboutSection({ data }) {
   const { ref, inView } = useInView({
     threshold: 0.4,
     triggerOnce: false,
@@ -56,7 +56,7 @@ export default function AboutSection({ data = about_section_data }) {
           <BreadCrumb
             items={[
               { label: "Home", href: "/" },
-              { label: "ABOUT US", href: "/about" },
+              { label: data?.pagetitle || "About", href: "/about" },
             ]}
           />
         </div>
@@ -64,12 +64,12 @@ export default function AboutSection({ data = about_section_data }) {
           <div className="w-full lg:w-1/2 lg:pr-[25px] xl:pr-[50px] 2xl:pr-[60px] 3xl:pr-[80px]">
             <div className="mb-[30px] 2xl:mb-[65px] 3xl:mb-[80px] max-sm:text-center">
               <div className="text-[18px] sm:text-[22px] lg:text-[27px] 2xl:text-[32px] 3xl:text-[40px] leading-[1.5] font-normal font-base1 text-white mb-[10px] sm:mb-[15px] 2xl:mb-[25px]">
-                {data?.heading?.title}
+                {data.title}
               </div>
               <div className="w-[140px] sm:w-[180px] lg:w-[230px] 2xl:w-[270px] 3xl:w-[340px] h-auto aspect-[340/100] max-sm:mx-auto mb-[15px] lg:mb-[20px] 3xl:mb-[30px] overflow-hidden flex items-center justify-center">
                 <Image
-                  src={data?.logo_media?.path}
-                  alt={data?.logo_media?.alt}
+                  src={data?.logo?.url}
+                  alt={data?.logo?.alt}
                   width={340}
                   height={100}
                   className="w-full h-full object-contain"
@@ -80,7 +80,7 @@ export default function AboutSection({ data = about_section_data }) {
                   key={`description-${index}`}
                   className="text-[12px] sm:text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.5] font-light font-base2 text-white 2xl:max-w-[570px] 3xl:max-w-[700px] mb-[10px] sm:mb-[15px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[35px] last:mb-0"
                 >
-                  {item}
+                  {item.content}
                 </p>
               ))}
             </div>
@@ -88,7 +88,7 @@ export default function AboutSection({ data = about_section_data }) {
               className="w-full h-auto mx-[-5px] sm:mx-[-8px] 2xl:mx-[-12px] [&>*]:w-1/2 [&>*]:sm:w-1/4 [&>*]:p-[5px] [&>*]:sm:p-[8px] [&>*]:2xl:p-[12px] flex flex-wrap"
               ref={ref}
             >
-              {data?.counter_list?.map((item, index) => (
+              {data?.counters?.map((item, index) => (
                 <div key={`count-${index}`} className="h-auto">
                   <div className="w-full h-full p-[15px] 3xl:p-[20px] rounded-[10px] overflow-hidden flex flex-col justify-between relative z-0">
                     <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[5%]"></div>
@@ -130,12 +130,12 @@ export default function AboutSection({ data = about_section_data }) {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="text-[44px] sm:text-[82px] lg:text-[100px] 2xl:text-[120px] 3xl:text-[150px] font-normal font-base1 text-[#272727] rotate-180 [writing-mode:vertical-rl] w-fit h-fit bg-linear-to-b from-[#000000] to-[#1A1A1A] lg:absolute -z-1 left-0 lg:top-[-18%]"
               >
-                {data?.title}
+                {data?.animation_title}
               </motion.div>
               <div className="w-[220px] sm:w-[340px] lg:w-[400px] 2xl:w-[485px] 3xl:w-[610px] h-auto aspect-[610/755] ml-auto flex items-center justify-center">
                 <Image
-                  src={data?.media?.path}
-                  alt={data?.media?.alt}
+                  src={data?.image?.url}
+                  alt={data?.image?.alt}
                   width={610}
                   height={755}
                   className="w-full h-full object-contain"

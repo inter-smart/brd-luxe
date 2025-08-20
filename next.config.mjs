@@ -1,14 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "dev18.intersmarthosting.in",
-        pathname: "/**",
-      },
-    ],
-  },
+    images: {
+        domains: ["dev18.intersmarthosting.in"], // 👈 add your WP domain here
+    },
 };
-
+// module.exports = nextConfig;
 export default nextConfig;
+

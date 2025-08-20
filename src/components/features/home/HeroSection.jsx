@@ -11,7 +11,7 @@ import "swiper/css";
 
 const hero_slides = [
   {
-    title: "YOUR NEXT LUXURY RIDE AWAITS",
+    title: "Your Next Luxury Ride Awa fcgfdhits",
     description:
       "Discover top-tier used cars that match your lifestyle and legacy.",
     media: {
@@ -39,6 +39,7 @@ const hero_slides = [
     },
     hero_buttons: [
       {
+        status: true,
         label: "Buy Now",
         url: "/",
       },
@@ -200,7 +201,7 @@ export default function HeroSection({ data = hero_slides }) {
                 </div>
                 <div className="container">
                   <div
-                    className={`w-full h-auto pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] sm:max-w-[420px] lg:max-w-[550px] 2xl:max-w-[670px] 3xl:max-w-[840px] transition-all ease-in-out duration-500 ${
+                    className={`w-full h-auto pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] sm:max-w-[380px] lg:max-w-[450px] 2xl:max-w-[550px] 3xl:max-w-[700px] transition-all ease-in-out duration-500 ${
                       isActive ? "opacity-100 translate-0" : "opacity-0"
                     }`}
                   >
@@ -227,7 +228,10 @@ export default function HeroSection({ data = hero_slides }) {
                           key={`hero-button-${index}`}
                           className="w-fit h-auto"
                         >
-                          <StyledLink href={item?.url} className="!tracking-[0]">
+                          <StyledLink
+                            href={item?.url}
+                            className="!tracking-[0]"
+                          >
                             {item?.label}
                           </StyledLink>
                         </div>
@@ -334,7 +338,10 @@ function CustomPaginationDots({
         {slides.map((_, index) => {
           const isActive = index === activeIndex;
           return isActive ? (
-            <div key={index} className="sm:w-[25px] lg:w-[28px] 2xl:w-[40px] h-auto aspect-square flex items-center justify-center relative">
+            <div
+              key={index}
+              className="sm:w-[25px] lg:w-[28px] 2xl:w-[40px] h-auto aspect-square flex items-center justify-center relative"
+            >
               <svg
                 className="sm:w-[25px] lg:w-[28px] 2xl:w-[40px] h-auto aspect-square transform -rotate-90"
                 viewBox="0 0 64 64"
