@@ -71,7 +71,7 @@ const best_cars_data = {
 export default function BestCarsSection({ data = best_cars_data }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   return (
-    <section className="w-full h-auto block py-[40px_30px] lg:py-[45px_35px] 2xl:py-[50px_40px] 3xl:py-[70px_50px] border-y-1 border-[#404040]">
+    <section className="w-full h-auto block py-[40px_30px] lg:py-[45px_35px] 2xl:py-[50px_40px] 3xl:py-[70px_50px] border-y-1 border-[#404040]/50">
       <div className="container">
         <div className="mb-[20px] sm:mb-[30px] lg:mb-[35px] 2xl:mb-[40px] 3xl:mb-[50px] max-sm:text-center flex flex-wrap justify-between">
           <div className="w-full sm:w-1/2">
@@ -83,8 +83,8 @@ export default function BestCarsSection({ data = best_cars_data }) {
               {data?.heading?.title}
             </Heading>
           </div>
-          <div className="w-full sm:w-1/2">
-            <Text as="div" size={"text1"} className="text-white">
+          <div className="w-full sm:w-[40%]">
+            <Text as="div" className="text-[12px] sm:text-[12px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-normal font-light tracking-tight font-base2 text-white">
               {data?.heading?.description}
             </Text>
           </div>
@@ -227,16 +227,24 @@ function CarMotion({ item, hovered }) {
 
 function SpeedCarAnimation({ isActive }) {
   const lines = Array.from({ length: 5 }, (_, i) => i);
+  const [widths, setWidths] = useState(lines.map(() => 30));
+
+  useEffect(() => {
+    if (isActive) {
+      setWidths(lines.map(() => 20 + Math.random() * 30));
+    }
+  }, [isActive]);
+
   return (
     <>
-      <div className="absolute inset-0  pointer-events-none">
-        {lines.map((line) => (
+      <div className="absolute inset-0 pointer-events-none">
+        {lines.map((line, index) => (
           <motion.div
             key={`line-${line}`}
             className="absolute h-0.5 bg-gradient-to-r from-transparent via-[#D9D9D9] to-transparent opacity-50"
             style={{
               top: `${25 + line * 12}%`,
-              width: `${20 + Math.random() * 30}px`,
+              width: `${widths[index]}px`,
               right: "25%",
             }}
             initial={{ x: "100%" }}
@@ -269,3 +277,48 @@ function SpeedCarAnimation({ isActive }) {
     </>
   );
 }
+
+// function SpeedCarAnimation({ isActive }) {
+//   const lines = Array.from({ length: 5 }, (_, i) => i);
+//   return (
+//     <>
+//       <div className="absolute inset-0  pointer-events-none">
+//         {lines.map((line) => (
+//           <motion.div
+//             key={`line-${line}`}
+//             className="absolute h-0.5 bg-gradient-to-r from-transparent via-[#D9D9D9] to-transparent opacity-50"
+//             style={{
+//               top: `${25 + line * 12}%`,
+//               width: `${20 + Math.random() * 30}px`,
+//               right: "25%",
+//             }}
+//             initial={{ x: "100%" }}
+//             animate={
+//               isActive
+//                 ? {
+//                     x: [100, -150],
+//                     opacity: [0, 0.7, 0],
+//                   }
+//                 : {
+//                     x: 100,
+//                     opacity: 0,
+//                   }
+//             }
+//             transition={{
+//               duration: 0.5,
+//               delay: line * 0.06,
+//               repeat: isActive ? Infinity : 0,
+//               repeatDelay: 0.4,
+//               ease: [0.25, 0.46, 0.45, 0.94],
+//             }}
+//           />
+//         ))}
+//       </div>
+//       <motion.div
+//         initial={{ opacity: 1 }}
+//         animate={{ opacity: isActive ? 1 : 0 }}
+//         transition={{ duration: 0.3 }}
+//       />
+//     </>
+//   );
+// }

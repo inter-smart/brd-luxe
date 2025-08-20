@@ -6,9 +6,10 @@ import { Heading } from "@/components/utils/Heading";
 import BreadCrumb from "@/components/common/BreadCrumb";
 import { useInView } from "react-intersection-observer";
 
+
 const mdMessageData = {
   heading: {
-    title: "Dear Valued Customers and Automotive Enthusiasts,",
+    title: "Dear Valued Customers And Automotive Enthusiasts,",
   },
   description: [
     "Welcome to BRD LUXE, your ultimate destination for luxury pre-owned cars. I am delighted to personally extend my warmest greetings to each and every one of you. At BRD LUXE, we understand that driving is not just a means of transportation; it is an experience that should exude elegance, style, and unparalleled craftsmanship. That's why we have curated a remarkable collection of pre-owned luxury vehicles that are meticulously handpicked and maintained to deliver exceptional quality and performance. We take immense pride in being a trusted destination for discerning individuals who appreciate the finer things in life. Our team of experts tirelessly scours the market to source the most coveted luxury brands, ensuring that we offer you a selection that meets the highest standards of excellence.",

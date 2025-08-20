@@ -22,10 +22,10 @@ export default function ProductCard({ item }) {
             {item?.status ? "In Stock" : "Out of Stock"}
           </div>
         </div>
-        <div className="text-[13px] sm:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.2] font-normal font-base1 text-white uppercase mb-[10px] 2xl:mb-[15px] 3xl:mb-[20px]">
+        <div className="text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.2] font-normal font-base1 text-white uppercase mb-[10px] lg:mb-[15px] 3xl:mb-[20px]">
           {item?.title}
         </div>
-        <div className="[&>*]:text-[11px] [&>*]:sm:text-[12px] [&>*]:2xl:text-[13px] [&>*]:3xl:text-[16px] [&>*]:leading-[1.2] [&>*]:font-normal [&>*]:font-base3 [&>*]:text-white w-full h-auto [&>*]:px-[7px] [&>*]:lg:px-[10px] [&>*]:3xl:px-[15px] [&>*]:first:pl-0 [&>*]:last:border-r-0 [&>*]:first:border-r-1 [&>*]:first:border-[#888888] mb-[15px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px] flex items-center">
+        <div className="[&>*]:text-[11px] [&>*]:sm:text-[12px] [&>*]:2xl:text-[13px] [&>*]:3xl:text-[16px] [&>*]:leading-[1.2] [&>*]:font-light [&>*]:font-base3 [&>*]:text-white w-full h-auto [&>*]:px-[7px] [&>*]:lg:px-[10px] [&>*]:3xl:px-[15px] [&>*]:first:pl-0 [&>*]:last:border-r-0 [&>*]:first:border-r-1 [&>*]:first:border-[#888888] mb-[15px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px] flex items-center">
           <div>{item?.kilo_meter}</div>
           <div>{item?.mileage}</div>
         </div>
@@ -51,7 +51,7 @@ export default function ProductCard({ item }) {
             <div className="ml-[7px] sm:ml-[10px] lg:ml-[15px] 2xl:ml-[18px] 3xl:ml-[25px]">
               <Link
                 href={item?.enquire_link}
-                className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black w-fit h-auto bg-white p-[5px_8px] sm:p-[8px_12px] 2xl:p-[10px_15px] 3xl:p-[12px_20px] rounded-[5px] sm:rounded-[7px] 3xl:rounded-[10px] border-1 border-[#BEBEBE] block hover:bg-black hover:border-white hover:text-white transition-all duration-300 ease-in-out"
+                className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-white w-fit h-auto bg-transparent p-[5px_8px] sm:p-[8px_12px] 2xl:p-[10px_15px] 3xl:p-[12px_20px] rounded-[5px] sm:rounded-[7px] 3xl:rounded-[10px] border-1 border-[#BEBEBE] block hover:bg-white hover:border-white hover:text-black transition-all duration-300 ease-in-out"
               >
                 Enquire Now
               </Link>

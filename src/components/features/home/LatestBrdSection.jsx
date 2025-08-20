@@ -64,7 +64,7 @@ export default function LatestBrdSection({ data = latest_brd_data }) {
                   <div className="text-[15px] sm:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.5] font-medium font-base1 text-white line-clamp-2 mb-[7px] sm:mb-[10px] 2xl:mb-[15px]">
                     {data?.latest_info?.[0]?.title}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] lg:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white line-clamp-2 mb-[10px] sm:mb-[15px] 2xl:mb-[25px]">
+                  <div className="text-[10px] sm:text-[11px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white line-clamp-2 mb-[10px] sm:mb-[15px] 2xl:mb-[25px]">
                     {data?.latest_info?.[0]?.description}
                   </div>
                   <StyledLink href={data?.latest_info?.[0]?.link?.url}>

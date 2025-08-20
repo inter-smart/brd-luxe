@@ -51,7 +51,7 @@ export default function VideoSection({ data = videoData }) {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover absolute -z-1 inset-0 scale-160"
+          className="w-full h-full object-cover absolute -z-1 inset-0"
         >
           <source src={data?.media?.path} type="video/mp4" />
         </video>

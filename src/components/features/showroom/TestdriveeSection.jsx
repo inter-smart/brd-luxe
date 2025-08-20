@@ -21,11 +21,11 @@ export default function TestdriveeSection() {
                                 <div className="flex flex-wrap w-full max-lg:text-center">
                                     <div className="w-1/2 p-2">
                                         <div className="xl:text-[10px] 2xl:text-[12px] 3xl:text-[16px] text-white font-light font-base1 mb-[5px]">call</div>
-                                        <Link href="tel:+91 89430 77777" className="text-[10px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] text-white flex max-lg:justify-center hover:text-[#4D4A4A]">+91 89430 77777</Link>
+                                        <Link href="tel:+91 89430 77777" className="text-[10px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] text-white flex max-lg:justify-center transition duration-300 hover:text-[#F29A0D]">+91 89430 77777</Link>
                                      </div>
                                     <div className="w-1/2 p-2">
                                         <div className="xl:text-[10px] 2xl:text-[12px] 3xl:text-[16px] text-white font-light font-base1 mb-[5px]">Email</div>
-                                        <Link href="mailto:info@brdluxe.com" className="text-[10px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] text-white flex  max-lg:justify-center hover:text-[#4D4A4A]">info@brdluxe.com</Link>
+                                        <Link href="mailto:info@brdluxe.com" className="text-[10px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] text-white flex  max-lg:justify-center transition duration-300 hover:text-[#F29A0D]">info@brdluxe.com</Link>
                                     </div>
                                 </div>
                             </div>

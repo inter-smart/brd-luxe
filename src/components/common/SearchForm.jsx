@@ -29,11 +29,11 @@ export default function SearchForm() {
           placeholder=""
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="text-[12px] 2xl:text-[14px] font-light font-base2 flex-1 bg-black text-white px-2 py-2 outline-none"
+          className="text-[12px] 2xl:text-[14px] font-light font-base2 flex-1 bg-black text-white w-[75%] px-2 py-2 outline-none"
         />
         <button
           type="submit"
-          className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-black bg-white px-6 py-2 transition-all duration-300 flex items-center justify-center hover:bg-[#F29A0D] hover:text-white"
+          className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-black w-[25%] bg-white p-[10px] transition-all duration-300 flex items-center justify-center hover:bg-[#F29A0D] hover:text-white"
         >
           Search
         </button>

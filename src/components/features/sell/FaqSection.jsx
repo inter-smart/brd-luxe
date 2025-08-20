@@ -102,7 +102,7 @@ export default function FaqSection({ data = faqData }) {
             </div>
           </div>
           <div className="w-full md:w-1/2 xl:w-[520px] 2xl:w-[576px] 3xl:w-[720px]">
-            <div className="w-full h-auto xl:min-h-[520px] 2xl:min-h-[576pxpx] block p-[10px_15px] sm:p-[30px] xl:p-[60px_40px] 2xl:p-[80px_60px] bg-gradient-to-tr from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)] border-[1px] border-solid border-white/10 rounded-[10px] backdrop-blur-[20px] shadow-sm transition duration-300">
+            <div className="w-full h-auto xl:min-h-[430px] 2xl:min-h-[480px] 3xl:min-h-[580px] p-[10px_15px] sm:p-[30px] xl:p-[60px_40px] 2xl:p-[80px_60px] bg-gradient-to-tr from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)] border-[1px] border-solid border-white/10 rounded-[10px] backdrop-blur-[20px] shadow-sm transition duration-300 flex flex-col items-center justify-center">
               <div className="w-full mb-[10px] sm:mb-[10px] xl:mb-[20px] 2xl:mb-[30px]">
                 <Image
                   src={data?.spec?.media?.path}

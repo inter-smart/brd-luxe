@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Suspense } from "react";
 
 const howWorkData = {
-  title: "How It Works?",
+  title: "How It Works",
   description:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.",
   howWork_items: [
@@ -76,7 +76,7 @@ export default function HowWorkSection({ data = howWorkData }) {
     <section className="w-full h-auto block py-[40px_20px] sm:py-[80px_40px] xl:py-[120px_60px] 2xl:py-[140px_80px] 3xl:py-[180px_100px]">
       <div className="container">
         <div className="w-full sm:max-w-[468px] xl:max-w-[576px] 2xl:max-w-[768px] mx-auto mb-[20px] sm:mb-[40px] xl:mb-[60px] 2xl:mb-[80px] relative z-0">
-          <div className="text-[clamp(1.5rem,12.5vw+-1rem,14rem)] leading-none font-thin text-center font-base2 whitespace-nowrap uppercase text-transparent bg-clip-text bg-gradient-to-b from-white to-black absolute -z-1 bottom-1/3 left-1/2 -translate-x-1/2 opacity-10">
+          <div className="text-[clamp(1.5rem,12.5vw+-1rem,14rem)] leading-none font-thin text-center font-base2 whitespace-nowrap uppercase text-transparent bg-clip-text bg-gradient-to-b from-white to-black absolute -z-1 bottom-[90%] sm:bottom-1/3 left-1/2 -translate-x-1/2 opacity-30 sm:opacity-20">
             {data?.title}
           </div>
           <Heading
@@ -132,7 +132,7 @@ export default function HowWorkSection({ data = howWorkData }) {
                       {index < 9 ? "0" + (index + 1) : index + 1}
                     </div>
                   </div>
-                  <div className="text-[12px] sm:text-[12px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[20px] leading-tight font-medium font-base2 text-center text-white">
+                  <div className="text-[12px] sm:text-[12px] xl:text-[13px] 2xl:text-[18px] 3xl:text-[20px] leading-tight font-medium font-base2 text-center text-white">
                     {item?.title}
                   </div>
                 </div>

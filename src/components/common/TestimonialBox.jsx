@@ -44,7 +44,7 @@ export default function TestimonialBox({ item }) {
               loop
               muted
               playsInline
-              autoPlay
+              // autoPlay
               preload="none"
               className="w-full h-full object-cover absolute -z-1 inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               onMouseEnter={(e) => e.currentTarget.play()}
@@ -53,7 +53,7 @@ export default function TestimonialBox({ item }) {
               <source src={item?.media?.path} type="video/mp4" />
             </video>
             <div className="w-full h-auto p-[8px] sm:p-[10px] 2xl:p-[15px] 3xl:p-[20px] @[320px]:p-[20px] @[420px]:p-[30px] @[468px]:p-[40px] flex items-center">
-              <div className="w-[20px] sm:w-[30px] xl:w-[40px] 2xl:w-[50px] h-auto aspect-square rounded-full overflow-hidden relative z-0 mr-[10px] 2xl:mr-[15px] bg-white/20 backdrop-blur-xl">
+              <div className="w-[40px] md:w-[50px] xl:w-[65px] 2xl:w-[75px] 3xl:w-[100px] h-auto aspect-square rounded-full overflow-hidden relative z-0 mr-[10px] 2xl:mr-[15px] bg-white/20 backdrop-blur-xl">
                 <Image
                   src="/images/play_button.svg"
                   alt="play"
@@ -61,13 +61,13 @@ export default function TestimonialBox({ item }) {
                   height={50}
                   className="w-full h-full object-cover"
                 />
-                <ShineBorder borderWidth={2} shineColor={["#76767b"]} />
+                <ShineBorder borderWidth={3} duration={7} shineColor={["#76767b"]} />
               </div>
-              <div className="w-[calc(100%-20px)] sm:w-[calc(100%-30px)] xl:w-[calc(100%-40px)] 2xl:w-[calc(100%-50px)]">
-                <div className="text-[12px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-tight font-normal font-base1 text-white xl:mb-[2px] 2xl:mb-[4px]">
+              <div className="w-[calc(100%-40px)] md:w-[calc(100%-50px)] xl:w-[calc(100%-65px)] 2xl:w-[calc(100%-75px)] 3xl:w-[calc(100%-100px)] xl:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px]">
+                <div className="text-[16px] sm:text-[18px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[38px] leading-tight font-normal font-base1 text-white xl:mb-[2px] 2xl:mb-[4px]">
                   {item?.author?.title}
                 </div>
-                <p className="text-[10px] 2xl:text-[12px] leading-tight font-light font-base2 line-clamp-1 text-white">
+                <p className="text-[11px] sm:text-[12px] md:text-[13px] xl:text-[16px] 2xl:text-[18px] 3xl:text-[23px] leading-tight font-light font-base2 line-clamp-1 text-white">
                   {item?.author?.description}
                 </p>
               </div>
@@ -95,14 +95,14 @@ export default function TestimonialBox({ item }) {
               initialValue={parseInt(item?.rating)}
             />
             <div
-              className="max-h-[calc(100%-30px)] py-[5px] sm:py-[10px] xl:py-[10px] 2xl:py-[20px] overflow-y-auto typography [&>*]:mt-0 [--text-color:black] @[276px]:[&_p,&_li]:text-[16px] @[320px]:[&_p,&_li]:text-[20px] @[420px]:[&_p,&_li]:text-[24px] @[468px]:[&_p,&_li]:text-[30px] @[320px]:py-[20px] @[420px]:py-[30px] @[468px]:py-[40px]"
+              className="max-h-[calc(100%-30px)] pr-[20px] py-[5px] sm:py-[10px] xl:py-[10px] 2xl:py-[20px] overflow-y-auto typography [&>*]:mt-0 [--text-color:black] @[276px]:[&_p,&_li]:text-[15px] @[320px]:[&_p,&_li]:text-[20px] @[420px]:[&_p,&_li]:text-[24px] @[468px]:[&_p,&_li]:text-[30px] @[320px]:py-[20px] @[420px]:py-[30px] @[468px]:py-[40px]"
               dangerouslySetInnerHTML={{
                 __html: sanitizedDescription,
               }}
             />
           </div>
           <div className="w-full h-auto p-[8px] sm:p-[10px] 2xl:p-[15px] 3xl:p-[20px] @[320px]:p-[20px] @[420px]:p-[30px] @[468px]:p-[40px] flex items-center">
-            <div className="w-[20px] sm:w-[30px] xl:w-[40px] 2xl:w-[50px] h-auto aspect-square rounded-full overflow-hidden relative z-0 mr-[10px] 2xl:mr-[15px] bg-white/20 backdrop-blur-xl">
+            <div className="w-[40px] md:w-[50px] xl:w-[65px] 2xl:w-[75px] 3xl:w-[100px] h-auto aspect-square rounded-full overflow-hidden relative z-0 mr-[10px] 2xl:mr-[15px] bg-white/20 backdrop-blur-xl">
               <Image
                 src={item?.author?.media?.path}
                 alt={item?.author?.media?.alt}
@@ -110,13 +110,12 @@ export default function TestimonialBox({ item }) {
                 height={50}
                 className="w-full h-full object-cover hover:scale-105 transition-all duration-300"
               />
-              <ShineBorder borderWidth={2} shineColor={["#76767b"]} />
             </div>
-            <div className="w-[calc(100%-20px)] sm:w-[calc(100%-30px)] xl:w-[calc(100%-40px)] 2xl:w-[calc(100%-50px)]">
-              <div className="text-[12px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-tight font-normal font-base1 text-black xl:mb-[2px] 2xl:mb-[4px]">
+            <div className="w-[calc(100%-40px)] md:w-[calc(100%-50px)] xl:w-[calc(100%-65px)] 2xl:w-[calc(100%-75px)] 3xl:w-[calc(100%-100px)] xl:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px]">
+              <div className="text-[16px] sm:text-[18px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[38px] leading-tight font-normal font-base1 text-black xl:mb-[2px] 2xl:mb-[4px]">
                 {item?.author?.title}
               </div>
-              <p className="text-[10px] 2xl:text-[12px] leading-tight font-light font-base2 line-clamp-1 text-black">
+              <p className="text-[11px] sm:text-[12px] md:text-[13px] xl:text-[16px] 2xl:text-[18px] 3xl:text-[23px] leading-tight font-light font-base2 line-clamp-1 text-black">
                 {item?.author?.description}
               </p>
             </div>

@@ -32,7 +32,7 @@ const about_section_data = {
       label: "Google Reviews",
     },
     {
-      value: 98.5,
+      value: "98.50",
       label: "Customer Satisfaction",
     },
   ],
@@ -98,7 +98,11 @@ export default function AboutSection({ data = about_section_data }) {
                         start={0}
                         end={item?.value}
                         duration={1.5}
-                        decimals={item?.value % 1 !== 0 ? 1 : 0}
+                        decimals={
+                          item?.value % 1 !== 0
+                            ? item?.value.toString().split(".")[1]?.length || 0
+                            : 0
+                        }
                         className="text-[18px] sm:text-[20px] lg:text-[25px] 2xl:text-[32px] 3xl:text-[40px] leading-[1] font-normal font-base3 text-white"
                       />
                       <span className="text-[18px] sm:text-[20px] lg:text-[25px] 2xl:text-[32px] 3xl:text-[40px] leading-[1] font-normal font-base3 text-white">

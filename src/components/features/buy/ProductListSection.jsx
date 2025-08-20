@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Heading } from "../../utils/Heading";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 import ProductCard from "../../common/ProductCard";
 import SearchForm from "@/components/common/SearchForm";
 import ProductFilterBox from "@/components/common/ProductFilterBox";
@@ -9,9 +9,14 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import BreadCrumb from "@/components/common/BreadCrumb";
+import useMedia from "use-media";
 
 const product_data = {
   heading: {
@@ -24,11 +29,11 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -37,11 +42,11 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: false,
     },
     {
@@ -50,11 +55,11 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -63,11 +68,11 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -76,11 +81,11 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -89,11 +94,11 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -102,11 +107,11 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: true,
     },
     {
@@ -115,11 +120,11 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -128,11 +133,11 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -141,11 +146,11 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: false,
     },
     {
@@ -154,11 +159,11 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -167,11 +172,11 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -180,11 +185,11 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -193,11 +198,11 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -206,11 +211,11 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: true,
     },
     {
@@ -219,11 +224,11 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -232,11 +237,11 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -245,11 +250,11 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: false,
     },
     {
@@ -258,11 +263,11 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -271,20 +276,18 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
   ],
 };
 
 export default function ProductListSection({ data = product_data }) {
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 1280px)",
-  });
+  const isDesktop = useMedia("(min-width: 1280px)");
   return (
     <section className="w-full h-auto py-[20px_50px] sm:py-[20px_60px] lg:py-[20px_80px] 2xl:py-[20px_100px] 3xl:py-[20px_125px] block">
       <div className="container">
@@ -297,10 +300,10 @@ export default function ProductListSection({ data = product_data }) {
           />
         </div>
         <div>
-          <div className="mb-[25px] lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px] flex max-sm:flex-wrap items-center">
+          <div className="mb-[25px] lg:mb-[15px] 3xl:mb-[30px] flex max-sm:flex-wrap items-center">
             <div className="w-full md:w-[30%]">
               <Heading
-                as="h1"
+                as="h2"
                 size={"heading1"}
                 className="text-white max-sm:mb-[15px] max-md:text-center sm:text-left"
               >
@@ -332,6 +335,9 @@ export default function ProductListSection({ data = product_data }) {
             ))}
           </div>
         </div>
+        <button className="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]">
+          Loading More...
+        </button>
       </div>
     </section>
   );
@@ -348,7 +354,7 @@ function FilterBox() {
             fill="none"
             viewBox="0 0 24 24"
             stroke="white"
-            class=" w-[25px] h-auto aspect-square pr-[10px]"
+            // className=" w-[25px] h-auto aspect-square pr-[10px]"
           >
             <path
               strokeLinecap="round"
@@ -361,6 +367,10 @@ function FilterBox() {
         </div>
       </DrawerTrigger>
       <DrawerContent className={"bg-black !border-0 !outline-0"}>
+        <DrawerHeader className={"sr-only"}>
+          <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+          <DrawerDescription>This action cannot be undone.</DrawerDescription>
+        </DrawerHeader>
         <div className="container">
           <div className="max-w-[500px] mx-auto relative z-0">
             <DrawerClose asChild>

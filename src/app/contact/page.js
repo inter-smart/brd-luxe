@@ -12,7 +12,7 @@ export default function Page() {
         alt="Contact Us Hero"
       />
       <ContactInfoSection />
-      <EnquirySection />
+      <EnquirySection socialMedia />
     </>
   );
 }

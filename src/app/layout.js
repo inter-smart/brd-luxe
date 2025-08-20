@@ -1,10 +1,9 @@
-import "./globals.css";
 import localFont from "next/font/local";
 import Footer from "@/components/layout/Footer";
 import Header from "../components/layout/Header";
 import LenisWrapper from "@/components/utils/LenisWrapper";
 import { Cormorant_Garamond, Raleway } from "next/font/google";
-
+import StickyWidget from "@/components/common/StickyWidget";
 
 // Load CeraPro Font
 const CeraPro = localFont({
@@ -64,7 +63,7 @@ const raleway = Raleway({
 });
 
 export const metadata = {
-  title: "BRD Luxe",
+  title: "BRD LUXE",
   description: "Created in Next.js App Router",
 };
 
@@ -75,6 +74,7 @@ export default function RootLayout({ children }) {
         className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}
       >
         <Header />
+        <StickyWidget />
         <main className="flex-grow">
           <LenisWrapper>{children}</LenisWrapper>
         </main>

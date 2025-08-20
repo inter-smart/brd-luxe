@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
 import { Heading } from "../../utils/Heading";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 import ProductCard from "../../common/ProductCard";
 import ProductFilterBox from "../../common/ProductFilterBox";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import useMedia from "use-media";
 
 const product_data = {
   heading: {
@@ -19,11 +20,11 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
     {
@@ -32,11 +33,11 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: false,
     },
     {
@@ -45,11 +46,11 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -58,11 +59,11 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -71,11 +72,11 @@ const product_data = {
         alt: "RANGE ROVER",
       },
       title: "RANGE ROVER",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 22 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover",
       status: true,
     },
     {
@@ -84,11 +85,11 @@ const product_data = {
         alt: "Mercedes-Benz E-Class",
       },
       title: "Mercedes-Benz E-Class",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 21 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/mercedes-benz-e-class",
       status: true,
     },
     {
@@ -97,11 +98,11 @@ const product_data = {
         alt: "bmw x5",
       },
       title: "bmw x5",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 20 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/bmw-x5",
       status: true,
     },
     {
@@ -110,29 +111,29 @@ const product_data = {
         alt: "RANGE ROVER VELAR",
       },
       title: "RANGE ROVER VELAR",
-      kilo_meter: "km - 20000 KM",
+      kilo_meter: "KM - 20000 KM",
       mileage: "Mileage - 10 KM ",
       price: "₹ 18 000 000",
       link: "/",
-      enquire_link: "/",
+      enquire_link: "/buy/range-rover-velar",
       status: true,
     },
   ],
 };
 
-export default function ProductSection({data = product_data}) {
-
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 640px)",
-  });
+export default function ProductSection({ data = product_data }) {
+  const isDesktop = useMedia("(min-width: 640px)");
+  // const isDesktop = useMediaQuery({
+  //   query: "(min-width: 640px)",
+  // });
   return (
-    <section className="w-full h-auto py-[40px_50px] sm:py-[45px_70px] lg:py-[55px_95px] 2xl:py-[65px_110px] 3xl:py-[85px_140px] border-b-1 border-[#404040] block">
+    <section className="w-full h-auto py-[40px_50px] sm:py-[45px_70px] lg:py-[55px_95px] 2xl:py-[65px_110px] 3xl:py-[85px_140px] border-b-1 border-[#404040]/40 block">
       <div className="container">
-        <div className="mb-[25px] lg:mb-[35px] 2xl:mb-[45px] 3xl:mb-[55px] flex max-sm:flex-wrap items-center">
+        <div className="mb-[25px] lg:mb-[10px] 3xl:mb-[30px] flex max-sm:flex-wrap items-center">
           <div className="w-full md:w-1/2">
             <Heading
               as="h1"
-              size={"heading1"}
+              size="heading1"
               className="text-white max-sm:mb-[15px] max-md:text-center sm:text-left"
             >
               {data?.heading?.title}
@@ -146,7 +147,7 @@ export default function ProductSection({data = product_data}) {
                 </div>
               )}
               <Link
-                href={"/"}
+                href="/"
                 className="text-[12px] lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1.2] font-base1 text-white w-fit p-[5px] sm:p-[10px] text-nowrap transition-all duration-300 ease-in-out hover:text-white/70"
               >
                 View All

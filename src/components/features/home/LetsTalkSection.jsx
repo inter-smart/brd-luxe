@@ -27,7 +27,7 @@ const lets_talk_data = {
 
 export default function LetsTalkSection({data = lets_talk_data}) {
   return (
-    <section className="w-full h-auto border-y border-[#9C9C9C]/40 block relative z-0 before:w-full before:h-[50%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:-z-1 after:w-full after:h-full after:bg-linear-to-b after:from-black/0 after:to-black after:absolute after:bottom-0 after:-z-1">
+    <section className="w-full h-auto border-y border-[#9C9C9C]/20 block relative z-0 before:w-full before:h-[50%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:-z-1 after:w-full after:h-full after:bg-linear-to-b after:from-black/0 after:to-black after:absolute after:bottom-0 after:-z-1">
       <div className="w-full h-[350px] md:h-[420px] lg:h-[510px] 2xl:h-[610px] 3xl:h-[770px] overflow-hidden flex items-center justify-center relative -z-2">
         {data?.media?.type === "video" ? (
           <video
@@ -65,7 +65,7 @@ export default function LetsTalkSection({data = lets_talk_data}) {
             >
               {data?.heading?.title}
             </Heading>
-            <div className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white mb-[20px] sm:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px]">
+            <div className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white mb-[20px] sm:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px]">
               {data?.description}
             </div>
             <div className="w-full h-auto flex flex-wrap justify-center mx-[-5px] sm:mx-[-7px] 2xl:mx-[-10px] [&>*]:p-[0_5px] sm:[&>*]:p-[0_7px] 2xl:[&>*]:p-[0_10px]">
