@@ -1,11 +1,9 @@
-import "./globals.css";
 import localFont from "next/font/local";
 import Footer from "@/components/layout/Footer";
 import Header from "../components/layout/Header";
 import LenisWrapper from "@/components/utils/LenisWrapper";
 import { Cormorant_Garamond, Raleway } from "next/font/google";
 import StickyWidget from "@/components/common/StickyWidget";
-import LoadingWrapper from "@/components/common/WebLoader.";
 
 // Load CeraPro Font
 const CeraPro = localFont({
@@ -45,7 +43,7 @@ const CeraPro = localFont({
   preload: true,
   display: "swap",
 });
-       
+
 // Load Cormorant_Garamond Font
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -55,7 +53,7 @@ const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant",
 });
 
-// Load Raleway Font   
+// Load Raleway Font
 const raleway = Raleway({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -75,14 +73,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}
       >
-        <LoadingWrapper>
-          <Header />
-          <StickyWidget />
-          <main className="flex-grow">
-            <LenisWrapper>{children}</LenisWrapper>
-          </main>
-          <Footer />
-        </LoadingWrapper>
+        <Header />
+        <StickyWidget />
+        <main className="flex-grow">
+          <LenisWrapper>{children}</LenisWrapper>
+        </main>
+        <Footer />
       </body>
     </html>
   );

@@ -172,14 +172,14 @@ export function PlaceholdersAndVanishInput({
   return (
     <form
       className={cn(
-        "w-full relative sm:max-w-[240px] lg:max-w-[285px] 2xl:max-w-[340px] 3xl:max-w-[430px] mx-auto bg-black border-1 dark:bg-zinc-800 sm:h-[30px] 2xl:h-[35px] 3xl:h-[45px] rounded-[5px] sm:rounded-[7px] 2xl:rounded-[10px] overflow-hidden shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200",
+        "w-full relative z-0 sm:max-w-[240px] lg:max-w-[285px] 2xl:max-w-[340px] 3xl:max-w-[430px] mx-auto bg-black border-1 dark:bg-zinc-800 sm:h-[30px] 2xl:h-[35px] 3xl:h-[45px] rounded-[5px] sm:rounded-[7px] 2xl:rounded-[10px] overflow-hidden shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200",
         value && "bg-gray-50"
       )}
       onSubmit={handleSubmit}
     >
       <canvas
         className={cn(
-          "absolute pointer-events-none  text-base transform scale-50 top-[20%] left-2 sm:left-8 origin-top-left filter invert dark:invert-0 pr-20",
+          "absolute z-0 pointer-events-none  text-base transform scale-50 top-[20%] left-2 sm:left-8 origin-top-left filter invert dark:invert-0 pr-20",
           !animating ? "opacity-0" : "opacity-100"
         )}
         ref={canvasRef}
@@ -196,18 +196,18 @@ export function PlaceholdersAndVanishInput({
         value={value}
         type="text"
         className={cn(
-          "w-full relative text-sm sm:text-base z-50 border-none max-sm:h-[30px]  text-white h-full bg-black focus:outline-none focus:ring-0 pl-[10px] lg:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px]",
+          "w-full relative text-sm sm:text-base z-1 border-none max-sm:h-[30px]  text-white h-full bg-black focus:outline-none focus:ring-0 pl-[10px] lg:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px]",
           animating && "text-transparent dark:text-transparent"
         )}
       />
       <button
         disabled={!value}
         type="submit"
-        className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-black bg-white absolute right-0 top-0 z-50 h-full w-auto p-[7px_15px] lg:p-[10px_20px] 2xl:p-[10px_25px] 3xl:p-[12px_30px]  transition duration-200 flex items-center justify-center"
+        className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-black bg-white absolute right-0 top-0 z-2 h-full w-auto p-[7px_15px] lg:p-[10px_20px] 2xl:p-[10px_25px] 3xl:p-[12px_30px]  transition duration-200 flex items-center justify-center"
       >
         Submit
       </button>
-      <div className="absolute !z-[5555] inset-0 flex items-center rounded-full pointer-events-none">
+      <div className="absolute !z-3 inset-0 flex items-center rounded-full pointer-events-none">
         <AnimatePresence mode="wait">
           {!value && (
             <motion.p

@@ -46,7 +46,9 @@
   scrollbar-width: thin;
   scrollbar-color: #fff transparent;
 }
-
+.Loader {
+  z-index: 1111 !important;
+}
 /* Add this to your global CSS */
 /* In your global CSS file (e.g., app/globals.css) */
 
