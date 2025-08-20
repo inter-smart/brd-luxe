@@ -84,7 +84,7 @@ const fuelTypeOptions = [
 
 // Shared input styles
 const inputStyle = `
-  text-[12px] sm:text-[14px] xl:text-[16px] 3xl:text-[18px] leading-tight font-base1 font-semibold text-white placeholder:text-[#9f9f9f] data-[placeholder]:text-[#9f9f9f] w-full !h-[35px] sm:!h-[40px] 2xl:!h-[45px] bg-black px-[15px] sm:px-[15px] 2xl:px-[20px] border-[1px] border-white/60 rounded-[10px] focus:outline-none focus:ring-0 focus-visible:ring-2 selection:bg-blue-800 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-non`
+  text-[12px] sm:text-[14px] xl:text-[16px] 3xl:text-[18px] leading-tight font-base1 font-semibold text-white placeholder:text-white data-[placeholder]:text-white w-full !h-[35px] sm:!h-[40px] 2xl:!h-[45px] bg-black px-[15px] sm:px-[15px] 2xl:px-[20px] border-[1px] border-white/60 rounded-[10px] focus:outline-none focus:ring-0 focus-visible:ring-2 selection:bg-blue-800 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-non`
   .replace(/\s+/g, " ")
   .trim();
 
@@ -209,7 +209,7 @@ export default function SellForm() {
                 <Input
                   className={inputStyle}
                   type="email"
-                  placeholder="Email*"
+                  placeholder="Email"
                   disabled={isSubmitting}
                   {...field}
                 />
@@ -302,7 +302,7 @@ export default function SellForm() {
           name="transmissionType"
           render={({ field }) => (
             <FormItem className="w-full sm:w-1/2 xl:w-1/4">
-              <FormLabel className="sr-only">Transmission Type</FormLabel>
+              <FormLabel className="sr-only">Transmission*</FormLabel>
               <Select
                 onValueChange={field.onChange}
                 value={field.value}
@@ -310,7 +310,7 @@ export default function SellForm() {
               >
                 <FormControl>
                   <SelectTrigger className={inputStyle}>
-                    <SelectValue placeholder="Transmission Type*" />
+                    <SelectValue placeholder="Transmission *" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="border-0">
@@ -407,7 +407,7 @@ export default function SellForm() {
                       variant={"outline"}
                       className={cn(
                         inputStyle,
-                        !field.value && "text-[#9f9f9f]",
+                        !field.value && "text-white",
                         "hover:bg-transparent hover:text-[#9f9f9f] !px-[15px] sm:!px-[15px] 2xl:!px-[20px]"
                       )}
                     >
@@ -440,6 +440,25 @@ export default function SellForm() {
 
         <FormField
           control={form.control}
+          name="color"
+          render={({ field }) => (
+            <FormItem className="w-full sm:w-1/2 xl:w-1/4">
+              <FormLabel className="sr-only">Year of Registration</FormLabel>
+              <FormControl>
+                <Input
+                  className={inputStyle}
+                  placeholder="Year of Registration"
+                  disabled={isSubmitting}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* <FormField
+          control={form.control}
           name="yearOfRegistration"
           render={({ field }) => (
             <FormItem className="w-full sm:w-1/2 xl:w-1/4">
@@ -456,7 +475,7 @@ export default function SellForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         {/* Pricing and Location */}
         <FormField
@@ -522,7 +541,7 @@ export default function SellForm() {
                     className={`flex-1 truncate ${
                       selectedFiles && selectedFiles.length > 0
                         ? "text-white"
-                        : "text-gray-400"
+                        : "text-white"
                     }`}
                   >
                     {getFileDisplayText()}
@@ -532,7 +551,7 @@ export default function SellForm() {
                     onClick={() => fileInputRef.current?.click()}
                     disabled={isSubmitting}
                     className="text-[10px] xl:text-xs 3xl:text-sm font-semibold 
-                             px-3 py-1 bg-gray-800 text-white rounded-full
+                             px-3 py-1 bg-[#242424] text-white rounded-full
                              hover:bg-gray-700 transition-colors duration-200
                              disabled:opacity-50 disabled:cursor-not-allowed"
                   >
@@ -555,7 +574,7 @@ export default function SellForm() {
               <FormControl>
                 <Textarea
                   className={textareaStyle}
-                  placeholder="Additional Details (Optional)"
+                  placeholder="Additional Details"
                   disabled={isSubmitting}
                   {...field}
                 />

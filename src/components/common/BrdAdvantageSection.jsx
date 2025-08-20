@@ -39,7 +39,7 @@ const brd_advantage_data = {
   ],
 };
 
-export default function BrdAdvantageSection({ data = brd_advantage_data }) {
+export default function BrdAdvantageSection({ data }) {
   const sectionRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -75,7 +75,7 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
         style={{ opacity: titleFade }}
         className="text-[32px] sm:text-[48px] md:text-[58px] lg:text-[64px] xl:text-[74px] 2xl:text-[88px] 3xl:text-[110px] leading-[1.5] font-light font-base1 text-white w-full h-full bg-black absolute inset-0 z-2 flex items-center justify-center"
       >
-        {data?.hide_title}
+        {data?.sub_title}
       </motion.div>
       <div className="container">
         <motion.div
@@ -89,7 +89,7 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
               size={"heading1"}
               className="text-white max-sm:mb-[15px]"
             >
-              {data?.heading?.title}
+              {data?.maintitle}
             </Heading>
           </div>
           <div className="w-full sm:w-1/2 sm:pl-[10%]">
@@ -97,7 +97,7 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
               as="div"
               className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white"
             >
-              {data?.description}
+              {data?.maindescription}
             </Text>
           </div>
         </motion.div>
@@ -140,7 +140,7 @@ export default function BrdAdvantageSection({ data = brd_advantage_data }) {
             }}
             className="lg:!py-[30px] 2xl:!py-[40px]"
           >
-            {data?.brd_advantage_list?.map((item, index) => (
+            {data?.lists?.map((item, index) => (
               <SwiperSlide key={`advantage-${index}`} className="!h-auto">
                 <div className="w-full h-full p-[15px] sm:p-[20px] 2xl:p-[25px] 3xl:p-[30px] bg-white/2 border-1-white/10 overflow-hidden block transition-all duration-500 hover:lg:translate-y-[-15px] relative z-0">
                   <motion.div

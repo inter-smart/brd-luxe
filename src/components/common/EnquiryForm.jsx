@@ -34,7 +34,7 @@ const enquiryFormSchema = z.object({
 
 // Shared input styles
 const inputStyle = `
-  text-[12px] sm:text-[14px] xl:text-[16px] 3xl:text-[18px] leading-tight font-base1 font-semibold text-white placeholder:text-[#9f9f9f] data-[placeholder]:text-[#9f9f9f] w-full !h-[35px] sm:!h-[40px] 2xl:!h-[45px] bg-black px-[15px] sm:px-[15px] 2xl:px-[20px] border-[1px] border-white/60 rounded-[10px] focus:outline-none focus:ring-0 focus-visible:ring-2 selection:bg-blue-800 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-non`
+  text-[12px] sm:text-[14px] xl:text-[16px] 3xl:text-[18px] leading-tight font-base1 font-semibold text-white placeholder:text-white data-[placeholder]:text-[#9f9f9f] w-full !h-[35px] sm:!h-[40px] 2xl:!h-[45px] bg-black px-[15px] sm:px-[15px] 2xl:px-[20px] border-[1px] border-white/60 rounded-[10px] focus:outline-none focus:ring-0 focus-visible:ring-2 selection:bg-blue-800 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-non`
   .replace(/\s+/g, " ")
   .trim();
 
@@ -58,28 +58,71 @@ export default function EnquiryForm() {
     },
   });
 
-  const onSubmit = async (data) => {
-    setIsSubmitting(true);
+  // const onSubmit = async (data) => {
+  //   setIsSubmitting(true);
 
-    try {
-      // Create FormData for file upload
-      const formData = new FormData();
+  //   try {
+  //     // Create FormData for file upload
+  //     const formData = new FormData();
 
-      // TODO: Replace with your API endpoint
-      console.log("Form data:", data);
+  //     // TODO: Replace with your API endpoint
+  //     console.log("Form data:", data);
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+  //     // Simulate API call
+  //     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Reset form on success
+  //     // Reset form on success
+  //     form.reset();
+  //   } catch (error) {
+  //     console.error("Submission error:", error);
+  //     // Handle error (show toast, etc.)
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
+
+const onSubmit = async (data) => {
+  setIsSubmitting(true);
+
+  try {
+    // Map `fullName` to `name` so backend matches
+    const payload = {
+      name: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      message: data.message,
+    };
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_WORDPRESS_API}/wp-json/custom/v1/enquiry`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert("✅ Enquiry submitted successfully!");
       form.reset();
-    } catch (error) {
-      console.error("Submission error:", error);
-      // Handle error (show toast, etc.)
-    } finally {
-      setIsSubmitting(false);
+    } else {
+      alert(result.message || "❌ Something went wrong. Please try again.");
     }
-  };
+  } catch (error) {
+    console.error("Submission error:", error);
+    alert("⚠️ Failed to submit enquiry. Please try again later.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+
 
   return (
     <Form {...form}>
@@ -93,31 +136,11 @@ export default function EnquiryForm() {
           name="fullName"
           render={({ field }) => (
             <FormItem className="w-full sm:w-1/2 lg:w-1/3">
-              <FormLabel className="sr-only">Full Name</FormLabel>
+              <FormLabel className="sr-only">Your Name</FormLabel>
               <FormControl>
                 <Input
                   className={inputStyle}
-                  placeholder="Full Name*"
-                  disabled={isSubmitting}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="w-full sm:w-1/2 lg:w-1/3">
-              <FormLabel className="sr-only">Email</FormLabel>
-              <FormControl>
-                <Input
-                  className={inputStyle}
-                  type="email"
-                  placeholder="Email*"
+                  placeholder="Your Name*"
                   disabled={isSubmitting}
                   {...field}
                 />
@@ -138,6 +161,26 @@ export default function EnquiryForm() {
                   className={inputStyle}
                   type="tel"
                   placeholder="Phone*"
+                  disabled={isSubmitting}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="w-full sm:w-1/2 lg:w-1/3">
+              <FormLabel className="sr-only">Email</FormLabel>
+              <FormControl>
+                <Input
+                  className={inputStyle}
+                  type="email"
+                  placeholder="Email*"
                   disabled={isSubmitting}
                   {...field}
                 />
@@ -174,7 +217,6 @@ export default function EnquiryForm() {
             size="button1"
             type="submit"
             disabled={isSubmitting}
-            
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </StyledButton>
