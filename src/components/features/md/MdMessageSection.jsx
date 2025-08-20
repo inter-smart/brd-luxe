@@ -6,24 +6,7 @@ import { Heading } from "@/components/utils/Heading";
 import BreadCrumb from "@/components/common/BreadCrumb";
 import { useInView } from "react-intersection-observer";
 
-const mdMessageData = {
-  heading: {
-    title: "Dear Valued Customers and Automotive Enthusiasts,",
-  },
-  description: [
-    "Welcome to BRD LUXE, your ultimate destination for luxury pre-owned cars. I am delighted to personally extend my warmest greetings to each and every one of you. At BRD LUXE, we understand that driving is not just a means of transportation; it is an experience that should exude elegance, style, and unparalleled craftsmanship. That's why we have curated a remarkable collection of pre-owned luxury vehicles that are meticulously handpicked and maintained to deliver exceptional quality and performance. We take immense pride in being a trusted destination for discerning individuals who appreciate the finer things in life. Our team of experts tirelessly scours the market to source the most coveted luxury brands, ensuring that we offer you a selection that meets the highest standards of excellence.",
-    "But it's not just about the cars themselves; it's the experience we provide. Our commitment to customer satisfaction is unwavering. From the moment you step into our showroom or explore our website, you will be greeted by a team of knowledgeable professionals dedicated to understanding your unique preferences and requirements. We believe in building lasting relationships with our clients, which is why we go above and beyond to ensure your journey with us is nothing short of exceptional.",
-    "Transparency and integrity are at the core of our business values. Each vehicle in our collection undergoes a rigorous inspection process to guarantee its authenticity, reliability, and performance. We provide comprehensive vehicle histories, allowing you to make informed decisions and instilling the utmost confidence in your purchase. I firmly believe that luxury should be accessible, and that's why we strive to offer competitive pricing without compromising on quality. Whether you're a connoisseur seeking a rare gem or an individual embarking on your first luxury car journey, we are committed to tailoring our offerings to suit your specific needs and budget. As you navigate through our website, you will find a user-friendly platform that allows you to explore our inventory, inquire about specific models, and We encourage you to reach out to our team with any questions or requests, as we are here to assist you in your pursuit of automotive excellence.",
-    "Thank you for considering BRD LUXE as your trusted partner in luxury pre-owned vehicles. We are thrilled to embark on this exhilarating journey with you, and we look forward to delivering an unforgettable experience that exceeds your expectations.",
-  ],
-  name: "Jijin Surendran",
-  designation: "Managing Director & CEO",
-  media: {
-    type: "image",
-    path: "/images/md_message.png",
-    alt: "Message",
-  },
-};
+
 
 export default function MdMessageSection({ data }) {
   const isDesktop = useMediaQuery({
@@ -36,8 +19,9 @@ export default function MdMessageSection({ data }) {
 
   const message_section = data?.md_message_acf?.message_section;
 
+  if (!message_section?.enable__disable_message_section) return null;
+
   return (
-    message_section?.enable__disable_message_section === true ? (
       <section className="w-full h-auto py-[20px_40px] sm:py-[25px_70px] lg:py-[30px_90px] 2xl:py-[30px_110px] 3xl:py-[40px_150px] block">
         <div className="container">
           {!isDesktop && (
@@ -119,6 +103,5 @@ export default function MdMessageSection({ data }) {
           </div>
         </div>
       </section>
-    ) : null
   );
 }
