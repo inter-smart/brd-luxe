@@ -17,7 +17,7 @@ export default function ExperienceSection({ data }) {
 
   const testimonial_section = data?.testimonial_section;
 
-  const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
+  const isMobile = useMedia({ query: "(min-width: 1280px)" });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -164,7 +164,7 @@ export default function ExperienceSection({ data }) {
                   ))}
                 </Swiper>
               </div>
-              {isDesktop ? (
+              {!isMobile ? (
                 <button
                   onClick={() => swiperRef.current?.slideNext()}
                   className="group lg:w-[40px] 2xl:w-[60px] 3xl:w-[60px] h-auto aspect-square cursor-pointer rounded-full overflow-hidden transition"

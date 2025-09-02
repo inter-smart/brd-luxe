@@ -22,18 +22,19 @@ import useMedia from "use-media";
 import { useSearchParams } from "next/navigation";
 
 export default function ProductListSection({ data, whatsapp }) {
-
   const searchParams = useSearchParams();
 
   const initialModel = searchParams.get("model") || "";
 
-  
-    
   const listingpagedata = data?.listingpagedata ?? {};
   const cars = listingpagedata?.cars_data || [];
 
   // new filter state
-  const [filters, setFilters] = useState({ brand: "", model: initialModel, search: "" });
+  const [filters, setFilters] = useState({
+    brand: "",
+    model: initialModel,
+    search: "",
+  });
 
   // compute price range
   const prices = cars.map((car) =>
@@ -85,9 +86,7 @@ export default function ProductListSection({ data, whatsapp }) {
     );
   }
 
-
-
-  const isDesktop = useMediaQuery({
+  const isMobile = useMedia({
     query: "(min-width: 1280px)",
   });
 
@@ -98,7 +97,7 @@ export default function ProductListSection({ data, whatsapp }) {
   const handleViewLess = () => {
     setVisibleCount(8);
   };
-  
+
   return (
     <section className="w-full h-auto py-[20px_50px] sm:py-[20px_60px] lg:py-[20px_80px] 2xl:py-[20px_100px] 3xl:py-[20px_125px] block">
       <div className="container">
@@ -121,27 +120,31 @@ export default function ProductListSection({ data, whatsapp }) {
                 {listingpagedata?.title_main_title_car_sec}
               </Heading>
             </div>
-            {/* <div className="w-full md:w-[70%]">
+            <div className="w-full md:w-[70%]">
               <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
-                {isDesktop ? (
+                {!isMobile ? (
                   <ProductFilterBox
                     variant="ProductListing"
                     listingpagedata={listingpagedata}
                     onFilterChange={setFilters}
-                    cars={cars}                // ✅ pass cars
-                    setPriceRange={setPriceRange}  // ✅ pass setter
+                    cars={cars} // ✅ pass cars
+                    setPriceRange={setPriceRange} // ✅ pass setter
                     filters={filters}
                   />
                 ) : (
                   <div className="flex items-center max-md:flex-wrap max-md:justify-end gap-[10px]">
-                    { listingpagedata?.enable__disable_search &&
-                    <div className="max-sm:w-full">
-                      <SearchForm onSearch={(q) => setFilters((prev) => ({ ...prev, search: q }))} />
-                    </div>
-                    }
-                    { listingpagedata?.enable__disable_filter &&
+                    {listingpagedata?.enable__disable_search && (
+                      <div className="max-sm:w-full">
+                        <SearchForm
+                          onSearch={(q) =>
+                            setFilters((prev) => ({ ...prev, search: q }))
+                          }
+                        />
+                      </div>
+                    )}
+                    {listingpagedata?.enable__disable_filter && (
                       <div className="sm:pl-[15px] md:pl-[10px]">
-                        <FilterBox 
+                        <FilterBox
                           listingpagedata={listingpagedata}
                           onFilterChange={setFilters}
                           cars={cars}
@@ -149,12 +152,11 @@ export default function ProductListSection({ data, whatsapp }) {
                           filters={filters}
                         />
                       </div>
-                    }
-
+                    )}
                   </div>
                 )}
               </div>
-            </div> */}
+            </div>
           </div>
           <div className="mx-[-7px] sm:mx-[-10px] lg:mx-[-12px] 2xl:mx-[-15px] 3xl:mx-[-20px] [&>*]:w-full [&>*]:sm:w-1/2 [&>*]:md:w-1/3 [&>*]:xl:w-1/4 [&>*]:p-[10px_7px] [&>*]:sm:p-[15px_10px] [&>*]:lg:p-[25px_12px] [&>*]:2xl:p-[35px_15px] [&>*]:3xl:p-[45px_20px] flex flex-wrap">
             {filteredCars.length > 0 ? (
@@ -168,28 +170,38 @@ export default function ProductListSection({ data, whatsapp }) {
                 Sorry, no cars match your selection.
               </div>
             )}
-
           </div>
         </div>
         {/* Load More Button */}
         {visibleCount < filteredCars.length ? (
-          <button onClick={handleLoadMore} class="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]">
+          <button
+            onClick={handleLoadMore}
+            class="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]"
+          >
             Load More
           </button>
-          ) : (
-            filteredCars.length > 8 && (
-              <button onClick={handleViewLess} class="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]">
-                View Less
-              </button>
-            )
-          )}
-
+        ) : (
+          filteredCars.length > 8 && (
+            <button
+              onClick={handleViewLess}
+              class="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]"
+            >
+              View Less
+            </button>
+          )
+        )}
       </div>
     </section>
   );
 }
 
-function FilterBox({ listingpagedata, onFilterChange, cars, setPriceRange, filters }) {
+function FilterBox({
+  listingpagedata,
+  onFilterChange,
+  cars,
+  setPriceRange,
+  filters,
+}) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -231,14 +243,14 @@ function FilterBox({ listingpagedata, onFilterChange, cars, setPriceRange, filte
               </div>
             </DrawerClose>
             <div className="w-full py-[40px] sm:py-[70px_40px]">
-               <ProductFilterBox
-                  variant="ProductListing"
-                  listingpagedata={listingpagedata}
-                  onFilterChange={onFilterChange}
-                  cars={cars}
-                  setPriceRange={setPriceRange}
-                  filters={filters}
-                />
+              <ProductFilterBox
+                variant="ProductListing"
+                listingpagedata={listingpagedata}
+                onFilterChange={onFilterChange}
+                cars={cars}
+                setPriceRange={setPriceRange}
+                filters={filters}
+              />
             </div>
           </div>
         </div>

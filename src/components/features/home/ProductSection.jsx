@@ -55,7 +55,7 @@ export default function ProductSection({ data, whatsapp }) {
 
   const displayedCars = filteredCars.slice(0, 8);
 
-  const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
+  const isMobile = useMedia({ query: "(min-width: 640px)" });
 
   return (
     cars_section?.enable__disable_cars_section?
@@ -73,7 +73,7 @@ export default function ProductSection({ data, whatsapp }) {
             </div>
             <div className="w-full md:w-1/2">
               <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
-                {isDesktop && (
+                {!isMobile && (
                   <div className="md:pr-[20px] lg:pr-[60px] 2xl:pr-[75px] 3xl:pr-[90px] max-sm:mb-[15px]">
                     <ProductFilterBox
                     listingpagedata={listingpagedata}
@@ -99,7 +99,7 @@ export default function ProductSection({ data, whatsapp }) {
               </div>
             </div>
           </div>
-          {isDesktop ? (
+          {!isMobile ? (
             displayedCars.length > 0 ? (
               <div className="mx-[-7px] sm:mx-[-10px] lg:mx-[-12px] 2xl:mx-[-15px] 3xl:mx-[-20px] [&>*]:w-full [&>*]:sm:w-1/2 [&>*]:md:w-1/3 [&>*]:xl:w-1/4 [&>*]:p-[10px_7px] [&>*]:sm:p-[15px_10px] [&>*]:lg:p-[25px_12px] [&>*]:2xl:p-[35px_15px] [&>*]:3xl:p-[45px_20px] flex flex-wrap">
                 {displayedCars.map((car, index) => (
