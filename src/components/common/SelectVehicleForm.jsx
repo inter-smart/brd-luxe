@@ -24,33 +24,26 @@ const inputStyle = `
   .replace(/\s+/g, " ")
   .trim();
 
-const transmissionOptions = [
-  { value: "manual", label: "Manual" },
-  { value: "automatic", label: "Automatic" },
-  { value: "cvt", label: "CVT" },
-];
-
-export default function SelectVehicleForm() {
+export default function SelectVehicleForm({ testimonials = [], onChange }) {
   const form = useForm({});
-
-  const onSubmit = async (data) => {
-    setIsSubmitting(true);
-  };
+  const carTypes = testimonials
+    ?.flatMap((t) => t.car_type || [])
+    .filter((v, i, arr) => arr.findIndex((o) => o.id === v.id) === i);
 
   return (
     <Form {...form}>
       <form>
-        {/* Vehicle Information */}
         <FormField
           control={form.control}
-          name="transmissionType"
+          name="carType"
           render={({ field }) => (
             <FormItem className="w-full sm:w-1/2 xl:w-1/4">
-              <FormLabel className="sr-only">Transmission Type</FormLabel>
               <Select
-                onValueChange={field.onChange}
+                onValueChange={(val) => {
+                  field.onChange(val);
+                  onChange?.(val); // 👈 notify parent
+                }}
                 value={field.value}
-                disabled={false}
               >
                 <FormControl>
                   <SelectTrigger className={inputStyle}>
@@ -58,9 +51,9 @@ export default function SelectVehicleForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="border-0 z-0">
-                  {transmissionOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
+                  {carTypes.map((option) => (
+                    <SelectItem key={option.id} value={option.slug}>
+                      {option.name}
                     </SelectItem>
                   ))}
                 </SelectContent>

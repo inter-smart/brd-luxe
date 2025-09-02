@@ -9,98 +9,28 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
+
+// Safe function to extract pathname from absolute or relative URL
+const getPath = (url) => {
+  if (!url) return "/";
+  try {
+    return new URL(url).pathname; // works if it's absolute
+  } catch {
+    return url; // already relative
+  }
+};
+
+
+
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import SocialMediaComp from "@/components/common/SocialMediaComp";
 import { usePathname } from "next/navigation";
 
-const nav_button = [
-  {
-    label: "Buy Car",
-    url: "/buy",
-  },
-  {
-    label: "Sell Your Car",
-    url: "/sell",
-  },
-];
-
-const mega_menu_data = {
-  menu_links: [
-    {
-      label: "About Us",
-      url: "/about",
-    },
-    {
-      label: "MD's Message",
-      url: "/md",
-    },
-    {
-      label: "Showroom",
-      url: "/showroom",
-    },
-    {
-      label: "News & Insights",
-      url: "/news",
-    },
-    {
-      label: "Contact",
-      url: "/contact",
-    },
-  ],
-  media: {
-    path: "/images/mega_menu_car.svg",
-    alt: "Mega Menu Car",
-  },
-  menu_title: "India's Only Stock Exchange - Listed LuxuryCar Dealers",
-  menu_logo: {
-    path: "/images/logo.svg",
-    alt: "Mega Menu Logo",
-  },
-  address: "BRD Complex, NH Bypass, Konikkara.P.O, Thrissur, Kerala - 680306",
-  info_links: [
-    {
-      title: "Call",
-      label: "+91 89430 77777",
-      url: "tel:+91 89430 77777",
-    },
-    {
-      title: "Email",
-      label: "info@brdluxe.com",
-      url: "mailto:info@brdluxe.com",
-    },
-  ],
-  socialMedia: [
-    {
-      url: "/",
-      icon: "/images/footer_faceook.svg",
-      name: "facebook",
-    },
-    {
-      url: "/",
-      icon: "/images/footer_youtube.svg",
-      name: "youtube",
-    },
-    {
-      url: "/",
-      icon: "/images/footer_instagram.svg",
-      name: "instagram",
-    },
-    {
-      url: "/",
-      icon: "/images/footer_linkedin.svg",
-      name: "linkedin",
-    },
-    {
-      url: "/",
-      icon: "/images/footer_twitter.svg",
-      name: "twitter",
-    },
-  ],
-};
-
 export default function Header() {
   const { scrollYProgress } = useScroll();
   const [visible, setVisible] = useState(true);
+
+  const [header_acf, setHeaderAcf] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -110,6 +40,21 @@ export default function Header() {
   const menuButtonRef = useRef(null);
   const pathname = usePathname();
   const lenis = useLenis();
+
+  // Fetch header data from API
+  useEffect(() => {
+    async function fetchHeaderData() {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`);
+        const data = await res.json();
+        setHeaderAcf(data?.header_acf);
+      } catch (error) {
+        console.error("Failed to fetch header ACF:", error);
+      }
+    }
+    fetchHeaderData();
+  }, []);
+
   useEffect(() => {
     closeMenu();
   }, [pathname]);
@@ -260,6 +205,9 @@ export default function Header() {
     );
   };
 
+  // Wait for header_acf to load
+  if (!header_acf) return null;
+
   return (
     <header className="w-full absolute top-0 left-0 right-0 z-50">
       <AnimatePresence mode="wait">
@@ -270,11 +218,10 @@ export default function Header() {
             opacity: visible ? 1 : 0,
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] overflow-hidden fixed top-0 inset-x-0 z-5 bg-linear-to-b from-black to-black/0 ${
-            isScrolled &&
+          className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] overflow-hidden fixed top-0 inset-x-0 z-5 bg-linear-to-b from-black to-black/0 ${isScrolled &&
             visible &&
             "bg-white/10 backdrop-blur-[50px] shadow-md bg-linear-to-b from-black/0 to-black/0"
-          }`}
+            }`}
         >
           <div className="container">
             <div className="w-full h-auto flex items-center justify-between relative z-0">
@@ -292,39 +239,47 @@ export default function Header() {
                 className="group w-[110px] lg:w-[120px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] absolute left-0 right-0 ml-auto lg:mx-auto"
               >
                 <Image
-                  src="/images/logo.svg"
-                  alt="logo"
+                  src={header_acf?.logo?.url}
+                  alt={header_acf?.logo?.alt}
                   width={187}
                   height={50}
                   className="w-full h-full object-contain group-hover:scale-102 transition-all duration-300"
                 />
               </Link>
               <div className="hidden lg:flex items-center">
-                <a className="group font-base3 mr-[10px]" href="">
-                  <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right block">
-                    Quick Contact
-                  </span>
-                  <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white transition duration-300 group-hover:text-[#F29A0D]">
-                    +91 415‑555‑0132
-                  </span>
-                </a>
-                {nav_button?.map((item, index) => (
-                  <div
-                    key={`nav-button-${index}`}
-                    className="w-fit h-auto lg:pl-[10px] 2xl:pl-[15px]"
-                  >
-                    <ShinyButton
-                      href={item?.url}
-                      className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[0.5px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${
-                        pathname === item?.url
-                          ? "bg-white text-black"
-                          : "bg-transparent text-white"
-                      }`}
-                    >
-                      {item?.label}
-                    </ShinyButton>
-                  </div>
-                ))}
+                {header_acf?.phone_number && (
+                  <a className="group font-base3 mr-[10px]" href={`tel:${header_acf.phone_number}`}>
+                    <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right block">
+                      Quick Contact
+                    </span>
+                    <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white transition duration-300 group-hover:text-[#F29A0D]">
+                      {header_acf?.phone_number}
+                    </span>
+                  </a>
+                )}
+                {header_acf?.buy__sell_car_buttons?.map((item, index) => {
+                  if (item?.button_url?.url && item?.button_title) {
+                    return (
+                      <div
+                        key={`nav-button-${index}`}
+                        className="w-fit h-auto lg:pl-[10px] 2xl:pl-[15px]"
+                      >
+                        <ShinyButton
+                          href={item?.button_url?.url}
+                          className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[0.5px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${pathname === item?.button_url?.url
+                            ? "bg-white text-black"
+                            : "bg-transparent text-white"
+                            }`}
+                          target={item?.button_url?.target}
+                        >
+                          {item?.button_title}
+                        </ShinyButton>
+                      </div>
+                    );
+                  }
+                  return null; // safely skip if no URL or title
+                })}
+
               </div>
             </div>
           </div>
@@ -383,8 +338,8 @@ export default function Header() {
                 </button>
                 <div className="w-[115px] h-auto aspect-[225/65] mb-[15px] ml-auto flex items-center justify-center">
                   <Image
-                    src={mega_menu_data?.menu_logo?.path}
-                    alt="Logo"
+                    src={header_acf?.logo?.url}
+                    alt={header_acf?.logo?.alt}
                     width={225}
                     height={65}
                     className="w-full h-full object-contain"
@@ -394,49 +349,62 @@ export default function Header() {
               <div className="w-full h-full p-[20px] pt-0 overflow-auto">
                 <div className="mb-[25px]">
                   <ul className="space-y-4">
-                    {mega_menu_data?.menu_links?.map((link, index) => (
-                      <motion.li
-                        key={`mobile-link-${index}`}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 + 0.2 }}
-                      >
-                        <Link
-                          href={link.url}
-                          onClick={closeMenu}
-                          className={`text-[16px] sm:text-[18px] leading-[1.2] font-light font-base1 mb-[10px] sm:mb-[15px] block ${
-                            pathname === link.url
-                              ? "text-[#F29A0D]"
-                              : "text-white"
-                          }`}
-                        >
-                          {link.label}
-                        </Link>
-                      </motion.li>
-                    ))}
+                    {header_acf?.mega_menu?.menus?.map((link, index) => {
+                      if (link?.menu_url?.url && link?.menu_title) {
+                        return (
+                          <motion.li
+                            key={`mobile-link-${index}`}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 + 0.2 }}
+                          >
+                            <Link
+                              href={link?.menu_url?.url}
+                              onClick={closeMenu}
+                              className={`... ${
+                                pathname === getPath(link?.menu_url?.url) || (getPath(link?.menu_url?.url) === "/news" && pathname.startsWith("/news/"))
+                                  ? "text-[#F29A0D]"
+                                  : "text-white"
+                              }`}
+                              target={link?.menu_url?.target}
+                            >
+                              {link?.menu_title}
+                            </Link>
+                          </motion.li>
+                        );
+                      }
+                      return null;
+                    })}
                   </ul>
                 </div>
                 <div className="w-full mb-[25px] space-x-[10px] flex [&>*]:w-1/2">
-                  {nav_button.map((item, index) => (
-                    <motion.div
-                      key={`mobile-button-${index}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + index * 0.1 }}
-                    >
-                      <ShinyButton
-                        href={item?.url}
-                        className="w-full text-[11px] sm:text-[12px] text-center text-white font-medium uppercase p-[10px] rounded-lg border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
-                        onClick={closeMenu}
-                      >
-                        {item?.label}
-                      </ShinyButton>
-                    </motion.div>
-                  ))}
+                  {header_acf?.buy__sell_car_buttons.map((item, index) => {
+                    if (item?.button_url?.url && item?.button_title) {
+                      return (
+                        <motion.div
+                          key={`mobile-button-${index}`}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.6 + index * 0.1 }}
+                        >
+                          <ShinyButton
+                            href={item?.button_url?.url}
+                            className="w-full text-[11px] sm:text-[12px] text-center text-white font-medium uppercase p-[10px] rounded-lg border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
+                            target={item?.button_url?.target}
+                            onClick={closeMenu}
+                          >
+                            {item?.button_title}
+                          </ShinyButton>
+                        </motion.div>
+                      );
+                    }
+
+                    return null; // safely skip if no URL or title
+                  })}
                 </div>
 
                 <div className="text-[20px] sm:text-[24px] leading-[1.2] font-normal font-base1 text-white mb-[20px]">
-                  {mega_menu_data?.menu_title}
+                  {header_acf?.mega_menu?.title}
                 </div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -445,48 +413,74 @@ export default function Header() {
                   className="pt-6 border-t border-white/10"
                 >
                   <div className="space-y-4">
-                    {mega_menu_data?.info_links?.map((item, index) => (
-                      <div key={`info-links-${index}`}>
+                    {header_acf?.mega_menu?.phone_number && (
+                      <div>
                         <a
-                          href={item?.url}
-                          target="_blank"
+                          href={`tel:${header_acf?.mega_menu?.phone_number}`}
                           className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px]"
                         >
-                          {item?.title}
+                          Call
                           <span className="text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block">
-                            {item?.label}
+                            {header_acf?.mega_menu?.phone_number}
                           </span>
                         </a>
                       </div>
-                    ))}
-                    <div className="w-full flex lg:items-center max-lg:flex-col max-sm:mb-[15px]">
-                      <div className="text-[18px] sm:text-[20px] leading-[1] font-light font-base1 text-white max-lg:mb-[5px]">
-                        Address
+                    )}
+                    {header_acf?.mega_menu?.email && (
+                      <div>
+                        <a
+                          href={`mailto:${header_acf?.mega_menu?.email}`}
+                          target="_blank"
+                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px]"
+                        >
+                          Email
+                          <span className="text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block">
+                            {header_acf?.mega_menu?.email}
+                          </span>
+                        </a>
                       </div>
-                      <div className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.3] font-light font-base3 text-white lg:pl-[25px] 2xl:pl-[30px] 3xl:pl-[40px]">
-                        {mega_menu_data?.address}
+                    )}
+                    {header_acf?.mega_menu?.address && (
+                      <div className="w-full flex lg:items-center max-lg:flex-col max-sm:mb-[15px]">
+                        <div className="text-[18px] sm:text-[20px] leading-[1] font-light font-base1 text-white max-lg:mb-[5px]">
+                          Address
+                        </div>
+                        <div className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.3] font-light font-base3 text-white lg:pl-[25px] 2xl:pl-[30px] 3xl:pl-[40px]">
+                          {header_acf?.mega_menu?.address}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </motion.div>
                 <div className="w-[90%] h-auto aspect-[710/180] m-auto absolute z-0 left-0 right-0 bottom-[10%] opacity-50 flex items-center justify-center">
                   <Image
-                    src={mega_menu_data?.media?.path}
-                    alt={mega_menu_data?.media?.alt}
+                    src={header_acf?.mega_menu?.image?.url}
+                    alt={header_acf?.mega_menu?.image?.alt}
                     width={715}
                     height={180}
                     className="w-full h-full object-contain"
                   />
                 </div>
                 {/* Social Media */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1 }}
-                  className="w-full py-4"
-                >
-                  <SocialMediaComp />
-                </motion.div>
+                {(() => {
+                  const isEnabled = header_acf?.mega_menu?.enable__disable_social_media_links;
+                  const rawIcons = header_acf?.mega_menu?.social_media_icons || [];
+                  const validIcons = rawIcons.filter(item => item?.icon?.url && item?.link);
+
+                  return isEnabled && validIcons.length > 0 ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1 }}
+                      className="w-full py-4"
+                    >
+                      <SocialMediaComp data={validIcons} />
+                    </motion.div>
+                  ) : null;
+                })()}
+
+
+
               </div>
             </motion.div>
 
@@ -511,30 +505,38 @@ export default function Header() {
                   className="w-full max-lg:h-screen lg:p-[25px_35px] 2xl:p-[30px_40px] 3xl:p-[40px_50px] max-lg:mt-[var(--header-y)] lg:bg-[#333333]/80 rounded-[10px] lg:backdrop-blur-[20px] lg:shadow-2xl text-white flex flex-wrap overflow-auto"
                 >
                   <div className="w-full h-fit lg:h-auto pb-[25px] lg:pb-[35px] 2xl:pb-[45px] 3xl:pb-[60px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px] border-b-1 border-[#515151] flex flex-wrap">
+
                     <div className="w-full lg:w-[20%] h-auto mb-[25px] sm:mb-[35px] lg:mb-0">
                       <div className="lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1] font-semibold font-base1 text-white lg:mb-[20px] 2xl:mb-[30px] 3xl:mb-[40px] max-lg:hidden">
                         Menu
                       </div>
-                      {mega_menu_data?.menu_links?.map((item, index) => (
-                        <div key={`mega-menu-${index}`}>
-                          <Link
-                            href={item?.url}
-                            className={`text-[18px] sm:text-[20px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 mb-[10px] sm:mb-[15px] lg:mb-[15px] 3xl:mb-[20px] block transition-all duration-300 ${
-                              pathname === item.url
-                                ? "text-[#F29A0D]"
-                                : "text-white"
-                            } hover:text-[#F29A0D]`}
-                          >
-                            {item?.label}
-                          </Link>
-                        </div>
-                      ))}
+                      {header_acf?.mega_menu?.menus?.map((item, index) => {
+                        if (item?.menu_url?.url && item?.menu_title) {
+                          return (
+                            <div key={`mega-menu-${index}`}>
+                              <Link
+                                href={item?.menu_url?.url}
+                                className={`text-[18px] sm:text-[20px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 mb-[10px] sm:mb-[15px] lg:mb-[15px] 3xl:mb-[20px] block transition-all duration-300 ${
+                                  pathname === getPath(item?.menu_url?.url) || (getPath(item?.menu_url?.url) === "/news" && pathname.startsWith("/news/"))
+                                    ? "text-[#F29A0D]"
+                                    : "text-white"
+                                } hover:text-[#F29A0D]`}
+                                target={item?.menu_url?.target}
+                              >
+                                {item?.menu_title}
+                              </Link>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
                     </div>
+
                     <div className="w-full lg:w-[50%] h-full max-lg:absolute max-lg:inset-0 max-lg:m-auto max-lg:opacity-25 flex items-end">
                       <div className="w-full h-auto aspect-[710/180] flex items-center justify-center">
                         <Image
-                          src={mega_menu_data?.media?.path}
-                          alt={mega_menu_data?.media?.alt}
+                          src={header_acf?.mega_menu?.image?.url}
+                          alt={header_acf?.mega_menu?.image?.alt}
                           width={715}
                           height={180}
                           className="w-full h-full object-contain"
@@ -543,40 +545,50 @@ export default function Header() {
                     </div>
                     <div className="w-full lg:w-[30%] lg:pl-[4%]">
                       <div className="text-[22px] sm:text-[24px] lg:text-[28px] xl:text-[34px] 2xl:text-[40px] 3xl:text-[50px] leading-[1.2] font-normal font-base1 text-white max-sm:max-w-[100%] max-lg:max-w-[50%] mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px]">
-                        {mega_menu_data?.menu_title}
+                        {header_acf?.mega_menu?.title}
                       </div>
-                      <div>
-                        <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1] font-light font-base1 text-white mb-[15px] lg:mb-[25px]">
-                          Follow Us
-                        </div>
-                        <ul className="flex space-x-[15px] sm:space-x-[20px] lg:justify-between">
-                          {mega_menu_data?.socialMedia?.map((item, index) => (
-                            <li key={"social media" + index}>
-                              <a
-                                href={item?.url}
-                                target="_blank"
-                                className="w-[15px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
-                              >
-                                <Image
-                                  src={item?.icon}
-                                  alt={item?.name}
-                                  width={20}
-                                  height={20}
-                                  className="w-full h-full object-contain"
-                                />
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      {header_acf?.mega_menu?.enable__disable_social_media_links && (() => {
+                        const validIcons = header_acf?.mega_menu?.social_media_icons?.filter(
+                          (item) => item?.icon?.url && item?.link
+                        );
+
+                        return validIcons?.length ? (
+                          <div>
+                            <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1] font-light font-base1 text-white mb-[15px] lg:mb-[25px]">
+                              Follow Us
+                            </div>
+                            <ul className="flex space-x-[15px] sm:space-x-[20px] lg:justify-between">
+                              {validIcons.map((item, index) => (
+                                <li key={`social-media-${index}`}>
+                                  <a
+                                    href={item.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-[15px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
+                                  >
+                                    <Image
+                                      src={item.icon.url}
+                                      alt={item.icon.alt || 'Social Icon'}
+                                      width={20}
+                                      height={20}
+                                      className="w-full h-full object-contain"
+                                    />
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ) : null;
+                      })()}
+
                     </div>
                   </div>
                   <div className="w-full h-auto flex flex-wrap">
                     <div className="w-full lg:w-[40%]">
                       <div className="sm:w-[130px] lg:w-[150px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] h-auto aspect-[225/65] max-lg:hidden flex items-center justify-center">
                         <Image
-                          src={mega_menu_data?.menu_logo?.path}
-                          alt="Logo"
+                          src={header_acf?.mega_menu?.bottom_image?.url}
+                          alt={header_acf?.mega_menu?.bottom_image?.alt}
                           width={225}
                           height={65}
                           className="w-full h-full object-contain"
@@ -585,29 +597,44 @@ export default function Header() {
                     </div>
                     <div className="w-full lg:w-[60%]">
                       <div className="flex flex-wrap justify-between">
-                        <div className="w-full sm:w-1/2 flex lg:items-center max-lg:flex-col max-sm:mb-[15px]">
-                          <div className="text-[18px] sm:text-[20px] lg:text-[24px] 2xl:text-[28px] 3xl:text-[35px] leading-[1] font-light font-base1 text-white max-lg:mb-[10px]">
-                            Address
+                        {header_acf?.mega_menu?.address && (
+                          <div className="w-full sm:w-1/2 flex lg:items-center max-lg:flex-col max-sm:mb-[15px]">
+                            <div className="text-[18px] sm:text-[20px] lg:text-[24px] 2xl:text-[28px] 3xl:text-[35px] leading-[1] font-light font-base1 text-white max-lg:mb-[10px]">
+                              Address
+                            </div>
+                            <div className="text-[11px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.3] font-light font-base3 text-white lg:pl-[25px] 2xl:pl-[30px] 3xl:pl-[40px]">
+                              {header_acf?.mega_menu?.address}
+                            </div>
                           </div>
-                          <div className="text-[11px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.3] font-light font-base3 text-white lg:pl-[25px] 2xl:pl-[30px] 3xl:pl-[40px]">
-                            {mega_menu_data?.address}
-                          </div>
-                        </div>
+                        )}
                         <div className="w-full sm:w-1/2 sm:pl-[20px] xl:pl-[40px] 2xl:pl-[70px] flex sm:items-center justify-between max-sm:flex-col">
-                          {mega_menu_data?.info_links?.map((item, index) => (
-                            <div key={`info-links-${index}`}>
+                          {header_acf?.mega_menu?.phone_number && (
+                            <div>
                               <a
-                                href={item?.url}
-                                target="_blank"
+                                href={`tel:${header_acf?.mega_menu?.phone_number}`}
                                 className="group text-[12px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] transition-all duration-300 hover:text-[#F29A0D]"
                               >
-                                {item?.title}
+                                Call
                                 <span className="text-[13px] lg:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block transition-all duration-300 group-hover:text-[#F29A0D]">
-                                  {item?.label}
+                                  {header_acf?.mega_menu?.phone_number}
                                 </span>
                               </a>
                             </div>
-                          ))}
+                          )}
+                          {header_acf?.mega_menu?.email && (
+                            <div>
+                              <a
+                                href={`mailto:${header_acf?.mega_menu?.email}`}
+                                target="_blank"
+                                className="group text-[12px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] transition-all duration-300 hover:text-[#F29A0D]"
+                              >
+                                Email
+                                <span className="text-[13px] lg:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block transition-all duration-300 group-hover:text-[#F29A0D]">
+                                  {header_acf?.mega_menu?.email}
+                                </span>
+                              </a>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

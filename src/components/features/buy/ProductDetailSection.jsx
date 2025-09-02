@@ -13,138 +13,7 @@ import "swiper/css/effect-fade";
 import "swiper/css";
 import "photoswipe/style.css";
 
-const product_detail_data = {
-  heading: {
-    title: "About Range Rover Velar",
-  },
-  car_media_gallery: [
-    {
-      media: {
-        path: "/images/car_detail_1.webp",
-        alt: "RANGE ROVER VELAR",
-      },
-    },
-    {
-      media: {
-        path: "/images/car_detail_2.webp",
-        alt: "RANGE ROVER VELAR",
-      },
-    },
-    {
-      media: {
-        path: "/images/car_detail_3.webp",
-        alt: "RANGE ROVER VELAR",
-      },
-    },
-    {
-      media: {
-        path: "/images/car_detail_4.webp",
-        alt: "RANGE ROVER VELAR",
-      },
-    },
-    {
-      media: {
-        type: "video",
-        video_path: "/videos/home_banner.mp4",
-        path: "/images/car_detail_1.webp",
-        alt: "RANGE ROVER VELAR",
-      },
-    },
-  ],
-  car_detail: {
-    name: "RANGE ROVER VELAR",
-    car_type: "SUV",
-    registration_Type: "DL",
-    price: "₹ 18 000 000",
-    finance_available: true,
-    link: "/",
-    enquire_link: "/",
-    car_specs: [
-      {
-        icon: {
-          path: "/images/car_spec_1.svg",
-          alt: "car_spec_1",
-        },
-        value: "20000 km",
-        name: "kms",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_2.svg",
-          alt: "car_spec_2",
-        },
-        value: "10 km",
-        name: "Mileage",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_3.svg",
-          alt: "car_spec_3",
-        },
-        value: "Petrol",
-        name: "Fuel",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_4.svg",
-          alt: "car_spec_4",
-        },
-        value: "2",
-        name: "No. Of Owners",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_5.svg",
-          alt: "car_spec_5",
-        },
-        value: "22.12.2025",
-        name: "Insurance",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_6.svg",
-          alt: "car_spec_6",
-        },
-        value: "2996 cc",
-        name: "Engine CC",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_7.svg",
-          alt: "car_spec_7",
-        },
-        value: "Automatic",
-        name: "Transmission",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_8.svg",
-          alt: "car_spec_8",
-        },
-        value: "White",
-        name: "Color",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_9.svg",
-          alt: "car_spec_9",
-        },
-        value: "23.08.2024",
-        name: "Purchase Year",
-      },
-      {
-        icon: {
-          path: "/images/car_spec_10.svg",
-          alt: "car_spec_10",
-        },
-        value: "5",
-        name: "Seat",
-      },
-    ],
-  },
-};
-
-export default function ProductDetailSection({ data = product_detail_data }) {
+export default function ProductDetailSection({ data, whatsapp_post }) {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1024px)",
   });
@@ -198,8 +67,8 @@ export default function ProductDetailSection({ data = product_detail_data }) {
               { label: "Home", href: "/" },
               { label: "Buy A Car", href: "/buy" },
               {
-                label: "RANGE ROVER VELAR",
-                href: "/buy-car/RANGE ROVER VELAR",
+                label: data?.cartitle,
+                href: `/buy/${data?.slug}`,
               },
             ]}
           />
@@ -210,25 +79,12 @@ export default function ProductDetailSection({ data = product_detail_data }) {
             size={"heading1"}
             className="text-white mb-[15px] md:mb-[20px] 2xl:mb-[40px] 3xl:mb-[50px]"
           >
-            {data?.heading?.title}
+            {data?.detail_page_title}
           </Heading>
-          <div className="typography">
-            <p>
-              The Range Rover stands as a symbol of refined luxury, cutting-edge
-              technology, and peerless off-road capability. With its bold
-              design, powerful performance, and sophisticated interiors, the
-              Range Rover delivers an unmatched driving experience both on and
-              off the road. Every detail is meticulously crafted—from its sleek,
-              aerodynamic silhouette to the plush, high-quality cabin materials.
-            </p>
-            <p>
-              Equipped with advanced terrain response systems, premium
-              infotainment, and driver-assist technologies, the Range Rover
-              offers both comfort and confidence for every journey. Whether
-              navigating city streets or exploring the wilderness, it ensures
-              elegance, strength, and innovation in perfect harmony.
-            </p>
-          </div>
+          <div className="typography"
+            dangerouslySetInnerHTML={{ __html: data?.detail_page_description || "" }}
+          >
+            </div>
         </div>
         <div className="w-full mb-[10px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[35px] flex flex-wrap">
           <div className="w-full lg:w-[40%] xl:w-1/2 lg:pr-[20px] 2xl:pr-[25px] 3xl:pr-[30px] mb-[10px] sm:mb-[15px] lg:mb-0">
@@ -239,35 +95,61 @@ export default function ProductDetailSection({ data = product_detail_data }) {
               thumbs={{ swiper: thumbsSwiper }}
               className="h-[240px] sm:!h-[280px] md:!h-[340px] lg:!h-full mb-[10px] sm:mb-[15px] lg:mb-0"
             >
-              {data?.car_media_gallery?.map((item, index) => (
+              {/* First image from data.media */}
+              {data?.media?.path && (
+                <SwiperSlide key="car-main" className="!h-auto">
+                  <div className="swiper-zoom-container w-full h-full block">
+                    <div id="gallery" className="w-full h-full">
+                      <a
+                        href={data?.media?.path}
+                        data-pswp-width="1920"
+                        data-pswp-height="1080"
+                        className="cursor-pointer"
+                      >
+                        <Image
+                          src={data?.media?.path}
+                          alt={data?.media?.alt || "Main car image"}
+                          width={825}
+                          height={570}
+                          className="w-full h-full object-cover"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              )}
+
+              {/* Rest of car_images */}
+              {data?.car_images?.map((item, index) => (
                 <SwiperSlide key={`car-${index}`} className="!h-auto">
                   <div className="swiper-zoom-container w-full h-full block">
-                    {item?.media?.type === "video" ? (
+                    {item?.type === "video" ? (
                       <div
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        onClick={() =>
-                          handleVideoClick(item?.media?.video_path)
-                        }
+                        onClick={() => handleVideoClick(item?.url)}
                         className="w-full h-full block cursor-pointer relative z-0"
                       >
+                        {/* Placeholder image */}
                         <Image
-                          src={item?.media?.path}
-                          alt="Video thumbnail"
+                          src={item?.placeholder}
+                          alt="Video placeholder"
                           width={400}
                           height={570}
                           className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-300 ${
                             isHovering ? "opacity-0" : "opacity-100"
                           }`}
                         />
+                        {/* Actual video */}
                         <video
                           ref={videoRef}
-                          src={item?.media?.video_path}
+                          src={item?.url}
                           muted
                           loop
                           playsInline
                           className="w-full h-full object-cover"
                         />
+                        {/* Play button overlay */}
                         <div
                           className={`w-[35px] lg:w-[40px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square rounded-[10px] overflow-hidden absolute bottom-0 right-0 m-[10px] ${
                             isHovering ? "opacity-0" : "opacity-100"
@@ -280,23 +162,20 @@ export default function ProductDetailSection({ data = product_detail_data }) {
                             height={40}
                             className="w-full h-full object-cover scale-125"
                           />
-                          <ShineBorder
-                            borderWidth={1}
-                            shineColor={["#4a4a4a"]}
-                          />
+                          <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
                         </div>
                       </div>
                     ) : (
                       <div id="gallery" className="w-full h-full">
                         <a
-                          href={item?.media?.path}
+                          href={item?.url}
                           data-pswp-width="1920"
                           data-pswp-height="1080"
                           className="cursor-pointer"
                         >
                           <Image
-                            src={item?.media?.path}
-                            alt={item?.media?.alt}
+                            src={item?.url}
+                            alt={item?.alt}
                             width={825}
                             height={570}
                             className="w-full h-full object-cover"
@@ -308,48 +187,62 @@ export default function ProductDetailSection({ data = product_detail_data }) {
                 </SwiperSlide>
               ))}
             </Swiper>
+
+
+            {/* Thumbnails only for mobile */}
             {!isDesktop && (
-              <Swiper
-                modules={[Thumbs, Autoplay]}
-                slidesPerView={2}
-                spaceBetween={10}
-                autoplay={{ delay: 2000, pauseOnMouseEnter: true }}
-                speed={500}
-                watchSlidesProgress
-                onSwiper={setThumbsSwiper}
-                breakpoints={{
-                  468: {
-                    slidesPerView: 3,
-                    spaceBetween: 10,
-                  },
-                  640: {
-                    slidesPerView: 4,
-                    spaceBetween: 10,
-                  },
-                  768: {
-                    slidesPerView: 4,
-                    spaceBetween: 15,
-                  },
-                }}
-              >
-                {data?.car_media_gallery?.map((item, index) => (
-                  <SwiperSlide key={`car-${index}`}>
-                    <div className="w-full h-[80px] sm:h-[100px] md:h-[120px] lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
-                      <div className="w-full h-full relative">
-                        <Image
-                          src={item?.media?.path}
-                          alt={item?.media?.alt}
-                          width={400}
-                          height={280}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            )}
+  <Swiper
+    modules={[Thumbs, Autoplay]}
+    slidesPerView={2}
+    spaceBetween={10}
+    autoplay={{ delay: 2000, pauseOnMouseEnter: true }}
+    speed={500}
+    watchSlidesProgress
+    onSwiper={setThumbsSwiper}
+    breakpoints={{
+      468: { slidesPerView: 3, spaceBetween: 10 },
+      640: { slidesPerView: 4, spaceBetween: 10 },
+      768: { slidesPerView: 4, spaceBetween: 15 },
+    }}
+  >
+    {/* First thumb from data.media */}
+    {data?.media?.path && (
+      <SwiperSlide key="thumb-main">
+        <div className="w-full h-[80px] sm:h-[100px] md:h-[120px] lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
+          <div className="w-full h-full relative">
+            <Image
+              src={data?.media?.path}
+              alt={data?.media?.alt || "Main car image"}
+              width={400}
+              height={280}
+              className="w-full h-full object-cover"
+            />
           </div>
+        </div>
+      </SwiperSlide>
+    )}
+
+    {/* Rest of car_images */}
+    {data?.car_images?.map((item, index) => (
+      <SwiperSlide key={`thumb-${index}`}>
+        <div className="w-full h-[80px] sm:h-[100px] md:h-[120px] lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
+          <div className="w-full h-full relative">
+            <Image
+              src={item?.type === "video" ? item?.placeholder : item?.url}
+              alt={item?.alt}
+              width={400}
+              height={280}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+)}
+
+          </div>
+
           <div className="lg:w-[60%] xl:w-1/2">
             <div className="w-full h-auto p-[20px] sm:p-[25px] md:p-[30px] 2xl:p-[40px] 3xl:p-[50px] mb-[10px] 3xl:mb-[15px] rounded-[10px] relative z-0">
               <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
@@ -357,61 +250,308 @@ export default function ProductDetailSection({ data = product_detail_data }) {
               <div className="mb-[10px] lg:mb-[17px] 2xl:mb-[20px] 3xl:mb-[30px] flex flex-wrap items-center">
                 <div className="w-[75%]">
                   <div className="text-[16px] sm:text-[20px] lg:text-[24px] 2xl:text-[28px] 3xl:text-[35px] leading-[1.5] font-normal font-base1 text-white mb-[5px] 3xl:mb-[10px]">
-                    {data?.car_detail?.name}
+                    {data?.cartitle}
                   </div>
                   <div className="text-[11px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-medium font-base2 text-white">
-                    {data?.car_detail?.car_type}
+                    {data?.model}
                   </div>
                 </div>
-                <div className="w-[25%]">
-                  <div className="text-[11px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-medium font-base2 text-white w-fit h-auto p-[5px_10px] ml-auto rounded-[10px] relative z-0">
-                    {data?.car_detail?.registration_Type}
-                    <span className="text-[10px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1.5] font-medium font-base2 text-[#727272] block">
-                      Registration
-                    </span>
-                    <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
-                  </div>
-                </div>
-              </div>
-              <div className="[&>*]:w-1/2 [&>*]:3xs:w-1/3 [&>*]:sm:w-1/5 [&>*]:p-[5px] [&>*]:3xl:p-[10px] mx-[-5px] 3xl:mx-[-10px] flex flex-wrap">
-                {data?.car_detail?.car_specs?.map((item, index) => (
-                  <div key={`car_spec-${index}`} className="h-auto block">
-                    <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
-                      <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
-                      <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
-                        <Image
-                          src={item?.icon?.path}
-                          alt={item?.icon?.alt}
-                          width={50}
-                          height={50}
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                      <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
-                        {item?.value}
-                      </div>
-                      <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
-                        {item?.name}
-                      </div>
-                      <ShineBorder
-                        borderWidth={1}
-                        shineColor={["#4a4a4a"]}
-                        duration={10 + (index % 5) * 1.5}
-                      />
+                {data?.registration && (
+                  <div className="w-[25%]">
+                    <div className="text-[11px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-medium font-base2 text-white w-fit h-auto p-[5px_10px] ml-auto rounded-[10px] relative z-0">
+                      {data?.registration}
+                      <span className="text-[10px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1.5] font-medium font-base2 text-[#727272] block">
+                        Registration
+                      </span>
+                      <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
                     </div>
                   </div>
-                ))}
+                )}
               </div>
+                <div className="[&>*]:w-1/2 [&>*]:3xs:w-1/3 [&>*]:sm:w-1/5 [&>*]:p-[5px] [&>*]:3xl:p-[10px] mx-[-5px] 3xl:mx-[-10px] flex flex-wrap">
+                  {data?.kms && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_1.svg"
+                            alt="car_spec_1"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.kms} km
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          kms
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.mileage && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_2.svg"
+                            alt="car_spec_2"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.mileage} km
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          Mileage
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.fuel_type && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_3.svg"
+                            alt="car_spec_3"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.fuel_type}
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          Fuel
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.no_of_owners && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_4.svg"
+                            alt="car_spec_4"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.no_of_owners}
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          No. Of Owners
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.insurance && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_5.svg"
+                            alt="car_spec_5"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.insurance}
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          Insurance
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.engine_cc && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_6.svg"
+                            alt="car_spec_6"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.engine_cc}
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          Engine CC
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.transmissions && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_7.svg"
+                            alt="car_spec_7"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.transmissions}
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          Fuel
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.color && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_8.svg"
+                            alt="car_spec_8"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.color}
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          Color
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.purchase_year && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_9.svg"
+                            alt="car_spec_9"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.purchase_year}
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          Purchase Year
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {data?.seat && (
+                    <div className="h-auto block">
+                      <div className="w-full h-full p-[10px] 2xl:p-[15px_10px] 3xl:p-[20px_15px] rounded-[10px] overflow-hidden text-center flex flex-col items-center relative z-0">
+                        <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
+                        <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
+                          <Image
+                            src="/images/car_spec_10.svg"
+                            alt="car_spec_10"
+                            width={50}
+                            height={50}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
+                          {data?.seat}
+                        </div>
+                        <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
+                          Seat
+                        </div>
+                        <ShineBorder
+                          borderWidth={1}
+                          shineColor={["#4a4a4a"]}
+                          duration={10}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
             </div>
             <div className="w-full h-auto p-[15px_20px] sm:p-[20px_30px] 2xl:p-[25px_40px] 3xl:p-[30px_50px] rounded-[10px] flex items-center relative z-0">
               <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[5%]"></div>
               <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
               <div className="w-1/2">
+                {data?.price && (
                 <div className="text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-medium font-base3 text-white mb-[7px] 2xl:mb-[10px] 3xl:mb-[15px]">
-                  {data?.car_detail?.price}
+                  ₹ {data?.price}
                 </div>
+                )}
                 <div className="w-fit h-auto p-[10px] 3xl:p-[10px_15px] rounded-[10px] flex items-center relative z-0">
-                  {data?.car_detail?.finance_available && (
+                  {data?.finance_available && (
                     <>
                       <div className="text-[12px] 3xl:text-[18px] leading-[1] font-normal font-base1 text-white pr-[8px]">
                         Finance Available
@@ -433,14 +573,14 @@ export default function ProductDetailSection({ data = product_detail_data }) {
               <div className="w-1/2">
                 <div className="flex items-center justify-end">
                   <a
-                    href={data?.car_detail?.link}
+                    href={`https://wa.me/${whatsapp_post?.number}?text=Hi, I am interested in ${data?.cartitle}`}
                     target="_blank"
                     aria-label="whatsapp"
                     className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center transition-all duration-300 ease-in-out relative z-0 hover:opacity-50"
                   >
                     <Image
-                      src="/images/whatsapp_icon.svg"
-                      alt="Whatsapp"
+                      src={whatsapp_post?.icon?.url}
+                      alt={whatsapp_post?.icon?.alt || "Whatsapp"}
                       width={25}
                       height={25}
                       className="w-full h-full object-contain"
@@ -448,7 +588,7 @@ export default function ProductDetailSection({ data = product_detail_data }) {
                   </a>
                   <div className="ml-[7px] sm:ml-[10px] lg:ml-[15px] 2xl:ml-[18px] 3xl:ml-[25px]">
                     <Link
-                      href={data?.car_detail?.enquire_link}
+                      href= "#carenquiryform"
                       className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-white w-fit h-auto bg-black p-[5px_8px] sm:p-[8px_12px] 2xl:p-[10px_15px] 3xl:p-[12px_20px] rounded-[5px] sm:rounded-[7px] 3xl:rounded-[10px] border-1 border-[#BEBEBE] block hover:bg-[#F29A0D] hover:border-white hover:text-white transition-all duration-300 ease-in-out"
                     >
                       Enquire Now
@@ -460,44 +600,62 @@ export default function ProductDetailSection({ data = product_detail_data }) {
           </div>
         </div>
         {isDesktop && (
-          <Swiper
-            modules={[Thumbs, Autoplay]}
-            slidesPerView={4}
-            watchSlidesProgress
-            onSwiper={setThumbsSwiper}
-            autoplay={{ delay: 2000, pauseOnMouseEnter: true }}
-            speed={500}
-            breakpoints={{
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 25,
-              },
-              1536: {
-                slidesPerView: 4,
-                spaceBetween: 30,
-              },
-              1771: {
-                slidesPerView: 4,
-                spaceBetween: 40,
-              },
-            }}
-          >
-            {data?.car_media_gallery?.map((item, index) => (
-              <SwiperSlide key={`car-${index}`}>
-                <div className="w-full lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
-                  <div className="w-full h-full relative">
-                    <Image
-                      src={item?.media?.path}
-                      alt={item?.media?.alt}
-                      width={400}
-                      height={280}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+        <Swiper
+          modules={[Thumbs, Autoplay]}
+          slidesPerView={4}
+          watchSlidesProgress
+          onSwiper={setThumbsSwiper}
+          autoplay={{ delay: 2000, pauseOnMouseEnter: true }}
+          speed={500}
+          breakpoints={{
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 25,
+            },
+            1536: {
+              slidesPerView: 4,
+              spaceBetween: 30,
+            },
+            1771: {
+              slidesPerView: 4,
+              spaceBetween: 40,
+            },
+          }}
+        >
+          {/* First thumb from data.media */}
+          {data?.media?.path && (
+            <SwiperSlide key="car-main">
+              <div className="w-full lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
+                <div className="w-full h-full relative">
+                  <Image
+                    src={data?.media?.path}
+                    alt={data?.media?.alt || "Main car image"}
+                    width={400}
+                    height={280}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+              </div>
+            </SwiperSlide>
+          )}
+
+          {/* Rest of car_images */}
+          {data?.car_images?.map((item, index) => (
+            <SwiperSlide key={`car-${index}`}>
+              <div className="w-full lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
+                <div className="w-full h-full relative">
+                  <Image
+                    src={item?.type === "video" ? item?.placeholder : item?.url}
+                    alt={item?.alt}
+                    width={400}
+                    height={280}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
         )}
         {isVideoOpen && videoSrc && (
           <div

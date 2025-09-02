@@ -4,6 +4,7 @@ import Header from "../components/layout/Header";
 import LenisWrapper from "@/components/utils/LenisWrapper";
 import { Cormorant_Garamond, Raleway } from "next/font/google";
 import StickyWidget from "@/components/common/StickyWidget";
+import { Toaster } from "sonner";
 
 // Load CeraPro Font
 const CeraPro = localFont({
@@ -79,6 +80,17 @@ export default function RootLayout({ children }) {
           <LenisWrapper>{children}</LenisWrapper>
         </main>
         <Footer />
+
+        {/* ✅ Required for toast notifications */}
+        <Toaster
+  position="top-center"
+  toastOptions={{
+    classNames: {
+      toast: "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
+    },
+  }}
+/>
+
       </body>
     </html>
   );

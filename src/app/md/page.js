@@ -9,7 +9,7 @@ export default async function Page() {
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch Privacy Policy data");
+    throw new Error("Failed to fetch data");
   }
 
   const data = await res.json();
@@ -20,8 +20,8 @@ export default async function Page() {
     {banner?.enable__disable_banner === true ? (
       <InnerHero
         title={banner?.title ?? ""}
-        mobileImage={banner?.mobile_image?.url ?? ""}
-        desktopImage={banner?.desktop_image?.url ?? ""}
+        mobileImage={banner?.mobile_image?.url}
+        desktopImage={banner?.desktop_image?.url}
         alt={banner?.desktop_image?.alt ?? "banner"}
       />
     ) : null}

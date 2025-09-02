@@ -95,7 +95,7 @@ const onSubmit = async (data) => {
     };
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_WORDPRESS_API}/wp-json/custom/v1/enquiry`,
+      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/custom/v1/enquiry`,
       {
         method: "POST",
         headers: {

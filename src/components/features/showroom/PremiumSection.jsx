@@ -51,9 +51,9 @@ export default function PremiumSection({ data }) {
                             dangerouslySetInnerHTML={{ __html: premium_showroom_section?.title || "" }}
                             />
                             <p
-                            className="text-[10px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] !font-base2 text-white font-extralight"
-                            dangerouslySetInnerHTML={{ __html: premium_showroom_section?.description || "" }}
-                            />
+                            className="text-[10px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] !font-base2 text-white font-extralight">
+                            {premium_showroom_section?.description}
+                            </p>
                         </div>
                     </div>
 

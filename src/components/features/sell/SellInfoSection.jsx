@@ -3,19 +3,12 @@ import { Heading } from "@/components/utils/Heading";
 import { Text } from "@/components/utils/Text";
 import Image from "next/image";
 
-const sellInfoData = {
-  media: {
-    type: "image",
-    path: "/images/sell-sellinfo-1.jpg",
-    alt: "Sell Your Car",
-  },
-  title: "We Make Selling Your Car Easy",
-  description:
-    "<p>The Range Rover stands as a symbol of refined luxury, cutting-edge technology, and peerless off-road capability. With its bold design, powerful performance, and sophisticated interiors, the Range Rover delivers an unmatched driving experience both on and off the road. Every detail is meticulously crafted—from its sleek, aerodynamic silhouette to the plush, high-quality cabin materials.</p><br /><p> Equipped with advanced terrain response systems, premium infotainment, and driver-assist technologies, the Range Rover offers both comfort and confidence for every journey. Whether navigating city streets or exploring the wilderness, it ensures elegance, strength, and innovation in perfect harmony.</p>",
-};
-
-export default function SellInfoSection({ data = sellInfoData }) {
+export default function SellInfoSection({ data }) {
+    
+  const first_description_section = data?.sell_your_car_acf?.first_description_section;
+  
   return (
+    first_description_section?.enable__disable_first_description_section === true ? 
     <section className="w-full h-auto block overflow-hidden">
       <div className="container container-sp sm:!mr-0 sm:!pr-0">
         <div className="relative z-0">
@@ -23,7 +16,7 @@ export default function SellInfoSection({ data = sellInfoData }) {
             <BreadCrumb
               items={[
                 { label: "Home", href: "/" },
-                { label: "Sell Your Car", href: "/sell" },
+                { label: data.title, href: "/sell" },
               ]}
             />
           </div>
@@ -36,22 +29,22 @@ export default function SellInfoSection({ data = sellInfoData }) {
                 size="heading1"
                 className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
               >
-                {data?.title}
+                {first_description_section?.title}
               </Heading>
               <Text
                 as="div"
                 size="text3"
                 className="!font-light text-white mb-[15px] sm:mb-[20px] xl:mb-[30px] 2xl:mb-[40px]"
-              >
-                <div dangerouslySetInnerHTML={{ __html: data?.description }} />
-              </Text>
+                dangerouslySetInnerHTML={{ __html: first_description_section?.description }}
+              />
+
             </div>
           </div>
           <div className="w-full sm:w-1/2 xl:w-[55%]">
             <div className="w-full h-auto aspect-square [mask-image:linear-gradient(to_left,white_0%,white_70%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_left,white_0%,white_70%,transparent_100%)] overflow-hidden">
               <Image
-                src={data?.media?.path}
-                alt={data?.media?.alt}
+                src={first_description_section?.background_image?.url}
+                alt={first_description_section?.background_image?.alt}
                 width={880}
                 height={850}
                 className="w-full h-full object-cover hover:scale-105 transition origin-right duration-300"
@@ -61,5 +54,6 @@ export default function SellInfoSection({ data = sellInfoData }) {
         </div>
       </div>
     </section>
+    : null
   );
 }
