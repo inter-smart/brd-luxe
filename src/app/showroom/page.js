@@ -8,21 +8,40 @@ import EnquirySection from "@/components/features/contact/EnquirySection"
 
  
 
-export default function page() {
+export default async function page() {
+
+  // Fetch privacy policy data from WP API
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/showroom`,
+    { next: { revalidate: 60 } } // ISR optional
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const data = await res.json();
+    const banner = data?.showroom_acf?.banner;
+    const enquiry_section = data?.showroom_acf?.enquiry_section;
+
     return (
         <>
+        {banner?.enable__disable_banner === true ? (
             <InnerHero
-                title="Showroom"
-                mobileImage={"/images/showroomBanner.jpg"}
-                desktopImage={"/images/showroomBanner.jpg"}
-                alt="Showroom"
+                title={banner?.title ?? ""}
+                mobileImage={banner?.mobile_image?.url}
+                desktopImage={banner?.desktop_image?.url}
+                alt={banner?.desktop_image?.alt ?? "banner"}
             />
-            <PremiumSection />
-            <WhatWitsSection />
-            <VisitUsSection />
-            <FlagshipSection /> 
-            <TestdriveeSection />
-             <EnquirySection />
+            ) : null}
+            <PremiumSection  data={data}/>
+            <WhatWitsSection  data={data}/>
+            <VisitUsSection  data={data}/>
+            <FlagshipSection  data={data}/> 
+            <TestdriveeSection  data={data}/>
+            { enquiry_section?.enable__disable_enquiry_section === true ? (
+            <EnquirySection  data={enquiry_section}/>
+            ) : null}
         </>
     )
 }

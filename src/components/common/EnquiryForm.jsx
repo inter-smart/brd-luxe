@@ -58,28 +58,71 @@ export default function EnquiryForm() {
     },
   });
 
-  const onSubmit = async (data) => {
-    setIsSubmitting(true);
+  // const onSubmit = async (data) => {
+  //   setIsSubmitting(true);
 
-    try {
-      // Create FormData for file upload
-      const formData = new FormData();
+  //   try {
+  //     // Create FormData for file upload
+  //     const formData = new FormData();
 
-      // TODO: Replace with your API endpoint
-      console.log("Form data:", data);
+  //     // TODO: Replace with your API endpoint
+  //     console.log("Form data:", data);
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+  //     // Simulate API call
+  //     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Reset form on success
+  //     // Reset form on success
+  //     form.reset();
+  //   } catch (error) {
+  //     console.error("Submission error:", error);
+  //     // Handle error (show toast, etc.)
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
+
+const onSubmit = async (data) => {
+  setIsSubmitting(true);
+
+  try {
+    // Map `fullName` to `name` so backend matches
+    const payload = {
+      name: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      message: data.message,
+    };
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/custom/v1/enquiry`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert("✅ Enquiry submitted successfully!");
       form.reset();
-    } catch (error) {
-      console.error("Submission error:", error);
-      // Handle error (show toast, etc.)
-    } finally {
-      setIsSubmitting(false);
+    } else {
+      alert(result.message || "❌ Something went wrong. Please try again.");
     }
-  };
+  } catch (error) {
+    console.error("Submission error:", error);
+    alert("⚠️ Failed to submit enquiry. Please try again later.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+
 
   return (
     <Form {...form}>

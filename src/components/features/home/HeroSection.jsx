@@ -9,86 +9,10 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css/effect-fade";
 import "swiper/css";
 
-const hero_slides = [
-  {
-    title: "YOUR NEXT LUXURY RIDE AWAITS",
-    description:
-      "Discover top-tier used cars that match your lifestyle and legacy.",
-    media: {
-      type: "video",
-      path: "/videos/home_banner.mp4",
-    },
-    hero_buttons: [
-      {
-        label: "Buy Now",
-        url: "/",
-      },
-      {
-        label: "Sell Your Car",
-        url: "/sell",
-      },
-    ],
-  },
-  {
-    title: "YOUR NEXT LUXURY RIDE AWAITS - 02",
-    description:
-      "Discover top-tier used cars that match your lifestyle and legacy.",
-    media: {
-      type: "video",
-      path: "/videos/home_banner.mp4",
-    },
-    hero_buttons: [
-      {
-        label: "Buy Now",
-        url: "/",
-      },
-      {
-        label: "Sell Your Car",
-        url: "/sell",
-      },
-    ],
-  },
-  {
-    title: "YOUR NEXT LUXURY RIDE AWAITS - 03",
-    description:
-      "Discover top-tier used cars that match your lifestyle and legacy.",
-    media: {
-      type: "video",
-      path: "/videos/home_banner.mp4",
-    },
-    hero_buttons: [
-      {
-        label: "Buy Now",
-        url: "/",
-      },
-      {
-        label: "Sell Your Car",
-        url: "/sell",
-      },
-    ],
-  },
-  {
-    title: "YOUR NEXT LUXURY RIDE AWAITS - 04",
-    description:
-      "Discover top-tier used cars that match your lifestyle and legacy.",
-    media: {
-      type: "video",
-      path: "/videos/home_banner.mp4",
-    },
-    hero_buttons: [
-      {
-        label: "Buy Now",
-        url: "/",
-      },
-      {
-        label: "Sell Your Car",
-        url: "/sell",
-      },
-    ],
-  },
-];
+export default function HeroSection({ data }) {
 
-export default function HeroSection({ data = hero_slides }) {
+  const banner = data?.banner;
+
   // const isDesktop = useMediaQuery({
   //   query: "(min-width: 640px)",
   // });
@@ -144,6 +68,7 @@ export default function HeroSection({ data = hero_slides }) {
   };
 
   return (
+    banner?.enable__disable_banner === true && banner?.sliders?.length > 0 ?
     <section className="w-full h-[570px] sm:h-screen flex items-center justify-center relative z-0">
       <Swiper
         modules={[Autoplay, EffectFade]}
@@ -162,14 +87,14 @@ export default function HeroSection({ data = hero_slides }) {
         onSlideChange={handleSlideChange}
         className="w-full h-full"
       >
-        {data?.map((item, index) => (
+        {banner?.sliders?.map((item, index) => (
           <SwiperSlide key={`slide-${index}`}>
             {({ isActive }) => (
               <div
                 className={`w-full h-full flex flex-col justify-end relative z-0`}
               >
                 <div className="w-full h-full block absolute inset-0 -z-1">
-                  {item?.media?.type === "video" ? (
+                  {item?.type === "video" ? (
                     <video
                       loop
                       muted
@@ -180,17 +105,17 @@ export default function HeroSection({ data = hero_slides }) {
                       }}
                       className="w-full h-full object-cover"
                     >
-                      <source src={item?.media?.path} type="video/mp4" />
+                      <source src={item?.video?.url} type="video/mp4" />
                     </video>
                   ) : (
                     <picture className="absolute -z-2 inset-0">
                       <source
                         media="(max-width: 640px)"
-                        srcSet={item?.media?.path}
+                        srcSet={item?.image?.url}
                       />
                       <Image
-                        src={item?.media?.path}
-                        alt={item?.media?.alt}
+                        src={item?.image?.url}
+                        alt={item?.image?.alt}
                         fill
                         sizes="100vw, 230px"
                         className="object-cover"
@@ -210,7 +135,7 @@ export default function HeroSection({ data = hero_slides }) {
                       animate={activeIndex === index ? "show" : "hidden"}
                       className="text-[12px] sm:text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.4] font-normal font-base2 max-sm:text-center text-white mb-[15px] sm:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px]"
                     >
-                      {item?.description}
+                      {item?.title}
                     </TextAnimate>
                     <TextAnimate
                       animation="slideUp"
@@ -219,19 +144,21 @@ export default function HeroSection({ data = hero_slides }) {
                       animate={activeIndex === index ? "show" : "hidden"}
                       className="text-[32px] sm:text-[42px] lg:text-[54px] 2xl:text-[64px] 3xl:text-[80px] leading-[1] font-light font-base1 text-white max-sm:text-center mb-[20px] sm:mb-[30px] lg:mb-[40px] 2xl:mb-[45px] 3xl:mb-[60px]"
                     >
-                      {item?.title}
+                      {item?.description}
                     </TextAnimate>
                     <div className="w-full h-full [&>*]:pr-[10px] lg:[&>*]:pr-[15px] 2xl:[&>*]:pr-[20px] flex flex-wrap items-center max-sm:justify-center">
-                      {item?.hero_buttons?.map((item, index) => (
+                      {item?.buttons?.map((item, index) => (
+                        item?.button_url?.url && item?.button_title && 
                         <div
                           key={`hero-button-${index}`}
                           className="w-fit h-auto"
                         >
                           <StyledLink
-                            href={item?.url}
+                            href={item?.button_url?.url}
                             className="!tracking-[0]"
+                            target={item?.button_url?.target}
                           >
-                            {item?.label}
+                            {item?.button_title}
                           </StyledLink>
                         </div>
                       ))}
@@ -245,20 +172,21 @@ export default function HeroSection({ data = hero_slides }) {
       </Swiper>
       {isDesktop && (
         <CustomPaginationDots
-          slides={data}
+          slides={banner?.sliders ?? []}
           activeIndex={activeIndex}
           isPlaying={isPlaying}
           autoplayDelay={autoplayDelay}
           onTogglePlayPause={() => controlPlayback(!isPlaying)}
           onSlideClick={navigateToSlide}
           onProgressComplete={() => {
-            const nextIndex = (activeIndex + 1) % data.length;
+            const nextIndex = (activeIndex + 1) % (banner?.sliders?.length ?? 1);
             setIsPlaying(true);
             navigateToSlide(nextIndex);
           }}
         />
       )}
     </section>
+    : null
   );
 }
 

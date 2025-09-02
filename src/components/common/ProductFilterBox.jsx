@@ -14,13 +14,43 @@ import {
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
 
-export default function ProductFilterBox({ variant = "default" }) {
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const isDesktop = useMediaQuery({
+import { useSearchParams} from "next/navigation";
+
+
+export default function ProductFilterBox({ variant = "default" , listingpagedata, pageId, onFilterChange, onSearch, cars = [], setPriceRange, filters = {}, }) {
+
+const searchParams = useSearchParams();
+
+const initialModel = searchParams.get("model") || "";
+
+  const [brand, setBrand] = useState(filters.brand || "")
+  const [model, setModel] = useState(filters.model || initialModel);
+  
+  useEffect(() => {
+    setBrand(filters.brand || "");
+    setModel(filters.model || "");
+  }, [filters]);
+
+const isDesktop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    if (onSearch) {
+      onSearch();  // 👈 now calls the parent’s setAppliedFilters(filters)
+    }
+  };
+
+// send filter values to parent
+  useEffect(() => {
+    if (onFilterChange) {
+      onFilterChange((prev) => ({ ...prev, brand, model }));
+    }
+  }, [brand,model]);
+
+  const brands = Object.values(listingpagedata?.filters?.brands ?? {});
+  const models = Object.values(listingpagedata?.filters?.models ?? {}).filter(
+    (m) => cars.some((car) => (car.model || []).includes(m.slug))
+  );
 
   const inputFormStyle =
     "!text-[12px] lg:!text-[13px] 2xl:!text-[14px] 3xl:!text-[18px] leading-[1.2] font-light !font-base3 !text-white !min-w-fit sm:!min-w-[100px] md:!min-w-[100px] lg:!min-w-[110px] 2xl:!min-w-[135px] 3xl:!min-w-[170px] bg-transparent text-white px-0 rounded-[0px] border-0 border-b-1 border-white relative z-0 focus-visible:ring-0 focus-visible:ring-offset-0";
@@ -29,6 +59,22 @@ export default function ProductFilterBox({ variant = "default" }) {
 
   const inputSelectStyle =
     "bg-black text-[11px] lg:text-[12px] 2xl:text-[14px] rounded-[4px]";
+
+  
+  
+
+
+
+
+  // Collect available model slugs from the actual cars
+const availableModels = new Set(
+  cars.flatMap((car) => car.model || [])
+);
+
+
+
+
+  
 
   return (
     <form
@@ -43,52 +89,52 @@ export default function ProductFilterBox({ variant = "default" }) {
           variant === "ProductListing" && "max-xl:block max-xl:space-y-[25px]"
         }`}
       >
+        {(variant != "ProductListing" || listingpagedata?.enable__disable_filter) && (
+        <>
         <Select value={brand} onValueChange={setBrand}>
-          <SelectTrigger
-            className={`${inputFormStyle} ${
-              variant === "ProductListing" && "max-xl:w-[100%]"
-            }`}
-          >
-            <SelectValue placeholder="Brand" />
-          </SelectTrigger>
-          <SelectContent className={`${selectStyle}`}>
-            <SelectItem className={`${inputSelectStyle}`} value="SUV">
-              SUV
-            </SelectItem>
-            <SelectItem className={`${inputSelectStyle}`} value="SEDAN">
-              SEDAN
-            </SelectItem>
-            <SelectItem className={`${inputSelectStyle}`} value="MUV">
-              MUV
-            </SelectItem>
-          </SelectContent>
-        </Select>
+              <SelectTrigger
+                className={`${inputFormStyle} ${variant === "ProductListing" && "max-xl:w-[100%]"}`}
+              >
+                <SelectValue placeholder="Brand" />
+              </SelectTrigger>
+              <SelectContent className={`${selectStyle}`}>
+                {brands.map((b) => (
+                  <SelectItem key={b.term_id} className={inputSelectStyle} value={b.slug}>
+                    {b.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
         <Select value={model} onValueChange={setModel}>
-          <SelectTrigger
-            className={`${inputFormStyle} ${
-              variant === "ProductListing" && "max-xl:w-[100%]"
-            }`}
-          >
-            <SelectValue placeholder="Model" />
-          </SelectTrigger>
-          <SelectContent className={`${selectStyle}`}>
-            <SelectItem className={`${inputSelectStyle}`} value="SUPER LUXURY">
-              SUPER LUXURY
-            </SelectItem>
-            <SelectItem className={`${inputSelectStyle}`} value="SUV">
-              SUV
-            </SelectItem>
-            <SelectItem className={`${inputSelectStyle}`} value="MUV">
-              MUV
-            </SelectItem>
-          </SelectContent>
-        </Select>
+  <SelectTrigger
+    className={`${inputFormStyle} ${variant === "ProductListing" && "max-xl:w-[100%]"}`}
+  >
+    <SelectValue placeholder="Model" />
+  </SelectTrigger>
+  <SelectContent className={selectStyle}>
+    {models.map((m) => (
+      <SelectItem key={m.term_id} value={m.slug} className={inputSelectStyle}>
+        {m.name}
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
+
+
+        </>
+      )}
         {variant === "ProductListing" ? (
           <>
+          {listingpagedata?.enable__disable_filter &&
             <div className="w-[100%] h-auto xl:pl-[25px]">
-              <PriceRangeSlider />
+              <PriceRangeSlider cars={cars} onChange={setPriceRange} />
             </div>
-            {isDesktop && <SearchForm />}
+          }
+          
+            {listingpagedata?.enable__disable_search && isDesktop &&
+            <SearchForm onSearch={(q) => onFilterChange((prev) => ({ ...prev, search: q }))} />
+            }
+          
           </>
         ) : (
           <Button
@@ -111,10 +157,35 @@ export default function ProductFilterBox({ variant = "default" }) {
   );
 }
 
-function PriceRangeSlider() {
-  const [range, setRange] = useState([0, 2100000]);
-  const formatValue = (val) =>
-    val >= 100000 ? `₹${val / 100000} L` : `₹${val}`;
+function PriceRangeSlider({ cars, onChange }) {
+  // Find min and max dynamically from car prices
+  // Find min and max dynamically from car prices
+const prices = cars.map((car) =>
+  parseInt(car.price?.toString().replace(/,/g, ""), 10)
+);
+const minPrice = Math.min(...prices);
+const maxPrice = Math.max(...prices);
+
+
+  const [range, setRange] = useState([minPrice, maxPrice]);
+
+  const formatValue = (val) => {
+  if (val >= 10000000) {
+    // 1 Crore and above
+    return `₹${(val / 10000000).toFixed(2).replace(/\.00$/, "")} Cr`;
+  } else if (val >= 100000) {
+    // 1 Lakh and above
+    return `₹${(val / 100000).toFixed(2).replace(/\.00$/, "")} L`;
+  } else {
+    // Below 1 Lakh → add commas properly
+    return `₹${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  }
+};
+
+  // Whenever range changes, inform parent
+  useEffect(() => {
+    onChange(range);
+  }, [range]);
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -127,10 +198,6 @@ function PriceRangeSlider() {
         width: 15px !important; 
         height: 15px !important;
         background: white !important;
-        @media only screen and (max-width: 1536px) {
-          width: 10px !important; 
-          height: 10px !important;
-        }
       }  
       .range-slider__range{
         height: 2px !important;
@@ -156,8 +223,8 @@ function PriceRangeSlider() {
           </span>
         </div>
         <RangeSlider
-          min={0}
-          max={2100000}
+          min={minPrice}
+          max={maxPrice}
           step={100000}
           value={range}
           onInput={setRange}

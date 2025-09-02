@@ -11,21 +11,35 @@ import LatestBrdSection from "@/components/features/home/LatestBrdSection";
 import ExperienceSection from "@/components/features/home/TestimonialSection";
 import JourneyFrameSection from "@/components/features/home/JourneyFrameSection";
 
-export default function Page() {
+export default async function Page() {
+
+  // Fetch privacy policy data from WP API
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/home`,
+    { next: { revalidate: 60 } } // ISR optional
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const data = await res.json();
+  const home_acf = data?.home_acf;
+
   return (
     <>
-      <HeroSection />
-      <BestCarsSection />
-      <ProductSection />
-      <DealerSection />
-      <OfferSection />
-      <BrandSection />
-      <BrdAdvantageSection />
-      <SellCarSection />
-      <ExperienceSection />
-      <LatestBrdSection />
-      <JourneyFrameSection />
-      <LetsTalkSection />
+      <HeroSection data={home_acf}/>
+      <BestCarsSection data={home_acf}/>
+      <ProductSection data={home_acf} whatsapp={data?.home_acf?.whatsapp}/>
+      <DealerSection data={home_acf}/>
+      <OfferSection data={home_acf}/>
+      <BrandSection data={home_acf}/>
+      <BrdAdvantageSection data={home_acf}/>
+      <SellCarSection data={home_acf}/>
+      <ExperienceSection data={home_acf}/>
+      <LatestBrdSection data={home_acf}/>
+      <JourneyFrameSection data={home_acf}/>
+      <LetsTalkSection data={home_acf}/>
     </>
   );
 }

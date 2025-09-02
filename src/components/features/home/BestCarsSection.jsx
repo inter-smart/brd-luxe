@@ -10,67 +10,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-const best_cars_data = {
-  heading: {
-    title: "Best Luxury Cars in India",
-    description:
-      "Experience unparalleled elegance and cutting-edge performance with our finest selection of luxury cars in India.",
-  },
-  cars_list: [
-    {
-      url: "/",
-      media: {
-        path: "/images/car_list_1.png",
-        alt: "SUV",
-      },
-      title: "SUV",
-    },
-    {
-      url: "/",
-      media: {
-        path: "/images/car_list_2.png",
-        alt: "Sedan",
-      },
-      title: "Sedan",
-    },
-    {
-      url: "/",
-      media: {
-        path: "/images/car_list_3.png",
-        alt: "MUV",
-      },
-      title: "MUV",
-    },
-    {
-      url: "/",
-      media: {
-        path: "/images/car_list_4.png",
-        alt: "Super Luxury",
-      },
-      title: "Super Luxury",
-    },
-    {
-      url: "/",
-      media: {
-        path: "/images/car_list_5.png",
-        alt: "Coupe",
-      },
-      title: "Coupe",
-    },
-    {
-      url: "/",
-      media: {
-        path: "/images/car_list_4.png",
-        alt: "Super Luxury",
-      },
-      title: "Super Luxury",
-    },
-  ],
-};
+export default function BestCarsSection({ data }) {
 
-export default function BestCarsSection({ data = best_cars_data }) {
+  const best_cars_section = data?.best_cars_section;
+
   const [hoveredIndex, setHoveredIndex] = useState(null);
   return (
+    best_cars_section?.enable_best_cars_section?
     <section className="w-full h-auto block py-[40px_30px] lg:py-[45px_35px] 2xl:py-[50px_40px] 3xl:py-[70px_50px] border-y-1 border-[#404040]/50">
       <div className="container">
         <div className="mb-[20px] sm:mb-[30px] lg:mb-[35px] 2xl:mb-[40px] 3xl:mb-[50px] max-sm:text-center flex flex-wrap justify-between">
@@ -80,12 +26,12 @@ export default function BestCarsSection({ data = best_cars_data }) {
               size={"heading1"}
               className="text-white max-sm:mb-[15px]"
             >
-              {data?.heading?.title}
+              {best_cars_section?.title}
             </Heading>
           </div>
           <div className="w-full sm:w-[40%]">
             <Text as="div" className="text-[12px] sm:text-[12px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-normal font-light tracking-tight font-base2 text-white">
-              {data?.heading?.description}
+              {best_cars_section?.short_description}
             </Text>
           </div>
         </div>
@@ -110,10 +56,10 @@ export default function BestCarsSection({ data = best_cars_data }) {
               1920: { slidesPerView: 5 },
             }}
           >
-            {data?.cars_list?.map((item, index) => (
+            {best_cars_section?.models?.map((item, index) => (
               <SwiperSlide key={`slide-${index}`} className="!h-auto">
                 <Link
-                  href={item?.url}
+                  href={`/buy?model=${item?.slug}`}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   className="group w-full h-full p-[20px_10px_15px_10px] sm:p-[30px_15px_20px_15px] lg:p-[40px_20px_25px_20px] 2xl:p-[60px_30px_35px_30px] rounded-[10px] overflow-hidden block relative z-0"
@@ -133,7 +79,7 @@ export default function BestCarsSection({ data = best_cars_data }) {
                       as="div"
                       className="text-[11px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-normal font-base2 uppercase tracking-[2px] max-sm:text-center text-white"
                     >
-                      {item?.title}
+                      {item?.name}
                     </Text>
                     <span className="w-[10px] h-auto aspect-square ml-[5px] 2xl:ml-[10px] 3xl:ml-[15px] transform scale-[0.8] 2xl:scale-100 opacity-0 flex items-center justify-center transition duration-200 group-hover:opacity-100">
                       <svg
@@ -157,6 +103,7 @@ export default function BestCarsSection({ data = best_cars_data }) {
         </div>
       </div>
     </section>
+    : null
   );
 }
 
@@ -214,8 +161,8 @@ function CarMotion({ item, hovered }) {
     >
       <div className="relative w-full h-full">
         <Image
-          src={item?.media?.path}
-          alt={item?.media?.alt}
+          src={item?.image?.url}
+          alt={item?.image?.alt}
           fill
           sizes="100vw, 230px"
           className="object-contain transition duration-300"

@@ -2,7 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import {
@@ -66,21 +67,6 @@ const sellFormSchema = z.object({
   }),
 });
 
-// Transmission options
-const transmissionOptions = [
-  { value: "manual", label: "Manual" },
-  { value: "automatic", label: "Automatic" },
-  { value: "cvt", label: "CVT" },
-];
-
-// Fuel type options
-const fuelTypeOptions = [
-  { value: "petrol", label: "Petrol" },
-  { value: "diesel", label: "Diesel" },
-  { value: "electric", label: "Electric" },
-  { value: "hybrid", label: "Hybrid" },
-  { value: "cng", label: "CNG" },
-];
 
 // Shared input styles
 const inputStyle = `
@@ -96,6 +82,46 @@ const textareaStyle = `
   .trim();
 
 export default function SellForm() {
+  const [transmissionOptions, setTransmissionOptions] = useState([]);
+  const [fuelTypeOptions, setFuelTypeOptions] = useState([]);
+
+useEffect(() => {
+  async function fetchTaxonomies() {
+    try {
+      const [transRes, fuelRes] = await Promise.all([
+        fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/transmissions`
+        ),
+        fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/fuel-type`
+        ),
+      ]);
+
+      if (!transRes.ok || !fuelRes.ok) {
+        throw new Error("Failed to fetch taxonomies");
+      }
+
+      const [transData, fuelData] = await Promise.all([
+        transRes.json(),
+        fuelRes.json(),
+      ]);
+
+      setTransmissionOptions(
+        transData.map((item) => ({ value: item.slug, label: item.name }))
+      );
+      setFuelTypeOptions(
+        fuelData.map((item) => ({ value: item.slug, label: item.name }))
+      );
+    } catch (error) {
+      console.error("Error fetching taxonomies:", error);
+    }
+  }
+
+  fetchTaxonomies();
+}, []);
+
+
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState(null);
   const fileInputRef = useRef(null);
@@ -134,17 +160,40 @@ export default function SellForm() {
 
       // Append all form fields
       Object.entries(data).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
+      if (value !== undefined && value !== null) {
+        if (value instanceof Date) {
+          // format dates properly
+          formData.append(key, value.toISOString().split("T")[0]);
+        } else {
           formData.append(key, value.toString());
         }
+      }
       });
 
       // Append files if selected
       if (selectedFiles) {
-        Array.from(selectedFiles).forEach((file, index) => {
-          formData.append(`image_${index}`, file);
-        });
+      Array.from(selectedFiles).forEach((file, index) => {
+        formData.append(`images[]`, file);
+      });
+    }
+
+    // 🔥 Post to WordPress REST endpoint
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/sell-form`,
+      {
+        method: "POST",
+        body: formData,
       }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      toast.error(result?.message || "Submission failed");
+      throw new Error(result?.message || "Submission failed");
+    }
+
+    toast.success(result.message || "Form submitted successfully!");
 
       // TODO: Replace with your API endpoint
       console.log("Form data:", data);
@@ -440,7 +489,7 @@ export default function SellForm() {
 
         <FormField
           control={form.control}
-          name="color"
+          name="yearOfRegistration"
           render={({ field }) => (
             <FormItem className="w-full sm:w-1/2 xl:w-1/4">
               <FormLabel className="sr-only">Year of Registration</FormLabel>

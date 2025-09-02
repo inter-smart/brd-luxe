@@ -1,7 +1,14 @@
 import { useState } from "react";
 
-export default function SearchForm() {
+export default function SearchForm({ onSearch }) {
   const [query, setQuery] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onSearch) onSearch(query.trim());
+  };
+
+
   return (
     <>
       <div className="w-full h-[30px] 2xl:h-[35px] 3xl:h-[45px] xl:max-w-[285px] 2xl:max-w-[340px] 3xl:max-w-[420px] bg-black border-1 border-white rounded-[5px] 2xl:rounded-[8px] 3xl:rounded-[10px] overflow-hidden flex">
@@ -25,14 +32,14 @@ export default function SearchForm() {
           </svg>
         </div>
         <input
-          type="text"
-          placeholder=""
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="text-[12px] 2xl:text-[14px] font-light font-base2 flex-1 bg-black text-white w-[75%] px-2 py-2 outline-none"
-        />
+        type="text"
+        placeholder=""
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="text-[12px] 2xl:text-[14px] font-light font-base2 flex-1 bg-black text-white w-[75%] px-2 py-2 outline-none"
+      />
         <button
-          type="submit"
+         onClick={handleSubmit}
           className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] font-semibold font-base1 text-black w-[25%] bg-white p-[10px] transition-all duration-300 flex items-center justify-center hover:bg-[#F29A0D] hover:text-white"
         >
           Search
