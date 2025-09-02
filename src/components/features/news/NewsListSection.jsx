@@ -185,20 +185,34 @@ const newsListData = {
   ],
 };
 
-export default function NewsListSection({ data = newsListData }) {
+// export default function NewsListSection({ data }) {
+//   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
+//   // const news = data.posts;
+//   // const news = data?.posts ?? [];
+//   const handleLoadToggle = () => {
+//     if (visibleCount >= data.length) {
+//       // Collapse to initial count
+//       setVisibleCount(INITIAL_VISIBLE_COUNT);
+//     } else {
+//       // Load more items
+//       setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, data.length));
+//     }
+//   };
+
+//   const isAllLoaded = visibleCount >= data.length;
+
+export default function NewsListSection({ data = [] }) {
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
-  const news = data.news_list;
+
   const handleLoadToggle = () => {
-    if (visibleCount >= news.length) {
-      // Collapse to initial count
+    if (visibleCount >= data.length) {
       setVisibleCount(INITIAL_VISIBLE_COUNT);
     } else {
-      // Load more items
-      setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, news.length));
+      setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, data.length));
     }
   };
 
-  const isAllLoaded = visibleCount >= news.length;
+  const isAllLoaded = visibleCount >= data.length;
 
   return (
     <section className="w-full h-auto py-[10px_40px] sm:py-[10px_60px] xl:py-[15px_80px] 2xl:py-[20px_100px] 3xl:py-[20px_120px]">
@@ -207,7 +221,8 @@ export default function NewsListSection({ data = newsListData }) {
           <BreadCrumb
             items={[
               { label: "Home", href: "/" },
-              { label: "News & Insights", href: "/news" },
+              // { label: data?.pagetitle, href: "/news" },
+              { label: data?.pagetitle || "News & Insights", href: "/news" },
             ]}
           />
         </div>
@@ -216,11 +231,11 @@ export default function NewsListSection({ data = newsListData }) {
           size="heading1"
           className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
         >
-          {data?.title}
+          {data?.main_title}
         </Heading>
         <div className="flex flex-wrap -mx-[10px] sm:-mx-[10px] xl:-mx-[20px] 2xl:-mx-[30px] [&>*]:p-[10px] sm:[&>*]:p-[10px] xl:[&>*]:p-[20px] 2xl:[&>*]:p-[30px]">
-          {news?.slice(0, visibleCount).map((item, index) => (
-            <div key={"news" + index} className="w-full sm:w-1/2 md:w-1/2">
+          {data?.slice(0, visibleCount).map((item, index) => (
+            <div key={"data" + index} className="w-full sm:w-1/2 md:w-1/2">
               <Suspense fallback={<NewsListSkeleton />}>
                 <div className="group w-full h-auto aspect-4/3 flex items-end overflow-hidden relative z-0">
                   <div className="w-full h-full bg-gradient-to-t from-black via-30% via-transparent to-transparent border border-black absolute -z-1 inset-0" />
@@ -239,11 +254,11 @@ export default function NewsListSection({ data = newsListData }) {
                       {item?.title}
                     </div>
                     <div className="text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-light font-base2 line-clamp-2 text-white mb-[5px] xl:mb-[20px]">
-                      {item?.description}
+                      {item?.excerpt}
                     </div>
                     <div className="block">
                       <StyledLink
-                        href={item?.link?.url}
+                        href={`/news/${item?.slug}`}
                         className="min-w-[100px] sm:min-w-[100px] xl:min-w-[120px] 2xl:min-w-[130px] cursor-pointer disabled:cursor-not-allowed inline-block"
                       >
                         {"Read More"}
@@ -256,7 +271,7 @@ export default function NewsListSection({ data = newsListData }) {
           ))}
         </div>
 
-        {news?.length > INITIAL_VISIBLE_COUNT && (
+        {data?.length > INITIAL_VISIBLE_COUNT && (
           <div className="flex justify-center mt-[30px] xl:mt-[40px]">
             <StyledButton
               onClick={handleLoadToggle}

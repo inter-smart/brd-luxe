@@ -121,7 +121,7 @@ export default function ProductListSection({ data, whatsapp }) {
                 {listingpagedata?.title_main_title_car_sec}
               </Heading>
             </div>
-            <div className="w-full md:w-[70%]">
+            {/* <div className="w-full md:w-[70%]">
               <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
                 {isDesktop ? (
                   <ProductFilterBox
@@ -154,7 +154,7 @@ export default function ProductListSection({ data, whatsapp }) {
                   </div>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="mx-[-7px] sm:mx-[-10px] lg:mx-[-12px] 2xl:mx-[-15px] 3xl:mx-[-20px] [&>*]:w-full [&>*]:sm:w-1/2 [&>*]:md:w-1/3 [&>*]:xl:w-1/4 [&>*]:p-[10px_7px] [&>*]:sm:p-[15px_10px] [&>*]:lg:p-[25px_12px] [&>*]:2xl:p-[35px_15px] [&>*]:3xl:p-[45px_20px] flex flex-wrap">
             {filteredCars.length > 0 ? (
