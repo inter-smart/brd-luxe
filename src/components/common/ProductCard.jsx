@@ -17,16 +17,16 @@ export default function ProductCard({ item }) {
           />
           <div
             className={`text-[8px] 3xl:text-[11px] leading-[1.2] font-medium font-base3 absolute z-1 top-0 right-0 bg-white p-[5px_8px] 2xl:p-[5px_10px] m-[5px] xl:m-[10px]
-          ${item?.status ? "text-[#313131]" : "text-[#974848]"}`}
+          ${item?.stock_management ? "text-[#313131]" : "text-[#974848]"}`}
           >
-            {item?.status ? "In Stock" : "Out of Stock"}
+            {item?.stock_management ? "In Stock" : "Out of Stock"}
           </div>
         </div>
         <div className="text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.2] font-normal font-base1 text-white uppercase mb-[10px] lg:mb-[15px] 3xl:mb-[20px]">
-          {item?.title}
+          {item?.cartitle}
         </div>
         <div className="[&>*]:text-[11px] [&>*]:sm:text-[12px] [&>*]:2xl:text-[13px] [&>*]:3xl:text-[16px] [&>*]:leading-[1.2] [&>*]:font-light [&>*]:font-base3 [&>*]:text-white w-full h-auto [&>*]:px-[7px] [&>*]:lg:px-[10px] [&>*]:3xl:px-[15px] [&>*]:first:pl-0 [&>*]:last:border-r-0 [&>*]:first:border-r-1 [&>*]:first:border-[#888888] mb-[15px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px] flex items-center">
-          <div>{item?.kilo_meter}</div>
+          <div>{item?.kms}</div>
           <div>{item?.mileage}</div>
         </div>
         <div className="flex items-center [&>*]:w-1/2">
@@ -35,7 +35,7 @@ export default function ProductCard({ item }) {
           </div>
           <div className="flex items-center justify-end">
             <a
-              href={item?.link}
+              href={item?.slug}
               target="_blank"
               aria-label="whatsapp"
               className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center transition-all duration-300 ease-in-out relative z-0 hover:opacity-50"

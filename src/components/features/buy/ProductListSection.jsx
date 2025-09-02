@@ -281,7 +281,7 @@ const product_data = {
   ],
 };
 
-export default function ProductListSection({ data = product_data }) {
+export default function ProductListSection({ data }) {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
@@ -291,8 +291,8 @@ export default function ProductListSection({ data = product_data }) {
         <div className="mb-[20] sm:mb-[50] lg:mb-[60] 2xl:mb-[75] 3xl:mb-[95]">
           <BreadCrumb
             items={[
-              { label: "Home", href: "/" },
-              { label: "Buy A Car", href: "/buy-car" },
+              { label: "Home", href: "/" },              
+              { label: data?.pagetitle || "Buy A Car", href: "/buy-car" },
             ]}
           />
         </div>
@@ -304,28 +304,32 @@ export default function ProductListSection({ data = product_data }) {
                 size={"heading1"}
                 className="text-white max-sm:mb-[15px] max-md:text-center sm:text-left"
               >
-                {data?.heading?.title}
+                {data?.title_main_title_car_sec || "Cars"}
               </Heading>
             </div>
-            <div className="w-full md:w-[70%]">
+            {/* <div className="w-full md:w-[70%]">
               <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
                 {isDesktop ? (
                   <ProductFilterBox variant="ProductListing" />
                 ) : (
                   <div className="flex items-center max-md:flex-wrap max-md:justify-end gap-[10px]">
                     <div className="max-sm:w-full">
+                      {data.enable__disable_search && (
                       <SearchForm />
+                      )}
                     </div>
                     <div className="sm:pl-[15px] md:pl-[10px]">
+                      {data.enable__disable_filter && (
                       <FilterBox />
+                      )}
                     </div>
                   </div>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="mx-[-7px] sm:mx-[-10px] lg:mx-[-12px] 2xl:mx-[-15px] 3xl:mx-[-20px] [&>*]:w-full [&>*]:sm:w-1/2 [&>*]:md:w-1/3 [&>*]:xl:w-1/4 [&>*]:p-[10px_7px] [&>*]:sm:p-[15px_10px] [&>*]:lg:p-[25px_12px] [&>*]:2xl:p-[35px_15px] [&>*]:3xl:p-[45px_20px] flex flex-wrap">
-            {data?.product_list?.map((item, index) => (
+            {data?.cars_data?.map((item, index) => (
               <div key={`product-${index}`} className="w-full h-full block">
                 <ProductCard item={item} />
               </div>

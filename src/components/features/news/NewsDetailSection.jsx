@@ -19,8 +19,8 @@ const newsDetailData = {
   },
 };
 
-export default function NewsDetailSection({ data = newsDetailData }) {
-  const sanitizedDescription = DOMPurify.sanitize(data?.description);
+export default function NewsDetailSection({ data }) {
+  const sanitizedDescription = DOMPurify.sanitize(data?.content);
   const formattedDate = new Date(data?.date).toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "long",
@@ -33,8 +33,8 @@ export default function NewsDetailSection({ data = newsDetailData }) {
           <BreadCrumb
             items={[
               { label: "Home", href: "/" },
-              { label: "News & Insights", href: "/news" },
-              { label: "News Details", href: "/news-detail" },
+              { label: data?.pagetitle || "News & Insights", href: "/news" },
+              { label: data?.title || "News Details", href: "/" },
             ]}
           />
         </div>
@@ -60,7 +60,7 @@ export default function NewsDetailSection({ data = newsDetailData }) {
         <div
           className="typography"
           dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
-        />
+        />        
       </div>
     </section>
   );

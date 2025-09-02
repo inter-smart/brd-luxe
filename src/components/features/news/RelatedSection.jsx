@@ -185,7 +185,7 @@ const relatedData = {
   ],
 };
 
-export default function RelatedSection({ data = relatedData }) {
+export default function RelatedSection({ data }) {
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -213,7 +213,7 @@ export default function RelatedSection({ data = relatedData }) {
   );
 
   // Progressive enhancement - only render navigation if we have slides
-  if (!data?.news_list?.length) {
+  if (!data?.related_posts?.length) {
     return null;
   }
   return (
@@ -224,7 +224,8 @@ export default function RelatedSection({ data = relatedData }) {
           size="heading1"
           className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
         >
-          {data?.title}
+          {/* {data?.title} */}
+          Recent News & Insights
         </Heading>
 
         {/* Custom Navigation Buttons */}
@@ -329,7 +330,7 @@ export default function RelatedSection({ data = relatedData }) {
               setIsEnd(false);
             }}
           >
-            {data?.news_list?.map((item, index) => (
+            {data?.related_posts?.map((item, index) => (
               <SwiperSlide key={"news" + index}>
                 <Suspense fallback={<div>Loading...</div>}>
                   <div className="group w-full h-auto block">
@@ -350,11 +351,11 @@ export default function RelatedSection({ data = relatedData }) {
                         {item?.title}
                       </div>
                       <div className="text-[10px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] leading-normal font-light font-base2 line-clamp-3 text-white/80 mb-[10px] sm:mb-[15px] xl:mb-[20px]">
-                        {item?.description}
+                        {item?.excerpt}
                       </div>
                       <div className="block">
                         <StyledLink
-                          href={item?.link?.url}
+                          href={`/news/${item?.slug}`}
                           className="min-w-[100px] sm:min-w-[100px] xl:min-w-[120px] 2xl:min-w-[130px] cursor-pointer disabled:cursor-not-allowed inline-block"
                         >
                           {"Read More"}
