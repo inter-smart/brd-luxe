@@ -245,11 +245,23 @@ export default function SellForm() {
   };
 
   // Function to normalize input
-  const normalizeText = (value) => {
-    if (!value) return "";
-    // Replace multiple spaces, tabs, and newlines with a single space
-    return value.replace(/[\s\t\n\r]+/g, " ").trim();
-  };
+const normalizeText = (value) => {
+  if (!value) return "";
+
+  return value
+    // Convert literal "\n" into actual newline (if typed as text)
+    .replace(/\\n/g, "\n")
+    // Convert literal "\t" into 4 spaces (if typed as text)
+    .replace(/\\t/g, "    ")
+    // Convert actual tabs to 4 spaces
+    .replace(/\t+/g, "    ")
+    // Normalize CRLF or \r to \n
+    .replace(/\r\n|\r/g, "\n")
+    // Collapse multiple spaces (but not newlines!)
+    .replace(/ {2,}/g, " ")
+    // Trim only spaces at start/end, keep newlines
+    .replace(/^[ \t]+|[ \t]+$/gm, "");
+};
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState(null);
@@ -793,13 +805,15 @@ export default function SellForm() {
                   onBlur={(e) => {
                     field.onBlur(); // trigger RHF blur first
 
-                    // Optional: trim spaces/tabs/newlines
-                    handleBlurTrim("additionalDetails");
-
+                    
                     // Normalize multiple spaces/tabs/newlines to single space
                     const normalized = normalizeText(field.value);
                     form.setValue("additionalDetails", normalized);
                     form.trigger("additionalDetails"); // re-validate
+
+                    // Optional: trim spaces/tabs/newlines
+                    handleBlurTrim("additionalDetails");
+
                   }}
                 />
               </FormControl>

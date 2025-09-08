@@ -16,7 +16,7 @@ export default async function Page() {
   const banner = post.news_detail_banners?.[0];
   return (
     <>
-    {banner.enable__disable_news_detail_banner && (
+    {banner?.enable__disable_news_detail_banner && (
       <InnerHero
         title={banner.news_detail_banner_title}
         mobileImage={banner.news_detail_mobile_image?.url}
