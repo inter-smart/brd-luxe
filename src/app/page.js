@@ -34,7 +34,7 @@ export default async function Page() {
       <DealerSection data={home_acf} />
       <OfferSection data={home_acf} />
       <BrandSection data={home_acf} />
-      {data?.home_acf?.advantages_section && (
+      {data?.home_acf?.advantages_section?.enable__disable_advantages_section && (
         <BrdAdvantageSection data={data?.home_acf?.advantages_section} />
       )}
       <SellCarSection data={home_acf} />

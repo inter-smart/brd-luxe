@@ -13,7 +13,7 @@ import useMedia from "use-media";
 export default function ProductSection({ data, whatsapp }) {
 
   const cars_section = data?.cars_section;
-  const listingpagedata = data ?? {};
+  const listingpagedata = data?.cars_section ?? {};
   const cars = cars_section?.cars || [];
 
   // input filters

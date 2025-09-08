@@ -24,7 +24,6 @@ export default function ProductCard({ item, whatsapp }) {
         </div>
         <div className="text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.2] font-normal font-base1 text-white uppercase mb-[10px] lg:mb-[15px] 3xl:mb-[20px]">
           {item?.cartitle}
-          {item?.cartitle}
         </div>
         <div className="[&>*]:text-[11px] [&>*]:sm:text-[12px] [&>*]:2xl:text-[13px] [&>*]:3xl:text-[16px] [&>*]:leading-[1.2] [&>*]:font-light [&>*]:font-base3 [&>*]:text-white w-full h-auto [&>*]:px-[7px] [&>*]:lg:px-[10px] [&>*]:3xl:px-[15px] [&>*]:first:pl-0 [&>*]:last:border-r-0 [&>*]:first:border-r-1 [&>*]:first:border-[#888888] mb-[15px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px] flex items-center">
           { item?.kms &&
@@ -35,14 +34,16 @@ export default function ProductCard({ item, whatsapp }) {
           }
         </div>
         <div className="flex items-center [&>*]:w-1/2">
-        { item?.price &&
-          <div className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-normal font-base3 text-white">
-            ₹ {item?.price}
-          </div>
-  }
+          { item?.price &&
+            <div className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-normal font-base3 text-white">
+              ₹ {item?.price}
+            </div>
+          }
           <div className="flex items-center justify-end">
             <a
-              href={`https://wa.me/${whatsapp?.number}?text=Hi, I am interested in ${item?.cartitle}`}
+              href={`https://wa.me/${whatsapp?.number?.replace(/[^\d]/g, "")}?text=${encodeURIComponent(
+                `Hi, I am interested in ${item?.cartitle}`
+              )}`}
               target="_blank"
               aria-label="whatsapp"
               className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center transition-all duration-300 ease-in-out relative z-0 hover:opacity-50"

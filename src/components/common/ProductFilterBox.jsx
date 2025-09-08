@@ -89,7 +89,8 @@ const availableModels = new Set(
           variant === "ProductListing" && "max-xl:block max-xl:space-y-[25px]"
         }`}
       >
-        {(variant != "ProductListing" || listingpagedata?.enable__disable_filter) && (
+        {/* {(variant != "ProductListing" || listingpagedata?.enable__disable_filter) && ( */}
+        {listingpagedata?.enable__disable_filter && (
         <>
         <Select value={brand} onValueChange={setBrand}>
               <SelectTrigger
@@ -106,19 +107,19 @@ const availableModels = new Set(
               </SelectContent>
             </Select>
         <Select value={model} onValueChange={setModel}>
-  <SelectTrigger
-    className={`${inputFormStyle} ${variant === "ProductListing" && "max-xl:w-[100%]"}`}
-  >
-    <SelectValue placeholder="Model" />
-  </SelectTrigger>
-  <SelectContent className={selectStyle}>
-    {models.map((m) => (
-      <SelectItem key={m.term_id} value={m.slug} className={inputSelectStyle}>
-        {m.name}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
+          <SelectTrigger
+            className={`${inputFormStyle} ${variant === "ProductListing" && "max-xl:w-[100%]"}`}
+          >
+            <SelectValue placeholder="Model" />
+          </SelectTrigger>
+          <SelectContent className={selectStyle}>
+            {models.map((m) => (
+              <SelectItem key={m.term_id} value={m.slug} className={inputSelectStyle}>
+                {m.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
 
         </>
@@ -137,6 +138,7 @@ const availableModels = new Set(
           
           </>
         ) : (
+           listingpagedata?.enable__disable_filter && (
           <Button
             type="submit"
             className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black bg-white lg:p-[8px_15px] 2xl:p-[10px_20px] 3xl:p-[20px_25px] rounded-[5px] border-1 border-[#BEBEBE] cursor-pointer hover:bg-white/70  hover:border-white"
@@ -151,6 +153,7 @@ const availableModels = new Set(
             </span>
             Search
           </Button>
+           )
         )}
       </div>
     </form>
