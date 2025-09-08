@@ -33,7 +33,8 @@ export default function LatestBrdSection({ data }) {
                   <div className="text-[10px] sm:text-[11px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white line-clamp-2 mb-[10px] sm:mb-[15px] 2xl:mb-[25px]">
                     {latest_news_section?.posts?.[0]?.excerpt}
                   </div>
-                  <StyledLink href={latest_news_section?.posts?.[0]?.url}>
+                  
+                  <StyledLink href={`/news/${latest_news_section?.posts?.[0]?.slug}`}>
                     Read More
                   </StyledLink>
                 </div>
@@ -49,7 +50,7 @@ export default function LatestBrdSection({ data }) {
                 className="w-full h-full sm:h-1/2 block"
               >
                 <Link
-                  href={item?.url}
+                  href={`/news/${item?.slug}`}
                   className={`group w-full h-full block overflow-hidden relative z-0 before:w-full before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:-z-1 after:w-full after:h-[50%] after:bg-linear-to-b after:from-black/0 after:to-black after:absolute after:bottom-0 after:-z-1 ${
                     index === 0 && "before:h-[40%]"
                   }`}

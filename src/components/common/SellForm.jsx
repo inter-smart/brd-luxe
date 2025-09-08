@@ -41,17 +41,86 @@ const sellFormSchema = z.object({
   fullName: z
     .string()
     .min(2, "Full name must be at least 2 characters")
-    .max(50),
-  email: z.string().email("Invalid email address"),
+    .max(50, "Full name cannot exceed 50 characters")
+    .refine((value) => {
+      const trimmed = value.trim();
+      if (!trimmed) return false;
+      if (/[\t\n]/.test(trimmed)) return false;
+      if (/\d/.test(trimmed)) return false;
+      if (/<script[\s\S]*?>[\s\S]*?<\/script>/i.test(trimmed)) return false;
+      if (/<img[\s\S]*?>/i.test(trimmed)) return false;
+      if (/javascript:/i.test(trimmed)) return false;
+      const sqlPattern = /\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|TRUNCATE|EXEC|UNION)\b/i;
+      if (sqlPattern.test(trimmed)) return false;
+      if (!/^[^\d!@#$%^&*()_+=\[\]{};:"\\|,.<>\/?`~]+$/u.test(trimmed)) return false;
+      return true;
+    }, "Invalid full name"),
+  email: z
+    .string()
+    .min(5, "Email is required")
+    .max(254, "Email is too long") // max length per RFC
+    .refine((value) => {
+      const trimmed = value.trim();
+
+      // Basic email regex: allows +, subdomains, long domains, simple TLD
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$/;
+
+      if (!trimmed) return false; // empty
+      if (!emailRegex.test(trimmed)) return false; // invalid structure
+      if (/<script[\s\S]*?>[\s\S]*?<\/script>/i.test(trimmed)) return false; // XSS
+      if (/["'`;]|--/.test(trimmed)) return false; // basic SQL injection chars
+      if ((trimmed.match(/@/g) || []).length !== 1) return false; // multiple @
+      return true;
+    }, "Invalid email address"),
   phone: z
     .string()
-    .regex(/^\+?[\d\s-()]+$/, "Invalid phone number")
-    .min(10),
-  registeredCity: z.string().min(2, "City name is required"),
-  brandName: z.string().min(1, "Brand name is required"),
-  modelName: z.string().min(1, "Model name is required"),
+    .min(10, "Phone number is required")
+    .max(20, "Phone number is too long") // max length including formatting
+    .refine((value) => {
+      const trimmed = value.trim();
+
+      // Only allow digits, spaces, parentheses, dashes, optional single + at start
+      const validPattern = /^\+?\d[\d\s()-]{7,19}$/;
+      if (!validPattern.test(trimmed)) return false;
+
+      // Must not contain multiple +
+      if ((trimmed.match(/\+/g) || []).length > 1) return false;
+
+      // Must not be all zeros
+      const digitsOnly = trimmed.replace(/\D/g, "");
+      if (/^0+$/.test(digitsOnly)) return false;
+
+      // Limit digits only to 15
+      if (digitsOnly.length > 15) return false;
+
+      // Must not contain letters or XSS/SQL patterns
+      if (/[a-zA-Z<>"'`;]|--|\)\s*;/.test(trimmed)) return false;
+
+      return true;
+    }, "Invalid phone number, max 15 digits allowed"),
+
+
+  registeredCity: z
+    .string()
+    .min(2, "Registered City must be at least 2 characters")
+    .max(50, "Registered City cannot exceed 50 characters")
+    .refine((value) => /^[\p{L}\s'-]+$/u.test(value.trim()), "Invalid city name"),
+  brandName: z
+    .string()
+    .min(1, "Brand Name is required")
+    .max(50, "Brand Name cannot exceed 50 characters")
+    .refine((value) => /^[\p{L}\d\s'-]+$/u.test(value.trim()), "Invalid brand name"),
+  modelName: z
+    .string()
+    .min(1, "Model Name is required")
+    .max(50, "Model Name cannot exceed 50 characters")
+    .refine((value) => /^[\p{L}\d\s'-]+$/u.test(value.trim()), "Invalid model name"),
   transmissionType: z.string().min(1, "Please select transmission type"),
-  color: z.string().min(1, "Color is required"),
+  color: z
+    .string()
+    .min(3, "Color must be at least 3 characters")
+    .max(30, "Color cannot exceed 30 characters")
+    .refine((value) => /^[\p{L}\s'-]+$/u.test(value.trim()), "Invalid color name"),
   fuelType: z.string().min(1, "Please select fuel type"),
   engineCC: z.coerce.number().positive("Engine CC must be positive"),
   yearOfRegistration: z.coerce
@@ -59,8 +128,46 @@ const sellFormSchema = z.object({
     .min(1900, "Year must be after 1900")
     .max(new Date().getFullYear(), "Year cannot be in the future"),
   price: z.coerce.number().positive("Price must be positive"),
-  location: z.string().min(2, "Location is required"),
-  additionalDetails: z.string().optional(),
+  location: z
+    .string()
+    .min(2, "Location is required")
+    .max(100, "Location cannot exceed 100 characters")
+    .refine((value) => /^[\p{L}\s',.-]+$/u.test(value.trim()), "Invalid location"),
+  additionalDetails: z
+    .string()
+    .optional()
+    .refine((value) => {
+      if (!value) return true; // optional field can be empty
+
+      const trimmed = value.replace(/\s+/g, " ").trim(); // normalize whitespace
+
+      // Reject if too short meaningful content
+      if (trimmed.length < 2) return false;
+
+      // Reject obvious scripts, HTML tags, or SQL injections
+      const forbiddenPatterns = [
+        /<script[\s\S]*?>[\s\S]*?<\/script>/i,
+        /<img[\s\S]*?>/i,
+        /<iframe[\s\S]*?>/i,
+        /{{.*?constructor.*?}}/i,
+        /['";]?\s*DROP\s+TABLE/i,
+        /javascript:/i,
+        /[@#!$%^&*()]/ // only symbols not part of meaningful text
+      ];
+
+      for (const pattern of forbiddenPatterns) {
+        if (pattern.test(trimmed)) return false;
+      }
+
+      // Reject if input is all non-alphabetic (like only symbols or numbers)
+      if (!/[a-zA-Z0-9]/.test(trimmed)) return false;
+
+      // Reject if input is extremely long (example: > 2000 chars)
+      if (trimmed.length > 2000) return false;
+
+      return true;
+    }, "Please enter a valid message"),
+
   images: z.any().optional(),
   insuranceValidity: z.date({
     required_error: "Insurance validity date is required",
@@ -85,42 +192,64 @@ export default function SellForm() {
   const [transmissionOptions, setTransmissionOptions] = useState([]);
   const [fuelTypeOptions, setFuelTypeOptions] = useState([]);
 
-useEffect(() => {
-  async function fetchTaxonomies() {
-    try {
-      const [transRes, fuelRes] = await Promise.all([
-        fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/transmissions`
-        ),
-        fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/fuel-type`
-        ),
-      ]);
+  useEffect(() => {
+    async function fetchTaxonomies() {
+      try {
+        const [transRes, fuelRes] = await Promise.all([
+          fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/transmissions`
+          ),
+          fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/fuel-type`
+          ),
+        ]);
 
-      if (!transRes.ok || !fuelRes.ok) {
-        throw new Error("Failed to fetch taxonomies");
+        if (!transRes.ok || !fuelRes.ok) {
+          throw new Error("Failed to fetch taxonomies");
+        }
+
+        const [transData, fuelData] = await Promise.all([
+          transRes.json(),
+          fuelRes.json(),
+        ]);
+
+        setTransmissionOptions(
+          transData.map((item) => ({ value: item.slug, label: item.name }))
+        );
+        setFuelTypeOptions(
+          fuelData.map((item) => ({ value: item.slug, label: item.name }))
+        );
+      } catch (error) {
+        console.error("Error fetching taxonomies:", error);
       }
-
-      const [transData, fuelData] = await Promise.all([
-        transRes.json(),
-        fuelRes.json(),
-      ]);
-
-      setTransmissionOptions(
-        transData.map((item) => ({ value: item.slug, label: item.name }))
-      );
-      setFuelTypeOptions(
-        fuelData.map((item) => ({ value: item.slug, label: item.name }))
-      );
-    } catch (error) {
-      console.error("Error fetching taxonomies:", error);
     }
-  }
 
-  fetchTaxonomies();
-}, []);
+    fetchTaxonomies();
+  }, []);
 
+  // Trim spaces on blur and trigger validation
+  const handleBlurTrim = (fieldName) => {
+    const value = form.getValues(fieldName);
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      if (trimmed !== value) {
+        // Update value in form
+        form.setValue(fieldName, trimmed, { shouldValidate: true, shouldDirty: true });
+      } else {
+        // still trigger validation if value didn't change
+        form.trigger(fieldName);
+      }
+    } else {
+      form.trigger(fieldName);
+    }
+  };
 
+  // Function to normalize input
+  const normalizeText = (value) => {
+    if (!value) return "";
+    // Replace multiple spaces, tabs, and newlines with a single space
+    return value.replace(/[\s\t\n\r]+/g, " ").trim();
+  };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState(null);
@@ -139,7 +268,7 @@ useEffect(() => {
       color: "",
       fuelType: "",
       engineCC: "",
-      yearOfRegistration: new Date().getFullYear(),
+      yearOfRegistration: "",
       price: "",
       location: "",
       additionalDetails: "",
@@ -160,40 +289,40 @@ useEffect(() => {
 
       // Append all form fields
       Object.entries(data).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        if (value instanceof Date) {
-          // format dates properly
-          formData.append(key, value.toISOString().split("T")[0]);
-        } else {
-          formData.append(key, value.toString());
+        if (value !== undefined && value !== null) {
+          if (value instanceof Date) {
+            // format dates properly
+            formData.append(key, value.toISOString().split("T")[0]);
+          } else {
+            formData.append(key, value.toString());
+          }
         }
-      }
       });
 
       // Append files if selected
       if (selectedFiles) {
-      Array.from(selectedFiles).forEach((file, index) => {
-        formData.append(`images[]`, file);
-      });
-    }
-
-    // 🔥 Post to WordPress REST endpoint
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/sell-form`,
-      {
-        method: "POST",
-        body: formData,
+        Array.from(selectedFiles).forEach((file, index) => {
+          formData.append(`images[]`, file);
+        });
       }
-    );
 
-    const result = await response.json();
+      // 🔥 Post to WordPress REST endpoint
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/sell-form`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-    if (!response.ok) {
-      toast.error(result?.message || "Submission failed");
-      throw new Error(result?.message || "Submission failed");
-    }
+      const result = await response.json();
 
-    toast.success(result.message || "Form submitted successfully!");
+      if (!response.ok) {
+        toast.error(result?.message || "Submission failed");
+        throw new Error(result?.message || "Submission failed");
+      }
+
+      toast.success(result.message || "Form submitted successfully!");
 
       // TODO: Replace with your API endpoint
       console.log("Form data:", data);
@@ -241,6 +370,10 @@ useEffect(() => {
                   placeholder="Full Name*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("fullName");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -261,6 +394,10 @@ useEffect(() => {
                   placeholder="Email"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("email");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -281,6 +418,10 @@ useEffect(() => {
                   placeholder="Phone*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("phone");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -300,6 +441,10 @@ useEffect(() => {
                   placeholder="Registered City*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("registeredCity");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -320,6 +465,10 @@ useEffect(() => {
                   placeholder="Brand Name*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("brandName");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -339,6 +488,10 @@ useEffect(() => {
                   placeholder="Model Name*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("modelName");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -387,6 +540,10 @@ useEffect(() => {
                   placeholder="Color*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("color");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -499,6 +656,10 @@ useEffect(() => {
                   placeholder="Year of Registration"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("yearOfRegistration");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -559,6 +720,10 @@ useEffect(() => {
                   placeholder="Location*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("location");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -587,11 +752,10 @@ useEffect(() => {
                     disabled={isSubmitting}
                   />
                   <span
-                    className={`flex-1 truncate ${
-                      selectedFiles && selectedFiles.length > 0
-                        ? "text-white"
-                        : "text-white"
-                    }`}
+                    className={`flex-1 truncate ${selectedFiles && selectedFiles.length > 0
+                      ? "text-white"
+                      : "text-white"
+                      }`}
                   >
                     {getFileDisplayText()}
                   </span>
@@ -626,12 +790,24 @@ useEffect(() => {
                   placeholder="Additional Details"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur(); // trigger RHF blur first
+
+                    // Optional: trim spaces/tabs/newlines
+                    handleBlurTrim("additionalDetails");
+
+                    // Normalize multiple spaces/tabs/newlines to single space
+                    const normalized = normalizeText(field.value);
+                    form.setValue("additionalDetails", normalized);
+                    form.trigger("additionalDetails"); // re-validate
+                  }}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
 
         {/* Submit Button */}
         <div className="w-full flex justify-end">

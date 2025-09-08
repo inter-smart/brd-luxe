@@ -28,18 +28,20 @@ export default async function Page() {
 
   return (
     <>
-      <HeroSection data={home_acf}/>
-      <BestCarsSection data={home_acf}/>
-      <ProductSection data={home_acf} whatsapp={data?.home_acf?.whatsapp}/>
-      <DealerSection data={home_acf}/>
-      <OfferSection data={home_acf}/>
-      <BrandSection data={home_acf}/>
-      <BrdAdvantageSection data={home_acf}/>
-      <SellCarSection data={home_acf}/>
-      <ExperienceSection data={home_acf}/>
-      <LatestBrdSection data={home_acf}/>
-      <JourneyFrameSection data={home_acf}/>
-      <LetsTalkSection data={home_acf}/>
+      <HeroSection data={home_acf} />
+      <BestCarsSection data={home_acf} />
+      <ProductSection data={home_acf} whatsapp={data?.home_acf?.whatsapp} />
+      <DealerSection data={home_acf} />
+      <OfferSection data={home_acf} />
+      <BrandSection data={home_acf} />
+      {data?.home_acf?.advantages_section && (
+        <BrdAdvantageSection data={data?.home_acf?.advantages_section} />
+      )}
+      <SellCarSection data={home_acf} />
+      <ExperienceSection data={home_acf} />
+      <LatestBrdSection data={home_acf} />
+      <JourneyFrameSection data={home_acf} />
+      <LetsTalkSection data={home_acf} />
     </>
   );
 }

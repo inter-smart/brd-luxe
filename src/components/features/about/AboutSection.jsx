@@ -89,36 +89,38 @@ export default function AboutSection({ data }) {
               ref={ref}
             >
               {data?.counters?.map((item, index) => (
-                <div key={`count-${index}`} className="h-auto">
-                  <div className="w-full h-full p-[15px] 3xl:p-[20px] rounded-[10px] overflow-hidden flex flex-col justify-between relative z-0">
-                    <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[5%]"></div>
-                    <div className="mb-[7px] sm:mb-[10px] 2xl:mb-[15px] 3xl:mb-[20px] flex">
-                      <CountUp
-                        key={`${inView}-${index}`}
-                        start={0}
-                        end={item?.value}
-                        duration={1.5}
-                        decimals={
-                          item?.value % 1 !== 0
-                            ? item?.value.toString().split(".")[1]?.length || 0
-                            : 0
-                        }
-                        className="text-[18px] sm:text-[20px] lg:text-[25px] 2xl:text-[32px] 3xl:text-[40px] leading-[1] font-normal font-base3 text-white"
+                item?.value && (
+                  <div key={`count-${index}`} className="h-auto">
+                    <div className="w-full h-full p-[15px] 3xl:p-[20px] rounded-[10px] overflow-hidden flex flex-col justify-between relative z-0">
+                      <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[5%]"></div>
+                      <div className="mb-[7px] sm:mb-[10px] 2xl:mb-[15px] 3xl:mb-[20px] flex">
+                        <CountUp
+                          key={`${inView}-${index}`}
+                          start={0}
+                          end={item?.value}
+                          duration={1.5}
+                          decimals={
+                            item?.value % 1 !== 0
+                              ? item?.value.toString().split(".")[1]?.length || 0
+                              : 0
+                          }
+                          className="text-[18px] sm:text-[20px] lg:text-[25px] 2xl:text-[32px] 3xl:text-[40px] leading-[1] font-normal font-base3 text-white"
+                        />
+                        <span className="text-[18px] sm:text-[20px] lg:text-[25px] 2xl:text-[32px] 3xl:text-[40px] leading-[1] font-normal font-base3 text-white">
+                          {item?.label === "Customer Satisfaction" ? "%" : "+"}
+                        </span>
+                      </div>
+                      <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-normal font-base1 text-white">
+                        {item?.label}
+                      </div>
+                      <ShineBorder
+                        borderWidth={1}
+                        shineColor={["#4a4a4a"]}
+                        duration={10 + (index % 5) * 1.5}
                       />
-                      <span className="text-[18px] sm:text-[20px] lg:text-[25px] 2xl:text-[32px] 3xl:text-[40px] leading-[1] font-normal font-base3 text-white">
-                        {item?.label === "Customer Satisfaction" ? "%" : "+"}
-                      </span>
                     </div>
-                    <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-normal font-base1 text-white">
-                      {item?.label}
-                    </div>
-                    <ShineBorder
-                      borderWidth={1}
-                      shineColor={["#4a4a4a"]}
-                      duration={10 + (index % 5) * 1.5}
-                    />
                   </div>
-                </div>
+                )
               ))}
             </div>
           </div>

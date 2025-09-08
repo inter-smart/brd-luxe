@@ -16,10 +16,10 @@ export default async function Page() {
   const data = await res.json();
   // Get banner data (assuming API always returns at least one)
   const banner = data.banners?.[0] || {};
-  const aboutSection = data.about_section?.[0] || {};       
-  const coreValuesData  = data.core_values_section?.[0] || {};
-  const advantagesData  = data.advantages_section?.[0] || {};
-  const enquiryData  = data.enquiry?.[0] || {};
+  const aboutSection = data.about_section?.[0] || {};
+  const coreValuesData = data.core_values_section?.[0] || {};
+  const advantagesData = data.advantages_section?.[0] || {};
+  const enquiryData = data.enquiry?.[0] || {};
   return (
     <>
       {banner.enable__disable_banner && (
@@ -36,11 +36,11 @@ export default async function Page() {
       {coreValuesData.enable__disable_core_value_section && (
         <CoreValueSection data={coreValuesData} />
       )}
-      {advantagesData.enable_disable_advantages && (
-      <BrdAdvantageSection data={advantagesData} />
+      {advantagesData.enable__disable_advantages_section && (
+        <BrdAdvantageSection data={advantagesData} />
       )}
       {enquiryData.enable__disable_enquiry_section && (
-      <EnquirySection data={enquiryData} />
+        <EnquirySection data={enquiryData} />
       )}
     </>
   );

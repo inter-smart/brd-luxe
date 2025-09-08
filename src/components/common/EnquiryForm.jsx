@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { z } from "zod";
+import { toast } from "sonner";
 
 import {
   Form,
@@ -21,15 +22,99 @@ import { StyledButton } from "../utils/Button";
 // Form validation schema
 const enquiryFormSchema = z.object({
   fullName: z
-    .string()
-    .min(2, "Full name must be at least 2 characters")
-    .max(50),
-  email: z.string().email("Invalid email address"),
+  .string()
+  .min(2, "Full name must be at least 2 characters")
+  .max(50, "Full name cannot exceed 50 characters")
+  .refine((value) => {
+    const trimmed = value.trim();
+    if (!trimmed) return false;
+    if (/[\t\n]/.test(trimmed)) return false;
+    if (/\d/.test(trimmed)) return false;
+    if (/<script[\s\S]*?>[\s\S]*?<\/script>/i.test(trimmed)) return false;
+    if (/<img[\s\S]*?>/i.test(trimmed)) return false;
+    if (/javascript:/i.test(trimmed)) return false;
+    const sqlPattern = /\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|TRUNCATE|EXEC|UNION)\b/i;
+    if (sqlPattern.test(trimmed)) return false;
+    if (!/^[^\d!@#$%^&*()_+=\[\]{};:"\\|,.<>\/?`~]+$/u.test(trimmed)) return false;
+    return true;
+  }, "Invalid full name"),
+  email: z
+  .string()
+  .min(5, "Email is required")
+  .max(254, "Email is too long") // max length per RFC
+  .refine((value) => {
+    const trimmed = value.trim();
+
+    // Basic email regex: allows +, subdomains, long domains, simple TLD
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$/;
+
+    if (!trimmed) return false; // empty
+    if (!emailRegex.test(trimmed)) return false; // invalid structure
+    if (/<script[\s\S]*?>[\s\S]*?<\/script>/i.test(trimmed)) return false; // XSS
+    if (/["'`;]|--/.test(trimmed)) return false; // basic SQL injection chars
+    if ((trimmed.match(/@/g) || []).length !== 1) return false; // multiple @
+    return true;
+  }, "Invalid email address"),  
   phone: z
-    .string()
-    .regex(/^\+?[\d\s-()]+$/, "Invalid phone number")
-    .min(10),
-  message: z.string().optional(),
+  .string()
+  .min(10, "Phone number is required")
+  .max(20, "Phone number is too long") // max length including formatting
+  .refine((value) => {
+    const trimmed = value.trim();
+
+    // Only allow digits, spaces, parentheses, dashes, optional single + at start
+    const validPattern = /^\+?\d[\d\s()-]{7,19}$/;
+    if (!validPattern.test(trimmed)) return false;
+
+    // Must not contain multiple +
+    if ((trimmed.match(/\+/g) || []).length > 1) return false;
+
+    // Must not be all zeros
+    const digitsOnly = trimmed.replace(/\D/g, "");
+    if (/^0+$/.test(digitsOnly)) return false;
+
+    // Limit digits only to 15
+    if (digitsOnly.length > 15) return false;
+
+    // Must not contain letters or XSS/SQL patterns
+    if (/[a-zA-Z<>"'`;]|--|\)\s*;/.test(trimmed)) return false;
+
+    return true;
+  }, "Invalid phone number, max 15 digits allowed"),
+  message: z
+  .string()
+  .optional()
+  .refine((value) => {
+    if (!value) return true; // optional field can be empty
+
+    const trimmed = value.replace(/\s+/g, " ").trim(); // normalize whitespace
+
+    // Reject if too short meaningful content
+    if (trimmed.length < 2) return false;
+
+    // Reject obvious scripts, HTML tags, or SQL injections
+    const forbiddenPatterns = [
+      /<script[\s\S]*?>[\s\S]*?<\/script>/i,
+      /<img[\s\S]*?>/i,
+      /<iframe[\s\S]*?>/i,
+      /{{.*?constructor.*?}}/i,
+      /['";]?\s*DROP\s+TABLE/i,
+      /javascript:/i,
+      /[@#!$%^&*()]/ // only symbols not part of meaningful text
+    ];
+
+    for (const pattern of forbiddenPatterns) {
+      if (pattern.test(trimmed)) return false;
+    }
+
+    // Reject if input is all non-alphabetic (like only symbols or numbers)
+    if (!/[a-zA-Z0-9]/.test(trimmed)) return false;
+
+    // Reject if input is extremely long (example: > 2000 chars)
+    if (trimmed.length > 2000) return false;
+
+    return true;
+  }, "Please enter a valid message"),
 });
 
 // Shared input styles
@@ -81,6 +166,29 @@ export default function EnquiryForm() {
   //   }
   // };
 
+  // Trim spaces on blur and trigger validation
+const handleBlurTrim = (fieldName) => {
+  const value = form.getValues(fieldName);
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (trimmed !== value) {
+      // Update value in form
+      form.setValue(fieldName, trimmed, { shouldValidate: true, shouldDirty: true });
+    } else {
+      // still trigger validation if value didn't change
+      form.trigger(fieldName);
+    }
+  } else {
+    form.trigger(fieldName);
+  }
+};
+
+// Function to normalize input
+const normalizeText = (value) => {
+  if (!value) return "";
+  // Replace multiple spaces, tabs, and newlines with a single space
+  return value.replace(/[\s\t\n\r]+/g, " ").trim();
+};
 
 const onSubmit = async (data) => {
   setIsSubmitting(true);
@@ -88,7 +196,7 @@ const onSubmit = async (data) => {
   try {
     // Map `fullName` to `name` so backend matches
     const payload = {
-      name: data.fullName,
+      fullName: data.fullName,
       email: data.email,
       phone: data.phone,
       message: data.message,
@@ -108,17 +216,18 @@ const onSubmit = async (data) => {
     const result = await response.json();
 
     if (result.success) {
-      alert("✅ Enquiry submitted successfully!");
-      form.reset();
-    } else {
-      alert(result.message || "❌ Something went wrong. Please try again.");
+        toast.success("Enquiry submitted successfully!");
+        form.reset();
+      } else {
+        toast.error(result.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error("⚠️ Failed to submit enquiry. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    console.error("Submission error:", error);
-    alert("⚠️ Failed to submit enquiry. Please try again later.");
-  } finally {
-    setIsSubmitting(false);
-  }
+
 };
 
 
@@ -127,7 +236,7 @@ const onSubmit = async (data) => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)} noValidate
         className="flex flex-wrap items-start -mx-[6px] sm:-mx-[8px] xl:-mx-[8px] 2xl:-mx-[10px] [&>*]:p-[6px] sm:[&>*]:p-[8px] xl:[&>*]:p-[10px_8px] 2xl:[&>*]:p-[15px_10px]"
       >
         {/* Personal Information */}
@@ -143,6 +252,10 @@ const onSubmit = async (data) => {
                   placeholder="Your Name*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("fullName");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -163,6 +276,10 @@ const onSubmit = async (data) => {
                   placeholder="Phone*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("phone");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -183,6 +300,10 @@ const onSubmit = async (data) => {
                   placeholder="Email*"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur();
+                    handleBlurTrim("email");
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -203,6 +324,17 @@ const onSubmit = async (data) => {
                   placeholder="Message"
                   disabled={isSubmitting}
                   {...field}
+                  onBlur={(e) => {
+                    field.onBlur(); // trigger RHF blur first
+
+                    // Optional: trim spaces/tabs/newlines
+                    handleBlurTrim("message");
+
+                    // Normalize multiple spaces/tabs/newlines to single space
+                    const normalized = normalizeText(field.value);
+                    form.setValue("message", normalized);
+                    form.trigger("message"); // re-validate
+                  }}
                 />
               </FormControl>
               <FormMessage />
