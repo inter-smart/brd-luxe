@@ -14,38 +14,45 @@ import {
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
 
-import { useSearchParams} from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
+export default function ProductFilterBox({
+  variant = "default",
+  listingpagedata,
+  pageId,
+  onFilterChange,
+  onSearch,
+  cars = [],
+  setPriceRange,
+  filters = {},
+}) {
+  const searchParams = useSearchParams();
 
-export default function ProductFilterBox({ variant = "default" , listingpagedata, pageId, onFilterChange, onSearch, cars = [], setPriceRange, filters = {}, }) {
+  const initialModel = searchParams.get("model") || "";
 
-const searchParams = useSearchParams();
-
-const initialModel = searchParams.get("model") || "";
-
-  const [brand, setBrand] = useState(filters.brand || "")
+  const [brand, setBrand] = useState(filters.brand || "");
   const [model, setModel] = useState(filters.model || initialModel);
-  
+
   useEffect(() => {
     setBrand(filters.brand || "");
     setModel(filters.model || "");
   }, [filters]);
 
-const isDesktop = useMediaQuery({
+  const isDesktop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
   const handleSearch = () => {
     if (onSearch) {
-      onSearch();  // 👈 now calls the parent’s setAppliedFilters(filters)
+      onSearch(); // 👈 now calls the parent’s setAppliedFilters(filters)
     }
   };
 
-// send filter values to parent
+  // send filter values to parent
   useEffect(() => {
     if (onFilterChange) {
       onFilterChange((prev) => ({ ...prev, brand, model }));
     }
-  }, [brand,model]);
+  }, [brand, model]);
 
   const brands = Object.values(listingpagedata?.filters?.brands ?? {});
   const models = Object.values(listingpagedata?.filters?.models ?? {}).filter(
@@ -60,21 +67,8 @@ const isDesktop = useMediaQuery({
   const inputSelectStyle =
     "bg-black text-[11px] lg:text-[12px] 2xl:text-[14px] rounded-[4px]";
 
-  
-  
-
-
-
-
   // Collect available model slugs from the actual cars
-const availableModels = new Set(
-  cars.flatMap((car) => car.model || [])
-);
-
-
-
-
-  
+  const availableModels = new Set(cars.flatMap((car) => car.model || []));
 
   return (
     <form
@@ -91,69 +85,84 @@ const availableModels = new Set(
       >
         {/* {(variant != "ProductListing" || listingpagedata?.enable__disable_filter) && ( */}
         {listingpagedata?.enable__disable_filter && (
-        <>
-        <Select value={brand} onValueChange={setBrand}>
+          <>
+            <Select value={brand} onValueChange={setBrand}>
               <SelectTrigger
-                className={`${inputFormStyle} ${variant === "ProductListing" && "max-xl:w-[100%]"}`}
+                className={`${inputFormStyle} ${
+                  variant === "ProductListing" && "max-xl:w-[100%]"
+                }`}
               >
                 <SelectValue placeholder="Brand" />
               </SelectTrigger>
               <SelectContent className={`${selectStyle}`}>
                 {brands.map((b) => (
-                  <SelectItem key={b.term_id} className={inputSelectStyle} value={b.slug}>
+                  <SelectItem
+                    key={b.term_id}
+                    className={inputSelectStyle}
+                    value={b.slug}
+                  >
                     {b.name}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-        <Select value={model} onValueChange={setModel}>
-          <SelectTrigger
-            className={`${inputFormStyle} ${variant === "ProductListing" && "max-xl:w-[100%]"}`}
-          >
-            <SelectValue placeholder="Model" />
-          </SelectTrigger>
-          <SelectContent className={selectStyle}>
-            {models.map((m) => (
-              <SelectItem key={m.term_id} value={m.slug} className={inputSelectStyle}>
-                {m.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-
-        </>
-      )}
+            <Select value={model} onValueChange={setModel}>
+              <SelectTrigger
+                className={`${inputFormStyle} ${
+                  variant === "ProductListing" && "max-xl:w-[100%]"
+                }`}
+              >
+                <SelectValue placeholder="Model" />
+              </SelectTrigger>
+              <SelectContent className={selectStyle}>
+                {models.map((m) => (
+                  <SelectItem
+                    key={m.term_id}
+                    value={m.slug}
+                    className={inputSelectStyle}
+                  >
+                    {m.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </>
+        )}
         {variant === "ProductListing" ? (
           <>
-          {listingpagedata?.enable__disable_filter &&
-            <div className="w-[100%] h-auto xl:pl-[25px]">
-              <PriceRangeSlider cars={cars} onChange={setPriceRange} />
-            </div>
-          }
-          
-            {listingpagedata?.enable__disable_search && isDesktop &&
-            <SearchForm onSearch={(q) => onFilterChange((prev) => ({ ...prev, search: q }))} />
-            }
-          
+            {listingpagedata?.enable__disable_filter && (
+              <div className="w-[100%] h-auto xl:pl-[25px]">
+                <PriceRangeSlider cars={cars} onChange={setPriceRange} />
+              </div>
+            )}
+
+            {listingpagedata?.enable__disable_search && isDesktop && (
+              <SearchForm
+                onSearch={(q) =>
+                  onFilterChange((prev) => ({ ...prev, search: q }))
+                }
+              />
+            )}
           </>
         ) : (
-           listingpagedata?.enable__disable_filter && (
-          <Button
-            type="submit"
-            className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black bg-white lg:p-[8px_15px] 2xl:p-[10px_20px] 3xl:p-[20px_25px] rounded-[5px] border-1 border-[#BEBEBE] cursor-pointer hover:bg-white/70  hover:border-white"
-          >
-            <span className="w-[10px] 2xl:w-[12px] 3xl:w-[15px] h-auto aspect-square flex items-center justify-center">
-              <Image
-                src="/images/seaarch_icon.svg"
-                width={15}
-                height={15}
-                alt="Search"
-              />
-            </span>
-            Search
-          </Button>
-           )
+          listingpagedata?.enable__disable_filter && (
+            <Button
+              type="submit"
+              className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black bg-white lg:p-[8px_15px] 2xl:p-[10px_20px] 3xl:p-[20px_25px] rounded-[5px] border-1 border-[#BEBEBE] cursor-pointer hover:bg-white/70  hover:border-white"
+            >
+              <span className="w-[10px] 2xl:w-[12px] 3xl:w-[15px] h-auto aspect-square flex items-center justify-center">
+                <Image
+                  src="/images/seaarch_icon.svg"
+                  alt="Search"
+                  width={15}
+                  height={15}
+                  placeholder="blur"
+                  blurDataURL="/images/placeholder.jpg"
+                />
+              </span>
+              Search
+            </Button>
+          )
         )}
       </div>
     </form>
@@ -163,27 +172,26 @@ const availableModels = new Set(
 function PriceRangeSlider({ cars, onChange }) {
   // Find min and max dynamically from car prices
   // Find min and max dynamically from car prices
-const prices = cars.map((car) =>
-  parseInt(car.price?.toString().replace(/,/g, ""), 10)
-);
-const minPrice = Math.min(...prices);
-const maxPrice = Math.max(...prices);
-
+  const prices = cars.map((car) =>
+    parseInt(car.price?.toString().replace(/,/g, ""), 10)
+  );
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
 
   const [range, setRange] = useState([minPrice, maxPrice]);
 
   const formatValue = (val) => {
-  if (val >= 10000000) {
-    // 1 Crore and above
-    return `₹${(val / 10000000).toFixed(2).replace(/\.00$/, "")} Cr`;
-  } else if (val >= 100000) {
-    // 1 Lakh and above
-    return `₹${(val / 100000).toFixed(2).replace(/\.00$/, "")} L`;
-  } else {
-    // Below 1 Lakh → add commas properly
-    return `₹${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-  }
-};
+    if (val >= 10000000) {
+      // 1 Crore and above
+      return `₹${(val / 10000000).toFixed(2).replace(/\.00$/, "")} Cr`;
+    } else if (val >= 100000) {
+      // 1 Lakh and above
+      return `₹${(val / 100000).toFixed(2).replace(/\.00$/, "")} L`;
+    } else {
+      // Below 1 Lakh → add commas properly
+      return `₹${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    }
+  };
 
   // Whenever range changes, inform parent
   useEffect(() => {

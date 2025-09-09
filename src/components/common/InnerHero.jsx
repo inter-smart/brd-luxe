@@ -12,6 +12,8 @@ export default function InnerHero({ title, desktopImage, mobileImage, alt }) {
           sizes="100vw"
           className="-z-1 object-cover"
           priority
+          placeholder="blur"
+          blurDataURL="/images/placeholder.jpg"
         />
       </picture>
       <div className="w-full h-full bg-gradient-to-t from-black via-40% via-transparent to-transparent pointer-events-none absolute -z-1 top-0 left-0 bg-[rgba(0,0,0,0.05)]" />

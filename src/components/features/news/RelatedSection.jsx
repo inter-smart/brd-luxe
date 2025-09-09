@@ -164,6 +164,8 @@ export default function RelatedSection({ data }) {
                         alt={item?.media?.alt}
                         width={576}
                         height={432}
+                        placeholder="blur"
+                        blurDataURL="/images/placeholder.jpg"
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />
                     </div>

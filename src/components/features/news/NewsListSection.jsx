@@ -68,6 +68,8 @@ export default function NewsListSection({ data = [], content }) {
                     alt={item?.media?.alt}
                     width={576}
                     height={992}
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.jpg"
                     className="w-full h-full object-cover absolute -z-2 inset-0 group-hover:scale-105 transition duration-500"
                   />
                   <div className="w-full max-w-[420px] sm:max-w-[468px] xl:max-w-[520px] 2xl:max-w-[576px] 3xl:max-w-[620px] h-auto block p-[15px] sm:p-[20px] xl:p-[40px] 2xl:p-[50px]">

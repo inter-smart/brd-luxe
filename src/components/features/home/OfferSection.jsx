@@ -10,13 +10,16 @@ import { gsap } from "gsap";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function OfferSection({ data }) {
-
   const offers_section = data?.offers_section;
 
   const handleHighlight = (title, highlight) => {
     if (!title) return null;
 
-    const words = Array.isArray(highlight) ? highlight : highlight ? [highlight] : [];
+    const words = Array.isArray(highlight)
+      ? highlight
+      : highlight
+      ? [highlight]
+      : [];
 
     return words.reduce(
       (acc, phrase) =>
@@ -39,7 +42,6 @@ export default function OfferSection({ data }) {
       [title]
     );
   };
-
 
   const sectionRef = useRef(null);
   const overlayRef = useRef(null);
@@ -172,51 +174,57 @@ export default function OfferSection({ data }) {
     };
   }, []);
 
-  return (
-    offers_section?.enable__disable_offer_section?
-      <section className="w-full h-full !overflow-hidden">
+  return offers_section?.enable__disable_offer_section ? (
+    <section className="w-full h-full !overflow-hidden">
+      <div
+        ref={sectionRef}
+        className="w-full h-full md:h-screen py-[40px] lg:py-[50px] 2xl:py-[65px] 3xl:py-[80px] border-y border-[#404040]/50 will-change-transform overflow-hidden relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:z-0"
+      >
         <div
-          ref={sectionRef}
-          className="w-full h-full md:h-screen py-[40px] lg:py-[50px] 2xl:py-[65px] 3xl:py-[80px] border-y border-[#404040]/50 will-change-transform overflow-hidden relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:z-0"
-        >
-          <div
-            ref={overlayRef}
-            className="w-full h-full absolute inset-0 z-0"
-          ></div>
-          <div className="w-full h-full block absolute inset-0 -z-1">
-            <Image
-              src={offers_section?.background_image?.url}
-              alt={offers_section?.background_image?.alt}
-              fill
-              sizes="100vw"
-              className="object-cover -z-2"
-            />
-          </div>
-          <div className="container w-full h-full">
-            <div className="w-full h-full relative z-0">
-              <div
-                ref={topHeaderRef}
-                className="text-center md:w-[50%] mx-auto max-md:mb-[35px]"
+          ref={overlayRef}
+          className="w-full h-full absolute inset-0 z-0"
+        ></div>
+        <div className="w-full h-full block absolute inset-0 -z-1">
+          <Image
+            src={offers_section?.background_image?.url}
+            alt={offers_section?.background_image?.alt}
+            fill
+            sizes="100vw"
+            placeholder="blur"
+            blurDataURL="/images/placeholder.jpg"
+            className="object-cover -z-2"
+          />
+        </div>
+        <div className="container w-full h-full">
+          <div className="w-full h-full relative z-0">
+            <div
+              ref={topHeaderRef}
+              className="text-center md:w-[50%] mx-auto max-md:mb-[35px] relative z-2"
+            >
+              <Heading
+                as="h1"
+                className="text-[14px] sm:text-[16px] lg:text-[18px] 2xl:text-[22px] 3xl:text-[28px] leading-[1.2] font-semibold font-base1 text-white [&>span]:text-[#E09812] [&>span]:text-[22px] sm:[&>span]:text-[26px] lg:[&>span]:text-[30px] 2xl:[&>span]:text-[36px] 3xl:[&>span]:text-[45px] mb-[10px] 3xl:mb-[15px]"
               >
-                <Heading
-                  as="h1"
-                  className="text-[14px] sm:text-[16px] lg:text-[18px] 2xl:text-[22px] 3xl:text-[28px] leading-[1.2] font-semibold font-base1 text-white [&>span]:text-[#E09812] [&>span]:text-[22px] sm:[&>span]:text-[26px] lg:[&>span]:text-[30px] 2xl:[&>span]:text-[36px] 3xl:[&>span]:text-[45px] mb-[10px] 3xl:mb-[15px]"
-                >
-                  {handleHighlight(
-                    offers_section?.heading,
-                    offers_section?.highlighted_word
-                  )}
-                </Heading>
-                {(offers_section?.social_media_icons?.length > 0 || offers_section?.whatsapp_icon?.url) && (
-                  <div className="space-x-[7px] sm:space-x-[10px] 2xl:space-x-[15px] 3xl:space-x-[20px] flex items-center justify-center">
-                    <span className="text-[10px] 2xl:text-[12px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white">
-                      {offers_section?.social_media_title}
-                    </span>
+                {handleHighlight(
+                  offers_section?.heading,
+                  offers_section?.highlighted_word
+                )}
+              </Heading>
+              {(offers_section?.social_media_icons?.length > 0 ||
+                offers_section?.whatsapp_icon?.url) && (
+                <div className="space-x-[7px] sm:space-x-[10px] 2xl:space-x-[15px] 3xl:space-x-[20px] flex items-center justify-center">
+                  <span className="text-[10px] 2xl:text-[12px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white">
+                    {offers_section?.social_media_title}
+                  </span>
 
-                    {offers_section?.whatsapp_icon?.url && offers_section?.whatsapp_number && (
+                  {offers_section?.whatsapp_icon?.url &&
+                    offers_section?.whatsapp_number && (
                       <a
                         key="social-whatsapp"
-                        href={`https://wa.me/${offers_section.whatsapp_number.replace(/\D/g, "")}`}
+                        href={`https://wa.me/${offers_section.whatsapp_number.replace(
+                          /\D/g,
+                          ""
+                        )}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-[13px] 2xl:w-[18px] 3xl:w-[20px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0"
@@ -226,93 +234,99 @@ export default function OfferSection({ data }) {
                           alt={offers_section?.whatsapp_icon?.alt || "WhatsApp"}
                           fill
                           sizes="100vw"
+                          placeholder="blur"
+                          blurDataURL="/images/placeholder.jpg"
                           className="object-contain"
                         />
                       </a>
                     )}
 
-                    {offers_section?.social_media_icons?.map((item, index) => (
-                      item?.link?.url && item?.icon?.url &&
-                      <a
-                        key={`social-${index}`}
-                        href={item?.link?.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-[13px] 2xl:w-[18px] 3xl:w-[20px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0"
-                      >
-                        <Image
-                          src={item?.icon?.url}
-                          alt={item?.icon?.alt || "Social Icon"}
-                          fill
-                          sizes="100vw"
-                          className="object-contain"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div
-                ref={centerContentRef}
-                className="text-center w-full sm:w-[85%] md:w-[60%] h-full md:pb-[80px] lg:pb-[60px] 2xl:pb-[80px] 3xl:pb-[130px] mx-auto flex flex-col items-center justify-end relative z-5"
+                  {offers_section?.social_media_icons?.map(
+                    (item, index) =>
+                      item?.link?.url &&
+                      item?.icon?.url && (
+                        <a
+                          key={`social-${index}`}
+                          href={item?.link?.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-[13px] 2xl:w-[18px] 3xl:w-[20px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-2"
+                        >
+                          <Image
+                            src={item?.icon?.url}
+                            alt={item?.icon?.alt || "Social Icon"}
+                            fill
+                            sizes="100vw"
+                            placeholder="blur"
+                            blurDataURL="/images/placeholder.jpg"
+                            className="object-contain"
+                          />
+                        </a>
+                      )
+                  )}
+                </div>
+              )}
+            </div>
+            <div
+              ref={centerContentRef}
+              className="text-center w-full sm:w-[85%] md:w-[60%] h-full md:pb-[80px] lg:pb-[60px] 2xl:pb-[80px] 3xl:pb-[130px] mx-auto flex flex-col items-center justify-end relative z-5"
+            >
+              <Heading
+                as="h1"
+                size={"heading1"}
+                className="text-white mb-[10px] 2xl:mb-[20px] 3xl:mb-[25px]"
               >
-                <Heading
-                  as="h1"
-                  size={"heading1"}
-                  className="text-white mb-[10px] 2xl:mb-[20px] 3xl:mb-[25px]"
+                {offers_section?.offers_list?.[0]?.title}
+              </Heading>
+              <Text
+                as="div"
+                className="text-[11px] sm:text-[11px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white mb-[15px] lg:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px] lg:max-w-[80%]"
+              >
+                {offers_section?.offers_list?.[0]?.description}
+              </Text>
+              {offers_section?.button_url?.url && (
+                <StyledLink
+                  href={offers_section?.button_url?.url}
+                  target={offers_section?.button_url?.target}
+                  className="lg:!py-[12px] 3xl:!py-[15px]"
                 >
-                  {offers_section?.offers_list?.[0]?.title}
-                </Heading>
-                <Text
-                  as="div"
-                  className="text-[11px] sm:text-[11px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white mb-[15px] lg:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px] lg:max-w-[80%]"
-                >
-                  {offers_section?.offers_list?.[0]?.description}
-                </Text>
-                {offers_section?.button_url?.url && (
-                  <StyledLink
-                    href={offers_section?.button_url?.url}
-                    target = {offers_section?.button_url?.target}
-                    className="lg:!py-[12px] 3xl:!py-[15px]"
+                  {offers_section?.button_title}
+                </StyledLink>
+              )}
+            </div>
+            <div className="max-md:text-center w-full h-full md:absolute inset-0 max-sm:mt-[40px] max-md:mt-[50px]">
+              {Array.isArray(offers_section?.offers_list) &&
+                offers_section?.offers_list?.slice(1, 5).map((item, index) => (
+                  <div
+                    key={`offer-${index}`}
+                    ref={(el) => (cornerItemsRef.current[index] = el)}
+                    className={`md:absolute ${
+                      [
+                        "top-0 left-0",
+                        "top-0 right-0 md:text-right",
+                        "bottom-0 left-0",
+                        "bottom-0 right-0 md:text-right",
+                      ][index]
+                    } w-[80%] sm:w-[50%] md:w-[20%] max-md:mx-auto mb-[15px] sm:mb-[20px] md:mb-0`}
                   >
-                    {offers_section?.button_title}
-                  </StyledLink>
-                )}
-              </div>
-              <div className="max-md:text-center w-full h-full md:absolute inset-0 max-sm:mt-[40px] max-md:mt-[50px]">
-                {Array.isArray(offers_section?.offers_list) &&
-                  offers_section?.offers_list?.slice(1, 5).map((item, index) => (
-                    <div
-                      key={`offer-${index}`}
-                      ref={(el) => (cornerItemsRef.current[index] = el)}
-                      className={`md:absolute ${
-                        [
-                          "top-0 left-0",
-                          "top-0 right-0 md:text-right",
-                          "bottom-0 left-0",
-                          "bottom-0 right-0 md:text-right",
-                        ][index]
-                      } w-[80%] sm:w-[50%] md:w-[20%] max-md:mx-auto mb-[15px] sm:mb-[20px] md:mb-0`}
+                    <Heading
+                      as="h1"
+                      className="text-[16px] sm:text-[18px] lg:text-[20px] 2xl:text-[25px] 3xl:text-[32px] leading-[1.2] font-light font-base1 text-white mb-[10px]"
                     >
-                      <Heading
-                        as="h1"
-                        className="text-[16px] sm:text-[18px] lg:text-[20px] 2xl:text-[25px] 3xl:text-[32px] leading-[1.2] font-light font-base1 text-white mb-[10px]"
-                      >
-                        {item?.title}
-                      </Heading>
-                      <Text
-                        as="div"
-                        className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-normal font-base2 text-white"
-                      >
-                        {item?.description}
-                      </Text>
-                    </div>
-                  ))}
-              </div>
+                      {item?.title}
+                    </Heading>
+                    <Text
+                      as="div"
+                      className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-normal font-base2 text-white"
+                    >
+                      {item?.description}
+                    </Text>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
-      </section>
-    : null
-  );
+      </div>
+    </section>
+  ) : null;
 }

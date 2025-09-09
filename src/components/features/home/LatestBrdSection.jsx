@@ -17,6 +17,8 @@ export default function LatestBrdSection({ data }) {
                 alt={latest_news_section?.posts?.[0]?.media?.alt}
                 fill
                 sizes="100vw"
+                placeholder="blur"
+                blurDataURL="/images/placeholder.jpg"
                 className="object-cover -z-2 transition duration-500 ease-in-out group-hover:scale-110"
               />
               <div className="container flex flex-col justify-between">
@@ -33,8 +35,10 @@ export default function LatestBrdSection({ data }) {
                   <div className="text-[10px] sm:text-[11px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white line-clamp-2 mb-[10px] sm:mb-[15px] 2xl:mb-[25px]">
                     {latest_news_section?.posts?.[0]?.excerpt}
                   </div>
-                  
-                  <StyledLink href={`/news/${latest_news_section?.posts?.[0]?.slug}`}>
+
+                  <StyledLink
+                    href={`/news/${latest_news_section?.posts?.[0]?.slug}`}
+                  >
                     Read More
                   </StyledLink>
                 </div>
@@ -60,6 +64,8 @@ export default function LatestBrdSection({ data }) {
                     alt={item?.media?.alt}
                     fill
                     sizes="100vw"
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.jpg"
                     className="object-cover -z-2 transition duration-500 ease-in-out group-hover:scale-110"
                   />
                   <div className="w-full h-full p-[15px_10px] sm:p-[20px_15px] lg:p-[25px_20px] 2xl:p-[30px_25px] 3xl:p-[40px_30px] flex flex-col justify-end">

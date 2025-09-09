@@ -4,11 +4,11 @@ import { Text } from "@/components/utils/Text";
 import Image from "next/image";
 
 export default function SellInfoSection({ data }) {
-    
-  const first_description_section = data?.sell_your_car_acf?.first_description_section;
-  
-  return (
-    first_description_section?.enable__disable_first_description_section === true ? 
+  const first_description_section =
+    data?.sell_your_car_acf?.first_description_section;
+
+  return first_description_section?.enable__disable_first_description_section ===
+    true ? (
     <section className="w-full h-auto block overflow-hidden">
       <div className="container container-sp sm:!mr-0 sm:!pr-0">
         <div className="relative z-0">
@@ -35,9 +35,10 @@ export default function SellInfoSection({ data }) {
                 as="div"
                 size="text3"
                 className="!font-light text-white mb-[15px] sm:mb-[20px] xl:mb-[30px] 2xl:mb-[40px]"
-                dangerouslySetInnerHTML={{ __html: first_description_section?.description }}
+                dangerouslySetInnerHTML={{
+                  __html: first_description_section?.description,
+                }}
               />
-
             </div>
           </div>
           <div className="w-full sm:w-1/2 xl:w-[55%]">
@@ -47,6 +48,8 @@ export default function SellInfoSection({ data }) {
                 alt={first_description_section?.background_image?.alt}
                 width={880}
                 height={850}
+                placeholder="blur"
+                blurDataURL="/images/placeholder.jpg"
                 className="w-full h-full object-cover hover:scale-105 transition origin-right duration-300"
               />
             </div>
@@ -54,6 +57,5 @@ export default function SellInfoSection({ data }) {
         </div>
       </div>
     </section>
-    : null
-  );
+  ) : null;
 }

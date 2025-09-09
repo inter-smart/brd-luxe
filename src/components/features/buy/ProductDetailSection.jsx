@@ -18,13 +18,12 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
   //   query: "(min-width: 1024px)",
   // });
 
-
   const [isDesktop, setIsDesktop] = useState(false);
 
-  const [isHovering, setIsHovering] = useState(false);  
-  const videoRef = useRef(null);                        
-  const [videoSrc, setVideoSrc] = useState(null);      
-  const [isVideoOpen, setIsVideoOpen] = useState(false); 
+  const [isHovering, setIsHovering] = useState(false);
+  const videoRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 640px)");
@@ -92,10 +91,12 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
           >
             {data?.detail_page_title}
           </Heading>
-          <div className="typography"
-            dangerouslySetInnerHTML={{ __html: data?.detail_page_description || "" }}
-          >
-          </div>
+          <div
+            className="typography"
+            dangerouslySetInnerHTML={{
+              __html: data?.detail_page_description || "",
+            }}
+          ></div>
         </div>
         <div className="w-full mb-[10px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[35px] flex flex-wrap">
           <div className="w-full lg:w-[40%] xl:w-1/2 lg:pr-[20px] 2xl:pr-[25px] 3xl:pr-[30px] mb-[10px] sm:mb-[15px] lg:mb-0">
@@ -122,6 +123,8 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           alt={data?.media?.alt || "Main car image"}
                           width={825}
                           height={570}
+                          placeholder="blur"
+                          blurDataURL="/images/placeholder.jpg"
                           className="w-full h-full object-cover"
                         />
                       </a>
@@ -147,8 +150,11 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           alt="Video placeholder"
                           width={400}
                           height={570}
-                          className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-300 ${isHovering ? "opacity-0" : "opacity-100"
-                            }`}
+                          placeholder="blur"
+                          blurDataURL="/images/placeholder.jpg"
+                          className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-300 ${
+                            isHovering ? "opacity-0" : "opacity-100"
+                          }`}
                         />
                         {/* Actual video */}
                         <video
@@ -161,8 +167,9 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                         />
                         {/* Play button overlay */}
                         <div
-                          className={`w-[35px] lg:w-[40px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square rounded-[10px] overflow-hidden absolute bottom-0 right-0 m-[10px] ${isHovering ? "opacity-0" : "opacity-100"
-                            }`}
+                          className={`w-[35px] lg:w-[40px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square rounded-[10px] overflow-hidden absolute bottom-0 right-0 m-[10px] ${
+                            isHovering ? "opacity-0" : "opacity-100"
+                          }`}
                         >
                           <Image
                             src="/images/vudeo_button.svg"
@@ -171,7 +178,10 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                             height={40}
                             className="w-full h-full object-cover scale-125"
                           />
-                          <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
+                          <ShineBorder
+                            borderWidth={1}
+                            shineColor={["#4a4a4a"]}
+                          />
                         </div>
                       </div>
                     ) : (
@@ -187,6 +197,8 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                             alt={item?.alt}
                             width={825}
                             height={570}
+                            placeholder="blur"
+                            blurDataURL="/images/placeholder.jpg"
                             className="w-full h-full object-cover"
                           />
                         </a>
@@ -196,7 +208,6 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                 </SwiperSlide>
               ))}
             </Swiper>
-
 
             {/* Thumbnails only for mobile */}
             {!isDesktop && (
@@ -224,6 +235,8 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           alt={data?.media?.alt || "Main car image"}
                           width={400}
                           height={280}
+                          placeholder="blur"
+                          blurDataURL="/images/placeholder.jpg"
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -237,10 +250,16 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                     <div className="w-full h-[80px] sm:h-[100px] md:h-[120px] lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
                       <div className="w-full h-full relative">
                         <Image
-                          src={item?.type === "video" ? item?.placeholder : item?.url}
+                          src={
+                            item?.type === "video"
+                              ? item?.placeholder
+                              : item?.url
+                          }
                           alt={item?.alt}
                           width={400}
                           height={280}
+                          placeholder="blur"
+                          blurDataURL="/images/placeholder.jpg"
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -249,7 +268,6 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                 ))}
               </Swiper>
             )}
-
           </div>
 
           <div className="lg:w-[60%] xl:w-1/2">
@@ -641,6 +659,8 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       alt={data?.media?.alt || "Main car image"}
                       width={400}
                       height={280}
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder.jpg"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -654,10 +674,14 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                 <div className="w-full lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
                   <div className="w-full h-full relative">
                     <Image
-                      src={item?.type === "video" ? item?.placeholder : item?.url}
+                      src={
+                        item?.type === "video" ? item?.placeholder : item?.url
+                      }
                       alt={item?.alt}
                       width={400}
                       height={280}
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder.jpg"
                       className="w-full h-full object-cover"
                     />
                   </div>

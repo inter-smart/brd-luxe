@@ -13,11 +13,17 @@ export default function ProductCard({ item, whatsapp }) {
             alt={item?.media?.alt || item?.cartitle}
             width={400}
             height={195}
+            placeholder="blur"
+            blurDataURL="/images/placeholder.jpg"
             className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105 "
           />
           <div
             className={`text-[8px] 3xl:text-[11px] leading-[1.2] font-medium font-base3 absolute z-1 top-0 right-0 bg-white p-[5px_8px] 2xl:p-[5px_10px] m-[5px] xl:m-[10px]
-          ${item?.stock_management === "In Stock" ? "text-[#313131]" : "text-[#974848]"}`}
+          ${
+            item?.stock_management === "In Stock"
+              ? "text-[#313131]"
+              : "text-[#974848]"
+          }`}
           >
             {item?.stock_management}
           </div>
@@ -26,22 +32,21 @@ export default function ProductCard({ item, whatsapp }) {
           {item?.cartitle}
         </div>
         <div className="[&>*]:text-[11px] [&>*]:sm:text-[12px] [&>*]:2xl:text-[13px] [&>*]:3xl:text-[16px] [&>*]:leading-[1.2] [&>*]:font-light [&>*]:font-base3 [&>*]:text-white w-full h-auto [&>*]:px-[7px] [&>*]:lg:px-[10px] [&>*]:3xl:px-[15px] [&>*]:first:pl-0 [&>*]:last:border-r-0 [&>*]:first:border-r-1 [&>*]:first:border-[#888888] mb-[15px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px] flex items-center">
-          { item?.kms &&
-          <div>KMS - {item?.kms}</div>
-          }
-          { item?.mileage &&
-          <div>Mileage - {item?.mileage}</div>
-          }
+          {item?.kms && <div>KMS - {item?.kms}</div>}
+          {item?.mileage && <div>Mileage - {item?.mileage}</div>}
         </div>
         <div className="flex items-center [&>*]:w-1/2">
-          { item?.price &&
+          {item?.price && (
             <div className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-normal font-base3 text-white">
               ₹ {item?.price}
             </div>
-          }
+          )}
           <div className="flex items-center justify-end">
             <a
-              href={`https://wa.me/${whatsapp?.number?.replace(/[^\d]/g, "")}?text=${encodeURIComponent(
+              href={`https://wa.me/${whatsapp?.number?.replace(
+                /[^\d]/g,
+                ""
+              )}?text=${encodeURIComponent(
                 `Hi, I am interested in ${item?.cartitle}`
               )}`}
               target="_blank"
@@ -53,6 +58,8 @@ export default function ProductCard({ item, whatsapp }) {
                 alt={whatsapp?.icon?.alt || "Whatsapp"}
                 width={25}
                 height={25}
+                placeholder="blur"
+                blurDataURL="/images/placeholder.jpg"
                 className="w-full h-full object-contain"
               />
             </a>
@@ -65,7 +72,6 @@ export default function ProductCard({ item, whatsapp }) {
                   Enquire Now
                 </Link>
               ) : null}
-
             </div>
           </div>
         </div>

@@ -2,9 +2,7 @@ import Image from "next/image";
 
 export default function SocialMediaComp({ data = [] }) {
   // Only keep valid items (must have link + icon url)
-  const validIcons = data.filter(
-    (item) => item?.link && item?.icon?.url
-  );
+  const validIcons = data.filter((item) => item?.link && item?.icon?.url);
 
   if (validIcons.length === 0) return null; // nothing to show
 
@@ -23,6 +21,8 @@ export default function SocialMediaComp({ data = [] }) {
               alt={item.icon.alt || item.icon.title || "social-icon"}
               width={20}
               height={20}
+              placeholder="blur"
+              blurDataURL="/images/placeholder.jpg"
               className="w-full h-full object-contain"
             />
           </a>
