@@ -19,8 +19,10 @@ export default function TestdriveeSection({ data }) {
               <div className="w-full lg:w-[120px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[230px] flex-items-center justify-center">
                 <div className="w-full h-full flex items-center justify-center max-lg:max-w-[125px] m-auto">
                   <Image
-                    src={test_drive_section?.logo?.url}
-                    alt={test_drive_section?.logo?.alt}
+                    src={
+                      test_drive_section?.logo?.url || "/images/placeholder.jpg"
+                    }
+                    alt={test_drive_section?.logo?.alt || "test drive logo"}
                     width="225"
                     height="65"
                     placeholder="blur"

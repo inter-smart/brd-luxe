@@ -24,7 +24,7 @@ export default function EnquirySection({ data, socialMedia = false }) {
                 >
                   <Image
                     src={data?.image?.url || "/images/placeholder.jpg"}
-                    alt={data?.image?.alt}
+                    alt={data?.image?.alt || "enquiry form image"}
                     width={412}
                     height={116}
                     placeholder="blur"

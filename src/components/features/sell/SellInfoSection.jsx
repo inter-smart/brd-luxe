@@ -45,7 +45,7 @@ export default function SellInfoSection({ data }) {
             <div className="w-full h-auto aspect-square [mask-image:linear-gradient(to_left,white_0%,white_70%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_left,white_0%,white_70%,transparent_100%)] overflow-hidden">
               <Image
                 src={first_description_section?.background_image?.url || "/images/placeholder.jpg"}
-                alt={first_description_section?.background_image?.alt}
+                alt={first_description_section?.background_image?.alt || "sell info background"}
                 width={880}
                 height={850}
                 placeholder="blur"

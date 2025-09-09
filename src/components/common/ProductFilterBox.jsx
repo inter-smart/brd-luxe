@@ -156,8 +156,6 @@ export default function ProductFilterBox({
                   alt="Search"
                   width={15}
                   height={15}
-                  placeholder="blur"
-                  blurDataURL="/images/placeholder.jpg"
                 />
               </span>
               Search

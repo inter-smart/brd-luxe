@@ -293,12 +293,10 @@ export default function StickyWidget({ data = sticky_data }) {
           >
             {item?.icon?.url && (
               <Image
-                src={item.icon.url}
+                src={item.icon.url || "/images/placeholder.jpg"}
                 alt={item.icon.alt || "social icon"}
                 width={20}
                 height={20}
-                placeholder="blur"
-                blurDataURL="/images/placeholder.jpg"
                 className="w-full h-full sm:p-[7px] 3xl:p-[8px] object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
               />
             )}
@@ -315,12 +313,10 @@ export default function StickyWidget({ data = sticky_data }) {
             className="group w-[17px] sm:w-[30px] 3xl:w-[35px] h-auto aspect-square border-1 border-transparent rounded-full flex items-center justify-center transition-all duration-200 hover:bg-white/10 hover:border-[#F29A0D] hover:scale-120"
           >
             <Image
-              src={whatsappObj.whatsapp_icon.url}
+              src={whatsappObj.whatsapp_icon.url || "/images/placeholder.jpg"}
               alt={whatsappObj.whatsapp_icon.alt || "WhatsApp"}
               width={20}
               height={20}
-              placeholder="blur"
-              blurDataURL="/images/placeholder.jpg"
               className="w-full h-full sm:p-[7px] 3xl:p-[8px] object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
             />
           </a>
@@ -383,8 +379,6 @@ export default function StickyWidget({ data = sticky_data }) {
                     }
                     width={28}
                     height={28}
-                    placeholder="blur"
-                    blurDataURL="/images/placeholder.jpg"
                     className="w-full h-full object-contain transition-all duration-300 group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)] group-hover:scale-110"
                   />
                 </a>

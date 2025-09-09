@@ -58,8 +58,6 @@ export default function ProductCard({ item, whatsapp }) {
                 alt={whatsapp?.icon?.alt || "Whatsapp"}
                 width={25}
                 height={25}
-                placeholder="blur"
-                blurDataURL="/images/placeholder.jpg"
                 className="w-full h-full object-contain"
               />
             </a>

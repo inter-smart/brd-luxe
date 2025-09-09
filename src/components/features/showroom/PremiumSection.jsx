@@ -22,8 +22,13 @@ export default function PremiumSection({ data }) {
                 after:bg-[linear-gradient(270deg,#000_0%,rgba(0,0,0,0)_100%)] "
       >
         <Image
-          src={premium_showroom_section?.image?.url || "/images/placeholder.jpg"}
-          alt={premium_showroom_section?.image?.alt || "premium showroom background"}
+          src={
+            premium_showroom_section?.image?.url || "/images/placeholder.jpg"
+          }
+          alt={
+            premium_showroom_section?.image?.alt ||
+            "premium showroom background"
+          }
           width="1400"
           height="890"
           placeholder="blur"
