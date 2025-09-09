@@ -160,8 +160,8 @@ export default function RelatedSection({ data }) {
                   <div className="group w-full h-auto block">
                     <div className="w-full h-auto aspect-[4/3] overflow-hidden mb-[15px] sm:mb-[20px] xl:mb-[40px] 2xl:mb-[50px]">
                       <Image
-                        src={item?.media?.path}
-                        alt={item?.media?.alt}
+                        src={item?.media?.path || "/images/placeholder.jpg"}
+                        alt={item?.media?.alt || "news image"}
                         width={576}
                         height={432}
                         placeholder="blur"

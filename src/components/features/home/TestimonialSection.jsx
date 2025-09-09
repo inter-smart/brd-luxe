@@ -115,8 +115,8 @@ export default function ExperienceSection({ data }) {
                           className="w-full h-full aspect-[280/390] block relative z-0 group overflow-hidden"
                         >
                           <Image
-                            src={item?.image?.url}
-                            alt={item?.image?.alt}
+                            src={item?.image?.url || "/images/placeholder.jpg"}
+                            alt={item?.image?.alt || "testimonial image"}
                             fill
                             placeholder="blur"
                             blurDataURL="/images/placeholder.jpg"
@@ -315,8 +315,8 @@ function TestimonialTextCard({ item, index }) {
         <div className="w-full h-auto absolute bottom-0 flex items-center">
           <div className="w-[35px] 2xl:w-[40px] 3xl:w-[50px] h-auto aspect-square rounded-full flex items-center justify-center relative z-0">
             <Image
-              src={item?.profile_image?.url}
-              alt={item?.profile_image?.alt}
+              src={item?.profile_image?.url || "/images/placeholder.jpg"}
+              alt={item?.profile_image?.alt || "testimonial image"}
               width={50}
               height={50}
               placeholder="blur"

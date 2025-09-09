@@ -32,8 +32,8 @@ export default function NewsDetailSection({ data }) {
         </Heading>
         <div className="group w-full h-auto aspect-1720/560 overflow-hidden relative z-0 mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]">
           <Image
-            src={data?.media?.path}
-            alt={data?.media?.alt}
+            src={data?.media?.path || "/images/placeholder.jpg"}
+            alt={data?.media?.alt || "news detail image"}
             fill
             sizes="1720px"
             placeholder="blur"

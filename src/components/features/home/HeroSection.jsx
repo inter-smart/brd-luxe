@@ -110,10 +110,10 @@ export default function HeroSection({ data }) {
                     <picture className="absolute -z-2 inset-0">
                       <source
                         media="(max-width: 640px)"
-                        srcSet={item?.image?.url}
+                        srcSet={item?.image?.url || "/images/placeholder.jpg"}
                       />
                       <Image
-                        src={item?.image?.url}
+                        src={item?.image?.url || "/images/placeholder.jpg"}
                         alt={item?.image?.alt}
                         fill
                         sizes="100vw, 230px"

@@ -19,11 +19,11 @@ export default function VideoSection({ data }) {
         <picture className="absolute -z-1 inset-0">
           <source
             media="(min-width: 640px)"
-            srcSet={video_section?.image?.url}
+            srcSet={video_section?.image?.url || "/images/placeholder.jpg"}
           ></source>
           <Image
-            src={video_section?.image?.url}
-            alt={video_section?.image?.alt}
+            src={video_section?.image?.url || "/images/placeholder.jpg"}
+            alt={video_section?.image?.alt || "video section background"}
             fill
             sizes="100vw"
             placeholder="blur"
@@ -44,7 +44,7 @@ export default function VideoSection({ data }) {
                   <div className="w-full h-full p-[10px_15px] sm:p-[15px_20px] xl:p-[20px_30px] bg-gradient-to-tr from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)] flex items-center border-[1px] border-solid border-white/10 rounded-[10px] backdrop-blur-[20px] shadow-sm transition duration-300 hover:border-white/20 hover:from-[rgba(217,217,217,0.1)] hover:translate-y-1">
                     <Image
                       src={item?.logo?.url || "/images/placeholder.jpg"}
-                      alt={item?.logo?.alt}
+                      alt={item?.logo?.alt || "icon"}
                       width={50}
                       height={50}
                       placeholder="blur"

@@ -34,7 +34,7 @@ export default function TestimonialBox({ item }) {
             className="@container group w-full h-full flex items-end aspect-[280/390] overflow-hidden bg-black relative z-0"
           >
             <Image
-              src={item?.image?.url}
+              src={item?.image?.url || "/images/placeholder.jpg"}
               alt={item?.image?.alt}
               fill
               sizes="320px"
@@ -117,7 +117,7 @@ export default function TestimonialBox({ item }) {
           <div className="w-full h-auto p-[8px] sm:p-[10px] 2xl:p-[15px] 3xl:p-[20px] @[320px]:p-[20px] @[420px]:p-[30px] @[468px]:p-[40px] flex items-center">
             <div className="w-[40px] md:w-[50px] xl:w-[65px] 2xl:w-[75px] 3xl:w-[100px] h-auto aspect-square rounded-full overflow-hidden relative z-0 mr-[10px] 2xl:mr-[15px] bg-white/20 backdrop-blur-xl">
               <Image
-                src={item?.profile_image?.url}
+                src={item?.profile_image?.url || "/images/placeholder.jpg"}
                 alt={item?.profile_image?.alt}
                 width={50}
                 height={50}

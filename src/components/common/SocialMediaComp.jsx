@@ -17,7 +17,7 @@ export default function SocialMediaComp({ data = [] }) {
             className="w-[15px] lg:w-[17px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
           >
             <Image
-              src={item.icon.url}
+              src={item.icon.url || "/images/placeholder.jpg"}
               alt={item.icon.alt || item.icon.title || "social-icon"}
               width={20}
               height={20}

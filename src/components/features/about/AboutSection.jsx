@@ -68,8 +68,8 @@ export default function AboutSection({ data }) {
               </div>
               <div className="w-[140px] sm:w-[180px] lg:w-[230px] 2xl:w-[270px] 3xl:w-[340px] h-auto aspect-[340/100] max-sm:mx-auto mb-[15px] lg:mb-[20px] 3xl:mb-[30px] overflow-hidden flex items-center justify-center">
                 <Image
-                  src={data?.logo?.url}
-                  alt={data?.logo?.alt}
+                  src={data?.logo?.url || "/images/placeholder.jpg"}
+                  alt={data?.logo?.alt || "logo"}
                   width={340}
                   height={100}
                   placeholder="blur"
@@ -142,8 +142,8 @@ export default function AboutSection({ data }) {
               </motion.div>
               <div className="w-[220px] sm:w-[340px] lg:w-[400px] 2xl:w-[485px] 3xl:w-[610px] h-auto aspect-[610/755] ml-auto flex items-center justify-center">
                 <Image
-                  src={data?.image?.url}
-                  alt={data?.image?.alt}
+                  src={data?.image?.url || "/images/placeholder.jpg"}
+                  alt={data?.image?.alt || "about image"}
                   width={610}
                   height={755}
                   placeholder="blur"

@@ -58,7 +58,7 @@ export default function DealerSection({ data }) {
               className="w-full h-full relative z-0 max-sm:mb-[30px] max-md:mb-[40px]"
             >
               <Image
-                src={dealers_section?.image?.url}
+                src={dealers_section?.image?.url || "/images/placeholder.jpg"}
                 alt={dealers_section?.image?.alt}
                 fill
                 sizes="100vw"

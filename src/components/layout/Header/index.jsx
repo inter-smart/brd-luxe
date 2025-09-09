@@ -281,8 +281,8 @@ export default function Header() {
                 className="group w-[110px] lg:w-[120px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] absolute left-0 right-0 ml-auto lg:mx-auto"
               >
                 <Image
-                  src={header_acf?.logo?.url}
-                  alt={header_acf?.logo?.alt}
+                  src={header_acf?.logo?.url || "/images/placeholder.jpg"}
+                  alt={header_acf?.logo?.alt || "site logo"}
                   width={187}
                   height={50}
                   className="w-full h-full object-contain group-hover:scale-102 transition-all duration-300"
@@ -383,8 +383,8 @@ export default function Header() {
                 </button>
                 <div className="w-[115px] h-auto aspect-[225/65] mb-[15px] ml-auto flex items-center justify-center">
                   <Image
-                    src={header_acf?.logo?.url}
-                    alt={header_acf?.logo?.alt}
+                    src={header_acf?.logo?.url || "/images/placeholder.jpg"}
+                    alt={header_acf?.logo?.alt || "site logo"}
                     width={225}
                     height={65}
                     className="w-full h-full object-contain"
@@ -501,8 +501,8 @@ export default function Header() {
                 </motion.div>
                 <div className="w-[90%] h-auto aspect-[710/180] m-auto absolute z-0 left-0 right-0 bottom-[10%] opacity-50 flex items-center justify-center">
                   <Image
-                    src={header_acf?.mega_menu?.image?.url}
-                    alt={header_acf?.mega_menu?.image?.alt}
+                    src={header_acf?.mega_menu?.image?.url || "/images/placeholder.jpg"}
+                    alt={header_acf?.mega_menu?.image?.alt || "menu image"}
                     width={715}
                     height={180}
                     className="w-full h-full object-contain"
@@ -584,8 +584,8 @@ export default function Header() {
                     <div className="w-full lg:w-[50%] h-full max-lg:absolute max-lg:inset-0 max-lg:m-auto max-lg:opacity-25 flex items-end">
                       <div className="w-full h-auto aspect-[710/180] flex items-center justify-center">
                         <Image
-                          src={header_acf?.mega_menu?.image?.url}
-                          alt={header_acf?.mega_menu?.image?.alt}
+                          src={header_acf?.mega_menu?.image?.url || "/images/placeholder.jpg"}
+                          alt={header_acf?.mega_menu?.image?.alt || "menu image"}
                           width={715}
                           height={180}
                           className="w-full h-full object-contain"
@@ -619,7 +619,7 @@ export default function Header() {
                                       className="w-[15px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
                                     >
                                       <Image
-                                        src={item.icon.url}
+                                        src={item.icon.url || "/images/placeholder.jpg"}
                                         alt={item.icon.alt || "Social Icon"}
                                         width={20}
                                         height={20}
@@ -638,8 +638,8 @@ export default function Header() {
                     <div className="w-full lg:w-[40%]">
                       <div className="sm:w-[130px] lg:w-[150px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] h-auto aspect-[225/65] max-lg:hidden flex items-center justify-center">
                         <Image
-                          src={header_acf?.mega_menu?.bottom_image?.url}
-                          alt={header_acf?.mega_menu?.bottom_image?.alt}
+                          src={header_acf?.mega_menu?.bottom_image?.url || "/images/placeholder.jpg"}
+                          alt={header_acf?.mega_menu?.bottom_image?.alt || "bottom image"}
                           width={225}
                           height={65}
                           className="w-full h-full object-contain"

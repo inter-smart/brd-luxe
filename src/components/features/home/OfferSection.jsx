@@ -186,8 +186,8 @@ export default function OfferSection({ data }) {
         ></div>
         <div className="w-full h-full block absolute inset-0 -z-1">
           <Image
-            src={offers_section?.background_image?.url}
-            alt={offers_section?.background_image?.alt}
+            src={offers_section?.background_image?.url || "/images/placeholder.jpg"}
+            alt={offers_section?.background_image?.alt || "offer background"}
             fill
             sizes="100vw"
             placeholder="blur"
@@ -230,7 +230,7 @@ export default function OfferSection({ data }) {
                         className="w-[13px] 2xl:w-[18px] 3xl:w-[20px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0"
                       >
                         <Image
-                          src={offers_section?.whatsapp_icon?.url}
+                          src={offers_section?.whatsapp_icon?.url || "/images/placeholder.jpg"}
                           alt={offers_section?.whatsapp_icon?.alt || "WhatsApp"}
                           fill
                           sizes="100vw"
@@ -253,7 +253,7 @@ export default function OfferSection({ data }) {
                           className="w-[13px] 2xl:w-[18px] 3xl:w-[20px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-2"
                         >
                           <Image
-                            src={item?.icon?.url}
+                            src={item?.icon?.url || "/images/placeholder.jpg"}
                             alt={item?.icon?.alt || "Social Icon"}
                             fill
                             sizes="100vw"

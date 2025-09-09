@@ -23,8 +23,8 @@ export default async function Page() {
     {activeBanner ? (
       <InnerHero
         title={activeBanner.buy_a_car_banner_title ?? ""}
-        mobileImage={activeBanner.buy_a_car_mobile_image?.url}
-        desktopImage={activeBanner.buy_a_car_desktop_image?.url}
+        mobileImage={activeBanner.buy_a_car_mobile_image?.url || "/images/placeholder.jpg"}
+        desktopImage={activeBanner.buy_a_car_desktop_image?.url || "/images/placeholder.jpg"}
         alt={activeBanner.buy_a_car_desktop_image?.alt ?? "banner"}
       />
     ) : null}

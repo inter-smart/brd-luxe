@@ -6,7 +6,7 @@ export default function InnerHero({ title, desktopImage, mobileImage, alt }) {
       <picture className="w-full h-full absolute -z-1 inset-0">
         <source media="(min-width: 640px)" srcSet={desktopImage}></source>
         <Image
-          src={mobileImage}
+          src={mobileImage || "/images/placeholder.jpg"}
           alt={alt}
           fill
           sizes="100vw"

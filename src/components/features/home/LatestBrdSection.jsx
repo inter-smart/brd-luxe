@@ -13,8 +13,8 @@ export default function LatestBrdSection({ data }) {
           {latest_news_section?.posts?.[0] && (
             <div className="group w-full h-[320px] sm:h-full py-[20px] sm:py-[25px] lg:py-[30px] 3xl:py-[40px] max-sm:text-center overflow-hidden flex relative z-0 before:w-full before:h-[25%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:-z-1 after:w-full after:h-[50%] after:bg-linear-to-b after:from-black/0 after:to-black after:absolute after:bottom-0 after:-z-1">
               <Image
-                src={latest_news_section?.posts?.[0]?.media?.path}
-                alt={latest_news_section?.posts?.[0]?.media?.alt}
+                src={latest_news_section?.posts?.[0]?.media?.path || "/images/placeholder.jpg"}
+                alt={latest_news_section?.posts?.[0]?.media?.alt || "latest news image"}
                 fill
                 sizes="100vw"
                 placeholder="blur"
@@ -60,8 +60,8 @@ export default function LatestBrdSection({ data }) {
                   }`}
                 >
                   <Image
-                    src={item?.media?.path}
-                    alt={item?.media?.alt}
+                    src={item?.media?.path || "/images/placeholder.jpg"}
+                    alt={item?.media?.alt || "latest news image"}
                     fill
                     sizes="100vw"
                     placeholder="blur"

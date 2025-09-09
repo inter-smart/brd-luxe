@@ -84,7 +84,7 @@ export default function WhatWitsSection({ data }) {
                 >
                   <div className="max-w-[30px] md:max-w-[35px] lg:max-w-[45px] xl:max-w-[55px] 2xl:max-w-[80px] 3xl:max-w-[100px] mb-[30px] xl:mb-[40px] 2xl:mb-[45px] 3xl:mb-[60px]">
                     <Image
-                      src={item?.image?.url}
+                      src={item?.image?.url || "/images/placeholder.jpg"}
                       alt={item?.image?.alt || item?.title || "icon"}
                       width={50}
                       height={50}

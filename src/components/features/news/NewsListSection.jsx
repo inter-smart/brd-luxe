@@ -64,8 +64,8 @@ export default function NewsListSection({ data = [], content }) {
                 <div className="group w-full h-auto aspect-4/3 flex items-end overflow-hidden relative z-0">
                   <div className="w-full h-full bg-gradient-to-t from-black via-30% via-transparent to-transparent border border-black absolute -z-1 inset-0" />
                   <Image
-                    src={item?.media?.path}
-                    alt={item?.media?.alt}
+                    src={item?.media?.path || "/images/placeholder.jpg"}
+                    alt={item?.media?.alt || "news image"}
                     width={576}
                     height={992}
                     placeholder="blur"

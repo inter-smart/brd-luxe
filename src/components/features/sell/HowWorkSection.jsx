@@ -52,8 +52,8 @@ export default function HowWorkSection({ data }) {
                           />
                         </div>
                         <Image
-                          src={item?.logo?.url}
-                          alt={item?.logo?.alt}
+                          src={item?.logo?.url || "/images/placeholder.jpg"}
+                          alt={item?.logo?.alt || "how wroks logo"}
                           width={75}
                           height={75}
                           placeholder="blur"

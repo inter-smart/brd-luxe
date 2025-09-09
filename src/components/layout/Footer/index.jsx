@@ -98,7 +98,7 @@ export default function Footer() {
                 className="w-[120px] sm:w-[140px] lg:w-[140px] 2xl:w-[224px] h-auto aspect-[224/40] flex items-center justify-center relative z-0"
               >
                 <Image
-                  src={footerData.footer_logo.url}
+                  src={footerData.footer_logo.url || "/images/placeholder.jpg"}
                   alt={footerData.footer_logo.alt || "footer logo"}
                   fill
                   sizes="100px"
@@ -141,7 +141,7 @@ export default function Footer() {
                           className="w-[12px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
                         >
                           <Image
-                            src={item.icon.url}
+                            src={item.icon.url || "/images/placeholder.jpg"}
                             alt={item.icon.alt || item.icon.title || "social"}
                             width={20}
                             height={20}

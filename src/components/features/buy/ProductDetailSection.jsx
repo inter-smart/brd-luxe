@@ -119,7 +119,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                         className="cursor-pointer"
                       >
                         <Image
-                          src={data?.media?.path}
+                          src={data?.media?.path || "/images/placeholder.jpg"}
                           alt={data?.media?.alt || "Main car image"}
                           width={825}
                           height={570}
@@ -146,7 +146,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       >
                         {/* Placeholder image */}
                         <Image
-                          src={item?.placeholder}
+                          src={item?.placeholder || "/images/placeholder.jpg"}
                           alt="Video placeholder"
                           width={400}
                           height={570}
@@ -193,8 +193,8 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           className="cursor-pointer"
                         >
                           <Image
-                            src={item?.url}
-                            alt={item?.alt}
+                            src={item?.url || "/images/placeholder.jpg"}
+                            alt={item?.alt || "car image"}
                             width={825}
                             height={570}
                             placeholder="blur"
@@ -231,7 +231,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                     <div className="w-full h-[80px] sm:h-[100px] md:h-[120px] lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
                       <div className="w-full h-full relative">
                         <Image
-                          src={data?.media?.path}
+                          src={data?.media?.path || "/images/placeholder.jpg"}
                           alt={data?.media?.alt || "Main car image"}
                           width={400}
                           height={280}
@@ -606,7 +606,9 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                     className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center transition-all duration-300 ease-in-out relative z-0 hover:opacity-50"
                   >
                     <Image
-                      src={whatsapp_post?.icon?.url}
+                      src={
+                        whatsapp_post?.icon?.url || "/images/placeholder.jpg"
+                      }
                       alt={whatsapp_post?.icon?.alt || "Whatsapp"}
                       width={25}
                       height={25}
@@ -655,7 +657,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                 <div className="w-full lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
                   <div className="w-full h-full relative">
                     <Image
-                      src={data?.media?.path}
+                      src={data?.media?.path || "/images/placeholder.jpg"}
                       alt={data?.media?.alt || "Main car image"}
                       width={400}
                       height={280}

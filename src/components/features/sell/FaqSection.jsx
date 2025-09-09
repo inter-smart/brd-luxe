@@ -64,8 +64,8 @@ export default function FaqSection({ data }) {
             <div className="w-full h-auto xl:min-h-[430px] 2xl:min-h-[480px] 3xl:min-h-[580px] p-[10px_15px] sm:p-[30px] xl:p-[60px_40px] 2xl:p-[80px_60px] bg-gradient-to-tr from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)] border-[1px] border-solid border-white/10 rounded-[10px] backdrop-blur-[20px] shadow-sm transition duration-300 flex flex-col items-center justify-center">
               <div className="w-full mb-[10px] sm:mb-[10px] xl:mb-[20px] 2xl:mb-[30px]">
                 <Image
-                  src={faq_section?.image?.url}
-                  alt={faq_section?.image?.alt}
+                  src={faq_section?.image?.url || "/images/placeholder.jpg"}
+                  alt={faq_section?.image?.alt || "faq image"}
                   width={412}
                   height={116}
                   placeholder="blur"

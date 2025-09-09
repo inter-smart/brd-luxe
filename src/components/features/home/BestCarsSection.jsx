@@ -161,7 +161,7 @@ function CarMotion({ item, hovered }) {
     >
       <div className="relative w-full h-full">
         <Image
-          src={item?.image?.url}
+          src={item?.image?.url || "/images/placeholder.jpg"}
           alt={item?.image?.alt}
           fill
           sizes="100vw, 230px"

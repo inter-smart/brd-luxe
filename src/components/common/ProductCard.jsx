@@ -9,7 +9,7 @@ export default function ProductCard({ item, whatsapp }) {
       <div className="group w-full h-full flex flex-col">
         <div className="w-full h-auto aspect-[400/195] overflow-hidden mb-[10px] sm:mb-[15px] lg:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px] block relative z-0">
           <Image
-            src={item?.media?.path}
+            src={item?.media?.path || "/images/placeholder.jpg"}
             alt={item?.media?.alt || item?.cartitle}
             width={400}
             height={195}
@@ -54,7 +54,7 @@ export default function ProductCard({ item, whatsapp }) {
               className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center transition-all duration-300 ease-in-out relative z-0 hover:opacity-50"
             >
               <Image
-                src={whatsapp?.icon?.url}
+                src={whatsapp?.icon?.url || "/images/placeholder.jpg"}
                 alt={whatsapp?.icon?.alt || "Whatsapp"}
                 width={25}
                 height={25}

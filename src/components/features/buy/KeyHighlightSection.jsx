@@ -49,8 +49,8 @@ export default function KeyHighlightSection({ data }) {
                 </video>
               ) : (
                 <Image
-                  src={data?.highlights?.image?.url}
-                  alt={data?.highlights?.image?.alt}
+                  src={data?.highlights?.image?.url || "/images/placeholder.jpg"}
+                  alt={data?.highlights?.image?.alt || "highlight image"}
                   width={1000}
                   height={415}
                   placeholder="blur"

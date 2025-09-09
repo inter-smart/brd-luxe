@@ -23,7 +23,7 @@ export default function EnquirySection({ data, socialMedia = false }) {
                   )}
                 >
                   <Image
-                    src={data?.image?.url}
+                    src={data?.image?.url || "/images/placeholder.jpg"}
                     alt={data?.image?.alt}
                     width={412}
                     height={116}

@@ -49,8 +49,8 @@ export default function MdMessageSection({ data }) {
               className="w-[140px] 3xs:w-[170px] sm:w-[125px] md:w-[150px] lg:w-[225px] 2xl:w-[270px] 3xl:w-[340px] h-auto aspect-[340/600] absolute z-1 bottom-[-5px] right-[5%]"
             >
               <Image
-                src={message_section?.image?.url ?? ""}
-                alt={message_section?.image?.alt ?? "banner"}
+                src={message_section?.image?.url || "/images/placeholder.jpg"}
+                alt={message_section?.image?.alt || "banner"}
                 width={340}
                 height={600}
                 placeholder="blur"

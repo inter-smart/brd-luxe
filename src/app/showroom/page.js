@@ -29,8 +29,8 @@ export default async function page() {
         {banner?.enable__disable_banner === true ? (
             <InnerHero
                 title={banner?.title ?? ""}
-                mobileImage={banner?.mobile_image?.url}
-                desktopImage={banner?.desktop_image?.url}
+                mobileImage={banner?.mobile_image?.url || "/images/placeholder.jpg"}
+                desktopImage={banner?.desktop_image?.url || "/images/placeholder.jpg"}
                 alt={banner?.desktop_image?.alt ?? "banner"}
             />
             ) : null}

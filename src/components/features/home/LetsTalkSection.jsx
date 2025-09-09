@@ -48,8 +48,8 @@ export default function LetsTalkSection({ data }) {
               srcSet={lets_talk_section?.media?.url}
             />
             <Image
-              src={lets_talk_section?.image?.url}
-              alt={lets_talk_section?.image?.alt}
+              src={lets_talk_section?.image?.url || "/images/placeholder.jpg"}
+              alt={lets_talk_section?.image?.alt || "lets talk image"}
               fill
               sizes="100vw"
               placeholder="blur"

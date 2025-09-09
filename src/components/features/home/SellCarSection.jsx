@@ -60,8 +60,8 @@ export default function SellCarSection({ data }) {
     <section className="w-full h-auto block py-[40px_50px] sm:py-[50px_70px] lg:py-[60px_90px] 2xl:py-[80px_150px] 3xl:py-[95px_185px] border-y border-[#404040]/50 overflow-hidden relative z-0 before:w-full before:h-[30%] before:bg-linear-to-b before:from-black before:to-black/0 before:absolute before:top-0 before:-z-1">
       <div className="w-full h-full block absolute inset-0 -z-3">
         <Image
-          src={sell_your_car_section?.background_image?.url}
-          alt={sell_your_car_section?.background_image?.alt}
+          src={sell_your_car_section?.background_image?.url || "/images/placeholder.jpg"}
+          alt={sell_your_car_section?.background_image?.alt || "sell your car background"}
           fill
           sizes="100vw"
           placeholder="blur"
@@ -158,8 +158,8 @@ export default function SellCarSection({ data }) {
                   >
                     <div className="w-[35px] sm:w-[40px] lg:w-[45px] 2xl:w-[65px] 3xl:w-[80px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0">
                       <Image
-                        src={item?.image?.url}
-                        alt={item?.image?.alt}
+                        src={item?.image?.url || "/images/placeholder.jpg"}
+                        alt={item?.image?.alt || "icon"}
                         fill
                         sizes="100vw"
                         placeholder="blur"
