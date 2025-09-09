@@ -84,6 +84,8 @@ export default function ListSection({ data }) {
                     alt={testimonialsData?.logo?.alt || "google-review-logo"}
                     width={260}
                     height={70}
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.jpg"
                     className="w-[90px] sm:w-[100px] xl:w-[130px] 2xl:w-[176px]"
                   />
                   {/* Static text since API doesn’t give rating & count yet */}

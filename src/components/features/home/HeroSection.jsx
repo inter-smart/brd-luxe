@@ -10,7 +10,6 @@ import "swiper/css/effect-fade";
 import "swiper/css";
 
 export default function HeroSection({ data }) {
-
   const banner = data?.banner;
 
   // const isDesktop = useMediaQuery({
@@ -67,8 +66,8 @@ export default function HeroSection({ data }) {
     }
   };
 
-  return (
-    banner?.enable__disable_banner === true && banner?.sliders?.length > 0 ?
+  return banner?.enable__disable_banner === true &&
+    banner?.sliders?.length > 0 ? (
     <section className="w-full h-[570px] sm:h-screen flex items-center justify-center relative z-0">
       <Swiper
         modules={[Autoplay, EffectFade]}
@@ -118,6 +117,8 @@ export default function HeroSection({ data }) {
                         alt={item?.image?.alt}
                         fill
                         sizes="100vw, 230px"
+                        placeholder="blur"
+                        blurDataURL="/images/placeholder.jpg"
                         className="object-cover"
                       />
                     </picture>
@@ -147,21 +148,24 @@ export default function HeroSection({ data }) {
                       {item?.description}
                     </TextAnimate>
                     <div className="w-full h-full [&>*]:pr-[10px] lg:[&>*]:pr-[15px] 2xl:[&>*]:pr-[20px] flex flex-wrap items-center max-sm:justify-center">
-                      {item?.buttons?.map((item, index) => (
-                        item?.button_url?.url && item?.button_title && 
-                        <div
-                          key={`hero-button-${index}`}
-                          className="w-fit h-auto"
-                        >
-                          <StyledLink
-                            href={item?.button_url?.url}
-                            className="!tracking-[0]"
-                            target={item?.button_url?.target}
-                          >
-                            {item?.button_title}
-                          </StyledLink>
-                        </div>
-                      ))}
+                      {item?.buttons?.map(
+                        (item, index) =>
+                          item?.button_url?.url &&
+                          item?.button_title && (
+                            <div
+                              key={`hero-button-${index}`}
+                              className="w-fit h-auto"
+                            >
+                              <StyledLink
+                                href={item?.button_url?.url}
+                                className="!tracking-[0]"
+                                target={item?.button_url?.target}
+                              >
+                                {item?.button_title}
+                              </StyledLink>
+                            </div>
+                          )
+                      )}
                     </div>
                   </div>
                 </div>
@@ -179,15 +183,15 @@ export default function HeroSection({ data }) {
           onTogglePlayPause={() => controlPlayback(!isPlaying)}
           onSlideClick={navigateToSlide}
           onProgressComplete={() => {
-            const nextIndex = (activeIndex + 1) % (banner?.sliders?.length ?? 1);
+            const nextIndex =
+              (activeIndex + 1) % (banner?.sliders?.length ?? 1);
             setIsPlaying(true);
             navigateToSlide(nextIndex);
           }}
         />
       )}
     </section>
-    : null
-  );
+  ) : null;
 }
 
 function CustomPaginationDots({

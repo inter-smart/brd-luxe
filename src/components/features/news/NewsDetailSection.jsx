@@ -36,6 +36,8 @@ export default function NewsDetailSection({ data }) {
             alt={data?.media?.alt}
             fill
             sizes="1720px"
+            placeholder="blur"
+            blurDataURL="/images/placeholder.jpg"
             className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
           />
         </div>
@@ -45,7 +47,7 @@ export default function NewsDetailSection({ data }) {
         <div
           className="typography"
           dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
-        />        
+        />
       </div>
     </section>
   );

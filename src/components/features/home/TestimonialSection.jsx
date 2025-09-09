@@ -14,7 +14,6 @@ import VideoModal from "@/components/common/VideoModal";
 import useMedia from "use-media";
 
 export default function ExperienceSection({ data }) {
-
   const testimonial_section = data?.testimonial_section;
 
   const isMobile = useMedia({ query: "(min-width: 1280px)" });
@@ -34,193 +33,197 @@ export default function ExperienceSection({ data }) {
 
   const swiperRef = useRef(null);
 
-  return (
-    testimonial_section?.enable__disable_testimonial_section?
-      <section className="w-full h-auto block py-[40px] sm:py-[50px] md:py-[70px] lg:py-[90px] 2xl:py-[110px] 3xl:py-[140px]">
-        <div className="container">
-          <div className="flex flex-wrap items-center">
-            <div className="w-full xl:w-[40%] 2xl:w-[45%] xl:pr-[50px] 2xl:pr-[60px] 3xl:pr-[75px] mb-[30px] md:mb-[40px] xl:mb-0 max-xl:flex max-xl:flex-col max-xl:items-center max-xl:justify-center max-xl:text-center">
-              <Heading
-                as="h2"
-                size={"heading1"}
-                className="text-white mb-[10px] sm:mb-[15px] lg:mb-[20px] 2xl:mb-[30px] 3xl:mb-[40px]"
-              >
-                {testimonial_section?.title}
-              </Heading>
-              <Text
-                as="div"
-                className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white max-w-[85%] mb-[20px] lg:mb-[30px]"
-              >
-                {testimonial_section?.description}
-              </Text>
-              {testimonial_section?.button_url?.url && testimonial_section?.button_title &&
-                <StyledLink href={testimonial_section?.button_url?.url} target={testimonial_section?.button_url?.target}>
+  return testimonial_section?.enable__disable_testimonial_section ? (
+    <section className="w-full h-auto block py-[40px] sm:py-[50px] md:py-[70px] lg:py-[90px] 2xl:py-[110px] 3xl:py-[140px]">
+      <div className="container">
+        <div className="flex flex-wrap items-center">
+          <div className="w-full xl:w-[40%] 2xl:w-[45%] xl:pr-[50px] 2xl:pr-[60px] 3xl:pr-[75px] mb-[30px] md:mb-[40px] xl:mb-0 max-xl:flex max-xl:flex-col max-xl:items-center max-xl:justify-center max-xl:text-center">
+            <Heading
+              as="h2"
+              size={"heading1"}
+              className="text-white mb-[10px] sm:mb-[15px] lg:mb-[20px] 2xl:mb-[30px] 3xl:mb-[40px]"
+            >
+              {testimonial_section?.title}
+            </Heading>
+            <Text
+              as="div"
+              className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.7] font-base2 font-normal text-white max-w-[85%] mb-[20px] lg:mb-[30px]"
+            >
+              {testimonial_section?.description}
+            </Text>
+            {testimonial_section?.button_url?.url &&
+              testimonial_section?.button_title && (
+                <StyledLink
+                  href={testimonial_section?.button_url?.url}
+                  target={testimonial_section?.button_url?.target}
+                >
                   {testimonial_section?.button_title}
                 </StyledLink>
-              }
-            </div>
-            <div className="w-full xl:w-[60%] 2xl:w-[55%] xl:flex xl:items-center">
-              <div className="w-full xl:w-[90%] xl:mr-auto">
-                <Swiper
-                  modules={[Autoplay]}
-                  loop={true}
-                  slidesPerView={1.4}
-                  spaceBetween={10}
-                  autoplay={{
-                    delay: 1500,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                  }}
-                  speed={800}
-                  onSwiper={(swiper) => (swiperRef.current = swiper)}
-                  className="!h-auto"
-                  breakpoints={{
-                    468: {
-                      slidesPerView: 2,
-                      spaceBetween: 10,
-                    },
-                    640: {
-                      slidesPerView: 3,
-                      spaceBetween: 10,
-                    },
-                    768: {
-                      slidesPerView: 4,
-                      spaceBetween: 15,
-                    },
-                    1280: {
-                      slidesPerView: 3,
-                      spaceBetween: 15,
-                    },
-                    1536: {
-                      slidesPerView: 3,
-                      spaceBetween: 20,
-                    },
-                    1536: {
-                      slidesPerView: 3,
-                      spaceBetween: 30,
-                    },
-                  }}
-                >
-                  {testimonial_section?.testimonials?.map((item, index) => (
-                    <SwiperSlide key={`testimonial-${index}`} className="!h-auto">
-                      {item?.type === "video" ? (
-                        <>
-                          <div
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleVideoClick(item);
-                            }}
-                            className="w-full h-full aspect-[280/390] block relative z-0 group overflow-hidden"
+              )}
+          </div>
+          <div className="w-full xl:w-[60%] 2xl:w-[55%] xl:flex xl:items-center">
+            <div className="w-full xl:w-[90%] xl:mr-auto">
+              <Swiper
+                modules={[Autoplay]}
+                loop={true}
+                slidesPerView={1.4}
+                spaceBetween={10}
+                autoplay={{
+                  delay: 1500,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
+                speed={800}
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
+                className="!h-auto"
+                breakpoints={{
+                  468: {
+                    slidesPerView: 2,
+                    spaceBetween: 10,
+                  },
+                  640: {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                  },
+                  768: {
+                    slidesPerView: 4,
+                    spaceBetween: 15,
+                  },
+                  1280: {
+                    slidesPerView: 3,
+                    spaceBetween: 15,
+                  },
+                  1536: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                  },
+                  1536: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                  },
+                }}
+              >
+                {testimonial_section?.testimonials?.map((item, index) => (
+                  <SwiperSlide key={`testimonial-${index}`} className="!h-auto">
+                    {item?.type === "video" ? (
+                      <>
+                        <div
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleVideoClick(item);
+                          }}
+                          className="w-full h-full aspect-[280/390] block relative z-0 group overflow-hidden"
+                        >
+                          <Image
+                            src={item?.image?.url}
+                            alt={item?.image?.alt}
+                            fill
+                            placeholder="blur"
+                            blurDataURL="/images/placeholder.jpg"
+                            className="object-cover absolute inset-0 z-0 transition-opacity duration-300 group-hover:opacity-0"
+                          />
+                          <video
+                            loop
+                            muted
+                            playsInline
+                            preload="none"
+                            className="w-full h-full object-cover absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            onMouseEnter={(e) => e.currentTarget.play()}
+                            onMouseLeave={(e) => e.currentTarget.pause()}
                           >
-                            <Image
-                              src={item?.image?.url}
-                              alt={item?.image?.alt}
-                              fill
-                              className="object-cover absolute inset-0 z-0 transition-opacity duration-300 group-hover:opacity-0"
-                            />
-                            <video
-                              loop
-                              muted
-                              playsInline
-                              preload="none"
-                              className="w-full h-full object-cover absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                              onMouseEnter={(e) => e.currentTarget.play()}
-                              onMouseLeave={(e) => e.currentTarget.pause()}
-                            >
-                              <source src={item?.video?.url} type="video/mp4" />
-                            </video>
-                            <div className="w-full h-auto p-[8px] sm:p-[10px] 2xl:p-[15px] 3xl:p-[20px] absolute z-10 bottom-0 left-0 right-0 flex items-center">
-                              <div className="w-[35px] 2xl:w-[40px] 3xl:w-[50px] h-auto aspect-square bg-white/10 rounded-full backdrop-blur-[15px] flex items-center justify-center relative z-0">
-                                <Image
-                                  src="/images/play_button.svg"
-                                  alt="play"
-                                  width={50}
-                                  height={50}
-                                  className="w-full h-full object-cover"
-                                />
-                                <ShineBorder
-                                  borderWidth={2}
-                                  duration={6}
-                                  shineColor={["#84838a"]}
-                                />
+                            <source src={item?.video?.url} type="video/mp4" />
+                          </video>
+                          <div className="w-full h-auto p-[8px] sm:p-[10px] 2xl:p-[15px] 3xl:p-[20px] absolute z-10 bottom-0 left-0 right-0 flex items-center">
+                            <div className="w-[35px] 2xl:w-[40px] 3xl:w-[50px] h-auto aspect-square bg-white/10 rounded-full backdrop-blur-[15px] flex items-center justify-center relative z-0">
+                              <Image
+                                src="/images/play_button.svg"
+                                alt="play"
+                                width={50}
+                                height={50}
+                                className="w-full h-full object-cover"
+                              />
+                              <ShineBorder
+                                borderWidth={2}
+                                duration={6}
+                                shineColor={["#84838a"]}
+                              />
+                            </div>
+                            <div className="w-[calc(100%-30px)] 2xl:w-[calc(100%-40px)] 3xl:w-[calc(100%-50px)] pl-[10px] 3xl:pl-[15px]">
+                              <div className="text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.2] font-normal font-base1 text-white lg:mb-[2px] 2xl:mb-[5px] 3xl:mb-[10px]">
+                                {item?.name}
                               </div>
-                              <div className="w-[calc(100%-30px)] 2xl:w-[calc(100%-40px)] 3xl:w-[calc(100%-50px)] pl-[10px] 3xl:pl-[15px]">
-                                <div className="text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.2] font-normal font-base1 text-white lg:mb-[2px] 2xl:mb-[5px] 3xl:mb-[10px]">
-                                  {item?.name}
-                                </div>
-                                <p className="text-[10px] 2xl:text-[12px] leading-[1.2] font-light font-base2 text-white">
-                                  {item?.location}
-                                </p>
-                              </div>
+                              <p className="text-[10px] 2xl:text-[12px] leading-[1.2] font-light font-base2 text-white">
+                                {item?.location}
+                              </p>
                             </div>
                           </div>
-                        </>
-                      ) : (
-                        <>
-                          <TestimonialTextCard item={item} index={index} />
-                        </>
-                      )}
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-              {!isMobile ? (
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <TestimonialTextCard item={item} index={index} />
+                      </>
+                    )}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+            {!isMobile ? (
+              <button
+                onClick={() => swiperRef.current?.slideNext()}
+                className="group lg:w-[40px] 2xl:w-[60px] 3xl:w-[60px] h-auto aspect-square cursor-pointer rounded-full overflow-hidden transition"
+              >
+                <Image
+                  src="/images/slider_nxt_btn.svg"
+                  alt="icon"
+                  width={24}
+                  height={24}
+                  className="w-full h-full block transition duration-300"
+                />
+              </button>
+            ) : (
+              <div className="2xl:gap-x-[20px] sm:gap-x-[15px] gap-x-[20px] mt-[30px] flex items-center justify-center">
                 <button
-                  onClick={() => swiperRef.current?.slideNext()}
-                  className="group lg:w-[40px] 2xl:w-[60px] 3xl:w-[60px] h-auto aspect-square cursor-pointer rounded-full overflow-hidden transition"
+                  onClick={() => swiperRef.current?.slidePrev()}
+                  className="group w-[40px] lg:w-[50px] h-auto aspect-square border-1 rounded-full overflow-hidden cursor-pointer transition"
                 >
                   <Image
                     src="/images/slider_nxt_btn.svg"
                     alt="icon"
                     width={24}
                     height={24}
-                    className="w-full h-full block transition duration-300"
+                    className="w-full h-full block rotate-180 scale-150 transition duration-300 group-hover:opacity-0.7"
                   />
                 </button>
-              ) : (
-                <div className="2xl:gap-x-[20px] sm:gap-x-[15px] gap-x-[20px] mt-[30px] flex items-center justify-center">
-                  <button
-                    onClick={() => swiperRef.current?.slidePrev()}
-                    className="group w-[40px] lg:w-[50px] h-auto aspect-square border-1 rounded-full overflow-hidden cursor-pointer transition"
-                  >
-                    <Image
-                      src="/images/slider_nxt_btn.svg"
-                      alt="icon"
-                      width={24}
-                      height={24}
-                      className="w-full h-full block rotate-180 scale-150 transition duration-300 group-hover:opacity-0.7"
-                    />
-                  </button>
-                  <button
-                    onClick={() => swiperRef.current?.slideNext()}
-                    className="group w-[40px] lg:w-[50px] h-auto aspect-square border-1 rounded-full overflow-hidden cursor-pointer transition"
-                  >
-                    <Image
-                      src="/images/slider_nxt_btn.svg"
-                      alt="icon"
-                      width={24}
-                      height={24}
-                      className="w-full h-full block scale-150 transition duration-300 group-hover:opacity-0.7"
-                    />
-                  </button>
-                </div>
-              )}
-            </div>
+                <button
+                  onClick={() => swiperRef.current?.slideNext()}
+                  className="group w-[40px] lg:w-[50px] h-auto aspect-square border-1 rounded-full overflow-hidden cursor-pointer transition"
+                >
+                  <Image
+                    src="/images/slider_nxt_btn.svg"
+                    alt="icon"
+                    width={24}
+                    height={24}
+                    className="w-full h-full block scale-150 transition duration-300 group-hover:opacity-0.7"
+                  />
+                </button>
+              </div>
+            )}
           </div>
-          {selectedVideo && (
-            <VideoModal
-              videoUrl={selectedVideo.videoUrl}
-              videoPath={selectedVideo.media.path}
-              name={selectedVideo.name}
-              location={selectedVideo.location}
-              isOpen={isModalOpen}
-              onClose={handleCloseModal}
-            />
-          )}
         </div>
-      </section>
-    : null
-  );
+        {selectedVideo && (
+          <VideoModal
+            videoUrl={selectedVideo.videoUrl}
+            videoPath={selectedVideo.media.path}
+            name={selectedVideo.name}
+            location={selectedVideo.location}
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          />
+        )}
+      </div>
+    </section>
+  ) : null;
 }
 
 function TestimonialTextCard({ item, index }) {
@@ -316,6 +319,8 @@ function TestimonialTextCard({ item, index }) {
               alt={item?.profile_image?.alt}
               width={50}
               height={50}
+              placeholder="blur"
+              blurDataURL="/images/placeholder.jpg"
               className="w-full h-full object-cover rounded-full"
             />
           </div>

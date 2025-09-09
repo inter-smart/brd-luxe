@@ -20,8 +20,6 @@ const getPath = (url) => {
   }
 };
 
-
-
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import SocialMediaComp from "@/components/common/SocialMediaComp";
 import { usePathname } from "next/navigation";
@@ -45,7 +43,9 @@ export default function Header() {
   useEffect(() => {
     async function fetchHeaderData() {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`
+        );
         const data = await res.json();
         setHeaderAcf(data?.header_acf);
       } catch (error) {
@@ -89,35 +89,76 @@ export default function Header() {
     };
   }, []);
 
-  const updateHeader = useCallback(
-    (current) => {
-      const scrollY = current;
-      const direction = scrollY - lastScrollY.current;
+  // const SCROLL_THRESHOLD = 100; // Pixels to scroll before hiding header
 
-      if (scrollY < 0.01) {
-        if (visible !== true || isScrolled !== false) {
-          setVisible(true);
-          setIsScrolled(false);
-        }
-      } else {
-        if (!isScrolled) {
-          setIsScrolled(true);
-        }
-        const shouldBeVisible = direction < 0;
-        if (visible !== shouldBeVisible) {
-          setVisible(shouldBeVisible);
-        }
-      }
-      lastScrollY.current = scrollY;
-      ticking.current = false;
-    },
-    [visible, isScrolled]
-  );
+  // const updateHeader = useCallback(
+  //   (current) => {
+  //     const scrollY = current;
+
+  //     // Always show header at top of page
+  //     if (scrollY <= 0) {
+  //       if (!visible || isScrolled) {
+  //         setVisible(true);
+  //         setIsScrolled(false);
+  //       }
+  //       lastScrollY.current = scrollY;
+  //       ticking.current = false;
+  //       return;
+  //     }
+
+  //     // Mark as scrolled once we're past the top
+  //     if (!isScrolled) {
+  //       setIsScrolled(true);
+  //     }
+
+  //     // Only start hiding/showing logic after threshold
+  //     if (scrollY > SCROLL_THRESHOLD) {
+  //       const direction = scrollY - lastScrollY.current;
+  //       const shouldBeVisible = direction < 0; // Show when scrolling up
+
+  //       if (visible !== shouldBeVisible) {
+  //         setVisible(shouldBeVisible);
+  //       }
+  //     } else {
+  //       // Within threshold - keep header visible
+  //       if (!visible) {
+  //         setVisible(true);
+  //       }
+  //     }
+
+  //     lastScrollY.current = scrollY;
+  //     ticking.current = false;
+  //   },
+  //   [visible, isScrolled]
+  // );
+
+  // useMotionValueEvent(scrollYProgress, "change", (current) => {
+  //   if (typeof current === "number" && !ticking.current) {
+  //     requestAnimationFrame(() => updateHeader(current));
+  //     ticking.current = true;
+  //   }
+  // });
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
-    if (typeof current === "number" && !ticking.current) {
-      requestAnimationFrame(() => updateHeader(current));
-      ticking.current = true;
+    if (typeof current === "number") {
+      const prev = scrollYProgress.getPrevious();
+      const direction = current - prev;
+
+      if (scrollYProgress.get() < 0.05) {
+        // 👆 Top of page
+        setVisible(true);
+        setIsScrolled(false);
+      } else {
+        if (direction < 0) {
+          // 👆 Scrolling up → show header
+          setVisible(true);
+          setIsScrolled(true);
+        } else {
+          // 👇 Scrolling down → hide header
+          setVisible(false);
+          setIsScrolled(true);
+        }
+      }
     }
   });
 
@@ -218,10 +259,11 @@ export default function Header() {
             opacity: visible ? 1 : 0,
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] overflow-hidden fixed top-0 inset-x-0 z-5 bg-linear-to-b from-black to-black/0 ${isScrolled &&
+          className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] overflow-hidden fixed top-0 inset-x-0 z-5 bg-linear-to-b from-black to-black/0 ${
+            isScrolled &&
             visible &&
             "bg-white/10 backdrop-blur-[50px] shadow-md bg-linear-to-b from-black/0 to-black/0"
-            }`}
+          }`}
         >
           <div className="container">
             <div className="w-full h-auto flex items-center justify-between relative z-0">
@@ -248,7 +290,10 @@ export default function Header() {
               </Link>
               <div className="hidden lg:flex items-center">
                 {header_acf?.phone_number && (
-                  <a className="group font-base3 mr-[10px]" href={`tel:${header_acf.phone_number}`}>
+                  <a
+                    className="group font-base3 mr-[10px]"
+                    href={`tel:${header_acf.phone_number}`}
+                  >
                     <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right block">
                       Quick Contact
                     </span>
@@ -266,10 +311,11 @@ export default function Header() {
                       >
                         <ShinyButton
                           href={item?.button_url?.url}
-                          className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[0.5px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${pathname === item?.button_url?.url
-                            ? "bg-white text-black"
-                            : "bg-transparent text-white"
-                            }`}
+                          className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[0.5px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${
+                            pathname === item?.button_url?.url
+                              ? "bg-white text-black"
+                              : "bg-transparent text-white"
+                          }`}
                           target={item?.button_url?.target}
                         >
                           {item?.button_title}
@@ -279,7 +325,6 @@ export default function Header() {
                   }
                   return null; // safely skip if no URL or title
                 })}
-
               </div>
             </div>
           </div>
@@ -362,7 +407,9 @@ export default function Header() {
                               href={link?.menu_url?.url}
                               onClick={closeMenu}
                               className={`... ${
-                                pathname === getPath(link?.menu_url?.url) || (getPath(link?.menu_url?.url) === "/news" && pathname.startsWith("/news/"))
+                                pathname === getPath(link?.menu_url?.url) ||
+                                (getPath(link?.menu_url?.url) === "/news" &&
+                                  pathname.startsWith("/news/"))
                                   ? "text-[#F29A0D]"
                                   : "text-white"
                               }`}
@@ -463,9 +510,13 @@ export default function Header() {
                 </div>
                 {/* Social Media */}
                 {(() => {
-                  const isEnabled = header_acf?.mega_menu?.enable__disable_social_media_links;
-                  const rawIcons = header_acf?.mega_menu?.social_media_icons || [];
-                  const validIcons = rawIcons.filter(item => item?.icon?.url && item?.link);
+                  const isEnabled =
+                    header_acf?.mega_menu?.enable__disable_social_media_links;
+                  const rawIcons =
+                    header_acf?.mega_menu?.social_media_icons || [];
+                  const validIcons = rawIcons.filter(
+                    (item) => item?.icon?.url && item?.link
+                  );
 
                   return isEnabled && validIcons.length > 0 ? (
                     <motion.div
@@ -478,9 +529,6 @@ export default function Header() {
                     </motion.div>
                   ) : null;
                 })()}
-
-
-
               </div>
             </motion.div>
 
@@ -505,7 +553,6 @@ export default function Header() {
                   className="w-full max-lg:h-screen lg:p-[25px_35px] 2xl:p-[30px_40px] 3xl:p-[40px_50px] max-lg:mt-[var(--header-y)] lg:bg-[#333333]/80 rounded-[10px] lg:backdrop-blur-[20px] lg:shadow-2xl text-white flex flex-wrap overflow-auto"
                 >
                   <div className="w-full h-fit lg:h-auto pb-[25px] lg:pb-[35px] 2xl:pb-[45px] 3xl:pb-[60px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px] border-b-1 border-[#515151] flex flex-wrap">
-
                     <div className="w-full lg:w-[20%] h-auto mb-[25px] sm:mb-[35px] lg:mb-0">
                       <div className="lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1] font-semibold font-base1 text-white lg:mb-[20px] 2xl:mb-[30px] 3xl:mb-[40px] max-lg:hidden">
                         Menu
@@ -517,7 +564,9 @@ export default function Header() {
                               <Link
                                 href={item?.menu_url?.url}
                                 className={`text-[18px] sm:text-[20px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 mb-[10px] sm:mb-[15px] lg:mb-[15px] 3xl:mb-[20px] block transition-all duration-300 ${
-                                  pathname === getPath(item?.menu_url?.url) || (getPath(item?.menu_url?.url) === "/news" && pathname.startsWith("/news/"))
+                                  pathname === getPath(item?.menu_url?.url) ||
+                                  (getPath(item?.menu_url?.url) === "/news" &&
+                                    pathname.startsWith("/news/"))
                                     ? "text-[#F29A0D]"
                                     : "text-white"
                                 } hover:text-[#F29A0D]`}
@@ -547,40 +596,42 @@ export default function Header() {
                       <div className="text-[22px] sm:text-[24px] lg:text-[28px] xl:text-[34px] 2xl:text-[40px] 3xl:text-[50px] leading-[1.2] font-normal font-base1 text-white max-sm:max-w-[100%] max-lg:max-w-[50%] mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px]">
                         {header_acf?.mega_menu?.title}
                       </div>
-                      {header_acf?.mega_menu?.enable__disable_social_media_links && (() => {
-                        const validIcons = header_acf?.mega_menu?.social_media_icons?.filter(
-                          (item) => item?.icon?.url && item?.link
-                        );
+                      {header_acf?.mega_menu
+                        ?.enable__disable_social_media_links &&
+                        (() => {
+                          const validIcons =
+                            header_acf?.mega_menu?.social_media_icons?.filter(
+                              (item) => item?.icon?.url && item?.link
+                            );
 
-                        return validIcons?.length ? (
-                          <div>
-                            <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1] font-light font-base1 text-white mb-[15px] lg:mb-[25px]">
-                              Follow Us
+                          return validIcons?.length ? (
+                            <div>
+                              <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1] font-light font-base1 text-white mb-[15px] lg:mb-[25px]">
+                                Follow Us
+                              </div>
+                              <ul className="flex space-x-[15px] sm:space-x-[20px] lg:justify-between">
+                                {validIcons.map((item, index) => (
+                                  <li key={`social-media-${index}`}>
+                                    <a
+                                      href={item.link}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="w-[15px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
+                                    >
+                                      <Image
+                                        src={item.icon.url}
+                                        alt={item.icon.alt || "Social Icon"}
+                                        width={20}
+                                        height={20}
+                                        className="w-full h-full object-contain"
+                                      />
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
                             </div>
-                            <ul className="flex space-x-[15px] sm:space-x-[20px] lg:justify-between">
-                              {validIcons.map((item, index) => (
-                                <li key={`social-media-${index}`}>
-                                  <a
-                                    href={item.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="w-[15px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
-                                  >
-                                    <Image
-                                      src={item.icon.url}
-                                      alt={item.icon.alt || 'Social Icon'}
-                                      width={20}
-                                      height={20}
-                                      className="w-full h-full object-contain"
-                                    />
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ) : null;
-                      })()}
-
+                          ) : null;
+                        })()}
                     </div>
                   </div>
                   <div className="w-full h-auto flex flex-wrap">

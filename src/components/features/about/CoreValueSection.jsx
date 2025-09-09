@@ -89,6 +89,8 @@ export default function CoreValueSection({ data }) {
                     alt={item?.icon?.alt}
                     width={65}
                     height={65}
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.jpg"
                     className="w-full h-full object-contain"
                   />
                 </div>

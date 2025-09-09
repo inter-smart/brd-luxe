@@ -38,6 +38,8 @@ export default function TestimonialBox({ item }) {
               alt={item?.image?.alt}
               fill
               sizes="320px"
+              placeholder="blur"
+              blurDataURL="/images/placeholder.jpg"
               className="-z-2 object-cover transition-opacity duration-300 group-hover:opacity-0"
             />
             <video
@@ -54,7 +56,6 @@ export default function TestimonialBox({ item }) {
                 video.play().catch(() => {}); // ignore AbortError
               }}
               onMouseLeave={(e) => e.currentTarget.pause()}
-
             >
               <source src={item?.media?.path} type="video/mp4" />
             </video>
@@ -65,9 +66,15 @@ export default function TestimonialBox({ item }) {
                   alt="play"
                   width={50}
                   height={50}
+                  placeholder="blur"
+                  blurDataURL="/images/placeholder.jpg"
                   className="w-full h-full object-cover"
                 />
-                <ShineBorder borderWidth={3} duration={7} shineColor={["#76767b"]} />
+                <ShineBorder
+                  borderWidth={3}
+                  duration={7}
+                  shineColor={["#76767b"]}
+                />
               </div>
               <div className="w-[calc(100%-40px)] md:w-[calc(100%-50px)] xl:w-[calc(100%-65px)] 2xl:w-[calc(100%-75px)] 3xl:w-[calc(100%-100px)] xl:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px]">
                 <div className="text-[16px] sm:text-[18px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[38px] leading-tight font-normal font-base1 text-white xl:mb-[2px] 2xl:mb-[4px]">
@@ -114,6 +121,8 @@ export default function TestimonialBox({ item }) {
                 alt={item?.profile_image?.alt}
                 width={50}
                 height={50}
+                placeholder="blur"
+                blurDataURL="/images/placeholder.jpg"
                 className="w-full h-full object-cover hover:scale-105 transition-all duration-300"
               />
             </div>
