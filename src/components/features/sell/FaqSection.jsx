@@ -32,7 +32,8 @@ export default function FaqSection({ data }) {
                   className="w-full"
                   defaultValue=""
                 >
-                  {faq_section?.faq_items?.map((item, index) => (
+                  {faq_section?.faq_items?.map((item, index) => 
+                  ( item?.question && item?.answer) && (
                     <AccordionItem
                       key={`faq_items${index}`}
                       value={`item-${index + 1}`}

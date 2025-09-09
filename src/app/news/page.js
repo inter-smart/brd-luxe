@@ -25,7 +25,7 @@ export default async function Page() {
         />
       )}
       {/* <NewsListSection data={posts}/> */}
-      <NewsListSection data={data.posts ?? []} />
+      <NewsListSection data={data.posts ?? []} content={data} />
     </>
   );
 }

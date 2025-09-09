@@ -57,7 +57,9 @@ export default function HowWorkSection({ data }) {
                         height={75}
                         className="w-[30px] sm:w-[40px] xl:w-[50px] 2xl:w-[70px] h-auto aspect-square object-contain group-hover:scale-105"
                       />
-                      {how_it_works_section?.how_it_works_steps?.length !== index + 1 && (
+                      {(how_it_works_section?.how_it_works_steps?.[index + 1]?.title ||
+                        how_it_works_section?.how_it_works_steps?.[index + 1]?.image?.url ||
+                        how_it_works_section?.how_it_works_steps?.[index + 1]?.logo?.url) && (
                         <Image
                           src={"/images/sell-howworks-arrow.svg"}
                           alt="arrow"

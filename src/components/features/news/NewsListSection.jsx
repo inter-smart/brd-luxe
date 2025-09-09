@@ -25,7 +25,7 @@ const LOAD_MORE_COUNT = 8;
 
 //   const isAllLoaded = visibleCount >= data.length;
 
-export default function NewsListSection({ data = [] }) {
+export default function NewsListSection({ data = [], content }) {
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
 
   const handleLoadToggle = () => {
@@ -46,7 +46,7 @@ export default function NewsListSection({ data = [] }) {
             items={[
               { label: "Home", href: "/" },
               // { label: data?.pagetitle, href: "/news" },
-              { label: data?.pagetitle || "News & Insights", href: "/news" },
+              { label: content?.pagetitle || "News & Insights", href: "/news" },
             ]}
           />
         </div>
@@ -55,7 +55,7 @@ export default function NewsListSection({ data = [] }) {
           size="heading1"
           className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
         >
-          {data?.main_title}
+          {content?.main_title}
         </Heading>
         <div className="flex flex-wrap -mx-[10px] sm:-mx-[10px] xl:-mx-[20px] 2xl:-mx-[30px] [&>*]:p-[10px] sm:[&>*]:p-[10px] xl:[&>*]:p-[20px] 2xl:[&>*]:p-[30px]">
           {data?.slice(0, visibleCount).map((item, index) => (

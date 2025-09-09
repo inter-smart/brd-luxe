@@ -304,7 +304,8 @@ const normalizeText = (value) => {
         if (value !== undefined && value !== null) {
           if (value instanceof Date) {
             // format dates properly
-            formData.append(key, value.toISOString().split("T")[0]);
+            const localDate = value.toLocaleDateString("en-CA"); // YYYY-MM-DD
+            formData.append(key, localDate);
           } else {
             formData.append(key, value.toString());
           }
