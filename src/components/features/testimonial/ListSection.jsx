@@ -80,7 +80,7 @@ export default function ListSection({ data }) {
               testimonialsData?.logo?.url && (
                 <div className="w-[140px] sm:w-[160px] xl:w-[200px] 2xl:w-[260px] h-auto relative z-0">
                   <Image
-                    src={testimonialsData?.logo?.url}
+                    src={testimonialsData?.logo?.url || "/images/placeholder.jpg"}
                     alt={testimonialsData?.logo?.alt || "google-review-logo"}
                     width={260}
                     height={70}

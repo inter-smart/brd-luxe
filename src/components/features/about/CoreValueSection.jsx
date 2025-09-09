@@ -85,8 +85,8 @@ export default function CoreValueSection({ data }) {
               <div className="w-full h-full p-[15px] sm:p-[15px_20px] lg:p-[20px] 2xl:p-[25px] 3xl:p-[30px] rounded-[10px] overflow-hidden transition-all duration-300 flex flex-col justify-between relative z-0 hover:translate-y-[-15px]">
                 <div className="w-[35px] sm:w-[40px] lg:w-[45px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square overflow-hidden mb-[15px] sm:mb-[20px] flex items-center justify-center">
                   <Image
-                    src={item?.icon?.url}
-                    alt={item?.icon?.alt}
+                    src={item?.icon?.url || "/images/placeholder.jpg"}
+                    alt={item?.icon?.alt || "core-value-icon"}
                     width={65}
                     height={65}
                     placeholder="blur"
