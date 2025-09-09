@@ -76,16 +76,16 @@ export default function ProductSection({ data, whatsapp }) {
                 {!isMobile && (
                   <div className="md:pr-[20px] lg:pr-[60px] 2xl:pr-[75px] 3xl:pr-[90px] max-sm:mb-[15px]">
                     <ProductFilterBox
-                    listingpagedata={listingpagedata}
-                    filters={filters}
-                    onFilterChange={setFilters}
-                    onSearch={() => setAppliedFilters(filters)}
-                    onRemove={() => {
-                      setFilters({ brand: "", model: "", search: "" });
-                      setAppliedFilters({ brand: "", model: "", search: "" });
-                    }}
-                    cars={cars}
-                  />
+                      listingpagedata={{ ...listingpagedata, filters: data?.filters }}
+                      filters={filters}
+                      onFilterChange={setFilters}
+                      onSearch={() => setAppliedFilters(filters)}
+                      onRemove={() => {
+                        setFilters({ brand: "", model: "", search: "" });
+                        setAppliedFilters({ brand: "", model: "", search: "" });
+                      }}
+                      cars={cars}
+                    />
                   </div>
                 )}
                 {cars_section?.button_url?.url && cars_section?.button_title &&
