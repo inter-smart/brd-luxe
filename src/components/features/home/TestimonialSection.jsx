@@ -282,7 +282,7 @@ function TestimonialTextCard({ item, index }) {
   return (
     <div
       ref={cardRef}
-      className="w-full h-full bg-white p-[10px] 2xl:p-[15px] 3xl:p-[20px] overflow-hidden relative z-0"
+      className="w-full h-auto aspect-[200/276] bg-white p-[10px] 2xl:p-[15px] 3xl:p-[20px] overflow-hidden relative z-0"
     >
       <div
         className="w-[150px] sm:w-[180px] lg:w-[220px] 2xl:w-[250px] h-auto aspect-square bg-black rounded-full absolute z-10 pointer-events-none transition-all duration-500 ease-out"
