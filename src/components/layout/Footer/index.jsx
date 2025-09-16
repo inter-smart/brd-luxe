@@ -7,17 +7,9 @@ import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import { toast } from "sonner";
 import SocialMediaComp from "@/components/common/SocialMediaComp";
 
-const footer_data = {
-  get_updates: {
-    placeholder: ["Get Luxe Updates", "Let's Talk Luxury", "Get Car Info"],
-  },
-  footer_tle: {
-    title: "BRD LUXE",
-  },
-};
-
 export default function Footer() {
   const [footerData, setFooterData] = useState(null);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     async function fetchFooter() {
@@ -35,20 +27,33 @@ export default function Footer() {
     fetchFooter();
   }, []);
 
-  if (!footerData) return null; // or loading spinner
+  if (!footerData) return null;
 
   const midIndex = Math.ceil(footerData?.quick_links?.length / 2);
   const leftLinks = footerData?.quick_links?.slice(0, midIndex);
   const rightLinks = footerData?.quick_links?.slice(midIndex);
 
+  // ✅ Stricter email regex
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const validateEmail = (inputEmail) => {
+    const trimmed = inputEmail.trim();
+
+    if (!trimmed ) {
+      toast.error("Email is required");
+      return false;
+    } else if (!emailRegex.test(trimmed)) {
+      toast.error("Please enter a valid email");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    const email = e.target.email?.value || e.target[0]?.value;
+    const trimmed = email.trim();
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast.error("Please enter a valid email"); // 👈 replaced alert
-      return;
-    }
+    if (!validateEmail(trimmed)) return;
 
     try {
       const res = await fetch(
@@ -56,21 +61,34 @@ export default function Footer() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ email: trimmed }), // ✅ always send trimmed email
         }
       );
 
       const data = await res.json();
-      toast.success(data.message || "You have been subscribed successfully 🎉"); // 👈 replaced alert
+      toast.success(data.message || "You have been subscribed successfully 🎉");
+      setEmail(""); // clear field after success
     } catch (err) {
       console.error("Subscription failed", err);
-      toast.error("Something went wrong, please try again."); // 👈 replaced alert
+      toast.error("Something went wrong, please try again.");
+    }
+  };
+
+  const handleBlur = () => {
+    const trimmed = email.trim();
+    setEmail(trimmed); // 👈 update input with trimmed value
+
+    if (!trimmed) {
+      toast.error("Email is required");
+    } else if (!emailRegex.test(trimmed)) {
+      toast.error("Please enter a valid email");
     }
   };
 
   return (
     <footer className="w-full h-auto border-t border-[#202020]/50 py-[40px] lg:py-[40px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
       <div className="container relative">
+        {/* Quick Links */}
         <div className="w-full h-full mb-[20px] sm:mb-[40px] lg:mb-[40px] 2xl:mb-[70px] max-sm:pt-[50px] flex flex-wrap items-center justify-between">
           <div className="w-full sm:w-1/3 [&>*]:w-full [&>*]:sm:w-1/2 flex flex-wrap">
             {leftLinks?.map(
@@ -79,10 +97,10 @@ export default function Footer() {
                 item?.title && (
                   <div
                     key={`quick-left-${index}`}
-                    className={`text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] 
+                    className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] 
                 leading-[1.2] font-light font-base1 text-white 
                 max-sm:text-center max-sm:mb-[5px] break-inside-avoid 
-                transition duration-300 hover:text-white/50 sm:text-left`}
+                transition duration-300 hover:text-white/50 sm:text-left"
                   >
                     <Link href={item?.link?.url} target={item?.link?.target}>
                       {item?.title}
@@ -91,6 +109,8 @@ export default function Footer() {
                 )
             )}
           </div>
+
+          {/* Center Logo */}
           <div className="w-full sm:w-1/3 flex flex-col items-center max-sm:absolute top-0 left-0 right-0 mx-auto">
             {footerData?.footer_logo?.url && (
               <Link
@@ -107,6 +127,8 @@ export default function Footer() {
               </Link>
             )}
           </div>
+
+          {/* Right Links */}
           <div className="w-full sm:w-1/3 [&>*]:w-full [&>*]:sm:w-1/2 flex flex-wrap">
             {rightLinks?.map(
               (item, index) =>
@@ -114,10 +136,10 @@ export default function Footer() {
                 item?.title && (
                   <div
                     key={`quick-right-${index}`}
-                    className={`text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] 
+                    className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] 
                 leading-[1.2] font-light font-base1 text-white 
                 max-sm:text-center max-sm:mb-[5px] break-inside-avoid 
-                transition duration-300 hover:text-white/50 sm:text-right`}
+                transition duration-300 hover:text-white/50 sm:text-right"
                   >
                     <Link href={item?.link?.url} target={item?.link?.target}>
                       {item?.title}
@@ -127,6 +149,8 @@ export default function Footer() {
             )}
           </div>
         </div>
+
+        {/* Social Icons */}
         {footerData?.enable__disable_social_media_icons &&
           footerData?.social_media_icons?.length > 0 && (
             <div className="w-full h-auto mb-[25px] sm:mb-[30px] lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px] flex items-center justify-center">
@@ -154,6 +178,8 @@ export default function Footer() {
               </ul>
             </div>
           )}
+
+        {/* Newsletter */}
         <div>
           <PlaceholdersAndVanishInput
             placeholders={
@@ -162,8 +188,13 @@ export default function Footer() {
             }
             label="Submit"
             onSubmit={handleSubscribe}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={handleBlur}
           />
         </div>
+
+        {/* Fancy Title */}
         {footerData?.fancy_title && (
           <TextHoverEffect
             duration={1.5}
@@ -171,6 +202,8 @@ export default function Footer() {
             text={footerData?.fancy_title}
           />
         )}
+
+        {/* Footer bottom */}
         <div className=" w-full h-auto mt-[10px] flex max-sm:flex-col items-center justify-center sm:justify-between">
           <div className="text-[10px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.2] font-normal font-base3 text-white max-sm:mb-[10px]">
             © {new Date().getFullYear()} BRD LUXE . All rights reserved

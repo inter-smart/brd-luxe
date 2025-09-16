@@ -475,7 +475,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                         {data?.transmissions}
                       </div>
                       <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
-                        Fuel
+                        Transmission
                       </div>
                       <ShineBorder
                         borderWidth={1}

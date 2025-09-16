@@ -158,7 +158,7 @@ export default function ProductFilterBox({
                   height={15}
                 />
               </span>
-              Search
+              Apply
             </Button>
           )
         )}
