@@ -6,21 +6,36 @@ import WhatWitsSection from '@/components/features/showroom/WhatWitsSection'
 import TestdriveeSection from '@/components/features/showroom/TestdriveeSection' 
 import EnquirySection from "@/components/features/contact/EnquirySection"
 
- 
-
-export default async function page() {
-
-  // Fetch privacy policy data from WP API
+// 🔹 Reusable fetch
+async function getPageData() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/showroom`,
-    { next: { revalidate: 60 } } // ISR optional
+    { next: { revalidate: 60 } }
   );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
 
-  const data = await res.json();
+  return res.json();
+}
+
+// 🔹 Metadata
+export async function generateMetadata() {
+  const data = await getPageData();
+
+  return {
+    title: data?.seo?.title,
+    description:
+      data?.seo?.description,
+  };
+}
+
+
+export default async function page() {
+
+    const data = await getPageData();
+
     const banner = data?.showroom_acf?.banner;
     const enquiry_section = data?.showroom_acf?.enquiry_section;
 

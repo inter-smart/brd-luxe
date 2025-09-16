@@ -1,18 +1,32 @@
 import InnerHero from "@/components/common/InnerHero";
 import MdMessageSection from "@/components/features/md/MdMessageSection";
 
-export default async function Page() {
-  // Fetch privacy policy data from WP API
+// ✅ Reusable fetch
+async function getPageData() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/md-message`,
-    { next: { revalidate: 60 } } // ISR optional
+    { next: { revalidate: 60 } }
   );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
 
-  const data = await res.json();
+  return res.json();
+}
+
+// ✅ Dynamic Metadata
+export async function generateMetadata() {
+  const data = await getPageData();
+
+  return {
+    title: data?.seo?.title,
+    description: data?.seo?.description,
+  };
+}
+
+export default async function Page() {
+  const data = await getPageData();
     const banner = data?.md_message_acf?.banner;
 
   return (

@@ -4,16 +4,36 @@ import BrdAdvantageSection from "@/components/common/BrdAdvantageSection";
 import CoreValueSection from "@/components/features/about/CoreValueSection";
 import EnquirySection from "@/components/features/contact/EnquirySection";
 
-export default async function Page() {
-  // Fetch about page data from WP API
+
+// ✅ Fetch API function (reuse for both metadata + page)
+async function getPageData() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/wp-json/custom/v1/about`,
     { next: { revalidate: 60 } } // ISR optional
   );
+
   if (!res.ok) {
-    throw new Error("Failed to fetch About Page data");
+    throw new Error("Failed to fetch data");
   }
-  const data = await res.json();
+
+  return res.json();
+}
+
+// ✅ Dynamic Metadata
+export async function generateMetadata() {
+  const data = await getPageData();
+
+  return {
+    title: data?.seo?.title,
+    description: data?.seo?.description,
+  };
+}
+
+
+export default async function Page() {
+  
+  const data = await getPageData();
+
   // Get banner data (assuming API always returns at least one)
   const banner = data.banners?.[0] || {};
   const aboutSection = data.about_section?.[0] || {};

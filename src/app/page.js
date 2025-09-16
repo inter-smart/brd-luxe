@@ -11,32 +11,48 @@ import LatestBrdSection from "@/components/features/home/LatestBrdSection";
 import ExperienceSection from "@/components/features/home/TestimonialSection";
 import JourneyFrameSection from "@/components/features/home/JourneyFrameSection";
 
-export default async function Page() {
-
-  // Fetch privacy policy data from WP API
+// 🔹 Reusable fetch
+async function getPageData() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/home`,
-    { next: { revalidate: 60 } } // ISR optional
+    { next: { revalidate: 60 } }
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch Home data");
   }
 
-  const data = await res.json();
+  return res.json();
+}
+
+// 🔹 Metadata
+export async function generateMetadata() {
+  const data = await getPageData();
+
+  return {
+    title: data?.seo?.title,
+    description:
+      data?.seo?.description,
+  };
+}
+
+export default async function Page() {
+  const data = await getPageData();
   const home_acf = data?.home_acf;
 
   return (
     <>
       <HeroSection data={home_acf} />
       <BestCarsSection data={home_acf} />
-      <ProductSection data={home_acf} whatsapp={data?.home_acf?.whatsapp} />
+      <ProductSection data={home_acf} whatsapp={home_acf?.whatsapp} />
       <DealerSection data={home_acf} />
       <OfferSection data={home_acf} />
       <BrandSection data={home_acf} />
-      {data?.home_acf?.advantages_section?.enable__disable_advantages_section && (
-        <BrdAdvantageSection data={data?.home_acf?.advantages_section} />
+
+      {home_acf?.advantages_section?.enable__disable_advantages_section && (
+        <BrdAdvantageSection data={home_acf?.advantages_section} />
       )}
+
       <SellCarSection data={home_acf} />
       <ExperienceSection data={home_acf} />
       <LatestBrdSection data={home_acf} />

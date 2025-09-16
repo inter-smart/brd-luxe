@@ -1,9 +1,9 @@
 import InnerHero from "@/components/common/InnerHero";
 import ProductListSection from "@/components/features/buy/ProductListSection";
 
-export default async function Page() {
 
-  // Fetch privacy policy data from WP API
+// ✅ Fetch API function (reuse for both metadata + page)
+async function getPageData() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/wp-json/custom/v1/buy`,
     { next: { revalidate: 60 } } // ISR optional
@@ -13,7 +13,24 @@ export default async function Page() {
     throw new Error("Failed to fetch data");
   }
 
-  const data = await res.json();
+  return res.json();
+}
+
+// ✅ Dynamic Metadata
+export async function generateMetadata() {
+  const data = await getPageData();
+
+  return {
+    title: data?.seo?.title,
+    description: data?.seo?.description,
+  };
+}
+
+
+export default async function Page() {
+
+    const data = await getPageData();
+
     const banners = data?.banners ?? [];
 
     const activeBanner = banners.find(b => b.enable__disable_buy_a_car_banner);

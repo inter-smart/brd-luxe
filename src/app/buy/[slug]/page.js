@@ -2,26 +2,44 @@ import EnquirySection from "@/components/features/contact/EnquirySection";
 import KeyHighlightSection from "@/components/features/buy/KeyHighlightSection";
 import ProductDetailSection from "@/components/features/buy/ProductDetailSection";
 
-export default async function Page({ params }) {
-  const { slug } = params;
-
-  // Fetch cars page data from WP API
+async function getPageData() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/wp-json/custom/v1/buy`,
     { next: { revalidate: 60 } }
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch Cars Page data");
+    throw new Error("Failed to fetch data");
   }
 
-  const data = await res.json();
+  return res.json();
+}
+
+// ✅ Dynamic Metadata per car
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const data = await getPageData();
 
   const cars = Array.isArray(data?.listingpagedata?.cars_data)
     ? data.listingpagedata.cars_data
     : [];
 
-  // ✅ Just a single object, not an array
+  const post = cars.find((car) => car.slug === slug) || null;
+
+  return {
+    title: post?.seo?.title || data?.seo?.title,
+    description: post?.seo?.description || data?.seo?.description,
+  };
+}
+
+export default async function Page({ params }) {
+  const { slug } = params;
+  const data = await getPageData();
+
+  const cars = Array.isArray(data?.listingpagedata?.cars_data)
+    ? data.listingpagedata.cars_data
+    : [];
+
   const whatsappConfig = data?.whatsapp || null;
 
   const post = cars.find((car) => car.slug === slug) || null;
