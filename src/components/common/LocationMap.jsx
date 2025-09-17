@@ -23,8 +23,8 @@ export default function LocationMap({position}) {
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // light theme
-        url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"  // dark theme
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // light theme
+        // url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"  // dark theme
       />
       <Marker position={position} icon={customIcon}>
         <Popup>BRD Luxe Location</Popup>
