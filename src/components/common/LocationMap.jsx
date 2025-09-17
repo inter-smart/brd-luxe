@@ -1,6 +1,14 @@
 "use client";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
 
 const customIcon = new L.Icon({
   iconUrl: "/images/map-logo.svg",
@@ -11,6 +19,8 @@ const customIcon = new L.Icon({
 });
 
 export default function LocationMap({position}) {
+  console.log(position);
+  
   return (
     <MapContainer
       center={position}
