@@ -21,8 +21,6 @@ export default function SocialMediaComp({ data = [] }) {
               alt={item.icon.alt || item.icon.title || "social-icon"}
               width={20}
               height={20}
-              placeholder="blur"
-              blurDataURL="/images/placeholder.jpg"
               className="w-full h-full object-contain"
             />
           </a>
