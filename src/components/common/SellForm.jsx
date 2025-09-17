@@ -168,7 +168,24 @@ const sellFormSchema = z.object({
       return true;
     }, "Please enter a valid message"),
 
-  images: z.any().optional(),
+  images: z
+  .any()
+  .refine((files) => {
+    // Must have at least 1 file
+    if (!files || files.length === 0) return false;
+
+    // Check all files are valid images
+    for (const file of files) {
+      if (!(file instanceof File)) return false;
+
+      // Allow only image types
+      if (!file.type.startsWith("image/")) return false;
+
+      // Example: limit file size (2MB)
+      if (file.size > 5 * 1024 * 1024) return false;
+    }
+    return true;
+  }, "Please upload at least one valid image (max 5MB each)"),
   insuranceValidity: z.date({
     required_error: "Insurance validity date is required",
   }),
@@ -289,8 +306,15 @@ const normalizeText = (value) => {
 
   const handleFileChange = (event) => {
     const files = event.target.files;
-    setSelectedFiles(files && files.length > 0 ? files : null);
+    if (files && files.length > 0) {
+      setSelectedFiles(files);
+      form.setValue("images", files, { shouldValidate: true }); // ✅ push into RHF
+    } else {
+      setSelectedFiles(null);
+      form.setValue("images", null, { shouldValidate: true });
+    }
   };
+
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
@@ -764,12 +788,7 @@ const normalizeText = (value) => {
                     onChange={handleFileChange}
                     disabled={isSubmitting}
                   />
-                  <span
-                    className={`flex-1 truncate ${selectedFiles && selectedFiles.length > 0
-                      ? "text-white"
-                      : "text-white"
-                      }`}
-                  >
+                  <span className={`flex-1 truncate ${selectedFiles ? "text-white" : "text-white"}`}>
                     {getFileDisplayText()}
                   </span>
                   <button
@@ -777,18 +796,19 @@ const normalizeText = (value) => {
                     onClick={() => fileInputRef.current?.click()}
                     disabled={isSubmitting}
                     className="text-[10px] xl:text-xs 3xl:text-sm font-semibold 
-                             px-3 py-1 bg-[#242424] text-white rounded-full
-                             hover:bg-gray-700 transition-colors duration-200
-                             disabled:opacity-50 disabled:cursor-not-allowed"
+                            px-3 py-1 bg-[#242424] text-white rounded-full
+                            hover:bg-gray-700 transition-colors duration-200
+                            disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Choose Files
                   </button>
                 </div>
               </FormControl>
-              <FormMessage />
+              <FormMessage /> {/* ✅ will show validation error */}
             </FormItem>
           )}
         />
+
 
         {/* Additional Details */}
         <FormField
