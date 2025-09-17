@@ -213,10 +213,10 @@ export default function ExperienceSection({ data }) {
         </div>
         {selectedVideo && (
           <VideoModal
-            videoUrl={selectedVideo.videoUrl}
-            videoPath={selectedVideo.media.path}
-            name={selectedVideo.name}
-            location={selectedVideo.location}
+            videoUrl={selectedVideo?.video?.url}
+            videoPath={selectedVideo?.video?.url}
+            name={selectedVideo?.name}
+            location={selectedVideo?.location}
             isOpen={isModalOpen}
             onClose={handleCloseModal}
           />

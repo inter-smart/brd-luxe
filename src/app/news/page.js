@@ -22,6 +22,24 @@ export async function generateMetadata() {
   return {
     title: data?.seo?.title,
     description: data?.seo?.description,
+    openGraph: {
+      title: data?.seo?.title,
+      description: data?.seo?.description,
+      images: [
+        {
+          url: data?.seo?.image,
+          width: 1200,
+          height: 630,
+          alt: data?.seo?.title || "BRD LUXE",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data?.seo?.title,
+      description: data?.seo?.description,
+      images: [data?.seo?.image],
+    },
   };
 }
 

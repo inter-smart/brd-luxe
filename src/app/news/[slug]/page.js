@@ -28,6 +28,28 @@ export async function generateMetadata({ params }) {
     description:
       post?.seo?.description ||
       post?.excerpt,
+    openGraph: {
+      title: post?.seo?.title || post?.title,
+      description:
+        post?.seo?.description ||
+        post?.excerpt,
+      images: [
+        {
+          url: post?.seo?.image,
+          width: 1200,
+          height: 630,
+          alt: post?.seo?.title || post?.title || "BRD LUXE",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post?.seo?.title || post?.title,
+      description:
+        post?.seo?.description ||
+        post?.excerpt,
+      images: [post?.seo?.image],
+    },
   };
 }
 

@@ -15,7 +15,7 @@ export default function CoreValueSection({ data }) {
         </Heading>
         <div className="w-full h-full mx-[-5px] sm:mx-[-10px] lg:mx-[-17px] 2xl:mx-[-22px] 3xl:mx-[-30px] [&>*]:w-1/2 [&>*]:sm:w-1/3 [&>*]:md:w-1/4 [&>*]:p-[5px] [&>*]:sm:p-[10px] [&>*]:lg:p-[17px] [&>*]:2xl:p-[22px] [&>*]:3xl:p-[30px] flex flex-wrap">
           {data?.lists?.map((item, index) => 
-          item?.icon && item?.text &&(
+            item?.text &&(
             <div key={`core-${index}`} className="h-auto block">
               <div className="w-full h-full p-[15px] sm:p-[15px_20px] lg:p-[20px] 2xl:p-[25px] 3xl:p-[30px] rounded-[10px] overflow-hidden transition-all duration-300 flex flex-col justify-between relative z-0 hover:translate-y-[-15px]">
                 <div className="w-[35px] sm:w-[40px] lg:w-[45px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square overflow-hidden mb-[15px] sm:mb-[20px] flex items-center justify-center">

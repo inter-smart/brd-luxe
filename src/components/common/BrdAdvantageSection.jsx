@@ -111,7 +111,8 @@ export default function BrdAdvantageSection({ data }) {
             }}
             className="lg:!py-[30px] 2xl:!py-[40px]"
           >
-            {data?.advantages_list?.map((item, index) => (
+            {data?.advantages_list?.map((item, index) => 
+              item?.title1 && item?.description1 && (
               <SwiperSlide key={`advantage-${index}`} className="!h-auto">
                 <div className="w-full h-full p-[15px] sm:p-[20px] 2xl:p-[25px] 3xl:p-[30px] bg-white/2 border-1-white/10 overflow-hidden block transition-all duration-500 hover:lg:translate-y-[-15px] relative z-0">
                   <motion.div
