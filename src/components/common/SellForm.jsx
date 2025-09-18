@@ -40,8 +40,10 @@ import { Button } from "../ui/button";
 const sellFormSchema = z.object({
   fullName: z
     .string()
-    .min(2, "Full name must be at least 2 characters")
-    .max(50, "Full name cannot exceed 50 characters")
+    .trim()
+    .min(1, "Name is required") // empty string
+    .min(2, "Name must be at least 2 characters") // only 1 char
+    .max(50, "Name cannot exceed 50 characters")
     .refine((value) => {
       const trimmed = value.trim();
       if (!trimmed) return false;
@@ -54,7 +56,7 @@ const sellFormSchema = z.object({
       if (sqlPattern.test(trimmed)) return false;
       if (!/^[^\d!@#$%^&*()_+=\[\]{};:"\\|,.<>\/?`~]+$/u.test(trimmed)) return false;
       return true;
-    }, "Invalid full name"),
+    }, "Invalid name"),
   email: z
     .string()
     .min(5, "Email is required")
@@ -102,6 +104,8 @@ const sellFormSchema = z.object({
 
   registeredCity: z
     .string()
+    .trim()
+    .min(1, "Registered City is required")
     .min(2, "Registered City must be at least 2 characters")
     .max(50, "Registered City cannot exceed 50 characters")
     .refine((value) => /^[\p{L}\s'-]+$/u.test(value.trim()), "Invalid city name"),
@@ -118,16 +122,24 @@ const sellFormSchema = z.object({
   transmissionType: z.string().min(1, "Please select transmission type"),
   color: z
     .string()
+    .trim()
+    .min(1, "Color is required")
     .min(3, "Color must be at least 3 characters")
     .max(30, "Color cannot exceed 30 characters")
     .refine((value) => /^[\p{L}\s'-]+$/u.test(value.trim()), "Invalid color name"),
   fuelType: z.string().min(1, "Please select fuel type"),
-  engineCC: z.coerce.number().positive("Engine CC must be positive"),
+  engineCC: z.coerce
+  .number()
+  .min(1, "Engine CC is required")
+  .positive("Engine CC must be positive"),
   yearOfRegistration: z.coerce
     .number()
+    .min(1, "Year of Registration is required")
     .min(1900, "Year must be after 1900")
     .max(new Date().getFullYear(), "Year cannot be in the future"),
-  price: z.coerce.number().positive("Price must be positive"),
+  price: z.coerce.number()
+    .min(1, "Price is required")
+  .positive("Price must be positive"),
   location: z
     .string()
     .min(2, "Location is required")
@@ -186,9 +198,13 @@ const sellFormSchema = z.object({
     }
     return true;
   }, "Please upload at least one valid image (max 5MB each)"),
-  insuranceValidity: z.date({
+  insuranceValidity: z.preprocess((val) => {
+  // If empty, return undefined to trigger required_error
+    return val ? new Date(val) : undefined;
+  }, z.date({
     required_error: "Insurance validity date is required",
-  }),
+  })),
+
 });
 
 

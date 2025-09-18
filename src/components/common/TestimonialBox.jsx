@@ -35,7 +35,7 @@ export default function TestimonialBox({ item }) {
           >
             <Image
               src={item?.image?.url || "/images/placeholder.jpg"}
-              alt={item?.image?.alt}
+              alt={item?.image?.alt || "image"}
               fill
               sizes="320px"
               placeholder="blur"
@@ -46,18 +46,18 @@ export default function TestimonialBox({ item }) {
               loop
               muted
               playsInline
-              // autoPlay
+               autoPlay
               preload="none"
               className="w-full h-full object-cover absolute -z-1 inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              // onMouseEnter={(e) => e.currentTarget.play()}
-              // onMouseLeave={(e) => e.currentTarget.pause()}
-              onMouseEnter={(e) => {
-                const video = e.currentTarget;
-                video.play().catch(() => {}); // ignore AbortError
-              }}
+              onMouseEnter={(e) => e.currentTarget.play()}
               onMouseLeave={(e) => e.currentTarget.pause()}
+              // onMouseEnter={(e) => {
+              //   const video = e.currentTarget;
+              //   video.play().catch(() => {}); // ignore AbortError
+              // }}
+              //onMouseLeave={(e) => e.currentTarget.pause()}
             >
-              <source src={item?.media?.path} type="video/mp4" />
+              <source src={item?.video?.url} type="video/mp4" />
             </video>
             <div className="w-full h-auto p-[8px] sm:p-[10px] 2xl:p-[15px] 3xl:p-[20px] @[320px]:p-[20px] @[420px]:p-[30px] @[468px]:p-[40px] flex items-center">
               <div className="w-[40px] md:w-[50px] xl:w-[65px] 2xl:w-[75px] 3xl:w-[100px] h-auto aspect-square rounded-full overflow-hidden relative z-0 mr-[10px] 2xl:mr-[15px] bg-white/20 backdrop-blur-xl">
@@ -118,7 +118,7 @@ export default function TestimonialBox({ item }) {
             <div className="w-[40px] md:w-[50px] xl:w-[65px] 2xl:w-[75px] 3xl:w-[100px] h-auto aspect-square rounded-full overflow-hidden relative z-0 mr-[10px] 2xl:mr-[15px] bg-white/20 backdrop-blur-xl">
               <Image
                 src={item?.profile_image?.url || "/images/placeholder.jpg"}
-                alt={item?.profile_image?.alt}
+                alt={item?.profile_image?.alt || "image"}
                 width={50}
                 height={50}
                 placeholder="blur"

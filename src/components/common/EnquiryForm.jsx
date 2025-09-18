@@ -23,8 +23,10 @@ import { StyledButton } from "../utils/Button";
 const enquiryFormSchema = z.object({
   fullName: z
   .string()
-  .min(2, "Full name must be at least 2 characters")
-  .max(50, "Full name cannot exceed 50 characters")
+  .trim()
+  .min(1, "Name is required") // empty string
+  .min(2, "Name must be at least 2 characters") // only 1 char
+  .max(50, "Name cannot exceed 50 characters")
   .refine((value) => {
     const trimmed = value.trim();
     if (!trimmed) return false;
@@ -37,7 +39,7 @@ const enquiryFormSchema = z.object({
     if (sqlPattern.test(trimmed)) return false;
     if (!/^[^\d!@#$%^&*()_+=\[\]{};:"\\|,.<>\/?`~]+$/u.test(trimmed)) return false;
     return true;
-  }, "Invalid full name"),
+  }, "Invalid name"),
   email: z
   .string()
   .min(5, "Email is required")

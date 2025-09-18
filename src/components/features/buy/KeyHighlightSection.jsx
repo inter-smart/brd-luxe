@@ -44,6 +44,7 @@ export default function KeyHighlightSection({ data }) {
                   muted
                   playsInline
                   className="w-full h-full object-cover"
+                  poster={data?.highlights?.poster_image?.url || "/images/placeholder.jpg"}
                 >
                   <source src={data?.highlights?.video?.url} type="video/mp4" />
                 </video>

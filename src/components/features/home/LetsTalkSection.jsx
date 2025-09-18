@@ -38,6 +38,7 @@ export default function LetsTalkSection({ data }) {
             muted
             playsInline
             className="w-full h-full object-cover absolute inset-0 -z-2"
+            poster={lets_talk_section?.poster_image?.url || "/images/placeholder.jpg"}
           >
             <source src={lets_talk_section?.video?.url} type="video/mp4" />
           </video>

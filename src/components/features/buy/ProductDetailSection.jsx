@@ -152,9 +152,8 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           height={570}
                           placeholder="blur"
                           blurDataURL="/images/placeholder.jpg"
-                          className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-300 ${
-                            isHovering ? "opacity-0" : "opacity-100"
-                          }`}
+                          className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-300 ${isHovering ? "opacity-0" : "opacity-100"
+                            }`}
                         />
                         {/* Actual video */}
                         <video
@@ -167,9 +166,8 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                         />
                         {/* Play button overlay */}
                         <div
-                          className={`w-[35px] lg:w-[40px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square rounded-[10px] overflow-hidden absolute bottom-0 right-0 m-[10px] ${
-                            isHovering ? "opacity-0" : "opacity-100"
-                          }`}
+                          className={`w-[35px] lg:w-[40px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square rounded-[10px] overflow-hidden absolute bottom-0 right-0 m-[10px] ${isHovering ? "opacity-0" : "opacity-100"
+                            }`}
                         >
                           <Image
                             src="/images/vudeo_button.svg"
@@ -252,16 +250,17 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                         <Image
                           src={
                             item?.type === "video"
-                              ? item?.placeholder
-                              : item?.url
+                              ? item?.placeholder || "/images/placeholder.jpg"
+                              : item?.url || "/images/placeholder.jpg"
                           }
-                          alt={item?.alt}
+                          alt={item?.alt || "Placeholder image"}
                           width={400}
                           height={280}
                           placeholder="blur"
                           blurDataURL="/images/placeholder.jpg"
                           className="w-full h-full object-cover"
                         />
+
                       </div>
                     </div>
                   </SwiperSlide>
@@ -677,7 +676,8 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                   <div className="w-full h-full relative">
                     <Image
                       src={
-                        item?.type === "video" ? item?.placeholder : item?.url
+                        item?.type === "video" ? item?.placeholder || "/images/placeholder.jpg"
+                         : item?.url || "/images/placeholder.jpg"
                       }
                       alt={item?.alt}
                       width={400}

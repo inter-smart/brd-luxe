@@ -66,7 +66,7 @@ export default function Footer() {
       );
 
       const data = await res.json();
-      toast.success(data.message || "You have been subscribed successfully 🎉");
+      toast.success(data.message || "You have been subscribed successfully");
       setEmail(""); // clear field after success
     } catch (err) {
       console.error("Subscription failed", err);

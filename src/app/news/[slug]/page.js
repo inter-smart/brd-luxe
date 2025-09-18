@@ -75,9 +75,9 @@ export default async function Page({ params }) {
             banner.news_detail_mobile_image?.url || "/images/placeholder.jpg"
           }
           desktopImage={
-            banner.news__detail_desktop_image?.url || "/images/placeholder.jpg"
+            banner.news_detail_desktop_image?.url || "/images/placeholder.jpg"
           }
-          alt={banner.news__detail_desktop_image?.alt ?? "banner"}
+          alt={banner.news_detail_desktop_image?.alt ?? "banner"}
         />
       )}
 
