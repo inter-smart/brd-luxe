@@ -75,7 +75,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
           <BreadCrumb
             items={[
               { label: "Home", href: "/" },
-              { label: "Buy A Car", href: "/buy" },
+              { label: "Buy A Car", href: "/buy_a_car" },
               {
                 label: data?.cartitle,
                 href: `/buy/${data?.slug}`,
@@ -600,7 +600,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
               <div className="w-1/2">
                 <div className="flex items-center justify-end">
                   <a
-                    href={`https://wa.me/${whatsapp_post?.number}?text=Hi, I am interested in ${data?.cartitle}`}
+                    href={`https://wa.me/${whatsapp_post?.number?.replace(/\D/g, "")}?text=${encodeURIComponent(`Hi, I am interested in ${data?.cartitle}`)}`}
                     target="_blank"
                     aria-label="whatsapp"
                     className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center transition-all duration-300 ease-in-out relative z-0 hover:opacity-50"
