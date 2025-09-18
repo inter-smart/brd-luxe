@@ -64,7 +64,7 @@ export default function ProductCard({ item, whatsapp }) {
             <div className="ml-[7px] sm:ml-[10px] lg:ml-[15px] 2xl:ml-[18px] 3xl:ml-[25px]">
               {item.slug ? (
                 <Link
-                  href={`/buy/${item.slug}#carenquiryform`}
+                  href={`/buy_a_car/${item.slug}#carenquiryform`}
                   className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-white w-fit h-auto bg-transparent p-[5px_8px] sm:p-[8px_12px] 2xl:p-[10px_15px] 3xl:p-[12px_20px] rounded-[5px] sm:rounded-[7px] 3xl:rounded-[10px] border-1 border-[#BEBEBE] block hover:bg-white hover:border-white hover:text-black transition-all duration-300 ease-in-out"
                 >
                   Enquire Now

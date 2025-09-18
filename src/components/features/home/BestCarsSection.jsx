@@ -60,7 +60,7 @@ export default function BestCarsSection({ data }) {
             {best_cars_section?.models?.map((item, index) => (
               <SwiperSlide key={`slide-${index}`} className="!h-auto">
                 <Link
-                  href={`/buy?model=${item?.slug}`}
+                  href={`/buy_a_car?model=${item?.slug}`}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   className="group w-full h-full p-[20px_10px_15px_10px] sm:p-[30px_15px_20px_15px] lg:p-[40px_20px_25px_20px] 2xl:p-[60px_30px_35px_30px] rounded-[10px] overflow-hidden block relative z-0"
