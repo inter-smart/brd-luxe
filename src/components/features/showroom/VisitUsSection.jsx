@@ -25,6 +25,7 @@ export default function VisitUsSection({ data }) {
             muted
             playsInline
             className="w-full h-full absolute top-0 left-0 object-cover -z-1 inset-0"
+            poster={visit_us_section?.poster_image?.url || "/images/placeholder.jpg"}
           >
             <source src={visit_us_section?.video?.url} type="video/mp4" />
           </video>

@@ -18,7 +18,7 @@ async function getPageData() {
 
 // 🔹 Dynamic Metadata per post
 export async function generateMetadata({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   const data = await getPageData();
 
   const post = data.posts?.find((p) => p.slug === slug);
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   const data = await getPageData();
 
   // Find the post that matches the slug

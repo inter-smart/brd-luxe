@@ -34,7 +34,7 @@ export default function Footer() {
   const rightLinks = footerData?.quick_links?.slice(midIndex);
 
   // ✅ Stricter email regex
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$/;
 
   const validateEmail = (inputEmail) => {
     const trimmed = inputEmail.trim();

@@ -108,12 +108,12 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
               className="h-[240px] sm:!h-[280px] md:!h-[340px] lg:!h-full mb-[10px] sm:mb-[15px] lg:mb-0"
             >
               {/* First image from data.media */}
-              {data?.media?.path && (
+              {/* {data?.media?.path && ( */}
                 <SwiperSlide key="car-main" className="!h-auto">
                   <div className="swiper-zoom-container w-full h-full block">
                     <div id="gallery" className="w-full h-full">
                       <a
-                        href={data?.media?.path}
+                        href={data?.media?.path || "/images/placeholder.jpg"}
                         data-pswp-width="1920"
                         data-pswp-height="1080"
                         className="cursor-pointer"
@@ -131,7 +131,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                     </div>
                   </div>
                 </SwiperSlide>
-              )}
+              {/* )} */}
 
               {/* Rest of car_images */}
               {data?.car_images?.map((item, index) => (
@@ -576,25 +576,25 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                     ₹ {data?.price}
                   </div>
                 )}
-                <div className="w-fit h-auto p-[10px] 3xl:p-[10px_15px] rounded-[10px] flex items-center relative z-0">
-                  {data?.finance_available && (
-                    <>
-                      <div className="text-[12px] 3xl:text-[18px] leading-[1] font-normal font-base1 text-white pr-[8px]">
-                        Finance Available
-                      </div>
-                      <div className="w-[10px] h-auto aspect-square flex items-center justify-center">
-                        <Image
-                          src="/images/arrow_icon.svg"
-                          alt="Finance"
-                          width={10}
-                          height={10}
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                    </>
-                  )}
-                  <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
-                </div>
+                {data?.finance_available && (
+                  <div className="w-fit h-auto p-[10px] 3xl:p-[10px_15px] rounded-[10px] flex items-center relative z-0">
+                      <>
+                        <div className="text-[12px] 3xl:text-[18px] leading-[1] font-normal font-base1 text-white pr-[8px]">
+                          Finance Available
+                        </div>
+                        <div className="w-[10px] h-auto aspect-square flex items-center justify-center">
+                          <Image
+                            src="/images/arrow_icon.svg"
+                            alt="Finance"
+                            width={10}
+                            height={10}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                      </>
+                    <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
+                  </div>
+                )}
               </div>
               <div className="w-1/2">
                 <div className="flex items-center justify-end">
