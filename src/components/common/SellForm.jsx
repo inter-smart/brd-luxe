@@ -52,9 +52,11 @@ const sellFormSchema = z.object({
       if (/<script[\s\S]*?>[\s\S]*?<\/script>/i.test(trimmed)) return false;
       if (/<img[\s\S]*?>/i.test(trimmed)) return false;
       if (/javascript:/i.test(trimmed)) return false;
-      const sqlPattern = /\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|TRUNCATE|EXEC|UNION)\b/i;
+      const sqlPattern =
+        /\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|TRUNCATE|EXEC|UNION)\b/i;
       if (sqlPattern.test(trimmed)) return false;
-      if (!/^[^\d!@#$%^&*()_+=\[\]{};:"\\|,.<>\/?`~]+$/u.test(trimmed)) return false;
+      if (!/^[^\d!@#$%^&*()_+=\[\]{};:"\\|,.<>\/?`~]+$/u.test(trimmed))
+        return false;
       return true;
     }, "Invalid name"),
   email: z
@@ -101,24 +103,32 @@ const sellFormSchema = z.object({
       return true;
     }, "Invalid phone number, max 15 digits allowed"),
 
-
   registeredCity: z
     .string()
     .trim()
     .min(1, "Registered City is required")
     .min(2, "Registered City must be at least 2 characters")
     .max(50, "Registered City cannot exceed 50 characters")
-    .refine((value) => /^[\p{L}\s'-]+$/u.test(value.trim()), "Invalid city name"),
+    .refine(
+      (value) => /^[\p{L}\s'-]+$/u.test(value.trim()),
+      "Invalid city name"
+    ),
   brandName: z
     .string()
     .min(1, "Brand Name is required")
     .max(50, "Brand Name cannot exceed 50 characters")
-    .refine((value) => /^[\p{L}\d\s'-]+$/u.test(value.trim()), "Invalid brand name"),
+    .refine(
+      (value) => /^[\p{L}\d\s'-]+$/u.test(value.trim()),
+      "Invalid brand name"
+    ),
   modelName: z
     .string()
     .min(1, "Model Name is required")
     .max(50, "Model Name cannot exceed 50 characters")
-    .refine((value) => /^[\p{L}\d\s'-]+$/u.test(value.trim()), "Invalid model name"),
+    .refine(
+      (value) => /^[\p{L}\d\s'-]+$/u.test(value.trim()),
+      "Invalid model name"
+    ),
   transmissionType: z.string().min(1, "Please select transmission type"),
   color: z
     .string()
@@ -126,25 +136,32 @@ const sellFormSchema = z.object({
     .min(1, "Color is required")
     .min(3, "Color must be at least 3 characters")
     .max(30, "Color cannot exceed 30 characters")
-    .refine((value) => /^[\p{L}\s'-]+$/u.test(value.trim()), "Invalid color name"),
+    .refine(
+      (value) => /^[\p{L}\s'-]+$/u.test(value.trim()),
+      "Invalid color name"
+    ),
   fuelType: z.string().min(1, "Please select fuel type"),
   engineCC: z.coerce
-  .number()
-  .min(1, "Engine CC is required")
-  .positive("Engine CC must be positive"),
+    .number()
+    .min(1, "Engine CC is required")
+    .positive("Engine CC must be positive"),
   yearOfRegistration: z.coerce
     .number()
     .min(1, "Year of Registration is required")
     .min(1900, "Year must be after 1900")
     .max(new Date().getFullYear(), "Year cannot be in the future"),
-  price: z.coerce.number()
+  price: z.coerce
+    .number()
     .min(1, "Price is required")
-  .positive("Price must be positive"),
+    .positive("Price must be positive"),
   location: z
     .string()
     .min(2, "Location is required")
     .max(100, "Location cannot exceed 100 characters")
-    .refine((value) => /^[\p{L}\s',.-]+$/u.test(value.trim()), "Invalid location"),
+    .refine(
+      (value) => /^[\p{L}\s',.-]+$/u.test(value.trim()),
+      "Invalid location"
+    ),
   additionalDetails: z
     .string()
     .optional()
@@ -164,7 +181,7 @@ const sellFormSchema = z.object({
         /{{.*?constructor.*?}}/i,
         /['";]?\s*DROP\s+TABLE/i,
         /javascript:/i,
-        /[@#!$%^&*()]/ // only symbols not part of meaningful text
+        /[@#!$%^&*()]/, // only symbols not part of meaningful text
       ];
 
       for (const pattern of forbiddenPatterns) {
@@ -180,9 +197,7 @@ const sellFormSchema = z.object({
       return true;
     }, "Please enter a valid message"),
 
-  images: z
-  .any()
-  .refine((files) => {
+  images: z.any().refine((files) => {
     // Must have at least 1 file
     if (!files || files.length === 0) return false;
 
@@ -198,15 +213,16 @@ const sellFormSchema = z.object({
     }
     return true;
   }, "Please upload at least one valid image (max 5MB each)"),
-  insuranceValidity: z.preprocess((val) => {
-  // If empty, return undefined to trigger required_error
-    return val ? new Date(val) : undefined;
-  }, z.date({
-    required_error: "Insurance validity date is required",
-  })),
-
+  insuranceValidity: z.preprocess(
+    (val) => {
+      // If empty, return undefined to trigger required_error
+      return val ? new Date(val) : undefined;
+    },
+    z.date({
+      required_error: "Insurance validity date is required",
+    })
+  ),
 });
-
 
 // Shared input styles
 const inputStyle = `
@@ -232,9 +248,7 @@ export default function SellForm() {
           fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/transmissions`
           ),
-          fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/fuel-type`
-          ),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/wp/v2/fuel-type`),
         ]);
 
         if (!transRes.ok || !fuelRes.ok) {
@@ -267,7 +281,10 @@ export default function SellForm() {
       const trimmed = value.trim();
       if (trimmed !== value) {
         // Update value in form
-        form.setValue(fieldName, trimmed, { shouldValidate: true, shouldDirty: true });
+        form.setValue(fieldName, trimmed, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
       } else {
         // still trigger validation if value didn't change
         form.trigger(fieldName);
@@ -278,23 +295,25 @@ export default function SellForm() {
   };
 
   // Function to normalize input
-const normalizeText = (value) => {
-  if (!value) return "";
+  const normalizeText = (value) => {
+    if (!value) return "";
 
-  return value
-    // Convert literal "\n" into actual newline (if typed as text)
-    .replace(/\\n/g, "\n")
-    // Convert literal "\t" into 4 spaces (if typed as text)
-    .replace(/\\t/g, "    ")
-    // Convert actual tabs to 4 spaces
-    .replace(/\t+/g, "    ")
-    // Normalize CRLF or \r to \n
-    .replace(/\r\n|\r/g, "\n")
-    // Collapse multiple spaces (but not newlines!)
-    .replace(/ {2,}/g, " ")
-    // Trim only spaces at start/end, keep newlines
-    .replace(/^[ \t]+|[ \t]+$/gm, "");
-};
+    return (
+      value
+        // Convert literal "\n" into actual newline (if typed as text)
+        .replace(/\\n/g, "\n")
+        // Convert literal "\t" into 4 spaces (if typed as text)
+        .replace(/\\t/g, "    ")
+        // Convert actual tabs to 4 spaces
+        .replace(/\t+/g, "    ")
+        // Normalize CRLF or \r to \n
+        .replace(/\r\n|\r/g, "\n")
+        // Collapse multiple spaces (but not newlines!)
+        .replace(/ {2,}/g, " ")
+        // Trim only spaces at start/end, keep newlines
+        .replace(/^[ \t]+|[ \t]+$/gm, "")
+    );
+  };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState(null);
@@ -330,7 +349,6 @@ const normalizeText = (value) => {
       form.setValue("images", null, { shouldValidate: true });
     }
   };
-
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
@@ -679,7 +697,7 @@ const normalizeText = (value) => {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="w-auto p-0 z-1" align="start">
                   <Calendar
                     mode="single"
                     selected={field.value}
@@ -789,12 +807,13 @@ const normalizeText = (value) => {
           control={form.control}
           name="images"
           render={({ field }) => (
-            <FormItem className="w-full sm:w-1/2 xl:w-1/3">
+            <FormItem className="w-full sm:w-1/2 xl:w-1/3 flex">
               <FormLabel className="sr-only">Images</FormLabel>
               <FormControl>
                 <div
                   className={`${inputStyle} flex items-center justify-between cursor-pointer`}
-                >
+                  onClick={() => fileInputRef.current?.click()}
+                  >
                   <input
                     type="file"
                     ref={fileInputRef}
@@ -804,12 +823,15 @@ const normalizeText = (value) => {
                     onChange={handleFileChange}
                     disabled={isSubmitting}
                   />
-                  <span className={`flex-1 truncate ${selectedFiles ? "text-white" : "text-white"}`}>
+                  <span
+                    className={`flex-1 truncate ${
+                      selectedFiles ? "text-white" : "text-white"
+                    }`}
+                    >
                     {getFileDisplayText()}
                   </span>
                   <button
                     type="button"
-                    onClick={() => fileInputRef.current?.click()}
                     disabled={isSubmitting}
                     className="text-[10px] xl:text-xs 3xl:text-sm font-semibold 
                             px-3 py-1 bg-[#242424] text-white rounded-full
@@ -824,7 +846,6 @@ const normalizeText = (value) => {
             </FormItem>
           )}
         />
-
 
         {/* Additional Details */}
         <FormField
@@ -842,7 +863,6 @@ const normalizeText = (value) => {
                   onBlur={(e) => {
                     field.onBlur(); // trigger RHF blur first
 
-                    
                     // Normalize multiple spaces/tabs/newlines to single space
                     const normalized = normalizeText(field.value);
                     form.setValue("additionalDetails", normalized);
@@ -850,7 +870,6 @@ const normalizeText = (value) => {
 
                     // Optional: trim spaces/tabs/newlines
                     handleBlurTrim("additionalDetails");
-
                   }}
                 />
               </FormControl>
@@ -858,7 +877,6 @@ const normalizeText = (value) => {
             </FormItem>
           )}
         />
-
 
         {/* Submit Button */}
         <div className="w-full flex justify-end">

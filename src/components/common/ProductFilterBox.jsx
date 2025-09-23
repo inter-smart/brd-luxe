@@ -62,7 +62,7 @@ export default function ProductFilterBox({
   const inputFormStyle =
     "!text-[12px] lg:!text-[13px] 2xl:!text-[14px] 3xl:!text-[18px] leading-[1.2] font-light !font-base3 !text-white !min-w-fit sm:!min-w-[100px] md:!min-w-[100px] lg:!min-w-[110px] 2xl:!min-w-[135px] 3xl:!min-w-[170px] bg-transparent text-white px-0 rounded-[0px] border-0 border-b-1 border-white relative z-0 focus-visible:ring-0 focus-visible:ring-offset-0";
 
-  const selectStyle = "bg-black [&>*]:!text-white";
+  const selectStyle = "bg-black [&>*]:!text-white !z-1";
 
   const inputSelectStyle =
     "bg-black text-[11px] lg:text-[12px] 2xl:text-[14px] rounded-[4px]";

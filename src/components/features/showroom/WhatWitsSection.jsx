@@ -79,7 +79,7 @@ export default function WhatWitsSection({ data }) {
                 <div
                   className="w-full h-full p-[10px_20px] xl:p-[15px_20px] 2xl:p-[20px] 3xl:p-[25px_30px] bg-gradient-to-tr 
                                     from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)]
-                                    border-[1px] border-solid border-white/10 rounded-[10px] backdrop-blur-[20px] 
+                                    border-[1px] border-solid border-white/10 rounded-[10px] flex flex-col justify-between backdrop-blur-[20px] 
                                     shadow-sm transition duration-300 hover:border-white/20 hover:from-[rgba(217,217,217,0.1)] hover:translate-y-1"
                 >
                   <div className="max-w-[30px] md:max-w-[35px] lg:max-w-[45px] xl:max-w-[55px] 2xl:max-w-[80px] 3xl:max-w-[100px] mb-[30px] xl:mb-[40px] 2xl:mb-[45px] 3xl:mb-[60px]">
@@ -95,7 +95,7 @@ export default function WhatWitsSection({ data }) {
                   </div>
                   <h3
                     className="text-[12px] sm:text-[14px] sm:leading-[14px] xl:text-[20px] xl:leading-[20px]  2xl:text-[24px] 2xl:leading-[30px]  
-                                        3xl:text-[30px] 3xl:leading-[30px] font-light font-base1 line-clamp-2 text-white"
+                                        3xl:text-[30px] 3xl:leading-[30px] font-light font-base1 text-white"
                   >
                     {item?.title}
                   </h3>

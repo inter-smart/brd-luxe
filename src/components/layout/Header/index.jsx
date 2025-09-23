@@ -285,6 +285,7 @@ export default function Header() {
                   alt={header_acf?.logo?.alt || "site logo"}
                   width={187}
                   height={50}
+                  priority
                   className="w-full h-full object-contain group-hover:scale-102 transition-all duration-300"
                 />
               </Link>

@@ -10,7 +10,7 @@ export default function KeyHighlightSection({ data }) {
       <div className="container">
         <div className="w-full h-auto py-[40px] sm:py-[60px_70px] lg:py-[80px_85px] 2xl:py-[95px_100px] 3xl:py-[120px_130px] border-t-1 border-[#808080]/50 flex max-sm:flex-col-reverse sm:flex-row">
           <div className="w-full sm:w-[45%] sm:pr-[20px] lg:pr-[35px] 2xl:pr-[40px] 3xl:pr-[55px]">
-            <div className="w-full h-[90%] p-[15px] sm:p-[15px_20px] lg:p-[25px_30px] 2xl:p-[30px_35px] 3xl:p-[35px_40px] rounded-[10px] relative z-0">
+            <div className="w-full h-full p-[15px] sm:p-[15px_20px] lg:p-[25px_30px] 2xl:p-[30px_35px] 3xl:p-[35px_40px] rounded-[10px] relative z-0">
               <Heading
                 as="h1"
                 size={"heading1"}
@@ -36,7 +36,7 @@ export default function KeyHighlightSection({ data }) {
             </div>
           </div>
           <div className="w-full sm:w-[55%] mb-[25px] sm:mb-0">
-            <div className="group w-full h-[90%] overflow-hidden flex items-center">
+            <div className="group w-full h-full overflow-hidden flex items-center">
               {data?.highlights?.type === "video" ? (
                 <video
                   autoPlay

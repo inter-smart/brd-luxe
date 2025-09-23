@@ -87,7 +87,7 @@ export default function TestdriveeSection({ data }) {
                   <Link
                     href={test_drive_section?.button_url?.url}
                     target={test_drive_section?.button_url?.target}
-                    className="text-[12px] sm:text-[10px]  2xl:text-[15px] 3xl:text-[18px] leading-[1] 
+                    className="text-[12px] sm:text-[14px]  2xl:text-[15px] 3xl:text-[18px] leading-[1] 
                                     tracking-[1px] text-center font-semibold font-base1 text-white p-[8px_10px] sm:p-[8px_15px] lg:p-[8px_20px] w-fit
                                         2xl:p-[10px_25px] 3xl:p-[10px_30px] rounded-[4px] sm:rounded-[6px] 
                                     2xl:rounded-[8px] 3xl:rounded-[10px] border hover:text-black hover:bg-white transition-all 

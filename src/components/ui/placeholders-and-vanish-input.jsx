@@ -196,7 +196,7 @@ export function PlaceholdersAndVanishInput({
         value={value}
         type="text"
         className={cn(
-          "w-full relative text-sm sm:text-base z-1 border-none max-sm:h-[30px]  text-white h-full bg-black focus:outline-none focus:ring-0 pl-[10px] lg:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px]",
+          "w-full relative text-sm sm:text-base z-1 border-none max-sm:h-[30px]  text-white h-full bg-black focus:outline-none focus:ring-0 pl-[10px] lg:pl-[15px] 2xl:pl-[20px] 3xl:pl-[25px] pr-[85px] 2xl:pr-[110px] 3xl:pr-[140px] truncate",
           animating && "text-transparent dark:text-transparent"
         )}
       />
