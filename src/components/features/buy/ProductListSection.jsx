@@ -176,7 +176,7 @@ export default function ProductListSection({ data, whatsapp }) {
         {visibleCount < filteredCars.length ? (
           <button
             onClick={handleLoadMore}
-            class="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]"
+            className="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]"
           >
             Load More
           </button>
@@ -184,7 +184,7 @@ export default function ProductListSection({ data, whatsapp }) {
           filteredCars.length > 8 && (
             <button
               onClick={handleViewLess}
-              class="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]"
+              className="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]"
             >
               View Less
             </button>
