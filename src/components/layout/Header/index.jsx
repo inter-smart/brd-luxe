@@ -139,25 +139,47 @@ export default function Header() {
   //   }
   // });
 
-  useMotionValueEvent(scrollYProgress, "change", (current) => {
-    if (typeof current === "number") {
-      const prev = scrollYProgress.getPrevious();
-      const direction = current - prev;
+  // useMotionValueEvent(scrollYProgress, "change", (current) => {
+  //   if (typeof current === "number") {
+  //     const prev = scrollYProgress.getPrevious();
+  //     const direction = current - prev;
 
-      if (scrollYProgress.get() < 0.05) {
-        // 👆 Top of page
+  //     if (scrollYProgress.get() < 0.01) {
+  //       // 👆 Top of page
+  //       setVisible(true);
+  //       setIsScrolled(false);
+  //     } else {
+  //       if (direction < 0) {
+  //         // 👆 Scrolling up → show header
+  //         setVisible(true);
+  //         setIsScrolled(true);
+  //       } else {
+  //         // 👇 Scrolling down → hide header
+  //         setVisible(false);
+  //         setIsScrolled(true);
+  //       }
+  //     }
+  //   }
+  // });
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    const direction = latest - prev;
+    const scrollHeight = document.body.scrollHeight - window.innerHeight;
+    const topThreshold = scrollHeight * 0.02; 
+
+    if (latest <= topThreshold) {
+      setVisible(true);
+      setIsScrolled(false);
+    } else {
+      if (direction < 0) {
         setVisible(true);
-        setIsScrolled(false);
-      } else {
-        if (direction < 0) {
-          // 👆 Scrolling up → show header
-          setVisible(true);
-          setIsScrolled(true);
-        } else {
-          // 👇 Scrolling down → hide header
-          setVisible(false);
-          setIsScrolled(true);
-        }
+        setIsScrolled(true);
+      } else if (direction > 0) {
+        setVisible(false);
+        setIsScrolled(true);
       }
     }
   });
@@ -407,7 +429,7 @@ export default function Header() {
                             <Link
                               href={link?.menu_url?.url}
                               onClick={closeMenu}
-                              className={`... ${
+                              className={`... font-base1 ${
                                 pathname === getPath(link?.menu_url?.url) ||
                                 (getPath(link?.menu_url?.url) === "/news" &&
                                   pathname.startsWith("/news/"))
@@ -502,7 +524,10 @@ export default function Header() {
                 </motion.div>
                 <div className="w-[90%] h-auto aspect-[710/180] m-auto absolute z-0 left-0 right-0 bottom-[10%] opacity-50 flex items-center justify-center">
                   <Image
-                    src={header_acf?.mega_menu?.image?.url || "/images/placeholder.jpg"}
+                    src={
+                      header_acf?.mega_menu?.image?.url ||
+                      "/images/placeholder.jpg"
+                    }
                     alt={header_acf?.mega_menu?.image?.alt || "menu image"}
                     width={715}
                     height={180}
@@ -585,8 +610,13 @@ export default function Header() {
                     <div className="w-full lg:w-[50%] h-full max-lg:absolute max-lg:inset-0 max-lg:m-auto max-lg:opacity-25 flex items-end">
                       <div className="w-full h-auto aspect-[710/180] flex items-center justify-center">
                         <Image
-                          src={header_acf?.mega_menu?.image?.url || "/images/placeholder.jpg"}
-                          alt={header_acf?.mega_menu?.image?.alt || "menu image"}
+                          src={
+                            header_acf?.mega_menu?.image?.url ||
+                            "/images/placeholder.jpg"
+                          }
+                          alt={
+                            header_acf?.mega_menu?.image?.alt || "menu image"
+                          }
                           width={715}
                           height={180}
                           className="w-full h-full object-contain"
@@ -620,7 +650,10 @@ export default function Header() {
                                       className="w-[15px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
                                     >
                                       <Image
-                                        src={item.icon.url || "/images/placeholder.jpg"}
+                                        src={
+                                          item.icon.url ||
+                                          "/images/placeholder.jpg"
+                                        }
                                         alt={item.icon.alt || "Social Icon"}
                                         width={20}
                                         height={20}
@@ -639,8 +672,14 @@ export default function Header() {
                     <div className="w-full lg:w-[40%]">
                       <div className="sm:w-[130px] lg:w-[150px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] h-auto aspect-[225/65] max-lg:hidden flex items-center justify-center">
                         <Image
-                          src={header_acf?.mega_menu?.bottom_image?.url || "/images/placeholder.jpg"}
-                          alt={header_acf?.mega_menu?.bottom_image?.alt || "bottom image"}
+                          src={
+                            header_acf?.mega_menu?.bottom_image?.url ||
+                            "/images/placeholder.jpg"
+                          }
+                          alt={
+                            header_acf?.mega_menu?.bottom_image?.alt ||
+                            "bottom image"
+                          }
                           width={225}
                           height={65}
                           className="w-full h-full object-contain"

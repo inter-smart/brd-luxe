@@ -166,7 +166,7 @@ export default function ExperienceSection({ data }) {
                 ))}
               </Swiper>
             </div>
-              {!isMobile ? (
+            {!isMobile ? (
               <button
                 onClick={() => swiperRef.current?.slideNext()}
                 className="group lg:w-[40px] 2xl:w-[60px] 3xl:w-[60px] h-auto aspect-square cursor-pointer rounded-full overflow-hidden transition"
@@ -300,12 +300,12 @@ function TestimonialTextCard({ item, index }) {
     <div
       ref={cardRef}
       className="w-full h-auto aspect-[200/276] bg-white p-[10px] 2xl:p-[15px] 3xl:p-[20px] overflow-hidden relative z-0"
-      style={{ transform: "translateZ(0)" }}
     >
       <div
-        className="w-[150px] sm:w-[180px] lg:w-[220px] 2xl:w-[250px] h-auto aspect-square bg-black rounded-full absolute z-10 pointer-events-none"
+        className="w-[150px] sm:w-[180px] lg:w-[220px] 2xl:w-[250px] h-auto aspect-square bg-black rounded-full absolute z-10 pointer-events-none transition-all duration-500 ease-out"
         style={{
           ...circleStyle,
+          filter: "blur(50px)",
           filter: "blur(50px)",
           transition: "none",
           backfaceVisibility: "hidden",
@@ -317,7 +317,7 @@ function TestimonialTextCard({ item, index }) {
           {[1, 2, 3, 4, 5].map((num) => (
             <span
               key={num}
-              className={`transition-colors duration-500 ${getTextColor(
+              className={`transition-colors duration-300 ${getTextColor(
                 15,
                 10
               )}`}
@@ -328,7 +328,7 @@ function TestimonialTextCard({ item, index }) {
           ))}
         </div>
         <div
-          className={`text-[10px] sm:text-[11px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 line-clamp-5 transition-colors duration-500 ${getTextColor(
+          className={`text-[10px] sm:text-[11px] 2xl:text-[13px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 line-clamp-5 transition-colors duration-300 ${getTextColor(
             50,
             35
           )}`}
@@ -349,7 +349,7 @@ function TestimonialTextCard({ item, index }) {
           </div>
           <div className="w-[calc(100%-30px)] 2xl:w-[calc(100%-40px)] 3xl:w-[calc(100%-50px)] pl-[10px] 3xl:pl-[15px]">
             <div
-              className={`text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.2] font-normal font-base1 lg:mb-[2px] 2xl:mb-[5px] 3xl:mb-[10px] transition-colors duration-500 ${getTextColor(
+              className={`text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.2] font-normal font-base1 lg:mb-[2px] 2xl:mb-[5px] 3xl:mb-[10px] transition-colors duration-300 ${getTextColor(
                 85,
                 85
               )}`}
@@ -358,7 +358,7 @@ function TestimonialTextCard({ item, index }) {
               {item?.name}
             </div>
             <p
-              className={`text-[10px] 2xl:text-[12px] leading-[1.2] font-light font-base2 transition-colors duration-500 ${getTextColor(
+              className={`text-[10px] 2xl:text-[12px] leading-[1.2] font-light font-base2 ${getTextColor(
                 85,
                 92
               )}`}
