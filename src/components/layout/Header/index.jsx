@@ -412,7 +412,7 @@ export default function Header() {
                                 (getPath(link?.menu_url?.url) === "/news" &&
                                   pathname.startsWith("/news/"))
                                   ? "text-[#F29A0D]"
-                                  : "text-white"
+                                  : "text-white font-base1"
                               }`}
                               target={link?.menu_url?.target}
                             >
@@ -437,7 +437,7 @@ export default function Header() {
                         >
                           <ShinyButton
                             href={item?.button_url?.url}
-                            className="w-full text-[11px] sm:text-[12px] text-center text-white font-medium uppercase p-[10px] rounded-lg border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
+                            className="w-full text-[12px] max-sm:tracking-[1px] text-center text-white font-medium font-base1 uppercase p-[10px] rounded-lg border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
                             target={item?.button_url?.target}
                             onClick={closeMenu}
                           >
@@ -678,7 +678,7 @@ export default function Header() {
                               <a
                                 href={`mailto:${header_acf?.mega_menu?.email}`}
                                 target="_blank"
-                                className="group text-[12px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] transition-all duration-300 hover:text-[#F29A0D]"
+                                className="group text-[12px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] relative z-10 transition-all duration-300 hover:text-[#F29A0D]"
                               >
                                 Email
                                 <span className="text-[13px] lg:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block transition-all duration-300 group-hover:text-[#F29A0D]">

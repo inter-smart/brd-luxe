@@ -86,9 +86,7 @@ export default function ProductListSection({ data, whatsapp }) {
     );
   }
 
-  const isMobile = useMedia({
-    query: "(min-width: 1280px)",
-  });
+  const isMobile = useMedia({ maxWidth: "1280px" });
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 4);

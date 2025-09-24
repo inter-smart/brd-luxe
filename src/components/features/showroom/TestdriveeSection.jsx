@@ -55,7 +55,7 @@ export default function TestdriveeSection({ data }) {
                         </div>
                         <Link
                           href={`mailto:${test_drive_section?.email}`}
-                          className="text-[10px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] text-white flex max-lg:justify-center transition duration-300 hover:text-[#F29A0D]"
+                          className="text-[10px] xl:text-[13px] 2xl:text-[16px] 3xl:text-[20px] text-white break-all flex max-lg:justify-center transition duration-300 hover:text-[#F29A0D]"
                         >
                           {test_drive_section?.email}
                         </Link>

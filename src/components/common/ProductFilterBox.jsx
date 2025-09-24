@@ -199,6 +199,21 @@ function PriceRangeSlider({ cars, onChange }) {
   useEffect(() => {
     const style = document.createElement("style");
     style.innerHTML = `
+    .range-slider{
+      background: transparent !important;
+      } 
+      .range-slider:before{
+        content: "" !important;
+        position: absolute !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        margin: auto !important;
+        background: white !important;
+        width: 90% !important;
+        height: 2px !important;
+      }
       .custom-slider {
         width: 100%;
         height: 2px;
@@ -211,7 +226,7 @@ function PriceRangeSlider({ cars, onChange }) {
       .range-slider__range{
         height: 2px !important;
         background: linear-gradient(to right, #8C5600, #F29A0D) !important;
-      }
+        }
     `;
     document.head.appendChild(style);
     return () => document.head.removeChild(style);

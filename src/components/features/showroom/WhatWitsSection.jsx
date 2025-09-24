@@ -32,6 +32,7 @@ export default function WhatWitsSection({ data }) {
           <Swiper
             spaceBetween={0}
             modules={[Navigation, Autoplay]}
+            loop={true}
             autoplay={{
               delay: 3000,
               disableOnInteraction: false,
