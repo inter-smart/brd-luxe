@@ -429,7 +429,7 @@ export default function Header() {
                             <Link
                               href={link?.menu_url?.url}
                               onClick={closeMenu}
-                              className={`... font-base1 ${
+                              className={`... font-base1 flex ${
                                 pathname === getPath(link?.menu_url?.url) ||
                                 (getPath(link?.menu_url?.url) === "/news" &&
                                   pathname.startsWith("/news/"))
@@ -487,7 +487,7 @@ export default function Header() {
                       <div>
                         <a
                           href={`tel:${header_acf?.mega_menu?.phone_number}`}
-                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px]"
+                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] flex flex-col"
                         >
                           Call
                           <span className="text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block">
@@ -501,7 +501,7 @@ export default function Header() {
                         <a
                           href={`mailto:${header_acf?.mega_menu?.email}`}
                           target="_blank"
-                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px]"
+                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] flex flex-col"
                         >
                           Email
                           <span className="text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block">
