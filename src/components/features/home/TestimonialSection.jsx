@@ -73,7 +73,7 @@ export default function ExperienceSection({ data }) {
                 }}
                 speed={800}
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
-                className="!h-auto"
+                className="!h-auto max-sm:!py-[10px_20px]"
                 breakpoints={{
                   468: {
                     slidesPerView: 2,
