@@ -58,11 +58,11 @@ export default function MdMessageSection({ data }) {
                 className="w-full h-full object-contain"
               />
             </motion.div>
-            <div className="w-fit h-full flex flex-col justify-between">
+            <div className="w-full h-full flex align-baseline flex-col justify-between">
               <div className="text-[54px] sm:text-[64px] lg:text-[100px] 2xl:text-[120px] 3xl:text-[150px] leading-[0.8] font-normal font-base1 text-transparent bg-clip-text bg-gradient-to-b from-[#171717] via-[#333333] via-55% to-[#171717] [-webkit-text-fill-color:transparent]">
                 BRD <br /> LUXE
               </div>
-              <div className="text-right [background:none] [-webkit-text-fill-color:unset] [background-clip:unset]">
+              <div className="text-right [background:none] [-webkit-text-fill-color:unset] [background-clip:unset] mr-auto">
                 <div className="text-[24px] sm:text-[27px] lg:text-[35px] 2xl:text-[44px] 3xl:text-[55px] leading-[1] font-light font-base1 text-white">
                   {message_section?.name ?? ""}
                 </div>
