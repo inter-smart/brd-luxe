@@ -24,6 +24,14 @@ export default function ProductSection({ data, whatsapp }) {
     search: "",
   });
 
+  // compute price range
+  const prices = cars.map((car) =>
+    parseInt(car.price?.toString().replace(/,/g, ""), 10)
+  );
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
+
   // filtering logic based on appliedFilters
   let filteredCars = cars;
   if (appliedFilters.brand) {
@@ -40,6 +48,14 @@ export default function ProductSection({ data, whatsapp }) {
       )
     );
   }
+
+  // price filter
+  filteredCars = filteredCars.filter((car) => {
+    const rawPrice = car.price?.toString().replace(/,/g, "");
+    const price = parseInt(rawPrice, 10);
+    return price >= priceRange[0] && price <= priceRange[1];
+  });
+
   if (appliedFilters.search?.trim()) {
     const q = appliedFilters.search.trim().toLowerCase();
     filteredCars = filteredCars.filter(
@@ -78,6 +94,7 @@ export default function ProductSection({ data, whatsapp }) {
                     }}
                     filters={filters}
                     onFilterChange={setFilters}
+                    setPriceRange={setPriceRange}
                     onSearch={() => setAppliedFilters(filters)}
                     onRemove={() => {
                       setFilters({ brand: "", model: "", search: "" });
