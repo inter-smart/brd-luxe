@@ -8,15 +8,17 @@ export default function ProductCard({ item, whatsapp }) {
     <Suspense fallback={<ProductCardSkeleton />}>
       <div className="group w-full h-full flex flex-col">
         <div className="w-full h-auto aspect-[400/195] overflow-hidden mb-[10px] sm:mb-[15px] lg:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px] block relative z-0">
-          <Image
-            src={item?.media?.path || "/images/placeholder.jpg"}
-            alt={item?.media?.alt || item?.cartitle}
-            width={400}
-            height={195}
-            placeholder="blur"
-            blurDataURL="/images/placeholder.jpg"
-            className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105 "
-          />
+          <Link href={`/buy_a_car/${item.slug}`} >
+            <Image
+              src={item?.media?.path || "/images/placeholder.jpg"}
+              alt={item?.media?.alt || item?.cartitle}
+              width={400}
+              height={195}
+              placeholder="blur"
+              blurDataURL="/images/placeholder.jpg"
+              className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105 "
+            />
+          </Link>
           <div
             className={`text-[8px] 3xl:text-[11px] leading-[1.2] font-medium font-base3 absolute z-1 top-0 right-0 bg-white p-[5px_8px] 2xl:p-[5px_10px] m-[5px] xl:m-[10px]
           ${

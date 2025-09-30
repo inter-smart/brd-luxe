@@ -5,6 +5,7 @@ import { Heading } from "../../utils/Heading";
 // import { useMediaQuery } from "react-responsive";
 import ProductCard from "../../common/ProductCard";
 import ProductFilterBox from "../../common/ProductFilterBox";
+import { FilterBox } from "@/components/features/buy/ProductListSection";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -24,6 +25,14 @@ export default function ProductSection({ data, whatsapp }) {
     search: "",
   });
 
+  // compute price range
+  const prices = cars.map((car) =>
+    parseInt(car.price?.toString().replace(/,/g, ""), 10)
+  );
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
+
   // filtering logic based on appliedFilters
   let filteredCars = cars;
   if (appliedFilters.brand) {
@@ -40,6 +49,14 @@ export default function ProductSection({ data, whatsapp }) {
       )
     );
   }
+
+  // price filter
+  filteredCars = filteredCars.filter((car) => {
+    const rawPrice = car.price?.toString().replace(/,/g, "");
+    const price = parseInt(rawPrice, 10);
+    return price >= priceRange[0] && price <= priceRange[1];
+  });
+
   if (appliedFilters.search?.trim()) {
     const q = appliedFilters.search.trim().toLowerCase();
     filteredCars = filteredCars.filter(
@@ -69,7 +86,7 @@ export default function ProductSection({ data, whatsapp }) {
           </div>
           <div className="w-full md:w-1/2">
             <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
-              {!isMobile && (
+              {!isMobile ? (
                 <div className="md:pr-[20px] lg:pr-[60px] 2xl:pr-[75px] 3xl:pr-[90px] max-sm:mb-[15px]">
                   <ProductFilterBox
                     listingpagedata={{
@@ -78,6 +95,7 @@ export default function ProductSection({ data, whatsapp }) {
                     }}
                     filters={filters}
                     onFilterChange={setFilters}
+                    setPriceRange={setPriceRange}
                     onSearch={() => setAppliedFilters(filters)}
                     onRemove={() => {
                       setFilters({ brand: "", model: "", search: "" });
@@ -85,6 +103,24 @@ export default function ProductSection({ data, whatsapp }) {
                     }}
                     cars={cars}
                   />
+                </div>
+              ) : (
+                <div className="flex items-center max-md:flex-wrap max-md:justify-end gap-[10px]">
+
+
+                  <div className="sm:pl-[15px] md:pl-[10px]">
+                    <FilterBox
+                      listingpagedata={{
+                        ...listingpagedata,
+                        filters: data?.filters,
+                      }}
+                      onFilterChange={setFilters}
+                      cars={cars}
+                      setPriceRange={setPriceRange}
+                      filters={filters}
+                    />
+                  </div>
+
                 </div>
               )}
               {cars_section?.button_url?.url && cars_section?.button_title && (

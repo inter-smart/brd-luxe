@@ -27,37 +27,63 @@ export default function ProductFilterBox({
   filters = {},
 }) {
   const searchParams = useSearchParams();
+  const initialModel = searchParams.get("model")?.toLowerCase() || ""; // Normalize to lowercase
+  const initialBrand = searchParams.get("brand")?.toLowerCase() || "";
 
-  const initialModel = searchParams.get("model") || "";
-
-  const [brand, setBrand] = useState(filters.brand || "");
+  const [brand, setBrand] = useState(filters.brand || initialBrand);
   const [model, setModel] = useState(filters.model || initialModel);
 
+  // Normalize models to handle case sensitivity
+  const models = Object.values(listingpagedata?.filters?.models ?? {}).filter(
+    (m) => cars.some((car) => (car.model || []).includes(m.slug))
+  );
+
+  const selectedModelObj = models.find(
+    (m) => m.slug.toLowerCase() === model.toLowerCase()
+  );
+
+
+  // Reset model if it’s invalid for the selected brand
   useEffect(() => {
-    setBrand(filters.brand || "");
-    setModel(filters.model || "");
-  }, [filters]);
+    if (brand && model) {
+      const isModelValidForBrand = cars.some(
+        (car) =>
+          car.brand.some((b) => b.toLowerCase() === brand.toLowerCase()) &&
+          (car.model || []).includes(model)
+      );
+      if (!isModelValidForBrand) {
+        setModel(""); // Clear model if not valid for the selected brand
+      }
+    }
+  }, [brand, model, cars]);
+
+  // Send filter values to parent
+  useEffect(() => {
+    if (onFilterChange && (brand || model)) {
+      onFilterChange((prev) => {
+        if (prev.brand === brand && prev.model === model) return prev;
+        return { ...prev, brand, model };
+      });
+    }
+  }, [brand, model, onFilterChange]);
 
   const isDesktop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
+  const [priceSubmitTrigger, setPriceSubmitTrigger] = useState(0);
+
   const handleSearch = () => {
-    if (onSearch) {
-      onSearch(); // 👈 now calls the parent’s setAppliedFilters(filters)
-    }
+    setPriceSubmitTrigger((prev) => prev + 1); // Triggers PriceRangeSlider to apply values
+    if (onSearch) onSearch();
   };
 
-  // send filter values to parent
-  useEffect(() => {
-    if (onFilterChange) {
-      onFilterChange((prev) => ({ ...prev, brand, model }));
-    }
-  }, [brand, model]);
-
   const brands = Object.values(listingpagedata?.filters?.brands ?? {});
-  const models = Object.values(listingpagedata?.filters?.models ?? {}).filter(
-    (m) => cars.some((car) => (car.model || []).includes(m.slug))
-  );
+  const availableModelsForBrand = cars
+    .filter((car) =>
+      car.brand.some((b) => b.toLowerCase() === brand.toLowerCase())
+    )
+    .flatMap((car) => car.model || []);
+  const uniqueModels = Array.from(new Set(availableModelsForBrand));
 
   const inputFormStyle =
     "!text-[12px] lg:!text-[13px] 2xl:!text-[14px] 3xl:!text-[18px] leading-[1.2] font-light !font-base3 !text-white !min-w-fit sm:!min-w-[100px] md:!min-w-[100px] lg:!min-w-[110px] 2xl:!min-w-[135px] 3xl:!min-w-[170px] bg-transparent text-white px-0 rounded-[0px] border-0 border-b-1 border-white relative z-0 focus-visible:ring-0 focus-visible:ring-offset-0";
@@ -66,9 +92,6 @@ export default function ProductFilterBox({
 
   const inputSelectStyle =
     "bg-black text-[11px] lg:text-[12px] 2xl:text-[14px] rounded-[4px]";
-
-  // Collect available model slugs from the actual cars
-  const availableModels = new Set(cars.flatMap((car) => car.model || []));
 
   return (
     <form
@@ -83,7 +106,6 @@ export default function ProductFilterBox({
           variant === "ProductListing" && "max-xl:block max-xl:space-y-[25px]"
         }`}
       >
-        {/* {(variant != "ProductListing" || listingpagedata?.enable__disable_filter) && ( */}
         {listingpagedata?.enable__disable_filter && (
           <>
             <Select value={brand} onValueChange={setBrand}>
@@ -106,24 +128,62 @@ export default function ProductFilterBox({
                 ))}
               </SelectContent>
             </Select>
-            <Select value={model} onValueChange={setModel}>
+            {/* Model Dropdown */}
+            <Select
+              value={model}
+              onValueChange={setModel}
+              disabled={!brand && !initialModel} // Enable if URL model exists
+            >
               <SelectTrigger
                 className={`${inputFormStyle} ${
                   variant === "ProductListing" && "max-xl:w-[100%]"
                 }`}
               >
-                <SelectValue placeholder="Model" />
+                <SelectValue
+                  placeholder={
+                    selectedModelObj
+                      ? selectedModelObj.name // Show model name if valid
+                      : !brand && !initialModel
+                      ? "Please select brand" // No brand, no URL model
+                      : initialModel && !selectedModelObj
+                      ? "Please select brand" // URL model not found
+                      : "Model" // Brand selected, no model chosen
+                  }
+                />
               </SelectTrigger>
               <SelectContent className={selectStyle}>
-                {models.map((m) => (
-                  <SelectItem
-                    key={m.term_id}
-                    value={m.slug}
-                    className={inputSelectStyle}
-                  >
-                    {m.name}
-                  </SelectItem>
-                ))}
+                {brand
+                  ? // Show models for the selected brand
+                    uniqueModels.map((slug) => {
+                      const mObj = models.find(
+                        (m) => m.slug.toLowerCase() === slug.toLowerCase()
+                      );
+                      return (
+                        <SelectItem
+                          key={slug}
+                          value={slug}
+                          className={inputSelectStyle}
+                        >
+                          {mObj ? mObj.name : slug}
+                        </SelectItem>
+                      );
+                    })
+                  : initialModel
+                  ? // Show only the URL-passed model
+                    models
+                      .filter(
+                        (m) => m.slug.toLowerCase() === initialModel.toLowerCase()
+                      )
+                      .map((m) => (
+                        <SelectItem
+                          key={m.slug}
+                          value={m.slug}
+                          className={inputSelectStyle}
+                        >
+                          {m.name}
+                        </SelectItem>
+                      ))
+                  : null}
               </SelectContent>
             </Select>
           </>
@@ -135,7 +195,6 @@ export default function ProductFilterBox({
                 <PriceRangeSlider cars={cars} onChange={setPriceRange} />
               </div>
             )}
-
             {listingpagedata?.enable__disable_search && isDesktop && (
               <SearchForm
                 onSearch={(q) =>
@@ -146,20 +205,30 @@ export default function ProductFilterBox({
           </>
         ) : (
           listingpagedata?.enable__disable_filter && (
-            <Button
-              type="submit"
-              className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black bg-white lg:p-[8px_15px] 2xl:p-[10px_20px] 3xl:p-[20px_25px] rounded-[5px] border-1 border-[#BEBEBE] cursor-pointer hover:bg-white/70  hover:border-white"
-            >
-              <span className="w-[10px] 2xl:w-[12px] 3xl:w-[15px] h-auto aspect-square flex items-center justify-center">
-                <Image
-                  src="/images/seaarch_icon.svg"
-                  alt="Search"
-                  width={15}
-                  height={15}
+            <>
+              <div className="w-[100%] h-auto xl:pl-[25px]">
+                <PriceRangeSlider
+                  cars={cars}
+                  onChange={setPriceRange}
+                  applyOnSubmit={true}
+                  submitTrigger={priceSubmitTrigger}
                 />
-              </span>
-              Apply
-            </Button>
+              </div>
+              <Button
+                type="submit"
+                className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black bg-white lg:p-[8px_15px] 2xl:p-[10px_20px] 3xl:p-[20px_25px] rounded-[5px] border-1 border-[#BEBEBE] cursor-pointer hover:bg-white/70 hover:border-white"
+              >
+                <span className="w-[10px] 2xl:w-[12px] 3xl:w-[15px] h-auto aspect-square flex items-center justify-center">
+                  <Image
+                    src="/images/seaarch_icon.svg"
+                    alt="Search"
+                    width={15}
+                    height={15}
+                  />
+                </span>
+                Apply
+              </Button>
+            </>
           )
         )}
       </div>
@@ -167,7 +236,7 @@ export default function ProductFilterBox({
   );
 }
 
-function PriceRangeSlider({ cars, onChange }) {
+function PriceRangeSlider({ cars, onChange, applyOnSubmit = false, submitTrigger }) {
   // Find min and max dynamically from car prices
   // Find min and max dynamically from car prices
   const prices = cars.map((car) =>
@@ -177,6 +246,7 @@ function PriceRangeSlider({ cars, onChange }) {
   const maxPrice = Math.max(...prices);
 
   const [range, setRange] = useState([minPrice, maxPrice]);
+  const [appliedRange, setAppliedRange] = useState([minPrice, maxPrice]);
 
   const formatValue = (val) => {
     if (val >= 10000000) {
@@ -191,10 +261,20 @@ function PriceRangeSlider({ cars, onChange }) {
     }
   };
 
-  // Whenever range changes, inform parent
+  // Update parent based on mode
   useEffect(() => {
-    onChange(range);
+    if (!applyOnSubmit) {
+      onChange(range); // Live update
+    }
   }, [range]);
+
+  // When "Apply" button is clicked
+  useEffect(() => {
+    if (applyOnSubmit && submitTrigger) {
+      setAppliedRange(range);
+      onChange(range);
+    }
+  }, [submitTrigger]);
 
   useEffect(() => {
     const style = document.createElement("style");
