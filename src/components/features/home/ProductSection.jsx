@@ -74,8 +74,8 @@ export default function ProductSection({ data, whatsapp }) {
   return cars_section?.enable__disable_cars_section ? (
     <section className="w-full h-auto py-[40px_50px] sm:py-[45px_70px] lg:py-[55px_95px] 2xl:py-[65px_110px] 3xl:py-[85px_140px] border-b-1 border-[#404040]/40 block">
       <div className="container">
-        <div className="mb-[25px] lg:mb-[10px] 3xl:mb-[30px] flex max-sm:flex-wrap items-center">
-          <div className="w-full md:w-1/2">
+        <div className="mb-[25px] lg:mb-[10px] 3xl:mb-[30px] flex max-md:flex-wrap items-center">
+          <div className="w-full md:w-1/3">
             <Heading
               as="h1"
               size="heading1"
@@ -84,10 +84,10 @@ export default function ProductSection({ data, whatsapp }) {
               {cars_section?.title}
             </Heading>
           </div>
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-2/3">
             <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
               {!isMobile ? (
-                <div className="md:pr-[20px] lg:pr-[60px] 2xl:pr-[75px] 3xl:pr-[90px] max-sm:mb-[15px]">
+                <div className="w-full md:pr-[20px] lg:pr-[40px] 2xl:pr-[65px] 3xl:pr-[90px] md:pl-[20px] lg:pl-[30px] 2xl:pl-[45px] 3xl:pl-[50px] max-sm:mb-[15px]">
                   <ProductFilterBox
                     listingpagedata={{
                       ...listingpagedata,
