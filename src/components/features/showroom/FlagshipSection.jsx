@@ -43,6 +43,7 @@ export default function FlagshipSection({ data }) {
         <div className="relative">
           <Swiper
             modules={[Navigation, Autoplay]}
+            loop={true}
             spaceBetween={10}
             breakpoints={{
               320: { slidesPerView: 1 },

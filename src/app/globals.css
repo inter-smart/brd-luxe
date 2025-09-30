@@ -241,6 +241,9 @@
     ul > li {
       @apply list-disc;
     }
+    ol > li {
+      @apply list-decimal;
+    }
   }
 }
 

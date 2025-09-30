@@ -35,7 +35,7 @@ export default function MdMessageSection({ data }) {
         {message_section?.enable__disable_image_section && (
           <div
             ref={ref}
-            className="w-[310px] 3xs:w-[380px] sm:w-1/2 h-auto aspect-[810/650] p-[35px_30px] sm:p-[35px_30px] lg:p-[50px_40px] 2xl:p-[60px_35px] 3xl:p-[0px_45px_75px_45px] bg-linear-to-b from-[#000000] to-[#1A1A1A] max-sm:mx-auto sm:float-right sm:m-[0_0_5%_5%] max-sm:mb-[25px] overflow-hidden relative z-0"
+            className="w-[310px] 3xs:w-[380px] sm:w-1/2 h-auto aspect-[810/650] max-sm:h-[280px] p-[35px_30px] sm:p-[35px_30px] lg:p-[50px_40px] 2xl:p-[60px_35px] 3xl:p-[0px_45px_75px_45px] bg-linear-to-b from-[#000000] to-[#1A1A1A] max-sm:mx-auto sm:float-right sm:m-[0_0_5%_5%] max-sm:mb-[25px] overflow-hidden relative z-0"
           >
             <motion.div
               key={inView ? "visible" : "hidden"}
@@ -58,11 +58,11 @@ export default function MdMessageSection({ data }) {
                 className="w-full h-full object-contain"
               />
             </motion.div>
-            <div className="w-fit h-full flex flex-col justify-between">
-              <div className="text-[54px] sm:text-[64px] lg:text-[100px] 2xl:text-[120px] 3xl:text-[150px] leading-[0.8] font-normal font-base1 text-transparent bg-clip-text bg-gradient-to-b from-[#171717] via-[#333333] via-55% to-[#171717]">
+            <div className="w-full h-full flex flex-col justify-between relative z-1">
+              <div className="text-[54px] sm:text-[64px] lg:text-[100px] 2xl:text-[120px] 3xl:text-[150px] leading-[0.8] font-normal font-base1 text-transparent bg-clip-text bg-gradient-to-b from-[#171717] via-[#333333] via-55% to-[#171717] [-webkit-text-fill-color:transparent]">
                 BRD <br /> LUXE
               </div>
-              <div className="text-right">
+              <div className="text-right mr-auto">
                 <div className="text-[24px] sm:text-[27px] lg:text-[35px] 2xl:text-[44px] 3xl:text-[55px] leading-[1] font-light font-base1 text-white">
                   {message_section?.name ?? ""}
                 </div>

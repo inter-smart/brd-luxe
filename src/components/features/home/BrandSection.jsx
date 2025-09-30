@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link"; // ✅ Add Link
 import { Text } from "../../utils/Text";
 import { Heading } from "../../utils/Heading";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -70,15 +71,36 @@ export default function BrandSection({ data }) {
           }}
           className="!p-[40px] 2xl:!p-[50px] !m-[-40px] 2xl:!m-[-50px]"
         >
-          {brands_section?.brand_logos?.map(
-            (item, index) =>
-              item?.logo?.url && (
-                <SwiperSlide key={`brand-${index}`} className="!h-auto">
-                  <div className="w-full h-auto aspect-square p-[15px] sm:p-[20px] lg:p-[25px] 2xl:p-[30px] 3xl:p-[40px] rounded-full bg-transparent border-1 border-transparent  overflow-hidden flex items-center justify-center transition-all duration-500 hover:bg-[#D9D9D9]/10 hover:border-[#D9D9D9] hover:shadow-[0_0_50px_rgba(255,255,255,0.55)]">
+        {brands_section?.brand_logos?.map((item, index) => (
+          
+            <SwiperSlide key={`brand-${index}`} className="!h-auto">
+              {item.is_empty ? (
+                // ❌ Brand is empty → just show logo without link
+                <div className="w-full h-auto aspect-square p-[15px] sm:p-[20px] lg:p-[25px] 2xl:p-[30px] 3xl:p-[40px] rounded-full bg-transparent border-1 border-transparent  overflow-hidden flex items-center justify-center transition-all duration-500 hover:bg-[#D9D9D9]/10 hover:border-[#D9D9D9] hover:shadow-[0_0_50px_rgba(255,255,255,0.55)]">
+                  <div className="w-[50px] sm:w-[60px] lg:w-[70px] 2xl:w-[80px] 3xl:w-[100px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0">
+                    <Image
+                      src={item?.image?.url || "/images/placeholder.jpg"}
+                      alt={item?.image?.alt || "Logo"}
+                      fill
+                      sizes="100vw"
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder.jpg"
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+            
+              ) : (
+                // ✅ Brand has cars → wrap in link
+                <Link
+                  href={`/buy_a_car?brand=${item?.slug}`}
+                  className="block w-full h-auto"
+                >
+                  <div className="w-full h-auto aspect-square p-[15px] sm:p-[20px] lg:p-[25px] 2xl:p-[30px] 3xl:p-[40px] rounded-full bg-transparent border-1 border-transparent overflow-hidden flex items-center justify-center transition-all duration-500 hover:bg-[#D9D9D9]/10 hover:border-[#D9D9D9] hover:shadow-[0_0_50px_rgba(255,255,255,0.55)]">
                     <div className="w-[50px] sm:w-[60px] lg:w-[70px] 2xl:w-[80px] 3xl:w-[100px] h-auto aspect-square overflow-hidden flex items-center justify-center relative z-0">
                       <Image
-                        src={item?.logo?.url}
-                        alt={item?.logo?.alt}
+                        src={item?.image?.url || "/images/placeholder.jpg"}
+                        alt={item?.image?.alt || "Logo"}
                         fill
                         sizes="100vw"
                         placeholder="blur"
@@ -87,9 +109,11 @@ export default function BrandSection({ data }) {
                       />
                     </div>
                   </div>
-                </SwiperSlide>
-              )
-          )}
+                </Link>
+              )}
+            </SwiperSlide>
+          
+        ))}
         </Swiper>
       </div>
     </section>

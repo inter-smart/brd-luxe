@@ -24,7 +24,7 @@ export default function Footer() {
         console.error("Footer fetch failed", err);
       }
     }
-    fetchFooter();
+    fetchFooter();  
   }, []);
 
   if (!footerData) return null;
@@ -111,7 +111,7 @@ export default function Footer() {
           </div>
 
           {/* Center Logo */}
-          <div className="w-full sm:w-1/3 flex flex-col items-center max-sm:absolute top-0 left-0 right-0 mx-auto">
+          <div className="w-full sm:w-1/3 flex flex-col items-center max-sm:absolute top-0 left-0 right-0 mx-auto will-change-transform">
             {footerData?.footer_logo?.url && (
               <Link
                 href={"/"}

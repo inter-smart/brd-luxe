@@ -139,25 +139,47 @@ export default function Header() {
   //   }
   // });
 
-  useMotionValueEvent(scrollYProgress, "change", (current) => {
-    if (typeof current === "number") {
-      const prev = scrollYProgress.getPrevious();
-      const direction = current - prev;
+  // useMotionValueEvent(scrollYProgress, "change", (current) => {
+  //   if (typeof current === "number") {
+  //     const prev = scrollYProgress.getPrevious();
+  //     const direction = current - prev;
 
-      if (scrollYProgress.get() < 0.05) {
-        // 👆 Top of page
+  //     if (scrollYProgress.get() < 0.01) {
+  //       // 👆 Top of page
+  //       setVisible(true);
+  //       setIsScrolled(false);
+  //     } else {
+  //       if (direction < 0) {
+  //         // 👆 Scrolling up → show header
+  //         setVisible(true);
+  //         setIsScrolled(true);
+  //       } else {
+  //         // 👇 Scrolling down → hide header
+  //         setVisible(false);
+  //         setIsScrolled(true);
+  //       }
+  //     }
+  //   }
+  // });
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    const direction = latest - prev;
+    const scrollHeight = document.body.scrollHeight - window.innerHeight;
+    const topThreshold = scrollHeight * 0.02;
+
+    if (latest <= topThreshold) {
+      setVisible(true);
+      setIsScrolled(false);
+    } else {
+      if (direction < 0) {
         setVisible(true);
-        setIsScrolled(false);
-      } else {
-        if (direction < 0) {
-          // 👆 Scrolling up → show header
-          setVisible(true);
-          setIsScrolled(true);
-        } else {
-          // 👇 Scrolling down → hide header
-          setVisible(false);
-          setIsScrolled(true);
-        }
+        setIsScrolled(true);
+      } else if (direction > 0) {
+        setVisible(false);
+        setIsScrolled(true);
       }
     }
   });
@@ -193,7 +215,7 @@ export default function Header() {
 
   const HamburgerIcon = ({ isOpen }) => {
     return (
-      <div className="w-[29px] h-[16px] relative cursor-pointer flex items-center justify-center">
+      <div className="w-[25px] h-[16px] relative cursor-pointer flex items-center justify-center">
         <AnimatePresence mode="wait">
           {isOpen ? (
             <div className="lg:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center">
@@ -234,9 +256,9 @@ export default function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className={`w-[20px] 2xl:w-[25px] 3xl:w-[30px] h-[12px] 2xl:h-[15px] flex flex-col justify-between`}
+              className={`w-[20px] 2xl:w-[25px] 3xl:w-[25px] h-[12px] 2xl:h-[15px] flex flex-col justify-between`}
             >
-              <span className="w-[65%] h-[1px] bg-white transition-all duration-300"></span>
+              <span className="w-[60%] h-[1px] bg-white transition-all duration-300"></span>
               <span className="w-[40%] h-[1px] bg-white transition-all duration-300"></span>
               <span className="w-full h-[1px] bg-white transition-all duration-300 group-hover:w-[20%]"></span>
             </motion.div>
@@ -250,7 +272,7 @@ export default function Header() {
   if (!header_acf) return null;
 
   return (
-    <header className="w-full absolute top-0 left-0 right-0 z-50">
+    <header className="w-full absolute top-0 left-0 right-0 z-70">
       <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 1, y: 0 }}
@@ -259,11 +281,10 @@ export default function Header() {
             opacity: visible ? 1 : 0,
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] overflow-hidden fixed top-0 inset-x-0 z-5 bg-linear-to-b from-black to-black/0 ${
-            isScrolled &&
+          className={`w-full h-auto py-[25px] lg:py-[20px] 2xl:py-[25px] 3xl:py-[30px] overflow-hidden fixed top-0 inset-x-0 z-5 bg-linear-to-b from-black to-black/0 ${isScrolled &&
             visible &&
             "bg-white/10 backdrop-blur-[50px] shadow-md bg-linear-to-b from-black/0 to-black/0"
-          }`}
+            }`}
         >
           <div className="container">
             <div className="w-full h-auto flex items-center justify-between relative z-0">
@@ -272,36 +293,53 @@ export default function Header() {
                 onClick={toggleMenu}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isMenuOpen}
-                className="w-[29px] h-[16px] relative cursor-pointer flex items-center justify-center group"
+                className="w-[40px] h-[30px] p-[6px] relative cursor-pointer flex items-center justify-center group border border-white transition duration-300 rounded-[6px] hover:border-[#F29A0D]"
               >
                 <HamburgerIcon isOpen={isMenuOpen} />
               </button>
               <Link
                 href={"/"}
-                className="group w-[110px] lg:w-[120px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] absolute left-0 right-0 ml-auto lg:mx-auto"
+                className="group h-auto w-[120px] lg:w-[180px] xl:w-[200px] 2xl:w-[220px] 3xl:w-[255px] absolute left-0 right-0 top-0 ml-auto lg:mx-auto will-change-transform"
               >
                 <Image
                   src={header_acf?.logo?.url || "/images/placeholder.jpg"}
                   alt={header_acf?.logo?.alt || "site logo"}
                   width={187}
                   height={50}
+                  priority
                   className="w-full h-full object-contain group-hover:scale-102 transition-all duration-300"
                 />
               </Link>
+
               <div className="hidden lg:flex items-center">
-                {header_acf?.phone_number && (
-                  <a
-                    className="group font-base3 mr-[10px]"
-                    href={`tel:${header_acf.phone_number}`}
-                  >
-                    <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right block">
-                      Quick Contact
-                    </span>
-                    <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white transition duration-300 group-hover:text-[#F29A0D]">
-                      {header_acf?.phone_number}
-                    </span>
-                  </a>
-                )}
+                <ShinyButton className="border-none h-fit !p-0">
+                  {header_acf?.phone_number && (
+                    <a
+                      className="group font-base3 mr-[10px] flex flex-wrap "
+                      href={`tel:${header_acf.phone_number}`}
+                    >
+                      <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right mb-[5px] w-full block">
+                        Quick Contact
+                      </span>
+                      <div className="flex items-center justify-end w-fit ml-auto ">
+                        <div className="w-[16px] h-[16px]">
+                          <Image
+                            src={"/images/sticky_whatsapp.svg" || "/images/placeholder.jpg"}
+                            alt={header_acf?.logo?.alt || "site logo"}
+                            width={16}
+                            height={16}
+                            className="w-full h-full object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
+                          />
+                        </div>
+
+
+                        <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white w-calc[100% - 16px] pl-[5px] transition duration-300 group-hover:text-[#F29A0D]">
+                          {header_acf?.phone_number}
+                        </span>
+                      </div>
+                    </a>
+                  )}
+                </ShinyButton>
                 {header_acf?.buy__sell_car_buttons?.map((item, index) => {
                   if (item?.button_url?.url && item?.button_title) {
                     return (
@@ -311,11 +349,10 @@ export default function Header() {
                       >
                         <ShinyButton
                           href={item?.button_url?.url}
-                          className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[0.5px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${
-                            pathname === item?.button_url?.url
-                              ? "bg-white text-black"
-                              : "bg-transparent text-white"
-                          }`}
+                          className={`lg:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 tracking-[0.5px] hover:text-black hover:bg-white hover:border-white transition-all duration-300 ease-in-out ${pathname === item?.button_url?.url
+                            ? "bg-white text-black"
+                            : "bg-transparent text-white"
+                            }`}
                           target={item?.button_url?.target}
                         >
                           {item?.button_title}
@@ -406,13 +443,12 @@ export default function Header() {
                             <Link
                               href={link?.menu_url?.url}
                               onClick={closeMenu}
-                              className={`... ${
-                                pathname === getPath(link?.menu_url?.url) ||
+                              className={`... font-base1 flex ${pathname === getPath(link?.menu_url?.url) ||
                                 (getPath(link?.menu_url?.url) === "/news" &&
                                   pathname.startsWith("/news/"))
-                                  ? "text-[#F29A0D]"
-                                  : "text-white"
-                              }`}
+                                ? "text-[#F29A0D]"
+                                : "text-white font-base1"
+                                }`}
                               target={link?.menu_url?.target}
                             >
                               {link?.menu_title}
@@ -436,7 +472,7 @@ export default function Header() {
                         >
                           <ShinyButton
                             href={item?.button_url?.url}
-                            className="w-full text-[11px] sm:text-[12px] text-center text-white font-medium uppercase p-[10px] rounded-lg border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
+                            className="w-full text-[12px] max-sm:tracking-[1px] text-center text-white font-medium font-base1 uppercase p-[10px] rounded-lg border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
                             target={item?.button_url?.target}
                             onClick={closeMenu}
                           >
@@ -464,7 +500,7 @@ export default function Header() {
                       <div>
                         <a
                           href={`tel:${header_acf?.mega_menu?.phone_number}`}
-                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px]"
+                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] flex flex-col"
                         >
                           Call
                           <span className="text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block">
@@ -478,7 +514,7 @@ export default function Header() {
                         <a
                           href={`mailto:${header_acf?.mega_menu?.email}`}
                           target="_blank"
-                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px]"
+                          className="text-[12px] lg:text-[13px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] flex flex-col"
                         >
                           Email
                           <span className="text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block">
@@ -501,7 +537,10 @@ export default function Header() {
                 </motion.div>
                 <div className="w-[90%] h-auto aspect-[710/180] m-auto absolute z-0 left-0 right-0 bottom-[10%] opacity-50 flex items-center justify-center">
                   <Image
-                    src={header_acf?.mega_menu?.image?.url || "/images/placeholder.jpg"}
+                    src={
+                      header_acf?.mega_menu?.image?.url ||
+                      "/images/placeholder.jpg"
+                    }
                     alt={header_acf?.mega_menu?.image?.alt || "menu image"}
                     width={715}
                     height={180}
@@ -563,13 +602,12 @@ export default function Header() {
                             <div key={`mega-menu-${index}`}>
                               <Link
                                 href={item?.menu_url?.url}
-                                className={`text-[18px] sm:text-[20px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 mb-[10px] sm:mb-[15px] lg:mb-[15px] 3xl:mb-[20px] block transition-all duration-300 ${
-                                  pathname === getPath(item?.menu_url?.url) ||
+                                className={`text-[18px] sm:text-[20px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-light font-base1 mb-[10px] sm:mb-[15px] lg:mb-[15px] 3xl:mb-[20px] block transition-all duration-300 ${pathname === getPath(item?.menu_url?.url) ||
                                   (getPath(item?.menu_url?.url) === "/news" &&
                                     pathname.startsWith("/news/"))
-                                    ? "text-[#F29A0D]"
-                                    : "text-white"
-                                } hover:text-[#F29A0D]`}
+                                  ? "text-[#F29A0D]"
+                                  : "text-white"
+                                  } hover:text-[#F29A0D]`}
                                 target={item?.menu_url?.target}
                               >
                                 {item?.menu_title}
@@ -584,8 +622,13 @@ export default function Header() {
                     <div className="w-full lg:w-[50%] h-full max-lg:absolute max-lg:inset-0 max-lg:m-auto max-lg:opacity-25 flex items-end">
                       <div className="w-full h-auto aspect-[710/180] flex items-center justify-center">
                         <Image
-                          src={header_acf?.mega_menu?.image?.url || "/images/placeholder.jpg"}
-                          alt={header_acf?.mega_menu?.image?.alt || "menu image"}
+                          src={
+                            header_acf?.mega_menu?.image?.url ||
+                            "/images/placeholder.jpg"
+                          }
+                          alt={
+                            header_acf?.mega_menu?.image?.alt || "menu image"
+                          }
                           width={715}
                           height={180}
                           className="w-full h-full object-contain"
@@ -619,7 +662,10 @@ export default function Header() {
                                       className="w-[15px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
                                     >
                                       <Image
-                                        src={item.icon.url || "/images/placeholder.jpg"}
+                                        src={
+                                          item.icon.url ||
+                                          "/images/placeholder.jpg"
+                                        }
                                         alt={item.icon.alt || "Social Icon"}
                                         width={20}
                                         height={20}
@@ -638,8 +684,14 @@ export default function Header() {
                     <div className="w-full lg:w-[40%]">
                       <div className="sm:w-[130px] lg:w-[150px] xl:w-[150px] 2xl:w-[180px] 3xl:w-[225px] h-auto aspect-[225/65] max-lg:hidden flex items-center justify-center">
                         <Image
-                          src={header_acf?.mega_menu?.bottom_image?.url || "/images/placeholder.jpg"}
-                          alt={header_acf?.mega_menu?.bottom_image?.alt || "bottom image"}
+                          src={
+                            header_acf?.mega_menu?.bottom_image?.url ||
+                            "/images/placeholder.jpg"
+                          }
+                          alt={
+                            header_acf?.mega_menu?.bottom_image?.alt ||
+                            "bottom image"
+                          }
                           width={225}
                           height={65}
                           className="w-full h-full object-contain"
@@ -677,7 +729,7 @@ export default function Header() {
                               <a
                                 href={`mailto:${header_acf?.mega_menu?.email}`}
                                 target="_blank"
-                                className="group text-[12px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] transition-all duration-300 hover:text-[#F29A0D]"
+                                className="group text-[12px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1] font-light font-base1 text-white mb-[10px] relative z-10 transition-all duration-300 hover:text-[#F29A0D]"
                               >
                                 Email
                                 <span className="text-[13px] lg:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1] font-normal font-base3 text-white block transition-all duration-300 group-hover:text-[#F29A0D]">

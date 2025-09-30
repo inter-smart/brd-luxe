@@ -158,7 +158,7 @@ export default function HeroSection({ data }) {
                             >
                               <StyledLink
                                 href={item?.button_url?.url}
-                                className="!tracking-[0]"
+                                className="!tracking-[0] max-sm:py-[5px]"
                                 target={item?.button_url?.target}
                               >
                                 {item?.button_title}

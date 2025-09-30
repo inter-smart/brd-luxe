@@ -14,24 +14,12 @@ import "photoswipe/style.css";
 import useMedia from "use-media";
 
 export default function ProductDetailSection({ data, whatsapp_post }) {
-  // const isDesktop = useMediaQuery({
-  //   query: "(min-width: 1024px)",
-  // });
+  const isDesktop = useMedia("(min-width: 1024px)");
 
-  const [isDesktop, setIsDesktop] = useState(false);
-
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [videoSrc, setVideoSrc] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const videoRef = useRef(null);
-  const [videoSrc, setVideoSrc] = useState(null);
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 640px)");
-    setIsDesktop(mediaQuery.matches);
-    const handleResize = () => setIsDesktop(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleResize);
-    return () => mediaQuery.removeEventListener("change", handleResize);
-  }, []);
 
   useEffect(() => {
     const lightbox = new PhotoSwipeLightbox({
@@ -65,7 +53,6 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
     setVideoSrc(videoPath);
     setIsVideoOpen(true);
   };
-
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
@@ -109,7 +96,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
             >
               {/* First image from data.media */}
               {/* {data?.media?.path && ( */}
-                <SwiperSlide key="car-main" className="!h-auto">
+              {/* <SwiperSlide key="car-main" className="!h-auto">
                   <div className="swiper-zoom-container w-full h-full block">
                     <div id="gallery" className="w-full h-full">
                       <a
@@ -130,81 +117,100 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       </a>
                     </div>
                   </div>
-                </SwiperSlide>
+                </SwiperSlide> */}
               {/* )} */}
 
               {/* Rest of car_images */}
-              {data?.car_images?.map((item, index) => (
-                <SwiperSlide key={`car-${index}`} className="!h-auto">
-                  <div className="swiper-zoom-container w-full h-full block">
-                    {item?.type === "video" ? (
-                      <div
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                        onClick={() => handleVideoClick(item?.url)}
-                        className="w-full h-full block cursor-pointer relative z-0"
-                      >
-                        {/* Placeholder image */}
-                        <Image
-                          src={item?.placeholder || "/images/placeholder.jpg"}
-                          alt="Video placeholder"
-                          width={400}
-                          height={570}
-                          placeholder="blur"
-                          blurDataURL="/images/placeholder.jpg"
-                          className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-300 ${isHovering ? "opacity-0" : "opacity-100"
-                            }`}
-                        />
-                        {/* Actual video */}
-                        <video
-                          ref={videoRef}
-                          src={item?.url}
-                          muted
-                          loop
-                          playsInline
-                          className="w-full h-full object-cover"
-                        />
-                        {/* Play button overlay */}
+              {data?.car_images && data.car_images.length > 0 ? (
+                data.car_images.map((item, index) => (
+                  <SwiperSlide key={`car-${index}`} className="!h-auto">
+                    <div className="swiper-zoom-container w-full h-full block">
+                      {item?.type === "video" ? (
                         <div
-                          className={`w-[35px] lg:w-[40px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square rounded-[10px] overflow-hidden absolute bottom-0 right-0 m-[10px] ${isHovering ? "opacity-0" : "opacity-100"
-                            }`}
+                          onMouseEnter={handleMouseEnter}
+                          onMouseLeave={handleMouseLeave}
+                          onClick={() => handleVideoClick(item?.url)}
+                          className="w-full h-full block cursor-pointer relative z-0"
                         >
+                          {/* Placeholder image */}
                           <Image
-                            src="/images/vudeo_button.svg"
-                            alt="Video button"
-                            width={40}
-                            height={40}
-                            className="w-full h-full object-cover scale-125"
-                          />
-                          <ShineBorder
-                            borderWidth={1}
-                            shineColor={["#4a4a4a"]}
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div id="gallery" className="w-full h-full">
-                        <a
-                          href={item?.url}
-                          data-pswp-width="1920"
-                          data-pswp-height="1080"
-                          className="cursor-pointer"
-                        >
-                          <Image
-                            src={item?.url || "/images/placeholder.jpg"}
-                            alt={item?.alt || "car image"}
-                            width={825}
+                            src={item?.placeholder || "/images/placeholder.jpg"}
+                            alt="Video placeholder"
+                            width={400}
                             height={570}
                             placeholder="blur"
                             blurDataURL="/images/placeholder.jpg"
+                            className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-300 ${
+                              isHovering ? "opacity-0" : "opacity-100"
+                            }`}
+                          />
+                          {/* Actual video */}
+                          <video
+                            ref={videoRef}
+                            src={item?.url}
+                            muted
+                            loop
+                            playsInline
                             className="w-full h-full object-cover"
                           />
-                        </a>
-                      </div>
-                    )}
+                          {/* Play button overlay */}
+                          <div
+                            className={`w-[35px] lg:w-[40px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square rounded-[10px] overflow-hidden absolute bottom-0 right-0 m-[10px] ${
+                              isHovering ? "opacity-0" : "opacity-100"
+                            }`}
+                          >
+                            <Image
+                              src="/images/vudeo_button.svg"
+                              alt="Video button"
+                              width={40}
+                              height={40}
+                              className="w-full h-full object-cover scale-125"
+                            />
+                            <ShineBorder
+                              borderWidth={1}
+                              shineColor={["#4a4a4a"]}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div id="gallery" className="w-full h-full">
+                          <a
+                            href={item?.url}
+                            data-pswp-width="1920"
+                            data-pswp-height="1080"
+                            className="cursor-pointer"
+                          >
+                            <Image
+                              src={item?.url || "/images/placeholder.jpg"}
+                              alt={item?.alt || "car image"}
+                              width={825}
+                              height={570}
+                              placeholder="blur"
+                              blurDataURL="/images/placeholder.jpg"
+                              className="w-full h-full object-cover"
+                            />
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </SwiperSlide>
+                ))
+              ) : (
+                // fallback placeholder
+                <SwiperSlide key="car-placeholder" className="!h-auto">
+                  <div className="swiper-zoom-container w-full h-full block">
+                    <Image
+                      src="/images/placeholder.jpg"
+                      alt="placeholder image"
+                      width={825}
+                      height={570}
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder.jpg"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </SwiperSlide>
-              ))}
+              )}
             </Swiper>
 
             {/* Thumbnails only for mobile */}
@@ -224,7 +230,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                 }}
               >
                 {/* First thumb from data.media */}
-                {data?.media?.path && (
+                {/* {data?.media?.path && (
                   <SwiperSlide key="thumb-main">
                     <div className="w-full h-[80px] sm:h-[100px] md:h-[120px] lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
                       <div className="w-full h-full relative">
@@ -240,7 +246,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       </div>
                     </div>
                   </SwiperSlide>
-                )}
+                )} */}
 
                 {/* Rest of car_images */}
                 {data?.car_images?.map((item, index) => (
@@ -260,7 +266,6 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           blurDataURL="/images/placeholder.jpg"
                           className="w-full h-full object-cover"
                         />
-
                       </div>
                     </div>
                   </SwiperSlide>
@@ -301,7 +306,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_1.svg"
+                          src="/images/detail-1.gif"
                           alt="car_spec_1"
                           width={50}
                           height={50}
@@ -328,7 +333,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_2.svg"
+                          src="/images/detail-2.gif"
                           alt="car_spec_2"
                           width={50}
                           height={50}
@@ -355,7 +360,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_3.svg"
+                          src="/images/detail-3.gif"
                           alt="car_spec_3"
                           width={50}
                           height={50}
@@ -382,7 +387,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_4.svg"
+                          src="/images/detail-4.gif"
                           alt="car_spec_4"
                           width={50}
                           height={50}
@@ -409,7 +414,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_5.svg"
+                          src="/images/detail-5.gif"
                           alt="car_spec_5"
                           width={50}
                           height={50}
@@ -436,7 +441,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_6.svg"
+                          src="/images/detail-6.gif"
                           alt="car_spec_6"
                           width={50}
                           height={50}
@@ -463,7 +468,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_7.svg"
+                          src="/images/detail-7.gif"
                           alt="car_spec_7"
                           width={50}
                           height={50}
@@ -490,7 +495,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_8.svg"
+                          src="/images/detail-8.gif"
                           alt="car_spec_8"
                           width={50}
                           height={50}
@@ -517,7 +522,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_9.svg"
+                          src="/images/detail-9.gif"
                           alt="car_spec_9"
                           width={50}
                           height={50}
@@ -528,7 +533,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                         {data?.purchase_year}
                       </div>
                       <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
-                        Purchase Year
+                        Manufacturing Year
                       </div>
                       <ShineBorder
                         borderWidth={1}
@@ -544,7 +549,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_10.svg"
+                          src="/images/detail-10.gif"
                           alt="car_spec_10"
                           width={50}
                           height={50}
@@ -578,20 +583,20 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                 )}
                 {data?.finance_available && (
                   <div className="w-fit h-auto p-[10px] 3xl:p-[10px_15px] rounded-[10px] flex items-center relative z-0">
-                      <>
-                        <div className="text-[12px] 3xl:text-[18px] leading-[1] font-normal font-base1 text-white pr-[8px]">
-                          Finance Available
-                        </div>
-                        <div className="w-[10px] h-auto aspect-square flex items-center justify-center">
-                          <Image
-                            src="/images/arrow_icon.svg"
-                            alt="Finance"
-                            width={10}
-                            height={10}
-                            className="w-full h-full object-contain"
-                          />
-                        </div>
-                      </>
+                    <>
+                      <div className="text-[12px] 3xl:text-[18px] leading-[1] font-normal font-base1 text-white pr-[8px]">
+                        Finance Available
+                      </div>
+                      <div className="w-[10px] h-auto aspect-square flex items-center justify-center">
+                        <Image
+                          src="/images/arrow_icon.svg"
+                          alt="Finance"
+                          width={10}
+                          height={10}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    </>
                     <ShineBorder borderWidth={1} shineColor={["#4a4a4a"]} />
                   </div>
                 )}
@@ -599,7 +604,12 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
               <div className="w-1/2">
                 <div className="flex items-center justify-end">
                   <a
-                    href={`https://wa.me/${whatsapp_post?.number?.replace(/\D/g, "")}?text=${encodeURIComponent(`Hi, I am interested in ${data?.cartitle}`)}`}
+                    href={`https://wa.me/${whatsapp_post?.number?.replace(
+                      /\D/g,
+                      ""
+                    )}?text=${encodeURIComponent(
+                      `Hi, I am interested in ${data?.cartitle}`
+                    )}`}
                     target="_blank"
                     aria-label="whatsapp"
                     className="w-[13px] sm:w-[15px] lg:w-[17px] 2xl:w-[20px] 3xl:w-[25px] h-auto aspect-square flex items-center justify-center transition-all duration-300 ease-in-out relative z-0 hover:opacity-50"
@@ -651,7 +661,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
             }}
           >
             {/* First thumb from data.media */}
-            {data?.media?.path && (
+            {/* {data?.media?.path && (
               <SwiperSlide key="car-main">
                 <div className="w-full lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
                   <div className="w-full h-full relative">
@@ -667,7 +677,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                   </div>
                 </div>
               </SwiperSlide>
-            )}
+            )} */}
 
             {/* Rest of car_images */}
             {data?.car_images?.map((item, index) => (
@@ -676,8 +686,9 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                   <div className="w-full h-full relative">
                     <Image
                       src={
-                        item?.type === "video" ? item?.placeholder || "/images/placeholder.jpg"
-                         : item?.url || "/images/placeholder.jpg"
+                        item?.type === "video"
+                          ? item?.placeholder || "/images/placeholder.jpg"
+                          : item?.url || "/images/placeholder.jpg"
                       }
                       alt={item?.alt}
                       width={400}
