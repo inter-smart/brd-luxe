@@ -313,27 +313,30 @@ export default function Header() {
 
               <div className="hidden lg:flex items-center">
                 <ShinyButton className="border-none h-fit !p-0">
-                  {/* <div className="flex items-center">
-
-                  </div>
-                  <Image
-                    src={"/images/sticky_whatsapp.svg" || "/images/placeholder.jpg"}
-                    alt={header_acf?.logo?.alt || "site logo"}
-                    width={20}
-                    height={20}
-                    className="w-full h-full sm:p-[7px] 3xl:p-[8px] object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
-                  /> */}
                   {header_acf?.phone_number && (
                     <a
-                      className="group font-base3 mr-[10px]"
+                      className="group font-base3 mr-[10px] flex flex-wrap "
                       href={`tel:${header_acf.phone_number}`}
                     >
-                      <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right block">
+                      <span className="lg:text-[10px] 2xl:text-[13px] 3xl:text-[14px] leading-[1] font-normal text-[#706D6D] text-right mb-[5px] w-full block">
                         Quick Contact
                       </span>
-                      <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white transition duration-300 group-hover:text-[#F29A0D]">
-                        {header_acf?.phone_number}
-                      </span>
+                      <div className="flex items-center justify-end w-fit ml-auto ">
+                        <div className="w-[16px] h-[16px]">
+                          <Image
+                            src={"/images/sticky_whatsapp.svg" || "/images/placeholder.jpg"}
+                            alt={header_acf?.logo?.alt || "site logo"}
+                            width={16}
+                            height={16}
+                            className="w-full h-full object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
+                          />
+                        </div>
+
+
+                        <span className="lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-normal text-white w-calc[100% - 16px] pl-[5px] transition duration-300 group-hover:text-[#F29A0D]">
+                          {header_acf?.phone_number}
+                        </span>
+                      </div>
                     </a>
                   )}
                 </ShinyButton>
