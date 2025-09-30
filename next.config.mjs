@@ -1,14 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "dev18.intersmarthosting.in",
-      "tiles.stadiamaps.com", // Remove https:// - just domain
-      "tile.openstreetmap.org", // Add if you switch back to OSM
-      "a.tile.openstreetmap.org",
-      "b.tile.openstreetmap.org",
-      "c.tile.openstreetmap.org",
-    ], // 👈 add your WP domain here
+    domains: ["dev18.intersmarthosting.in", "admin.brdluxe.com"], // 👈 add your WP domain here
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
