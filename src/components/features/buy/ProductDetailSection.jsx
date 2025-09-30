@@ -14,24 +14,12 @@ import "photoswipe/style.css";
 import useMedia from "use-media";
 
 export default function ProductDetailSection({ data, whatsapp_post }) {
-  // const isDesktop = useMediaQuery({
-  //   query: "(min-width: 1024px)",
-  // });
+  const isDesktop = useMedia("(min-width: 1024px)");
 
-  const [isDesktop, setIsDesktop] = useState(false);
-
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [videoSrc, setVideoSrc] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const videoRef = useRef(null);
-  const [videoSrc, setVideoSrc] = useState(null);
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 640px)");
-    setIsDesktop(mediaQuery.matches);
-    const handleResize = () => setIsDesktop(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleResize);
-    return () => mediaQuery.removeEventListener("change", handleResize);
-  }, []);
 
   useEffect(() => {
     const lightbox = new PhotoSwipeLightbox({
@@ -65,7 +53,6 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
     setVideoSrc(videoPath);
     setIsVideoOpen(true);
   };
-
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
@@ -319,7 +306,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_1.svg"
+                          src="/images/detail-1.gif"
                           alt="car_spec_1"
                           width={50}
                           height={50}
@@ -346,7 +333,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_2.svg"
+                          src="/images/detail-2.gif"
                           alt="car_spec_2"
                           width={50}
                           height={50}
@@ -373,7 +360,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_3.svg"
+                          src="/images/detail-3.gif"
                           alt="car_spec_3"
                           width={50}
                           height={50}
@@ -400,7 +387,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_4.svg"
+                          src="/images/detail-4.gif"
                           alt="car_spec_4"
                           width={50}
                           height={50}
@@ -427,7 +414,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_5.svg"
+                          src="/images/detail-5.gif"
                           alt="car_spec_5"
                           width={50}
                           height={50}
@@ -454,7 +441,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_6.svg"
+                          src="/images/detail-6.gif"
                           alt="car_spec_6"
                           width={50}
                           height={50}
@@ -481,7 +468,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_7.svg"
+                          src="/images/detail-7.gif"
                           alt="car_spec_7"
                           width={50}
                           height={50}
@@ -508,7 +495,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_8.svg"
+                          src="/images/detail-8.gif"
                           alt="car_spec_8"
                           width={50}
                           height={50}
@@ -535,7 +522,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_9.svg"
+                          src="/images/detail-9.gif"
                           alt="car_spec_9"
                           width={50}
                           height={50}
@@ -546,7 +533,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                         {data?.purchase_year}
                       </div>
                       <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
-                        Purchase Year
+                        Manufacturing Year
                       </div>
                       <ShineBorder
                         borderWidth={1}
@@ -562,7 +549,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[3%]"></div>
                       <div className="w-[30px] sm:w-[30px] 2xl:w-[35px] 3xl:w-[40px] h-auto aspect-square mx-auto mb-[5px] sm:mb-[7px] overflow-hidden flex items-center justify-center">
                         <Image
-                          src="/images/car_spec_10.svg"
+                          src="/images/detail-10.gif"
                           alt="car_spec_10"
                           width={50}
                           height={50}

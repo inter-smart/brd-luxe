@@ -5,6 +5,7 @@ import { Heading } from "../../utils/Heading";
 // import { useMediaQuery } from "react-responsive";
 import ProductCard from "../../common/ProductCard";
 import ProductFilterBox from "../../common/ProductFilterBox";
+import { FilterBox } from "@/components/features/buy/ProductListSection";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -85,7 +86,7 @@ export default function ProductSection({ data, whatsapp }) {
           </div>
           <div className="w-full md:w-1/2">
             <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
-              {!isMobile && (
+              {!isMobile ? (
                 <div className="md:pr-[20px] lg:pr-[60px] 2xl:pr-[75px] 3xl:pr-[90px] max-sm:mb-[15px]">
                   <ProductFilterBox
                     listingpagedata={{
@@ -102,6 +103,24 @@ export default function ProductSection({ data, whatsapp }) {
                     }}
                     cars={cars}
                   />
+                </div>
+              ) : (
+                <div className="flex items-center max-md:flex-wrap max-md:justify-end gap-[10px]">
+
+
+                  <div className="sm:pl-[15px] md:pl-[10px]">
+                    <FilterBox
+                      listingpagedata={{
+                        ...listingpagedata,
+                        filters: data?.filters,
+                      }}
+                      onFilterChange={setFilters}
+                      cars={cars}
+                      setPriceRange={setPriceRange}
+                      filters={filters}
+                    />
+                  </div>
+
                 </div>
               )}
               {cars_section?.button_url?.url && cars_section?.button_title && (

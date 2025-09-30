@@ -210,7 +210,7 @@ function FilterBox({
             fill="none"
             viewBox="0 0 24 24"
             stroke="white"
-            // className=" w-[25px] h-auto aspect-square pr-[10px]"
+          // className=" w-[25px] h-auto aspect-square pr-[10px]"
           >
             <path
               strokeLinecap="round"
@@ -256,3 +256,4 @@ function FilterBox({
     </Drawer>
   );
 }
+export { FilterBox };

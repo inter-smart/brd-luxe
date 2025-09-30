@@ -28,8 +28,9 @@ export default function ProductFilterBox({
 }) {
   const searchParams = useSearchParams();
   const initialModel = searchParams.get("model")?.toLowerCase() || ""; // Normalize to lowercase
+  const initialBrand = searchParams.get("brand")?.toLowerCase() || "";
 
-  const [brand, setBrand] = useState(filters.brand || "");
+  const [brand, setBrand] = useState(filters.brand || initialBrand);
   const [model, setModel] = useState(filters.model || initialModel);
 
   // Normalize models to handle case sensitivity
@@ -145,7 +146,7 @@ export default function ProductFilterBox({
                       : !brand && !initialModel
                       ? "Please select brand" // No brand, no URL model
                       : initialModel && !selectedModelObj
-                      ? "Invalid model" // URL model not found
+                      ? "Please select brand" // URL model not found
                       : "Model" // Brand selected, no model chosen
                   }
                 />
