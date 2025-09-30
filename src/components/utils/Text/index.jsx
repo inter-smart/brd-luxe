@@ -1,6 +1,6 @@
 const sizes = {
   text1:
-    "text-[12px] sm:text-[10px] xl:text-[12px] 2xl:text-[14px] 3xl:text-[20px] font-light tracking-tight leading-normal font-base2",
+    "text-[12px] sm:text-[12px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-normal font-light tracking-tight font-base2",
   text2:
     "3xl:text-[15px] 2xl:text-[13px] xl:text-[11px] lg:text-[10px] sm:text-[9px] text-[12px] font-normal leading-normal",
   text3:

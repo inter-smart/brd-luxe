@@ -16,7 +16,7 @@ const variants = {
 
 const sizes = {
   button1:
-    "text-[14px] sm:text-[10px] sm:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] font-semibold font-base1 text-white tracking-[1px] p-[8px_10px] sm:p-[8px_15px] lg:p-[8px_20px] 2xl:p-[10px_25px] 3xl:p-[10px_30px] rounded-[4px] sm:rounded-[6px] 2xl:rounded-[8px] 3xl:rounded-[10px] border hover:text-black hover:bg-white transition-all duration-300 ease-in-out",
+    "text-[12px] sm:text-[10px] sm:text-[12px] 2xl:text-[15px] 3xl:text-[18px] leading-[1] tracking-[1px] text-center font-semibold font-base1 text-white p-[5px_12px] sm:p-[8px_15px] lg:p-[8px_20px] 2xl:p-[10px_25px] 3xl:p-[10px_30px] rounded-[4px] sm:rounded-[6px] 2xl:rounded-[8px] 3xl:rounded-[10px] border hover:text-black hover:bg-white transition-all duration-300 ease-in-out",
 };
 
 const StyledButton = ({
