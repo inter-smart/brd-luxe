@@ -299,7 +299,7 @@ export default function Header() {
               </button>
               <Link
                 href={"/"}
-                className="group h-auto w-[120px] lg:w-[180px] xl:w-[200px] 2xl:w-[220px] 3xl:w-[255px] absolute left-0 right-0 top-0 ml-auto lg:mx-auto will-change-transform"
+                className="group h-auto w-[120px] lg:w-[180px] xl:w-[200px] 2xl:w-[220px] 3xl:w-[245px] absolute left-0 right-0 top-0 ml-auto lg:mx-auto will-change-transform"
               >
                 <Image
                   src={header_acf?.logo?.url || "/images/placeholder.jpg"}
