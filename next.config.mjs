@@ -8,6 +8,7 @@ const nextConfig = {
       "a.tile.openstreetmap.org",
       "b.tile.openstreetmap.org",
       "c.tile.openstreetmap.org",
+      "admin.brdluxe.com"
     ], // 👈 add your WP domain here
   },
   webpack: (config, { isServer }) => {
