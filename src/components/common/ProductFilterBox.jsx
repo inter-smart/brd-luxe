@@ -144,9 +144,9 @@ export default function ProductFilterBox({
                     selectedModelObj
                       ? selectedModelObj.name // Show model name if valid
                       : !brand && !initialModel
-                      ? "Please select brand" // No brand, no URL model
+                      ? "Select a brand" // No brand, no URL model
                       : initialModel && !selectedModelObj
-                      ? "Please select brand" // URL model not found
+                      ? "Select a brand" // URL model not found
                       : "Model" // Brand selected, no model chosen
                   }
                 />

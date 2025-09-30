@@ -20,6 +20,7 @@ import BreadCrumb from "@/components/common/BreadCrumb";
 import useMedia from "use-media";
 
 import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function ProductListSection({ data, whatsapp }) {
   const searchParams = useSearchParams();
@@ -249,6 +250,20 @@ function FilterBox({
                 setPriceRange={setPriceRange}
                 filters={filters}
               />
+              {/* <Button
+                type="submit"
+                className="text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1.2] font-semibold font-base1 text-black bg-white lg:p-[8px_15px] 2xl:p-[10px_20px] 3xl:p-[20px_25px] rounded-[5px] border-1 border-[#BEBEBE] cursor-pointer hover:bg-white/70 hover:border-white"
+              >
+                <span className="w-[10px] 2xl:w-[12px] 3xl:w-[15px] h-auto aspect-square flex items-center justify-center">
+                  <Image
+                    src="/images/seaarch_icon.svg"
+                    alt="Search"
+                    width={15}
+                    height={15}
+                  />
+                </span>
+                Apply
+              </Button> */}
             </div>
           </div>
         </div>
