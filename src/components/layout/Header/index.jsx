@@ -293,7 +293,7 @@ export default function Header() {
                 onClick={toggleMenu}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isMenuOpen}
-                className="w-[40px] h-[30px] p-[6px] relative cursor-pointer flex items-center justify-center group border border-white transition duration-300 rounded-[6px] hover:border-[#F29A0D]"
+                className="w-[35px] md:w-[40px] h-[25px] md:h-[30px] p-[6px] relative cursor-pointer flex items-center justify-center group border border-white transition duration-300 rounded-[6px] hover:border-[#F29A0D]"
               >
                 <HamburgerIcon isOpen={isMenuOpen} />
               </button>
