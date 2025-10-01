@@ -1,20 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "dev18.intersmarthosting.in",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "admin.brdluxe.com",
-        pathname: "/**",
-      },
-    ],
+    domains: [
+      "dev18.intersmarthosting.in",
+      "admin.brdluxe.com",
+    ], // 👈 add your WP domain here
   },
-
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
