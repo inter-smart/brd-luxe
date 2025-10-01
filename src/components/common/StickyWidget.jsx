@@ -232,7 +232,7 @@ export default function StickyWidget({ data = sticky_data }) {
     const fetchFooter = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`
+          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,  { cache: "no-store" }
         );
         const json = await res.json();
         setFooterData(json?.footer_acf || null);

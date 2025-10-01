@@ -44,10 +44,10 @@ export default function Header() {
     async function fetchHeaderData() {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`
+          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`,  { cache: "no-store" }
         );
         const data = await res.json();
-        setHeaderAcf(data?.header_acf);
+        setHeaderAcf(data?.header_acf || null);
       } catch (error) {
         console.error("Failed to fetch header ACF:", error);
       }
