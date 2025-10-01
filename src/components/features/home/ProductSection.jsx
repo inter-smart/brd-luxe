@@ -93,13 +93,13 @@ export default function ProductSection({ data, whatsapp }) {
             <Heading
               as="h1"
               size="heading1"
-              className="text-white max-sm:mb-[15px] max-md:text-center sm:text-left"
+              className="text-white max-sm:mb-[15px] max-md:text-center md:text-left"
             >
               {cars_section?.title}
             </Heading>
           </div>
           <div className="w-full md:w-2/3">
-            <div className="flex items-center justify-center md:justify-end">
+            <div className="flex items-center justify-between md:justify-end">
               {!isMobileFilter ? (
                 <div className="w-full md:pr-[20px] lg:pr-[40px] 2xl:pr-[65px] 3xl:pr-[90px] md:pl-[20px] lg:pl-[30px] 2xl:pl-[45px] 3xl:pl-[50px] max-sm:mb-[15px]">
                   <ProductFilterBox
@@ -144,7 +144,7 @@ export default function ProductSection({ data, whatsapp }) {
                 <Link
                   href={cars_section?.button_url?.url}
                   target={cars_section?.button_url?.target}
-                  className="text-[12px] lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1.2] font-base1 text-white w-fit max-sm:ml-[15px] p-[5px] sm:p-[10px] text-nowrap transition-all duration-300 ease-in-out hover:text-white/70"
+                  className="text-[12px] lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1.2] font-base1 text-white w-fit max-md:ml-[15px] p-[5px] sm:p-[10px] text-nowrap transition-all duration-300 ease-in-out hover:text-white/70"
                 >
                   {cars_section?.button_title}
                 </Link>
