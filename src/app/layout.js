@@ -66,6 +66,10 @@ const raleway = Raleway({
 export const metadata = {
   title: "BRD LUXE",
   description: "Created in Next.js App Router",
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -83,14 +87,13 @@ export default function RootLayout({ children }) {
 
         {/* ✅ Required for toast notifications */}
         <Toaster
-  position="top-center"
-  toastOptions={{
-    classNames: {
-      toast: "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
-    },
-  }}
-/>
-
+          position="top-center"
+          toastOptions={{
+            classNames: {
+              toast: "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
+            },
+          }}
+        />
       </body>
     </html>
   );

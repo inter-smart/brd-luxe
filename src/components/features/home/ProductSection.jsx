@@ -83,6 +83,7 @@ export default function ProductSection({ data, whatsapp }) {
   const displayedCars = filteredCars.slice(0, 8);
 
   const isMobile = useMedia({ maxWidth: "640px" });
+  const isMobileFilter = useMedia({ maxWidth: "1280px" });
 
   return cars_section?.enable__disable_cars_section ? (
     <section className="w-full h-auto py-[40px_50px] sm:py-[45px_70px] lg:py-[55px_95px] 2xl:py-[65px_110px] 3xl:py-[85px_140px] border-b-1 border-[#404040]/40 block">
@@ -92,14 +93,14 @@ export default function ProductSection({ data, whatsapp }) {
             <Heading
               as="h1"
               size="heading1"
-              className="text-white max-sm:mb-[15px] max-md:text-center sm:text-left"
+              className="text-white max-sm:mb-[15px] max-md:text-center md:text-left"
             >
               {cars_section?.title}
             </Heading>
           </div>
           <div className="w-full md:w-2/3">
-            <div className="flex max-sm:flex-col items-center justify-center md:justify-end">
-              {!isMobile ? (
+            <div className="flex items-center justify-between md:justify-end">
+              {!isMobileFilter ? (
                 <div className="w-full md:pr-[20px] lg:pr-[40px] 2xl:pr-[65px] 3xl:pr-[90px] md:pl-[20px] lg:pl-[30px] 2xl:pl-[45px] 3xl:pl-[50px] max-sm:mb-[15px]">
                   <ProductFilterBox
                     listingpagedata={{
@@ -143,7 +144,7 @@ export default function ProductSection({ data, whatsapp }) {
                 <Link
                   href={cars_section?.button_url?.url}
                   target={cars_section?.button_url?.target}
-                  className="text-[12px] lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1.2] font-base1 text-white w-fit p-[5px] sm:p-[10px] text-nowrap transition-all duration-300 ease-in-out hover:text-white/70"
+                  className="text-[12px] lg:text-[13px] 2xl:text-[15px] 3xl:text-[18px] leading-[1.2] font-base1 text-white w-fit max-md:ml-[15px] p-[5px] sm:p-[10px] text-nowrap transition-all duration-300 ease-in-out hover:text-white/70"
                 >
                   {cars_section?.button_title}
                 </Link>

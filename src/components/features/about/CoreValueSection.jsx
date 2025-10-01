@@ -17,7 +17,7 @@ export default function CoreValueSection({ data }) {
           {data?.lists?.map((item, index) => 
             item?.text &&(
             <div key={`core-${index}`} className="h-auto block">
-              <div className="w-full h-full p-[15px] sm:p-[15px_20px] lg:p-[20px] 2xl:p-[25px] 3xl:p-[30px] rounded-[10px] overflow-hidden transition-all duration-300 flex flex-col justify-between relative z-0 hover:translate-y-[-15px]">
+              <div className="group w-full h-full p-[15px] sm:p-[15px_20px] lg:p-[20px] 2xl:p-[25px] 3xl:p-[30px] rounded-[10px] overflow-hidden transition-all duration-300 flex flex-col justify-between relative z-0 hover:translate-y-[-15px]">
                 <div className="w-[35px] sm:w-[40px] lg:w-[45px] 2xl:w-[50px] 3xl:w-[65px] h-auto aspect-square overflow-hidden mb-[15px] sm:mb-[20px] flex items-center justify-center">
                   <Image
                     src={item?.icon?.url || "/images/placeholder.jpg"}
@@ -26,10 +26,10 @@ export default function CoreValueSection({ data }) {
                     height={65}
                     placeholder="blur"
                     blurDataURL="/images/placeholder.jpg"
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
                   />
                 </div>
-                <div className="text-[12px] sm:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.5] font-light font-base2 text-white">
+                <div className="text-[12px] sm:text-[13px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.5] font-light font-base2 text-white group-hover:text-[#f39a0d]">
                   {item?.text}
                 </div>
                 <div className="w-full h-full bg-linear-to-r from-[#D9D9D9] to-[#737373] absolute inset-0 z-[-1] block opacity-[4%]"></div>

@@ -78,7 +78,7 @@ export default function WhatWitsSection({ data }) {
             {items.map((item, index) => (
               <SwiperSlide key={index} className="!h-auto">
                 <div
-                  className="w-full h-full p-[10px_20px] xl:p-[15px_20px] 2xl:p-[20px] 3xl:p-[25px_30px] bg-gradient-to-tr 
+                  className="group w-full h-full p-[10px_20px] xl:p-[15px_20px] 2xl:p-[20px] 3xl:p-[25px_30px] bg-gradient-to-tr 
                                     from-[rgba(217,217,217,0)] to-[rgba(115,115,115,0.1)]
                                     border-[1px] border-solid border-white/10 rounded-[10px] flex flex-col justify-between backdrop-blur-[20px] 
                                     shadow-sm transition duration-300 hover:border-white/20 hover:from-[rgba(217,217,217,0.1)] hover:translate-y-1"
@@ -91,12 +91,12 @@ export default function WhatWitsSection({ data }) {
                       height={50}
                       placeholder="blur"
                       blurDataURL="/images/placeholder.jpg"
-                      className="h-auto aspect-square object-contain"
+                      className="h-auto aspect-square object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
                     />
                   </div>
                   <h3
                     className="text-[12px] sm:text-[14px] sm:leading-[14px] xl:text-[20px] xl:leading-[20px]  2xl:text-[24px] 2xl:leading-[30px]  
-                                        3xl:text-[30px] 3xl:leading-[30px] font-light font-base1 text-white"
+                                        3xl:text-[30px] 3xl:leading-[30px] font-light font-base1 text-white group-hover:text-[#f39a0d]"
                   >
                     {item?.title}
                   </h3>
