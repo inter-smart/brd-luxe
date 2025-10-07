@@ -1,7 +1,7 @@
+
 "use client";
 import Image from "next/image";
 import { StyledLink } from "../../utils/Button";
-import { useMediaQuery } from "react-responsive";
 import { useState, useRef, useEffect } from "react";
 import { TextAnimate } from "../../magicui/text-animate";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,10 +11,6 @@ import "swiper/css";
 
 export default function HeroSection({ data }) {
   const banner = data?.banner;
-
-  // const isDesktop = useMediaQuery({
-  //   query: "(min-width: 640px)",
-  // });
 
   const [isDesktop, setIsDesktop] = useState(false);
 
