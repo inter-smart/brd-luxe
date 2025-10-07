@@ -308,6 +308,7 @@ export default function Header() {
                   height={50}
                   priority
                   className="w-full h-full object-contain group-hover:scale-102 transition-all duration-300"
+                  unoptimized={true}
                 />
               </Link>
 

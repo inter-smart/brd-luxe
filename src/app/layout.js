@@ -84,6 +84,16 @@ export default function RootLayout({ children }) {
       <body
         className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}
       >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-57LTTXCN"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         <Header />
         <StickyWidget />
         <main className="flex-grow">
@@ -96,7 +106,8 @@ export default function RootLayout({ children }) {
           position="top-center"
           toastOptions={{
             classNames: {
-              toast: "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
+              toast:
+                "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
             },
           }}
         />
