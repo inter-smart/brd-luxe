@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import InnerHero from "@/components/common/InnerHero";
 import ListSection from "@/components/features/testimonial/ListSection";
 
