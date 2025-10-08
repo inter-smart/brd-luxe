@@ -77,7 +77,50 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+async function getFooterData() {
+  try {
+    console.log("Fetching footer data (server-side)");
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`, {
+      // This ensures fresh data every render (no cache)
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch footer data");
+    }
+
+    const data = await res.json();
+    return data?.footer_acf || null;
+  } catch (err) {
+    console.error("Footer fetch failed", err);
+    return null;
+  }
+}
+
+async function getHeaderData() {
+  try {
+    console.log("Fetching header data (server-side)");
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`, {
+      cache: "no-store", // No caching, always fetch fresh
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch header data");
+    }
+
+    const data = await res.json();
+    return data?.header_acf || null;
+  } catch (error) {
+    console.error("Header fetch failed:", error);
+    return null;
+  }
+}
+
+export default async function RootLayout({ children }) {
+  const [headerData, footerData] = await Promise.all([getHeaderData(), getFooterData()]);
+
   return (
     <html lang="en">
       {process.env.NEXT_PUBLIC_GTAG_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />}
@@ -94,20 +137,19 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        <Header />
+        <Header data={headerData} />
         <StickyWidget />
         <main className="flex-grow">
           <LenisWrapper>{children}</LenisWrapper>
         </main>
-        <Footer />
+        <Footer data={footerData} />
 
         {/* ✅ Required for toast notifications */}
         <Toaster
           position="top-center"
           toastOptions={{
             classNames: {
-              toast:
-                "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
+              toast: "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
             },
           }}
         />
