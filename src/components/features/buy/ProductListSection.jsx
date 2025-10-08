@@ -87,7 +87,7 @@ export default function ProductListSection({ data, whatsapp }) {
     );
   }
 
-  const isMobile = useMedia({ maxWidth: "1280px" });
+  const isMobile = useMedia({ maxWidth: "1279px" });
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 4);
@@ -260,6 +260,7 @@ function FilterBox({
                     alt="Search"
                     width={15}
                     height={15}
+                    unoptimized
                   />
                 </span>
                 Apply

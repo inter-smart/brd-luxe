@@ -96,6 +96,7 @@ export default function ListSection({ data }) {
                       width={14}
                       height={14}
                       className="w-[8px] sm:w-[10px] xl:w-[12px] 2xl:w-[14px] mr-[2px] xl:mr-[5px] 2xl:mr-[10px] block"
+                      unoptimized
                     />
                     4.7 Ratings
                   </div>

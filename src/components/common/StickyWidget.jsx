@@ -68,6 +68,7 @@ export default function StickyWidget({ data: footerData }) {
                 width={20}
                 height={20}
                 className="w-full h-full sm:p-[7px] 3xl:p-[8px] object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
+                unoptimized
               />
             )}
           </a>
@@ -88,6 +89,7 @@ export default function StickyWidget({ data: footerData }) {
               width={20}
               height={20}
               className="w-full h-full sm:p-[7px] 3xl:p-[8px] object-contain group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)]"
+              unoptimized
             />
           </a>
         </div>
@@ -150,6 +152,7 @@ export default function StickyWidget({ data: footerData }) {
                     width={28}
                     height={28}
                     className="w-full h-full object-contain transition-all duration-300 group-hover:[filter:brightness(0)_saturate(100%)_invert(63%)_sepia(55%)_saturate(1569%)_hue-rotate(356deg)_brightness(98%)_contrast(94%)] group-hover:scale-110"
+                    unoptimized
                   />
                 </a>
               </div>

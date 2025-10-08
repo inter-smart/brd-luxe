@@ -584,6 +584,7 @@ export default function Header({ data: header_acf }) {
                                         width={20}
                                         height={20}
                                         className="w-full h-full object-contain"
+                                        unoptimized
                                       />
                                     </a>
                                   </li>

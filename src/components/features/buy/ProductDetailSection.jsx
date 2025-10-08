@@ -12,6 +12,7 @@ import "swiper/css/effect-fade";
 import "swiper/css";
 import "photoswipe/style.css";
 import useMedia from "use-media";
+import { useLenis } from "lenis/react";
 
 export default function ProductDetailSection({ data, whatsapp_post }) {
   const isDesktop = useMedia("(min-width: 1024px)");
@@ -20,12 +21,24 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
   const [videoSrc, setVideoSrc] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const videoRef = useRef(null);
+  const [photoSwipeIsOpen, setPhotoSwipeIsOpen] = useState(false);
+
+  const lenis = useLenis();
 
   useEffect(() => {
     const lightbox = new PhotoSwipeLightbox({
       gallery: "#gallery",
       children: "a",
       pswpModule: () => import("photoswipe"),
+      showHideAnimationType: "fade",
+    });
+
+    lightbox.on("open", () => {
+      setPhotoSwipeIsOpen(true);
+    });
+
+    lightbox.on("close", () => {
+      setPhotoSwipeIsOpen(false);
     });
     lightbox.init();
 
@@ -33,6 +46,16 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
       lightbox.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    if (!lenis) return;
+
+    if (photoSwipeIsOpen) {
+      lenis.stop(); // stop scrolling
+    } else {
+      lenis.start(); // resume scrolling
+    }
+  }, [photoSwipeIsOpen]);
 
   const handleMouseEnter = () => {
     setIsHovering(true);
@@ -93,6 +116,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
               speed={500}
               thumbs={{ swiper: thumbsSwiper }}
               className="h-[240px] sm:!h-[280px] md:!h-[340px] lg:!h-full mb-[10px] sm:mb-[15px] lg:mb-0"
+              id="gallery"
             >
               {/* First image from data.media */}
               {/* {data?.media?.path && ( */}
@@ -165,6 +189,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                               width={40}
                               height={40}
                               className="w-full h-full object-cover scale-125"
+                              unoptimized
                             />
                             <ShineBorder
                               borderWidth={1}
@@ -173,7 +198,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           </div>
                         </div>
                       ) : (
-                        <div id="gallery" className="w-full h-full">
+                        <div className="w-full h-full">
                           <a
                             href={item?.url}
                             data-pswp-width="1920"
@@ -311,6 +336,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -338,6 +364,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -365,6 +392,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -392,6 +420,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -419,6 +448,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -446,6 +476,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -473,6 +504,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -500,6 +532,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -527,6 +560,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -554,6 +588,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -594,6 +629,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={10}
                           height={10}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                     </>
@@ -725,6 +761,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                   width={50}
                   height={50}
                   className="w-full h-full object-contain"
+                  unoptimized
                 />
               </button>
             </div>
