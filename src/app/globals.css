@@ -262,6 +262,10 @@
   .container-sm {
     @apply mx-auto px-[var(--breakpoint-sm-gap)] sm:px-[var(--breakpoint-sm-gap-sm)] md:px-[var(--breakpoint-sm-gap-md)] lg:px-[var(--breakpoint-sm-gap-lg)] xl:px-[var(--breakpoint-sm-gap-xl)] 2xl:px-[var(--breakpoint-sm-gap-2xl)] 3xl:px-[var(--breakpoint-sm-gap-3xl)];
   }
+
+  .pswp__img {
+    @apply object-cover;
+  }
 }
 
 @layer base {

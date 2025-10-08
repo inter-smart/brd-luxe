@@ -7,6 +7,8 @@ import StickyWidget from "@/components/common/StickyWidget";
 import { Toaster } from "sonner";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
+
 
 // Load CeraPro Font
 const CeraPro = localFont({
@@ -81,10 +83,13 @@ async function getFooterData() {
   try {
     console.log("Fetching footer data (server-side)");
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`, {
-      // This ensures fresh data every render (no cache)
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,
+      {
+        // This ensures fresh data every render (no cache)
+        cache: "no-store",
+      }
+    );
 
     if (!res.ok) {
       throw new Error("Failed to fetch footer data");
@@ -102,9 +107,12 @@ async function getHeaderData() {
   try {
     console.log("Fetching header data (server-side)");
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`, {
-      cache: "no-store", // No caching, always fetch fresh
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`,
+      {
+        cache: "no-store", // No caching, always fetch fresh
+      }
+    );
 
     if (!res.ok) {
       throw new Error("Failed to fetch header data");
@@ -119,24 +127,19 @@ async function getHeaderData() {
 }
 
 export default async function RootLayout({ children }) {
-  const [headerData, footerData] = await Promise.all([getHeaderData(), getFooterData()]);
+  const [headerData, footerData] = await Promise.all([
+    getHeaderData(),
+    getFooterData(),
+  ]);
 
   return (
     <html lang="en">
-      {process.env.NEXT_PUBLIC_GTAG_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />}
+      {process.env.NEXT_PUBLIC_GTAG_ID && (
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />
+      )}
       <body
         className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}
       >
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-57LTTXCN"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
         <Header data={headerData} />
         <StickyWidget data={footerData} />
         <main className="flex-grow">
@@ -149,7 +152,8 @@ export default async function RootLayout({ children }) {
           position="top-center"
           toastOptions={{
             classNames: {
-              toast: "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
+              toast:
+                "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
             },
           }}
         />
@@ -164,8 +168,31 @@ export default async function RootLayout({ children }) {
             />
           </noscript>
         )}
+
+        <Script id="alertspanel-chatbot" strategy="afterInteractive">
+          {`!function(e,t,a){
+            var c=e.head||e.getElementsByTagName("head")[0],
+            n=e.createElement("script");
+            n.async=!0;
+            n.defer=!0;
+            n.type="text/javascript";
+            n.src=t+"/static/js/widget.js?config="+JSON.stringify(a);
+            c.appendChild(n)
+          }(document,"https://app.alertspanel.com",{
+            bot_key:"7e3094c919bc47c0",
+            welcome_msg:true,
+            branding_key:"alertspanel",
+            server:"https://app.alertspanel.com",
+            e:"p"
+          });`}
+        </Script>
+
       </body>
-      {process.env.GA_TRACKING_ID && <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />}
+      {process.env.GA_TRACKING_ID && (
+        <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />
+      )}
     </html>
   );
 }
+
+

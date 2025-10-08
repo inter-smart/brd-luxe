@@ -224,6 +224,7 @@ export default function ProductFilterBox({
                     alt="Search"
                     width={15}
                     height={15}
+                    unoptimized
                   />
                 </span>
                 Apply
@@ -312,6 +313,8 @@ function PriceRangeSlider({ cars, onChange, applyOnSubmit = false, submitTrigger
     return () => document.head.removeChild(style);
   }, []);
 
+  const stepSize = Math.ceil((maxPrice - minPrice) / 100) || 100000;
+
   return (
     <div className="w-full h-auto bg-black max-lg:mb-[20px] flex items-end">
       <label className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-medium font-base3 text-white text-nowrap w-fit xl:w-[35%] max-xl:pr-[25px]">
@@ -329,7 +332,7 @@ function PriceRangeSlider({ cars, onChange, applyOnSubmit = false, submitTrigger
         <RangeSlider
           min={minPrice}
           max={maxPrice}
-          step={100000}
+          step={stepSize}
           value={range}
           onInput={setRange}
           className="custom-slider"

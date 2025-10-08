@@ -12,6 +12,7 @@ import "swiper/css/effect-fade";
 import "swiper/css";
 import "photoswipe/style.css";
 import useMedia from "use-media";
+import { useLenis } from "lenis/react";
 
 export default function ProductDetailSection({ data, whatsapp_post }) {
   const isDesktop = useMedia("(min-width: 1024px)");
@@ -20,12 +21,24 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
   const [videoSrc, setVideoSrc] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const videoRef = useRef(null);
+  const [photoSwipeIsOpen, setPhotoSwipeIsOpen] = useState(false);
+
+  const lenis = useLenis();
 
   useEffect(() => {
     const lightbox = new PhotoSwipeLightbox({
       gallery: "#gallery",
       children: "a",
       pswpModule: () => import("photoswipe"),
+      showHideAnimationType: "fade",
+    });
+
+    lightbox.on("open", () => {
+      setPhotoSwipeIsOpen(true);
+    });
+
+    lightbox.on("close", () => {
+      setPhotoSwipeIsOpen(false);
     });
     lightbox.init();
 
@@ -33,6 +46,16 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
       lightbox.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    if (!lenis) return;
+
+    if (photoSwipeIsOpen) {
+      lenis.stop(); // stop scrolling
+    } else {
+      lenis.start(); // resume scrolling
+    }
+  }, [photoSwipeIsOpen]);
 
   const handleMouseEnter = () => {
     setIsHovering(true);
@@ -85,7 +108,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
             }}
           ></div>
         </div>
-        <div className="w-full mb-[10px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[35px] flex flex-wrap">
+        <div className="w-full mb-[10px] sm:mb-[20px] lg:mb-[25px] 2xl:mb-[30px] 3xl:mb-[35px] flex flex-wrap" id="deskgallery">
           <div className="w-full lg:w-[40%] xl:w-1/2 lg:pr-[20px] 2xl:pr-[25px] 3xl:pr-[30px] mb-[10px] sm:mb-[15px] lg:mb-0">
             <Swiper
               modules={[Thumbs, EffectFade]}
@@ -93,6 +116,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
               speed={500}
               thumbs={{ swiper: thumbsSwiper }}
               className="h-[240px] sm:!h-[280px] md:!h-[340px] lg:!h-full mb-[10px] sm:mb-[15px] lg:mb-0"
+              id="gallery"
             >
               {/* First image from data.media */}
               {/* {data?.media?.path && ( */}
@@ -124,7 +148,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
               {data?.car_images && data.car_images.length > 0 ? (
                 data.car_images.map((item, index) => (
                   <SwiperSlide key={`car-${index}`} className="!h-auto">
-                    <div className="swiper-zoom-container w-full h-full block">
+                    <div className="swiper-zoom-container w-full h-full block" >
                       {item?.type === "video" ? (
                         <div
                           onMouseEnter={handleMouseEnter}
@@ -165,6 +189,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                               width={40}
                               height={40}
                               className="w-full h-full object-cover scale-125"
+                              unoptimized
                             />
                             <ShineBorder
                               borderWidth={1}
@@ -173,7 +198,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           </div>
                         </div>
                       ) : (
-                        <div id="gallery" className="w-full h-full">
+                        <div className="w-full h-full">
                           <a
                             href={item?.url}
                             data-pswp-width="1920"
@@ -251,7 +276,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                 {/* Rest of car_images */}
                 {data?.car_images?.map((item, index) => (
                   <SwiperSlide key={`thumb-${index}`}>
-                    <div className="w-full h-[80px] sm:h-[100px] md:h-[120px] lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
+                    <Link href="#deskgallery" className="w-full h-[80px] sm:h-[100px] md:h-[120px] lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
                       <div className="w-full h-full relative">
                         <Image
                           src={
@@ -267,7 +292,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                    </div>
+                    </Link>
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -283,9 +308,9 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                   <div className="text-[16px] sm:text-[20px] lg:text-[24px] 2xl:text-[28px] 3xl:text-[35px] leading-[1.5] font-normal font-base1 text-white mb-[5px] 3xl:mb-[10px]">
                     {data?.cartitle}
                   </div>
-                  <div className="text-[11px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-medium font-base2 text-white">
+                  {/* <div className="text-[11px] lg:text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-medium font-base2 text-white">
                     {data?.model}
-                  </div>
+                  </div> */}
                 </div>
                 {data?.registration && (
                   <div className="w-[25%]">
@@ -311,6 +336,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -338,6 +364,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -365,6 +392,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -392,6 +420,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -419,13 +448,14 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
                         {data?.insurance}
                       </div>
                       <div className="text-[11px] sm:text-[10px] 2xl:text-[12px] 3xl:text-[14px] leading-[1] font-normal font-base2 text-[#727272]">
-                        Insurance
+                        Insurance Valid Upto
                       </div>
                       <ShineBorder
                         borderWidth={1}
@@ -446,6 +476,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -473,6 +504,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -500,6 +532,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -527,6 +560,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -554,6 +588,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={50}
                           height={50}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                       <div className="text-[12px] sm:text-[13px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-normal font-base3 text-white mb-[5px] 3xl:mb-[8px]">
@@ -594,6 +629,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                           width={10}
                           height={10}
                           className="w-full h-full object-contain"
+                          unoptimized
                         />
                       </div>
                     </>
@@ -682,7 +718,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
             {/* Rest of car_images */}
             {data?.car_images?.map((item, index) => (
               <SwiperSlide key={`car-${index}`}>
-                <div className="w-full lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
+                <Link href="#deskgallery" className="w-full lg:h-[185px] 2xl:h-[220px] 3xl:h-[280px] block">
                   <div className="w-full h-full relative">
                     <Image
                       src={
@@ -698,7 +734,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -725,6 +761,7 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
                   width={50}
                   height={50}
                   className="w-full h-full object-contain"
+                  unoptimized
                 />
               </button>
             </div>

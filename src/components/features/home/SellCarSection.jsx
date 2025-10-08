@@ -142,6 +142,7 @@ export default function SellCarSection({ data }) {
               <SwiperSlide
                 key={`sell_info-${index}`}
                 className="!h-auto overflow-visible"
+                style={{ width: "20%" }}
               >
                 <div
                   className="w-full h-full block text-center relative z-0 group"

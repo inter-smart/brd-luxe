@@ -39,7 +39,7 @@ export default function BestCarsSection({ data }) {
         <div className="w-full h-auto">
           <Swiper
             modules={[Autoplay]}
-            loop={true}
+            loop={best_cars_section?.models?.length > 1}
             slidesPerView={1}
             spaceBetween={0}
             autoplay={{
