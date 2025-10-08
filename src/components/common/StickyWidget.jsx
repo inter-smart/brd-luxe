@@ -218,30 +218,14 @@ const sticky_data = {
   ],
 };
 
-export default function StickyWidget({ data = sticky_data }) {
+export default function StickyWidget({ data: footerData }) {
   const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [footerData, setFooterData] = useState(null);
   const widgetRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
-
-    // Fetch footer data from WP REST
-    const fetchFooter = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,  { cache: "no-store" }
-        );
-        const json = await res.json();
-        setFooterData(json?.footer_acf || null);
-      } catch (error) {
-        console.error("Error fetching footer:", error);
-      }
-    };
-
-    fetchFooter();
   }, []);
 
   const toggleWidget = () => {
