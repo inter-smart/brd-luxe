@@ -7,27 +7,8 @@ import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import { toast } from "sonner";
 import SocialMediaComp from "@/components/common/SocialMediaComp";
 
-export default function Footer() {
-  const [footerData, setFooterData] = useState(null);
+export default function Footer({ data: footerData }) {
   const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    async function fetchFooter() {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,
-          { cache: "no-store" }
-        );
-        const data = await res.json();
-        setFooterData(data?.footer_acf || null);
-      } catch (err) {
-        console.error("Footer fetch failed", err);
-      }
-    }
-    fetchFooter();  
-  }, []);
-
-  if (!footerData) return null;
 
   const midIndex = Math.ceil(footerData?.quick_links?.length / 2);
   const leftLinks = footerData?.quick_links?.slice(0, midIndex);
@@ -39,7 +20,7 @@ export default function Footer() {
   const validateEmail = (inputEmail) => {
     const trimmed = inputEmail.trim();
 
-    if (!trimmed ) {
+    if (!trimmed) {
       toast.error("Email is required");
       return false;
     } else if (!emailRegex.test(trimmed)) {
@@ -56,14 +37,11 @@ export default function Footer() {
     if (!validateEmail(trimmed)) return;
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/newsletter`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: trimmed }), // ✅ always send trimmed email
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/newsletter`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed }), // ✅ always send trimmed email
+      });
 
       const data = await res.json();
       toast.success(data.message || "You have been subscribed successfully");
@@ -151,41 +129,37 @@ export default function Footer() {
         </div>
 
         {/* Social Icons */}
-        {footerData?.enable__disable_social_media_icons &&
-          footerData?.social_media_icons?.length > 0 && (
-            <div className="w-full h-auto mb-[25px] sm:mb-[30px] lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px] flex items-center justify-center">
-              <ul className="flex space-x-[20px] lg:space-x-[55px] 2xl:space-x-[60px] 3xl:space-x-[80px]">
-                {footerData.social_media_icons.map(
-                  (item, index) =>
-                    item?.icon?.url && (
-                      <li key={`social-${index}`}>
-                        <a
-                          href={item?.link?.url}
-                          target="_blank"
-                          className="w-[12px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
-                        >
-                          <Image
-                            src={item.icon.url || "/images/placeholder.jpg"}
-                            alt={item.icon.alt || item.icon.title || "social"}
-                            width={20}
-                            height={20}
-                            className="w-full h-full object-contain"
-                          />
-                        </a>
-                      </li>
-                    )
-                )}
-              </ul>
-            </div>
-          )}
+        {footerData?.enable__disable_social_media_icons && footerData?.social_media_icons?.length > 0 && (
+          <div className="w-full h-auto mb-[25px] sm:mb-[30px] lg:mb-[40px] 2xl:mb-[50px] 3xl:mb-[60px] flex items-center justify-center">
+            <ul className="flex space-x-[20px] lg:space-x-[55px] 2xl:space-x-[60px] 3xl:space-x-[80px]">
+              {footerData.social_media_icons.map(
+                (item, index) =>
+                  item?.icon?.url && (
+                    <li key={`social-${index}`}>
+                      <a
+                        href={item?.link?.url}
+                        target="_blank"
+                        className="w-[12px] lg:w-[14px] 2xl:w-[20px] h-auto aspect-square flex items-center justify-center relative z-0 transition hover:opacity-40"
+                      >
+                        <Image
+                          src={item.icon.url || "/images/placeholder.jpg"}
+                          alt={item.icon.alt || item.icon.title || "social"}
+                          width={20}
+                          height={20}
+                          className="w-full h-full object-contain"
+                        />
+                      </a>
+                    </li>
+                  )
+              )}
+            </ul>
+          </div>
+        )}
 
         {/* Newsletter */}
         <div>
           <PlaceholdersAndVanishInput
-            placeholders={
-              footerData?.newsletter_placeholders?.map((p) => p.placeholder) ||
-              []
-            }
+            placeholders={footerData?.newsletter_placeholders?.map((p) => p.placeholder) || []}
             label="Submit"
             onSubmit={handleSubscribe}
             value={email}
