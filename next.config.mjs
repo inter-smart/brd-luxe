@@ -2,7 +2,8 @@
 const nextConfig = {
   images: {
     domains: [
-      "dev18.intersmarthosting.in"
+      "dev18.intersmarthosting.in",
+      "admin.brdluxe.com",
     ], // 👈 add your WP domain here
   },
   webpack: (config, { isServer }) => {

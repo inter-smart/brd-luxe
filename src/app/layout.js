@@ -7,6 +7,8 @@ import StickyWidget from "@/components/common/StickyWidget";
 import { Toaster } from "sonner";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
+
 
 // Load CeraPro Font
 const CeraPro = localFont({
@@ -164,8 +166,29 @@ export default async function RootLayout({ children }) {
             />
           </noscript>
         )}
+
+        <Script id="alertspanel-chatbot" strategy="afterInteractive">
+          {`!function(e,t,a){
+            var c=e.head||e.getElementsByTagName("head")[0],
+            n=e.createElement("script");
+            n.async=!0;
+            n.defer=!0;
+            n.type="text/javascript";
+            n.src=t+"/static/js/widget.js?config="+JSON.stringify(a);
+            c.appendChild(n)
+          }(document,"https://app.alertspanel.com",{
+            bot_key:"7e3094c919bc47c0",
+            welcome_msg:true,
+            branding_key:"alertspanel",
+            server:"https://app.alertspanel.com",
+            e:"p"
+          });`}
+        </Script>
+
       </body>
       {process.env.GA_TRACKING_ID && <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />}
     </html>
   );
 }
+
+

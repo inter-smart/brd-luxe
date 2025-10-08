@@ -111,9 +111,10 @@ export default function AboutSection({ data }) {
                             className="text-[18px] sm:text-[20px] lg:text-[25px] 2xl:text-[32px] 3xl:text-[40px] leading-[1] font-normal font-base3 text-white"
                           />
                           <span className="text-[18px] sm:text-[20px] lg:text-[25px] 2xl:text-[32px] 3xl:text-[40px] leading-[1] font-normal font-base3 text-white">
-                            {item?.label === "Customer Satisfaction"
+                            {/* {item?.label === "Customer Satisfaction"
                               ? "%"
-                              : "+"}
+                              : "+"} */}
+                              {item?.symbol || ""}
                           </span>
                         </div>
                         <div className="text-[13px] sm:text-[14px] lg:text-[16px] 2xl:text-[20px] 3xl:text-[25px] leading-[1.2] font-normal font-base1 text-white">
