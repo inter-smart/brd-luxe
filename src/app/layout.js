@@ -138,7 +138,7 @@ export default async function RootLayout({ children }) {
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <Header data={headerData} />
-        <StickyWidget />
+        <StickyWidget data={footerData} />
         <main className="flex-grow">
           <LenisWrapper>{children}</LenisWrapper>
         </main>
