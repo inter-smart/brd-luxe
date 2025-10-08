@@ -1,4 +1,3 @@
-
 "use client";
 import Image from "next/image";
 import { StyledLink } from "../../utils/Button";
@@ -68,7 +67,7 @@ export default function HeroSection({ data }) {
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect={"fade"}
-        loop={true}
+        loop={banner?.sliders?.length > 1}
         slidesPerView={1}
         spaceBetween={0}
         autoplay={{
@@ -116,6 +115,7 @@ export default function HeroSection({ data }) {
                         placeholder="blur"
                         blurDataURL="/images/placeholder.jpg"
                         className="object-cover"
+                        priority={index === 0}
                       />
                     </picture>
                   )}

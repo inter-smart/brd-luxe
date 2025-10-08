@@ -46,7 +46,7 @@ export default function BrandSection({ data }) {
         </div>
         <Swiper
           modules={[Autoplay]}
-          loop={true}
+          loop={brands_section?.brand_logos?.length > 1}
           slidesPerView={3}
           spaceBetween={10}
           autoplay={{

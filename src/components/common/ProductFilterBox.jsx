@@ -224,6 +224,7 @@ export default function ProductFilterBox({
                     alt="Search"
                     width={15}
                     height={15}
+                    unoptimized
                   />
                 </span>
                 Apply

@@ -73,7 +73,7 @@ export default function JourneyFrameSection({ data }) {
         <div className="w-full h-auto">
           <Swiper
             modules={[Autoplay]}
-            loop={true}
+            loop={journey_in_frames_section?.images?.length > 1}
             slidesPerView={2}
             spaceBetween={8}
             autoplay={{
