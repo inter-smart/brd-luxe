@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import BreadCrumb from "@/components/common/BreadCrumb";
 import { StyledButton } from "@/components/utils/Button";
 import { Heading } from "@/components/utils/Heading";
@@ -17,8 +17,20 @@ export default function ListSection({ data }) {
 
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
   const [selectedCarType, setSelectedCarType] = useState(null);
+  const [googleSummary, setGoogleSummary] = useState({ rating: 0, totalReviews: 0 });
 
-  // Filter testimonials by car_type when selected
+useEffect(() => {
+  async function fetchGoogleSummary() {
+    const res = await fetch("/api/google-summary");
+    const summary = await res.json();
+    setGoogleSummary(summary);
+  }
+
+  fetchGoogleSummary();
+}, []);
+
+
+  // Filter testimonials by car_type
   const filteredTestimonials = useMemo(() => {
     if (!selectedCarType) return testimonials;
     return testimonials.filter((t) =>
@@ -28,10 +40,8 @@ export default function ListSection({ data }) {
 
   const handleLoadToggle = () => {
     if (visibleCount >= filteredTestimonials.length) {
-      // Collapse to initial count
       setVisibleCount(INITIAL_VISIBLE_COUNT);
     } else {
-      // Load more items
       setVisibleCount((prev) =>
         Math.min(prev + LOAD_MORE_COUNT, filteredTestimonials.length)
       );
@@ -71,7 +81,7 @@ export default function ListSection({ data }) {
                 testimonials={testimonials}
                 onChange={(slug) => {
                   setSelectedCarType(slug);
-                  setVisibleCount(INITIAL_VISIBLE_COUNT); // reset load state on filter change
+                  setVisibleCount(INITIAL_VISIBLE_COUNT);
                 }}
               />
             </div>
@@ -88,7 +98,8 @@ export default function ListSection({ data }) {
                     blurDataURL="/images/placeholder.jpg"
                     className="w-[90px] sm:w-[100px] xl:w-[130px] 2xl:w-[176px]"
                   />
-                  {/* Static text since API doesn’t give rating & count yet */}
+
+                  {/* Dynamic rating */}
                   <div className="text-[10px] xl:text-[12px] 2xl:text-[14px] leading-none font-light font-base3 text-white flex items-center mt-[-2px] sm:mt-[-5px] xl:mt-[-10px]">
                     <Image
                       src="/images/testimonial-google-review-star.svg"
@@ -98,10 +109,12 @@ export default function ListSection({ data }) {
                       className="w-[8px] sm:w-[10px] xl:w-[12px] 2xl:w-[14px] mr-[2px] xl:mr-[5px] 2xl:mr-[10px] block"
                       unoptimized
                     />
-                    4.7 Ratings
+                    {googleSummary.rating} Ratings
                   </div>
-                  <div className="text-[10px] xl:text-[14px] 2xl:text-[16px] leading-tight font-light font-base3 text-white w-full max-w-[40px] xl:max-w-[60px] m-auto absolute z-1 right-0 top-1/2 -translate-y-1/2">
-                    2384 Reviews
+
+                  {/* Dynamic total reviews */}
+                  <div className="text-[10px] xl:text-[14px] 2xl:text-[16px] leading-tight font-light font-base3 text-white w-full max-w-[60px] m-auto absolute z-1 right-0 top-1/2 -translate-y-1/2">
+                    {googleSummary.totalReviews} Reviews
                   </div>
                 </div>
               )}

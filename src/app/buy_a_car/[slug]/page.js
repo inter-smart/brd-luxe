@@ -31,7 +31,7 @@ async function getPageData() {
 
 // ✅ Dynamic Metadata per car
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const { slug } = params;
   const data = await getPageData();
 
   const cars = Array.isArray(data?.listingpagedata?.cars_data)

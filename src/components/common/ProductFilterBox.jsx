@@ -46,11 +46,12 @@ export default function ProductFilterBox({
   // Reset model if it’s invalid for the selected brand
   useEffect(() => {
     if (brand && model) {
-      const isModelValidForBrand = cars.some(
-        (car) =>
-          car.brand.some((b) => b.toLowerCase() === brand.toLowerCase()) &&
-          (car.model || []).includes(model)
-      );
+    const normalize = (str) => str?.toLowerCase().replace(/[\s-]+/g, "");
+    const isModelValidForBrand = cars.some(
+      (car) =>
+        car.brand.some((b) => normalize(b) === normalize(brand)) &&
+        (car.model || []).includes(model)
+    );
       if (!isModelValidForBrand) {
         setModel(""); // Clear model if not valid for the selected brand
       }
@@ -78,11 +79,13 @@ export default function ProductFilterBox({
   };
 
   const brands = Object.values(listingpagedata?.filters?.brands ?? {});
+  const normalize = (str) => str?.toLowerCase().replace(/[\s-]+/g, "");
   const availableModelsForBrand = cars
-    .filter((car) =>
-      car.brand.some((b) => b.toLowerCase() === brand.toLowerCase())
-    )
-    .flatMap((car) => car.model || []);
+  .filter((car) =>
+    car.brand.some((b) => normalize(b) === normalize(brand))
+  )
+  .flatMap((car) => car.model || []);
+
   const uniqueModels = Array.from(new Set(availableModelsForBrand));
 
   const inputFormStyle =

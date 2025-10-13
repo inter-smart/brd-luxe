@@ -209,13 +209,25 @@ const onSubmit = async (data) => {
   setIsSubmitting(true);
 
   try {
-    // Map `fullName` to `name` so backend matches
-    const payload = {
-      fullName: data.fullName,
-      email: data.email,
-      phone: data.phone,
-      message: data.message,
-    };
+// Get the hidden input value
+const sourcePageTitle =
+  typeof document !== "undefined"
+    ? document.querySelector(".cartitle_hidden_value")?.value || ""
+    : "";
+
+// Use current URL path as page ID
+const sourcePageId =
+  typeof window !== "undefined" ? window.location.pathname : "";
+
+const payload = {
+  fullName: data.fullName,
+  email: data.email,
+  phone: data.phone,
+  message: data.message,
+  source_page_id: sourcePageId,
+  source_page_title: sourcePageTitle, // <-- now using hidden input value
+};
+
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/wp-json/custom/v1/enquiry`,
@@ -359,6 +371,18 @@ const onSubmit = async (data) => {
             </FormItem>
           )}
         />
+
+      <input
+        type="hidden"
+        name="sourcePageId"
+        value={typeof window !== "undefined" ? window.location.pathname : ""}
+      />
+      <input
+        type="hidden"
+        name="sourcePageTitle"
+        value={typeof document !== "undefined" ? document.title : ""}
+      />
+
 
         {/* Submit Button */}
         <div className="w-full flex justify-end">

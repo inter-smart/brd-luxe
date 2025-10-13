@@ -5,55 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-const journey_frame_data = {
-  heading: {
-    title: "Our Journey in Frames",
-  },
-  frames_list: [
-    {
-      media: {
-        path: "/images/journey_1.webp",
-        alt: "Frame 1",
-      },
-    },
-    {
-      media: {
-        path: "/images/journey_2.webp",
-        alt: "Frame 2",
-      },
-    },
-    {
-      media: {
-        path: "/images/journey_3.webp",
-        alt: "Frame 3",
-      },
-    },
-    {
-      media: {
-        path: "/images/journey_4.webp",
-        alt: "Frame 4",
-      },
-    },
-    {
-      media: {
-        path: "/images/journey_5.webp",
-        alt: "Frame 5",
-      },
-    },
-    {
-      media: {
-        path: "/images/journey_6.webp",
-        alt: "Frame 6",
-      },
-    },
-    {
-      media: {
-        path: "/images/journey_4.webp",
-        alt: "Frame 4",
-      },
-    },
-  ],
-};
 
 export default function JourneyFrameSection({ data }) {
   const journey_in_frames_section = data?.journey_in_frames_section;

@@ -94,6 +94,11 @@ export default function ProductDetailSection({ data, whatsapp_post }) {
           />
         </div>
         <div className="mb-[35px] sm:mb-[45px] lg:mb-[65px] 2xl:mb-[80px] 3xl:mb-[100px]">
+            <input
+              type="text"
+              className="cartitle_hidden_value"
+              value={data?.cartitle}
+            />
           <Heading
             as="h1"
             size={"heading1"}
