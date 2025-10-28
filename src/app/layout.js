@@ -98,8 +98,6 @@ async function getHeaderData() {
     );
     if (!res.ok) throw new Error("Failed to fetch header");
     const data = await res.json();
-    // return fixHttpsUrls(data?.header_acf || {});
-
     return data?.header_acf || null;
   } catch (e) {
     console.error("Header fetch failed", e);
@@ -115,8 +113,6 @@ async function getFooterData() {
     );
     if (!res.ok) throw new Error("Failed to fetch footer");
     const data = await res.json();
-    // return fixHttpsUrls(data?.footer_acf || {});
-
     return data?.footer_acf || null;
   } catch (e) {
     console.error("Footer fetch failed", e);
@@ -129,9 +125,7 @@ export default async function RootLayout({ children }) {
     getHeaderData(),
     getFooterData(),
   ]);
-
-  console.log("header=====>", headerData);
-  console.log("footer=====>", footerData);
+  
   return (
     <html lang="en">
       {process.env.NEXT_PUBLIC_GTAG_ID && (
