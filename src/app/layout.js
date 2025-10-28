@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
+export const dynamic = "force-dynamic";
 
 
 // Load CeraPro Font
@@ -79,52 +80,83 @@ export const metadata = {
   },
 };
 
-async function getFooterData() {
-  try {
-    console.log("Fetching footer data (server-side)");
+// async function getFooterData() {
+//   try {
+//     console.log("Fetching footer data (server-side)");
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,
-      {
-        // This ensures fresh data every render (no cache)
-        cache: "no-store",
-      }
-    );
+//     const res = await fetch(
+//       `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,
+//       {
+//         // This ensures fresh data every render (no cache)
+//         cache: "no-store",
+//       }
+//     );
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch footer data");
-    }
+//     if (!res.ok) {
+//       throw new Error("Failed to fetch footer data");
+//     }
 
-    const data = await res.json();
-    return data?.footer_acf || null;
-  } catch (err) {
-    console.error("Footer fetch failed", err);
-    return null;
-  }
-}
+//     const data = await res.json();
+//     return data?.footer_acf || null;
+//   } catch (err) {
+//     console.error("Footer fetch failed", err);
+//     return null;
+//   }
+// }
+
+// async function getHeaderData() {
+//   try {
+//     console.log("Fetching header data (server-side)");
+
+//     const res = await fetch(
+//       `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`,
+//       {
+//         cache: "no-store", // No caching, always fetch fresh
+//       }
+//     );
+
+//     if (!res.ok) {
+//       throw new Error("Failed to fetch header data");
+//     }
+
+//     const data = await res.json();
+//     return data?.header_acf || null;
+//   } catch (error) {
+//     console.error("Header fetch failed:", error);
+//     return null;
+//   }
+// }
 
 async function getHeaderData() {
   try {
-    console.log("Fetching header data (server-side)");
-
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`,
-      {
-        cache: "no-store", // No caching, always fetch fresh
-      }
+      `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '')}/wp-json/brd/v1/header`,
+      { cache: "no-store" }
     );
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch header data");
-    }
-
+    if (!res.ok) throw new Error("Failed to fetch header");
     const data = await res.json();
     return data?.header_acf || null;
-  } catch (error) {
-    console.error("Header fetch failed:", error);
+  } catch (e) {
+    console.error("Header fetch failed", e);
     return null;
   }
 }
+
+async function getFooterData() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '')}/wp-json/brd/v1/footer`,
+      { cache: "no-store" }
+    );
+    if (!res.ok) throw new Error("Failed to fetch footer");
+    const data = await res.json();
+    return data?.footer_acf || null;
+  } catch (e) {
+    console.error("Footer fetch failed", e);
+    return null;
+  }
+}
+
 
 export default async function RootLayout({ children }) {
   const [headerData, footerData] = await Promise.all([
