@@ -1,10 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // images: {
+  //   domains: [
+  //     "dev18.intersmarthosting.in",
+  //     "admin.brdluxe.com",
+  //   ], // 👈 add your WP domain here
+  // },
   images: {
-    domains: [
-      "dev18.intersmarthosting.in",
-      "admin.brdluxe.com",
-    ], // 👈 add your WP domain here
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "admin.brdluxe.com",
+      },
+      {
+        protocol: "http",
+        hostname: "admin.brdluxe.com",
+      },
+    ],
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {

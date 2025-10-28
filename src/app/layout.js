@@ -10,7 +10,6 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 export const dynamic = "force-dynamic";
 
-
 // Load CeraPro Font
 const CeraPro = localFont({
   src: [
@@ -127,15 +126,29 @@ export const metadata = {
 //   }
 // }
 
+function fixHttpsUrls(obj) {
+  if (typeof obj === "string") return obj.replace(/^http:\/\//, "https://");
+  if (Array.isArray(obj)) return obj.map(fixHttpsUrls);
+  if (typeof obj === "object" && obj !== null) {
+    const newObj = {};
+    for (const key in obj) newObj[key] = fixHttpsUrls(obj[key]);
+    return newObj;
+  }
+  return obj;
+}
+
 async function getHeaderData() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '')}/wp-json/brd/v1/header`,
+      `${process.env.NEXT_PUBLIC_API_URL.replace(
+        /\/$/,
+        ""
+      )}/wp-json/brd/v1/header`,
       { cache: "no-store" }
     );
     if (!res.ok) throw new Error("Failed to fetch header");
     const data = await res.json();
-    return data?.header_acf || null;
+    return fixHttpsUrls(data?.header_acf || {});
   } catch (e) {
     console.error("Header fetch failed", e);
     return null;
@@ -145,18 +158,20 @@ async function getHeaderData() {
 async function getFooterData() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '')}/wp-json/brd/v1/footer`,
+      `${process.env.NEXT_PUBLIC_API_URL.replace(
+        /\/$/,
+        ""
+      )}/wp-json/brd/v1/footer`,
       { cache: "no-store" }
     );
     if (!res.ok) throw new Error("Failed to fetch footer");
     const data = await res.json();
-    return data?.footer_acf || null;
+    return fixHttpsUrls(data?.footer_acf || {});
   } catch (e) {
     console.error("Footer fetch failed", e);
     return null;
   }
 }
-
 
 export default async function RootLayout({ children }) {
   const [headerData, footerData] = await Promise.all([
@@ -220,7 +235,6 @@ export default async function RootLayout({ children }) {
             e:"p"
           });`}
         </Script>
-
       </body>
       {process.env.GA_TRACKING_ID && (
         <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />
@@ -228,5 +242,3 @@ export default async function RootLayout({ children }) {
     </html>
   );
 }
-
-
