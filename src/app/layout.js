@@ -132,6 +132,8 @@ export default async function RootLayout({ children }) {
     getFooterData(),
   ]);
 
+  console.log("header=====>", headerData);
+  console.log("footer=====>", footerData);
   return (
     <html lang="en">
       {process.env.NEXT_PUBLIC_GTAG_ID && (
