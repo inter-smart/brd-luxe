@@ -79,76 +79,28 @@ export const metadata = {
   },
 };
 
-// async function getFooterData() {
-//   try {
-//     console.log("Fetching footer data (server-side)");
-
-//     const res = await fetch(
-//       `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,
-//       {
-//         // This ensures fresh data every render (no cache)
-//         cache: "no-store",
-//       }
-//     );
-
-//     if (!res.ok) {
-//       throw new Error("Failed to fetch footer data");
-//     }
-
-//     const data = await res.json();
-//     return data?.footer_acf || null;
-//   } catch (err) {
-//     console.error("Footer fetch failed", err);
-//     return null;
+// function fixHttpsUrls(obj) {
+//   if (typeof obj === "string") return obj.replace(/^http:\/\//, "https://");
+//   if (Array.isArray(obj)) return obj.map(fixHttpsUrls);
+//   if (typeof obj === "object" && obj !== null) {
+//     const newObj = {};
+//     for (const key in obj) newObj[key] = fixHttpsUrls(obj[key]);
+//     return newObj;
 //   }
+//   return obj;
 // }
-
-// async function getHeaderData() {
-//   try {
-//     console.log("Fetching header data (server-side)");
-
-//     const res = await fetch(
-//       `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`,
-//       {
-//         cache: "no-store", // No caching, always fetch fresh
-//       }
-//     );
-
-//     if (!res.ok) {
-//       throw new Error("Failed to fetch header data");
-//     }
-
-//     const data = await res.json();
-//     return data?.header_acf || null;
-//   } catch (error) {
-//     console.error("Header fetch failed:", error);
-//     return null;
-//   }
-// }
-
-function fixHttpsUrls(obj) {
-  if (typeof obj === "string") return obj.replace(/^http:\/\//, "https://");
-  if (Array.isArray(obj)) return obj.map(fixHttpsUrls);
-  if (typeof obj === "object" && obj !== null) {
-    const newObj = {};
-    for (const key in obj) newObj[key] = fixHttpsUrls(obj[key]);
-    return newObj;
-  }
-  return obj;
-}
 
 async function getHeaderData() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL.replace(
-        /\/$/,
-        ""
-      )}/wp-json/brd/v1/header`,
+      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`,
       { cache: "no-store" }
     );
     if (!res.ok) throw new Error("Failed to fetch header");
     const data = await res.json();
-    return fixHttpsUrls(data?.header_acf || {});
+    // return fixHttpsUrls(data?.header_acf || {});
+
+    return data?.header_acf || null;
   } catch (e) {
     console.error("Header fetch failed", e);
     return null;
@@ -158,15 +110,14 @@ async function getHeaderData() {
 async function getFooterData() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL.replace(
-        /\/$/,
-        ""
-      )}/wp-json/brd/v1/footer`,
+      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,
       { cache: "no-store" }
     );
     if (!res.ok) throw new Error("Failed to fetch footer");
     const data = await res.json();
-    return fixHttpsUrls(data?.footer_acf || {});
+    // return fixHttpsUrls(data?.footer_acf || {});
+
+    return data?.footer_acf || null;
   } catch (e) {
     console.error("Footer fetch failed", e);
     return null;
