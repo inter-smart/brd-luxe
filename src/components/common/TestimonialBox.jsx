@@ -66,9 +66,8 @@ export default function TestimonialBox({ item }) {
                   alt="play"
                   width={50}
                   height={50}
-                  placeholder="blur"
-                  blurDataURL="/images/placeholder.jpg"
                   className="w-full h-full object-cover"
+                  unoptimized
                 />
                 <ShineBorder
                   borderWidth={3}

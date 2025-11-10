@@ -10,6 +10,7 @@ export default function Loading() {
         width={120}
         height={120}
         className="w-[120px] lg:w-[140px] 3xl:w-[170px] h-auto aspect-square object-contain flex items-center justify-center"
+        unoptimized
       />
     </div>
   );

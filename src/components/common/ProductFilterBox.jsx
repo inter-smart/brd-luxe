@@ -46,11 +46,12 @@ export default function ProductFilterBox({
   // Reset model if it’s invalid for the selected brand
   useEffect(() => {
     if (brand && model) {
-      const isModelValidForBrand = cars.some(
-        (car) =>
-          car.brand.some((b) => b.toLowerCase() === brand.toLowerCase()) &&
-          (car.model || []).includes(model)
-      );
+    const normalize = (str) => str?.toLowerCase().replace(/[\s-]+/g, "");
+    const isModelValidForBrand = cars.some(
+      (car) =>
+        car.brand.some((b) => normalize(b) === normalize(brand)) &&
+        (car.model || []).includes(model)
+    );
       if (!isModelValidForBrand) {
         setModel(""); // Clear model if not valid for the selected brand
       }
@@ -78,11 +79,13 @@ export default function ProductFilterBox({
   };
 
   const brands = Object.values(listingpagedata?.filters?.brands ?? {});
+  const normalize = (str) => str?.toLowerCase().replace(/[\s-]+/g, "");
   const availableModelsForBrand = cars
-    .filter((car) =>
-      car.brand.some((b) => b.toLowerCase() === brand.toLowerCase())
-    )
-    .flatMap((car) => car.model || []);
+  .filter((car) =>
+    car.brand.some((b) => normalize(b) === normalize(brand))
+  )
+  .flatMap((car) => car.model || []);
+
   const uniqueModels = Array.from(new Set(availableModelsForBrand));
 
   const inputFormStyle =
@@ -224,6 +227,7 @@ export default function ProductFilterBox({
                     alt="Search"
                     width={15}
                     height={15}
+                    unoptimized
                   />
                 </span>
                 Apply
@@ -312,6 +316,8 @@ function PriceRangeSlider({ cars, onChange, applyOnSubmit = false, submitTrigger
     return () => document.head.removeChild(style);
   }, []);
 
+  const stepSize = Math.ceil((maxPrice - minPrice) / 100) || 100000;
+
   return (
     <div className="w-full h-auto bg-black max-lg:mb-[20px] flex items-end">
       <label className="text-[11px] sm:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-[1] font-medium font-base3 text-white text-nowrap w-fit xl:w-[35%] max-xl:pr-[25px]">
@@ -329,7 +335,7 @@ function PriceRangeSlider({ cars, onChange, applyOnSubmit = false, submitTrigger
         <RangeSlider
           min={minPrice}
           max={maxPrice}
-          step={100000}
+          step={stepSize}
           value={range}
           onInput={setRange}
           className="custom-slider"

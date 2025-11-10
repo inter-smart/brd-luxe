@@ -1,15 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // images: {
+  //   domains: [
+  //     "dev18.intersmarthosting.in",
+  //     "admin.brdluxe.com",
+  //   ], // 👈 add your WP domain here
+  // },
   images: {
-    domains: [
-      "dev18.intersmarthosting.in",
-      "tiles.stadiamaps.com", // Remove https:// - just domain
-      "tile.openstreetmap.org", // Add if you switch back to OSM
-      "a.tile.openstreetmap.org",
-      "b.tile.openstreetmap.org",
-      "c.tile.openstreetmap.org",
-      "admin.brdluxe.com"
-    ], // 👈 add your WP domain here
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "admin.brdluxe.com",
+      },
+      {
+        protocol: "http",
+        hostname: "admin.brdluxe.com",
+      },
+    ],
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {

@@ -82,8 +82,8 @@ export default function ProductSection({ data, whatsapp }) {
 
   const displayedCars = filteredCars.slice(0, 8);
 
-  const isMobile = useMedia({ maxWidth: "640px" });
-  const isMobileFilter = useMedia({ maxWidth: "1280px" });
+  const isMobile = useMedia({ maxWidth: "639px" });
+  const isMobileFilter = useMedia({ maxWidth: "1279px" });
 
   return cars_section?.enable__disable_cars_section ? (
     <section className="w-full h-auto py-[40px_50px] sm:py-[45px_70px] lg:py-[55px_95px] 2xl:py-[65px_110px] 3xl:py-[85px_140px] border-b-1 border-[#404040]/40 block">
@@ -169,7 +169,7 @@ export default function ProductSection({ data, whatsapp }) {
         ) : displayedCars.length > 0 ? (
           <Swiper
             modules={[Autoplay]}
-            loop={true}
+            loop={displayedCars.length > 1}
             slidesPerView={1}
             spaceBetween={12}
             autoplay={{
@@ -262,6 +262,7 @@ function FilterBox({
                     alt="Search"
                     width={15}
                     height={15}
+                    unoptimized
                   />
                 </span>
                 Apply

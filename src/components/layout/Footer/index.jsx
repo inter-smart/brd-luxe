@@ -7,27 +7,8 @@ import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import { toast } from "sonner";
 import SocialMediaComp from "@/components/common/SocialMediaComp";
 
-export default function Footer() {
-  const [footerData, setFooterData] = useState(null);
+export default function Footer({ data: footerData }) {
   const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    async function fetchFooter() {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,
-          { cache: "no-store" }
-        );
-        const data = await res.json();
-        setFooterData(data?.footer_acf || null);
-      } catch (err) {
-        console.error("Footer fetch failed", err);
-      }
-    }
-    fetchFooter();  
-  }, []);
-
-  if (!footerData) return null;
 
   const midIndex = Math.ceil(footerData?.quick_links?.length / 2);
   const leftLinks = footerData?.quick_links?.slice(0, midIndex);
@@ -39,7 +20,7 @@ export default function Footer() {
   const validateEmail = (inputEmail) => {
     const trimmed = inputEmail.trim();
 
-    if (!trimmed ) {
+    if (!trimmed) {
       toast.error("Email is required");
       return false;
     } else if (!emailRegex.test(trimmed)) {
@@ -170,6 +151,7 @@ export default function Footer() {
                             width={20}
                             height={20}
                             className="w-full h-full object-contain"
+                            unoptimized
                           />
                         </a>
                       </li>
@@ -222,6 +204,7 @@ export default function Footer() {
                 width={100}
                 height={100}
                 className="w-full h-full object-contain"
+                unoptimized
               />
             </a>
           </div>

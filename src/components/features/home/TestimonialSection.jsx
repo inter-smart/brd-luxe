@@ -63,7 +63,7 @@ export default function ExperienceSection({ data }) {
             <div className="w-full xl:w-[90%] xl:mr-auto">
               <Swiper
                 modules={[Autoplay]}
-                loop={true}
+                loop={testimonial_section?.testimonials?.length > 1}
                 slidesPerView={1.4}
                 spaceBetween={10}
                 autoplay={{
@@ -139,6 +139,7 @@ export default function ExperienceSection({ data }) {
                                 width={50}
                                 height={50}
                                 className="w-full h-full object-cover"
+                                unoptimized
                               />
                               <ShineBorder
                                 borderWidth={2}
@@ -177,6 +178,7 @@ export default function ExperienceSection({ data }) {
                   width={24}
                   height={24}
                   className="w-full h-full block transition duration-300"
+                  unoptimized
                 />
               </button>
             ) : (
@@ -191,6 +193,7 @@ export default function ExperienceSection({ data }) {
                     width={24}
                     height={24}
                     className="w-full h-full block rotate-180 scale-150 transition duration-300 group-hover:opacity-0.7"
+                    unoptimized
                   />
                 </button>
                 <button
@@ -203,6 +206,7 @@ export default function ExperienceSection({ data }) {
                     width={24}
                     height={24}
                     className="w-full h-full block scale-150 transition duration-300 group-hover:opacity-0.7"
+                    unoptimized
                   />
                 </button>
               </div>
