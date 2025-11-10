@@ -1,2 +1,10 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+# Optimized for search engines
+User-agent: Googlebot
+Allow: /
+User-agent: Googlebot-Image
+Allow: /
+User-agent: Bingbot
+Allow: /

@@ -69,26 +69,23 @@ const raleway = Raleway({
 
 export const metadata = {
   title: "BRD LUXE",
-  description: "BRD LUXE",
+  description: "BRD LUXE - Luxury Car Dealership",
+  metadataBase: new URL("https://www.brdluxe.com"),
+  alternates: {
+    canonical: "/",
+  },
   verification: {
     google: process.env.SITE_VERIFICATION_KEY,
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
-
-// function fixHttpsUrls(obj) {
-//   if (typeof obj === "string") return obj.replace(/^http:\/\//, "https://");
-//   if (Array.isArray(obj)) return obj.map(fixHttpsUrls);
-//   if (typeof obj === "object" && obj !== null) {
-//     const newObj = {};
-//     for (const key in obj) newObj[key] = fixHttpsUrls(obj[key]);
-//     return newObj;
-//   }
-//   return obj;
-// }
 
 async function getHeaderData() {
   try {
@@ -125,7 +122,7 @@ export default async function RootLayout({ children }) {
     getHeaderData(),
     getFooterData(),
   ]);
-  
+
   return (
     <html lang="en">
       {process.env.NEXT_PUBLIC_GTAG_ID && (
