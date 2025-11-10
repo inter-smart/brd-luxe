@@ -46,7 +46,7 @@ export default function ProductListSection({ data, whatsapp }) {
   const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
 
   // show 8 items initially
-  const [visibleCount, setVisibleCount] = useState(8);
+  // const [visibleCount, setVisibleCount] = useState(8);
 
   // ✅ Progressive filtering
   let filteredCars = cars;
@@ -89,13 +89,13 @@ export default function ProductListSection({ data, whatsapp }) {
 
   const isMobile = useMedia({ maxWidth: "1279px" });
 
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 4);
-  };
+  // const handleLoadMore = () => {
+  //   setVisibleCount((prev) => prev + 4);
+  // };
 
-  const handleViewLess = () => {
-    setVisibleCount(8);
-  };
+  // const handleViewLess = () => {
+  //   setVisibleCount(8);
+  // };
 
   return (
     <section className="w-full h-auto py-[20px_50px] sm:py-[20px_60px] lg:py-[20px_80px] 2xl:py-[20px_100px] 3xl:py-[20px_125px] block">
@@ -159,7 +159,7 @@ export default function ProductListSection({ data, whatsapp }) {
           </div>
           <div className="mx-[-7px] sm:mx-[-10px] lg:mx-[-12px] 2xl:mx-[-15px] 3xl:mx-[-20px] [&>*]:w-full [&>*]:sm:w-1/2 [&>*]:md:w-1/3 [&>*]:xl:w-1/4 [&>*]:p-[10px_7px] [&>*]:sm:p-[15px_10px] [&>*]:lg:p-[25px_12px] [&>*]:2xl:p-[35px_15px] [&>*]:3xl:p-[45px_20px] flex flex-wrap">
             {filteredCars.length > 0 ? (
-              filteredCars.slice(0, visibleCount).map((car, index) => (
+              filteredCars.map((car, index) => (
                 <div key={`car-${index}`} className="w-full h-full block">
                   <ProductCard item={car} whatsapp={whatsapp} />
                 </div>
@@ -172,7 +172,7 @@ export default function ProductListSection({ data, whatsapp }) {
           </div>
         </div>
         {/* Load More Button */}
-        {visibleCount < filteredCars.length ? (
+        {/* {visibleCount < filteredCars.length ? (
           <button
             onClick={handleLoadMore}
             className="text-[14px] 2xl:text-[15px] 3xl:text-[20px] font-semibold font-base1 text-white text-center w-full mt-[35px] lg:mt-[50px]"
@@ -188,7 +188,7 @@ export default function ProductListSection({ data, whatsapp }) {
               View Less
             </button>
           )
-        )}
+        )} */}
       </div>
     </section>
   );
