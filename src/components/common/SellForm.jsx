@@ -354,6 +354,13 @@ export default function SellForm() {
     setIsSubmitting(true);
 
     try {
+      // 1️⃣ Get reCAPTCHA token
+      const token = await grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+        { action: "sell_form" }
+      );
+
+
       // Create FormData for file upload
       const formData = new FormData();
 
@@ -369,6 +376,8 @@ export default function SellForm() {
           }
         }
       });
+
+      formData.append("recaptcha_token", token);
 
       // Append files if selected
       if (selectedFiles) {

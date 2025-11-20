@@ -146,6 +146,12 @@ export default async function RootLayout({ children }) {
           `}
         </Script>
 
+        <script
+          src={`https://www.google.com/recaptcha/api.js?render=6LcExhIsAAAAABYQr5o5mc-C2053BFk53gsANOM7`}
+          async
+        ></script>
+
+
         <noscript>
           <img
             height="1"

@@ -37,6 +37,12 @@ export default function Footer({ data: footerData }) {
     if (!validateEmail(trimmed)) return;
 
     try {
+      // 🟦 Generate reCAPTCHA token
+      const token = await grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+        { action: "newsletter" }
+      );
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/newsletter`,
         {

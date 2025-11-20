@@ -208,12 +208,20 @@ const normalizeText = (value) => {
 const onSubmit = async (data) => {
   setIsSubmitting(true);
 
+  
   try {
 // Get the hidden input value
 const sourcePageTitle =
   typeof document !== "undefined"
     ? document.querySelector(".cartitle_hidden_value")?.value || ""
     : "";
+
+  // reCAPTCHA v3 token
+const recaptchaToken = await grecaptcha.execute(
+  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+  { action: "submit" }
+);
+
 
 // Use current URL path as page ID
 const sourcePageId =
@@ -226,6 +234,7 @@ const payload = {
   message: data.message,
   source_page_id: sourcePageId,
   source_page_title: sourcePageTitle, // <-- now using hidden input value
+  recaptcha_token: recaptchaToken,
 };
 
 
