@@ -48,7 +48,7 @@ export default function Footer({ data: footerData }) {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: trimmed }), // ✅ always send trimmed email
+          body: JSON.stringify({ email: trimmed,recaptcha_token:token }), // ✅ always send trimmed email
         }
       );
 
