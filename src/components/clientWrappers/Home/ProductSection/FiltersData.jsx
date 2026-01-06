@@ -8,6 +8,7 @@ import useMedia from "use-media";
 import ProductCard from "@/components/common/ProductCard";
 import ProductFilterBox from "@/components/common/ProductFilterBox";
 import { Heading } from "@/components/utils/Heading";
+import FilterBox from "./FilterBox";
 
 export default function FiltersData({ data, whatsapp }) {
   const cars_section = data?.cars_section;
