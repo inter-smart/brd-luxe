@@ -11,22 +11,18 @@ import { StyledLink } from "../../utils/Button";
 
 export default function HeroSectionClient({ data }) {
   const banner = data?.banner;
-
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 640px)");
-    setIsDesktop(mediaQuery.matches);
-    const handleResize = () => setIsDesktop(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleResize);
-    return () => mediaQuery.removeEventListener("change", handleResize);
-  }, []);
-
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+
   const swiperRef = useRef(null);
   const videoRefs = useRef([]);
   const autoplayDelay = 15000;
+
+  // Handle client-side hydration
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleSlideChange = (swiper) => {
     const newIndex = swiper.realIndex;
@@ -38,7 +34,12 @@ export default function HeroSectionClient({ data }) {
 
     videoRefs.current.forEach((video, index) => {
       if (video) {
-        index === newIndex ? video.play() : video.pause();
+        if (index === newIndex) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+          video.currentTime = 0;
+        }
       }
     });
   };
@@ -46,7 +47,9 @@ export default function HeroSectionClient({ data }) {
   const controlPlayback = (play) => {
     setIsPlaying(play);
     const currentVideo = videoRefs.current[activeIndex];
-    if (currentVideo) play ? currentVideo.play() : currentVideo.pause();
+    if (currentVideo) {
+      play ? currentVideo.play().catch(() => {}) : currentVideo.pause();
+    }
     swiperRef.current?.autoplay[play ? "start" : "stop"]();
   };
 
@@ -57,16 +60,73 @@ export default function HeroSectionClient({ data }) {
       setTimeout(() => {
         swiperRef.current?.autoplay?.start();
       }, 100);
-
       swiperRef.current?.slideTo(index);
     }
   };
+
+  const firstSlide = banner?.sliders?.[0];
+
+  // Server-side render first slide for better LCP
+  if (!isClient && firstSlide) {
+    return (
+      <section className="w-full h-[570px] sm:h-screen flex items-center justify-center relative z-0">
+        <div className="w-full h-full flex flex-col justify-end relative z-0">
+          <div className="w-full h-full block absolute inset-0 -z-1">
+            {firstSlide?.type === "video" ? (
+              <Image
+                src={firstSlide?.video?.thumbnail || "/images/showroomBanner.jpg"}
+                alt={firstSlide?.image?.alt || "Hero banner"}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority
+                quality={90}
+              />
+            ) : (
+              <Image
+                src={firstSlide?.image?.url || "/images/showroomBanner.jpg"}
+                alt={firstSlide?.image?.alt || "Hero banner"}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority
+                quality={90}
+              />
+            )}
+          </div>
+          <div className="container">
+            <div className="w-full h-auto pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] sm:max-w-[420px] lg:max-w-[550px] 2xl:max-w-[670px] 3xl:max-w-[840px]">
+              <p className="text-[12px] sm:text-[13px] lg:text-[14px] 2xl:text-[16px] 3xl:text-[20px] leading-[1.4] font-normal font-base2 max-sm:text-center text-white mb-[15px] sm:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px]">
+                {firstSlide?.title}
+              </p>
+              <h1 className="text-[32px] sm:text-[42px] lg:text-[54px] 2xl:text-[64px] 3xl:text-[80px] leading-[1] font-light font-base1 text-white max-sm:text-center mb-[20px] sm:mb-[30px] lg:mb-[40px] 2xl:mb-[45px] 3xl:mb-[60px]">
+                {firstSlide?.description}
+              </h1>
+              <div className="w-full h-full [&>*]:pr-[10px] lg:[&>*]:pr-[15px] 2xl:[&>*]:pr-[20px] flex flex-wrap items-center max-sm:justify-center">
+                {firstSlide?.buttons?.map(
+                  (item, index) =>
+                    item?.button_url?.url &&
+                    item?.button_title && (
+                      <div key={`hero-button-${index}`} className="w-fit h-auto">
+                        <StyledLink href={item?.button_url?.url} className="!tracking-[0] max-sm:py-[5px]" target={item?.button_url?.target}>
+                          {item?.button_title}
+                        </StyledLink>
+                      </div>
+                    )
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full h-[570px] sm:h-screen flex items-center justify-center relative z-0">
       <Swiper
         modules={[Autoplay, EffectFade]}
-        effect={"fade"}
+        effect="fade"
         loop={banner?.sliders?.length > 1}
         slidesPerView={1}
         spaceBetween={0}
@@ -84,46 +144,51 @@ export default function HeroSectionClient({ data }) {
         {banner?.sliders?.map((item, index) => (
           <SwiperSlide key={`slide-${index}`}>
             {({ isActive }) => (
-              <div className={`w-full h-full flex flex-col justify-end relative z-0`}>
+              <div className="w-full h-full flex flex-col justify-end relative z-0">
                 <div className="w-full h-full block absolute inset-0 -z-1">
                   {item?.type === "video" ? (
-                    <video
-                      loop
-                      muted
-                      playsInline
-                      preload="none"
-                      poster="/image/showroomBanner.jpg"
-                      autoPlay={true}
-                      ref={(el) => {
-                        videoRefs.current[index] = el;
-                      }}
-                      className="w-full h-full object-cover"
-                    >
-                      <source src={item?.video?.url} type="video/mp4" />
-                    </video>
+                    <>
+                      {/* Poster image loads first for LCP */}
+                      <Image
+                        src={item?.video?.thumbnail || "/images/showroomBanner.jpg"}
+                        alt={item?.image?.alt || "Video thumbnail"}
+                        fill
+                        sizes="100vw"
+                        className={`object-cover transition-opacity duration-300 ${
+                          videoRefs.current[index]?.readyState >= 3 ? "opacity-0" : "opacity-100"
+                        }`}
+                        priority={index === 0}
+                        quality={index === 0 ? 90 : 75}
+                      />
+                      {/* Video loads lazily after first paint */}
+                      <video
+                        loop
+                        muted
+                        playsInline
+                        preload={index === 0 ? "metadata" : "none"}
+                        poster={item?.video?.thumbnail || "/images/showroomBanner.jpg"}
+                        ref={(el) => {
+                          videoRefs.current[index] = el;
+                        }}
+                        className="w-full h-full object-cover absolute inset-0"
+                        onLoadedData={() => {
+                          if (index === activeIndex && videoRefs.current[index]) {
+                            videoRefs.current[index].play().catch(() => {});
+                          }
+                        }}
+                      >
+                        <source src={item?.video?.url} type="video/mp4" />
+                      </video>
+                    </>
                   ) : (
-                    // <picture className="absolute -z-2 inset-0">
-                    //   <source media="(max-width: 640px)" srcSet={item?.image?.url || "/images/showroomBanner.jpg"} />
-                    //   <Image
-                    //     src={item?.image?.url || "/images/placeholder.jpg"}
-                    //     alt={item?.image?.alt}
-                    //     fill
-                    //     sizes="100vw, 230px"
-                    //     placeholder="blur"
-                    //     blurDataURL="/images/placeholder.jpg"
-                    //     className="object-cover"
-                    //     priority={index === 0}
-                    //   />
-                    // </picture>
                     <Image
-                      src={"/images/showroomBanner.jpg"}
-                      alt={item?.image?.alt || ""}
+                      src={item?.image?.url || "/images/showroomBanner.jpg"}
+                      alt={item?.image?.alt || "Hero banner"}
                       fill
                       sizes="100vw"
-                      placeholder="blur"
-                      blurDataURL="/images/showroomBanner.jpg"
                       className="object-cover"
                       priority={index === 0}
+                      quality={index === 0 ? 90 : 75}
                     />
                   )}
                 </div>
@@ -170,7 +235,7 @@ export default function HeroSectionClient({ data }) {
           </SwiperSlide>
         ))}
       </Swiper>
-      {isDesktop && (
+      <div className="hidden sm:block">
         <CustomPaginationDots
           slides={banner?.sliders ?? []}
           activeIndex={activeIndex}
@@ -184,7 +249,7 @@ export default function HeroSectionClient({ data }) {
             navigateToSlide(nextIndex);
           }}
         />
-      )}
+      </div>
     </section>
   );
 }

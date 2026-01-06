@@ -184,7 +184,7 @@ export default function HeaderClient({ data: header_acf }) {
                 />
               </Link>
 
-              <div className="hidden lg:flex items-center">
+              <div className="hidden lg:flex items-center min-h-[48px]">
                 <ShinyButton className="border-none h-fit !p-0">
                   {header_acf?.phone_number && (
                     <a className="group font-base3 mr-[10px] flex flex-wrap " href={`tel:${header_acf.phone_number}`}>

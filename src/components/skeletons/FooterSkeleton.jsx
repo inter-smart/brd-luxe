@@ -2,7 +2,7 @@ import { Skeleton } from "../ui/skeleton";
 
 const FooterSkeleton = () => {
   return (
-    <footer className="w-full h-auto border-t border-[#202020]/50 py-[40px] lg:py-[40px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
+    <footer className="w-full border-t border-[#202020]/50 py-[40px] lg:py-[40px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
       <div className="container relative">
         {/* Background BIG BRD */}
         <div className="absolute left-0 bottom-0 pointer-events-none opacity-10">

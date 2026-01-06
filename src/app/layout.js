@@ -9,6 +9,8 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 import Image from "next/image";
+import { Suspense } from "react";
+import FooterSkeleton from "@/components/skeletons/FooterSkeleton";
 
 // Load CeraPro Font - Optimized: only load essential weights
 const CeraPro = localFont({
@@ -119,7 +121,11 @@ export default function RootLayout({ children }) {
         <main className="flex-grow">
           <LenisWrapper>{children}</LenisWrapper>
         </main>
-        <Footer />
+        <footer className="w-full min-h-[80px] border-t border-[#202020]/50 py-[40px] lg:py-[40px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
+          <Suspense fallback={<FooterSkeleton />}>
+            <Footer />
+          </Suspense>
+        </footer>
 
         {/* ✅ Required for toast notifications */}
         <Toaster
