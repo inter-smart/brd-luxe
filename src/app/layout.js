@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
+import Image from "next/image";
 
 // Load CeraPro Font - Optimized: only load essential weights
 const CeraPro = localFont({
@@ -101,7 +102,13 @@ export default function RootLayout({ children }) {
         </Script>
 
         <noscript>
-          <img height="1" width="1" style={{ display: "none" }} src="https://www.facebook.com/tr?id=833166408969081&ev=PageView&noscript=1" />
+          <Image
+            alt="facebook"
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=833166408969081&ev=PageView&noscript=1"
+          />
         </noscript>
         {/* End Meta Pixel Code */}
       </head>

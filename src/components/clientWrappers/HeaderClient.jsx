@@ -19,13 +19,9 @@ const getPath = (url) => {
 };
 
 export default function HeaderClient({ data: header_acf }) {
-  const { scrollYProgress } = useScroll();
   const [visible, setVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSubmenu, setActiveSubmenu] = useState(null);
-  const lastScrollY = useRef(0);
-  const ticking = useRef(false);
   const menuRef = useRef(null);
   const menuButtonRef = useRef(null);
   const pathname = usePathname();
@@ -93,7 +89,6 @@ export default function HeaderClient({ data: header_acf }) {
   const openMenu = () => {
     if (!isMenuOpen) {
       setIsMenuOpen(true);
-      setActiveSubmenu(null);
       if (lenis?.stop) lenis.stop();
     }
   };
@@ -101,13 +96,7 @@ export default function HeaderClient({ data: header_acf }) {
   const closeMenu = () => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
-      setActiveSubmenu(null);
       if (lenis?.start) lenis.start();
-    }
-  };
-  const handleSubmenuHover = (index) => {
-    if (window.innerWidth >= 1024) {
-      setActiveSubmenu(index);
     }
   };
 

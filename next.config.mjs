@@ -82,6 +82,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "admin.brdluxe.com",
       },
+      {
+        protocol: "https",
+        hostname: "www.facebook.com",
+      },
     ],
   },
 
