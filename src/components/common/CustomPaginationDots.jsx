@@ -1,0 +1,128 @@
+import { useEffect, useRef, useState } from "react";
+
+export default function CustomPaginationDots({ slides, activeIndex, isPlaying, autoplayDelay, onTogglePlayPause, onSlideClick, onProgressComplete }) {
+  const [progress, setProgress] = useState(0);
+  const progressInterval = useRef(null);
+  const startTimeRef = useRef(null);
+  const pausedAtRef = useRef(0);
+
+  useEffect(() => {
+    setProgress(0);
+    pausedAtRef.current = 0;
+
+    if (isPlaying) {
+      startProgress();
+    } else {
+      pauseProgress();
+    }
+
+    return () => pauseProgress();
+  }, [activeIndex]);
+
+  useEffect(() => {
+    if (isPlaying) {
+      startProgress();
+    } else {
+      pauseProgress();
+    }
+
+    return () => pauseProgress();
+  }, [isPlaying]);
+
+  const startProgress = () => {
+    pauseProgress();
+    const resumeTime = pausedAtRef.current > 0 ? pausedAtRef.current : 0;
+    startTimeRef.current = Date.now() - (resumeTime * autoplayDelay) / 100;
+
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTimeRef.current;
+      const newProgress = Math.min((elapsed / autoplayDelay) * 100, 100);
+
+      setProgress(newProgress);
+
+      if (newProgress >= 100) {
+        pausedAtRef.current = 0;
+        onProgressComplete();
+      } else {
+        progressInterval.current = requestAnimationFrame(updateProgress);
+      }
+    };
+
+    progressInterval.current = requestAnimationFrame(updateProgress);
+  };
+  const pauseProgress = () => {
+    if (progressInterval.current) {
+      cancelAnimationFrame(progressInterval.current);
+      progressInterval.current = null;
+      if (startTimeRef.current && !pausedAtRef.current) {
+        const elapsed = Date.now() - startTimeRef.current;
+        pausedAtRef.current = Math.min((elapsed / autoplayDelay) * 100, 100);
+      }
+    }
+  };
+
+  return (
+    <div className="container w-fit h-auto absolute right-0 bottom-0 z-10 pb-[70px] sm:pb-[50px] lg:pb-[70px] 2xl:pb-[80px] 3xl:pb-[100px] flex items-end justify-end">
+      <div className="flex items-center sm:space-x-[8px] 2xl:space-x-[10px] 3xl:space-x-[12px]">
+        {slides.map((_, index) => {
+          const isActive = index === activeIndex;
+          return isActive ? (
+            <div key={index} className="sm:w-[25px] lg:w-[28px] 2xl:w-[40px] h-auto aspect-square flex items-center justify-center relative">
+              <svg className="sm:w-[25px] lg:w-[28px] 2xl:w-[40px] h-auto aspect-square transform -rotate-90" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(156, 156, 156, 1)" strokeWidth="3" />
+                <circle
+                  cx="32"
+                  cy="32"
+                  r="28"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeDasharray={`${2 * Math.PI * 28}`}
+                  strokeDashoffset={`${2 * Math.PI * 28 * (1 - progress / 100)}`}
+                  style={{
+                    transition: pausedAtRef.current === 0 && progress === 0 ? "stroke-dashoffset 0.3s ease-out" : "none",
+                  }}
+                />
+              </svg>
+              <button
+                onClick={onTogglePlayPause}
+                className="w-full h-full absolute inset-0 cursor-pointer bg-transparent flex items-center justify-center hover:bg-white/10 rounded-full transition-all duration-200 sm:scale-[.55] 2xl:scale-[.90]"
+                aria-label={isPlaying ? "Pause" : "Play"}
+              >
+                {isPlaying ? (
+                  <svg
+                    width="10"
+                    height="18"
+                    viewBox="0 0 10 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-[10px] sm:w-[12px] md:w-[14px] lg:w-[16px]"
+                  >
+                    <path
+                      d="M8.38889 0.684143C7.80642 0.684143 7.3342 1.15636 7.3342 1.73883V16.2624C7.3342 16.8448 7.80642 17.3171 8.38889 17.3171C8.97135 17.3171 9.44357 16.8448 9.44357 16.2624V1.73883C9.44357 1.15636 8.97135 0.684143 8.38889 0.684143Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M1.61102 0.68396C1.02855 0.68396 0.556335 1.15618 0.556335 1.73865V16.2622C0.556335 16.8447 1.02855 17.3169 1.61102 17.3169C2.19349 17.3169 2.66571 16.8447 2.66571 16.2622V1.73865C2.66571 1.15618 2.19349 0.68396 1.61102 0.68396Z"
+                      fill="white"
+                    />
+                  </svg>
+                ) : (
+                  <div className="w-0 h-0 border-l-[8px] border-l-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
+                )}
+              </button>
+            </div>
+          ) : (
+            <button
+              key={index}
+              onClick={() => onSlideClick(index)}
+              className="sm:w-[5px] 2xl:w-[7px] 3xl:w-[8px] h-auto aspect-square bg-white rounded-full hover:bg-white/80 transition-all duration-200 hover:scale-110 cursor-pointer"
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
