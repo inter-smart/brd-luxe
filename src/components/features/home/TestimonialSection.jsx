@@ -1,8 +1,9 @@
+import dynamic from "next/dynamic";
 import { Text } from "../../utils/Text";
 import { Heading } from "../../utils/Heading";
 import { StyledLink } from "../../utils/Button";
 
-import ExperienceClient from "@/components/clientWrappers/Home/Experience/ExperienceClient";
+const ExperienceClient = dynamic(() => import("@/components/clientWrappers/Home/Experience/ExperienceClient"), { ssr: true });
 
 export default function ExperienceSection({ data }) {
   const testimonial_section = data?.testimonial_section;

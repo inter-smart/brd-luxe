@@ -1,10 +1,14 @@
+export const revalidate = 3600;
+import dynamicImport from "next/dynamic";
+export const dynamic = "force-static";
+
 import HeroSection from "@/components/features/home/HeroSection";
 import BestCarsSection from "@/components/features/home/BestCarsSection";
 import ProductSection from "@/components/features/home/ProductSection";
 import DealerSection from "@/components/features/home/DealerSection";
 import OfferSection from "@/components/features/home/OfferSection";
 import BrandSection from "@/components/features/home/BrandSection";
-import BrdAdvantageSection from "@/components/common/BrdAdvantageSection";
+const BrdAdvantageSection = dynamicImport(() => import("@/components/common/BrdAdvantageSection"));
 import SellCarSection from "@/components/features/home/SellCarSection";
 import ExperienceSection from "@/components/features/home/TestimonialSection";
 import LatestBrdSection from "@/components/features/home/LatestBrdSection";
@@ -12,7 +16,12 @@ import JourneyFrameSection from "@/components/features/home/JourneyFrameSection"
 import LetsTalkSection from "@/components/features/home/LetsTalkSection";
 
 async function getPageData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/home`, { next: { revalidate: 60 } });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/home`, {
+    next: {
+      revalidate: 3600,
+      tags: ["home-page"],
+    },
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch Home data");

@@ -19,6 +19,8 @@ const getPath = (url) => {
 };
 
 export default function HeaderClient({ data: header_acf }) {
+  console.log(header_acf);
+
   const [visible, setVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

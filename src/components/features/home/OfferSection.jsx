@@ -1,4 +1,6 @@
-import OfferSectionClient from "@/components/clientWrappers/Home/OfferSection/OfferSectionClient";
+import dynamic from "next/dynamic";
+
+const OfferSectionClient = dynamic(() => import("@/components/clientWrappers/Home/OfferSection/OfferSectionClient"), { ssr: true });
 
 export default function OfferSection({ data }) {
   return (

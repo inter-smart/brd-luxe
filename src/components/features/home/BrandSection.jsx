@@ -1,4 +1,6 @@
-import Brands from "@/components/clientWrappers/Home/BrandsSection/Brands";
+import dynamic from "next/dynamic";
+
+const Brands = dynamic(() => import("@/components/clientWrappers/Home/BrandsSection/Brands"), { ssr: true });
 import BrandSectionImage from "./BrandSectionImage";
 import BrandSectionTitles from "./BrandSectionTitles";
 

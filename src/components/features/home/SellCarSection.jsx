@@ -1,8 +1,9 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Text } from "../../utils/Text";
 import { Heading } from "../../utils/Heading";
 import { StyledLink } from "../../utils/Button";
-import SellCarsClient from "@/components/clientWrappers/Home/SellCars/SellCarsClient";
+const SellCarsClient = dynamic(() => import("@/components/clientWrappers/Home/SellCars/SellCarsClient"), { ssr: true });
 
 export default function SellCarSection({ data }) {
   const sell_your_car_section = data?.sell_your_car_section;

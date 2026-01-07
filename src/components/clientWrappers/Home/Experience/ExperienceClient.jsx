@@ -7,7 +7,7 @@ import Image from "next/image";
 import useMedia from "use-media";
 import dynamic from "next/dynamic";
 import { ShineBorder } from "@/components/magicui/shine-border";
-const VideoModal = dynamic(() => import("@/components/common/VideoModal"), { ssr: false });
+const VideoModal = dynamic(() => import("@/components/common/VideoModal"), { ssr: true });
 
 const ExperienceClient = ({ testimonial_section }) => {
   const isMobile = useMedia({ maxWidth: "1279px" });

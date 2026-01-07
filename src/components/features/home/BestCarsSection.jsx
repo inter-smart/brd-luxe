@@ -1,6 +1,7 @@
+import dynamic from "next/dynamic";
 import { Text } from "@/components/utils/Text";
 import { Heading } from "@/components/utils/Heading";
-import BestCarsClient from "@/components/clientWrappers/Home/BestCars/BestCarsClient";
+const BestCarsClient = dynamic(() => import("@/components/clientWrappers/Home/BestCars/BestCarsClient"), { ssr: true });
 
 export default function BestCarsSection({ data }) {
   const best_cars_section = data?.best_cars_section;

@@ -1,4 +1,6 @@
-import HeroSectionClient from "@/components/clientWrappers/Home/HeroSectionClient";
+import dynamic from "next/dynamic";
+
+const HeroSectionClient = dynamic(() => import("@/components/clientWrappers/Home/HeroSectionClient"), { ssr: true });
 
 export default function HeroSection({ data }) {
   return (

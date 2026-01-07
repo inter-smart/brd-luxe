@@ -2,29 +2,6 @@ import Image from "next/image";
 import { Heading } from "../../utils/Heading";
 import { StyledLink } from "../../utils/Button";
 
-const lets_talk_data = {
-  heading: {
-    title: "Let’s Talk Luxury",
-  },
-  media: {
-    type: "video",
-    path: "/videos/lets_talk.mp4",
-    alt: "Let's Talk",
-  },
-  description:
-    "Have questions or ready to make a move? Our team is here to guide you through every step of your luxury car journey.",
-  links: [
-    {
-      label: "Get in Touch",
-      url: "/",
-    },
-    {
-      label: "Find Us Near You",
-      url: "/",
-    },
-  ],
-};
-
 export default function LetsTalkSection({ data }) {
   const lets_talk_section = data?.lets_talk_section;
 
@@ -44,10 +21,7 @@ export default function LetsTalkSection({ data }) {
           </video>
         ) : (
           <picture className="absolute -z-2 inset-0">
-            <source
-              media="(max-width: 640px)"
-              srcSet={lets_talk_section?.media?.url}
-            />
+            <source media="(max-width: 640px)" srcSet={lets_talk_section?.media?.url} />
             <Image
               src={lets_talk_section?.image?.url || "/images/placeholder.jpg"}
               alt={lets_talk_section?.image?.alt || "lets talk image"}
@@ -63,11 +37,7 @@ export default function LetsTalkSection({ data }) {
       <div className="container">
         <div className="w-full h-full absolute inset-0 z-1 flex flex-col items-center justify-center">
           <div className="text-center max-w-[340px] 2xl:max-w-[500px]">
-            <Heading
-              as="div"
-              size={"heading1"}
-              className="text-white mb-[15px] sm:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px]"
-            >
+            <Heading as="div" size={"heading1"} className="text-white mb-[15px] sm:mb-[20px] 2xl:mb-[25px] 3xl:mb-[30px]">
               {lets_talk_section?.title}
             </Heading>
             <div className="text-[12px] 2xl:text-[14px] 3xl:text-[16px] leading-[1.5] font-normal font-base2 text-white mb-[20px] sm:mb-[25px] 2xl:mb-[30px] 3xl:mb-[40px]">
@@ -78,15 +48,8 @@ export default function LetsTalkSection({ data }) {
                 (item, index) =>
                   item?.button_url?.url &&
                   item?.button_title && (
-                    <div
-                      key={`latest_info-${index}`}
-                      className="w-auto h-auto block"
-                    >
-                      <StyledLink
-                        href={item?.button_url?.url}
-                        target={item?.button_url?.target}
-                        className={"bg-black"}
-                      >
+                    <div key={`latest_info-${index}`} className="w-auto h-auto block">
+                      <StyledLink href={item?.button_url?.url} target={item?.button_url?.target} className={"bg-black"}>
                         {item?.button_title}
                       </StyledLink>
                     </div>

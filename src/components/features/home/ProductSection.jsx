@@ -1,4 +1,6 @@
-import FiltersData from "@/components/clientWrappers/Home/ProductSection/FiltersData";
+import dynamic from "next/dynamic";
+
+const FiltersData = dynamic(() => import("@/components/clientWrappers/Home/ProductSection/FiltersData"), { ssr: true });
 
 export default function ProductSection({ data, whatsapp }) {
   return (

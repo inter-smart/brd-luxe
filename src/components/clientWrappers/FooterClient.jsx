@@ -7,6 +7,8 @@ import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import { toast } from "sonner";
 
 export default function FooterClient({ data: footerData }) {
+  console.log(footerData);
+
   const [email, setEmail] = useState("");
 
   const midIndex = Math.ceil(footerData?.quick_links?.length / 2);

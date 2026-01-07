@@ -1,6 +1,7 @@
+import dynamic from "next/dynamic";
 import { Heading } from "../../utils/Heading";
 
-import JourneyFrameClient from "@/components/clientWrappers/Home/JourneyFrame/JourneyFrameClient";
+const JourneyFrameClient = dynamic(() => import("@/components/clientWrappers/Home/JourneyFrame/JourneyFrameClient"), { ssr: true });
 
 export default function JourneyFrameSection({ data }) {
   const journey_in_frames_section = data?.journey_in_frames_section;
