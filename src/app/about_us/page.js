@@ -1,18 +1,16 @@
-import dynamicImport from "next/dynamic";
-
-export const dynamic = "force-dynamic";
+import dynamic from "next/dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import below-the-fold sections
-const AboutSection = dynamicImport(() => import("@/components/features/about/AboutSection"), { ssr: true });
+const AboutSection = dynamic(() => import("@/components/features/about/AboutSection"), { ssr: true });
 
-const BrdAdvantageSection = dynamicImport(() => import("@/components/common/BrdAdvantageSection"), { ssr: true });
+const BrdAdvantageSection = dynamic(() => import("@/components/common/BrdAdvantageSection"), { ssr: true });
 
-const CoreValueSection = dynamicImport(() => import("@/components/features/about/CoreValueSection"), { ssr: true });
+const CoreValueSection = dynamic(() => import("@/components/features/about/CoreValueSection"), { ssr: true });
 
-const EnquirySection = dynamicImport(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
+const EnquirySection = dynamic(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
 
 // ✅ Fetch API function (reuse for both metadata + page)
 async function getPageData() {

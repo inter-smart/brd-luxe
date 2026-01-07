@@ -1,5 +1,4 @@
 import PrivacySection from "@/components/features/privacy/privacySection";
-export const dynamic = "force-dynamic";
 
 // 🔹 Reusable fetch
 async function getPageData() {

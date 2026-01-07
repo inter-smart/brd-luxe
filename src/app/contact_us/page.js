@@ -1,13 +1,12 @@
-import dynamicImport from "next/dynamic";
-export const dynamic = "force-dynamic";
+import dynamic from "next/dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import below-the-fold sections
-const ContactInfoSection = dynamicImport(() => import("@/components/features/contact/ContactInfoSection"), { ssr: true });
+const ContactInfoSection = dynamic(() => import("@/components/features/contact/ContactInfoSection"), { ssr: true });
 
-const EnquirySection = dynamicImport(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
+const EnquirySection = dynamic(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
 
 // ✅ Reusable fetch
 async function getPageData() {

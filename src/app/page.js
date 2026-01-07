@@ -1,19 +1,17 @@
-export const revalidate = 3600;
-import dynamicImport from "next/dynamic";
-export const dynamic = "force-dynamic";
+import dynamic from "next/dynamic";
 
 import HeroSection from "@/components/features/home/HeroSection";
-const BestCarsSection = dynamicImport(() => import("@/components/features/home/BestCarsSection"));
-const ProductSection = dynamicImport(() => import("@/components/features/home/ProductSection"));
-const DealerSection = dynamicImport(() => import("@/components/features/home/DealerSection"));
-const OfferSection = dynamicImport(() => import("@/components/features/home/OfferSection"));
-const BrandSection = dynamicImport(() => import("@/components/features/home/BrandSection"));
-const BrdAdvantageSection = dynamicImport(() => import("@/components/common/BrdAdvantageSection"));
-const SellCarSection = dynamicImport(() => import("@/components/features/home/SellCarSection"));
-const ExperienceSection = dynamicImport(() => import("@/components/features/home/TestimonialSection"));
-const LatestBrdSection = dynamicImport(() => import("@/components/features/home/LatestBrdSection"));
-const JourneyFrameSection = dynamicImport(() => import("@/components/features/home/JourneyFrameSection"));
-const LetsTalkSection = dynamicImport(() => import("@/components/features/home/LetsTalkSection"));
+const BestCarsSection = dynamic(() => import("@/components/features/home/BestCarsSection"));
+const ProductSection = dynamic(() => import("@/components/features/home/ProductSection"));
+const DealerSection = dynamic(() => import("@/components/features/home/DealerSection"));
+const OfferSection = dynamic(() => import("@/components/features/home/OfferSection"));
+const BrandSection = dynamic(() => import("@/components/features/home/BrandSection"));
+const BrdAdvantageSection = dynamic(() => import("@/components/common/BrdAdvantageSection"));
+const SellCarSection = dynamic(() => import("@/components/features/home/SellCarSection"));
+const ExperienceSection = dynamic(() => import("@/components/features/home/TestimonialSection"));
+const LatestBrdSection = dynamic(() => import("@/components/features/home/LatestBrdSection"));
+const JourneyFrameSection = dynamic(() => import("@/components/features/home/JourneyFrameSection"));
+const LetsTalkSection = dynamic(() => import("@/components/features/home/LetsTalkSection"));
 
 async function getPageData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/home`, {

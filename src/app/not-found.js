@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 

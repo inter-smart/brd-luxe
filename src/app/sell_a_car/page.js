@@ -1,19 +1,18 @@
-import dynamicImport from "next/dynamic";
-export const dynamic = "force-dynamic";
+import dynamic from "next/dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import all below-the-fold sections
-const SellInfoSection = dynamicImport(() => import("@/components/features/sell/SellInfoSection"), { ssr: true });
+const SellInfoSection = dynamic(() => import("@/components/features/sell/SellInfoSection"), { ssr: true });
 
-const VideoSection = dynamicImport(() => import("@/components/features/sell/VideoSection"), { ssr: true });
+const VideoSection = dynamic(() => import("@/components/features/sell/VideoSection"), { ssr: true });
 
-const HowWorkSection = dynamicImport(() => import("@/components/features/sell/HowWorkSection"), { ssr: true });
+const HowWorkSection = dynamic(() => import("@/components/features/sell/HowWorkSection"), { ssr: true });
 
-const SellNowSection = dynamicImport(() => import("@/components/features/sell/SellNowSection"), { ssr: true });
+const SellNowSection = dynamic(() => import("@/components/features/sell/SellNowSection"), { ssr: true });
 
-const FaqSection = dynamicImport(() => import("@/components/features/sell/FaqSection"), { ssr: true });
+const FaqSection = dynamic(() => import("@/components/features/sell/FaqSection"), { ssr: true });
 
 // 🔹 Reusable fetch function
 async function getPageData() {

@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import InnerHero from "@/components/common/InnerHero";
 import ListSection from "@/components/features/testimonial/ListSection";
 
@@ -61,9 +59,7 @@ export default async function Page() {
           alt={banner?.desktop_image?.alt ?? "banner"}
         />
       ) : null}
-      {testimonials?.enable__disable_testimonials === true ? (
-        <ListSection data={data} />
-      ) : null}
+      {testimonials?.enable__disable_testimonials === true ? <ListSection data={data} /> : null}
     </>
   );
 }

@@ -1,21 +1,20 @@
-import dynamicImport from "next/dynamic";
-export const dynamic = "force-dynamic";
+import dynamic from "next/dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import all below-the-fold sections
-const PremiumSection = dynamicImport(() => import("@/components/features/showroom/PremiumSection"), { ssr: true });
+const PremiumSection = dynamic(() => import("@/components/features/showroom/PremiumSection"), { ssr: true });
 
-const WhatWitsSection = dynamicImport(() => import("@/components/features/showroom/WhatWitsSection"), { ssr: true });
+const WhatWitsSection = dynamic(() => import("@/components/features/showroom/WhatWitsSection"), { ssr: true });
 
-const VisitUsSection = dynamicImport(() => import("@/components/features/showroom/VisitUsSection"), { ssr: true });
+const VisitUsSection = dynamic(() => import("@/components/features/showroom/VisitUsSection"), { ssr: true });
 
-const FlagshipSection = dynamicImport(() => import("@/components/features/showroom/FlagshipSection"), { ssr: true });
+const FlagshipSection = dynamic(() => import("@/components/features/showroom/FlagshipSection"), { ssr: true });
 
-const TestdriveeSection = dynamicImport(() => import("@/components/features/showroom/TestdriveeSection"), { ssr: true });
+const TestdriveeSection = dynamic(() => import("@/components/features/showroom/TestdriveeSection"), { ssr: true });
 
-const EnquirySection = dynamicImport(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
+const EnquirySection = dynamic(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
 
 // 🔹 Reusable fetch
 async function getPageData() {

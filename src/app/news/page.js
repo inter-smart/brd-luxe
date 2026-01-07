@@ -1,11 +1,10 @@
-import dynamicImport from "next/dynamic";
-export const dynamic = "force-dynamic";
+import dynamic from "next/dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import NewsListSection
-const NewsListSection = dynamicImport(() => import("@/components/features/news/NewsListSection"), { ssr: true });
+const NewsListSection = dynamic(() => import("@/components/features/news/NewsListSection"), { ssr: true });
 
 // ✅ Reusable fetch
 async function getPageData() {
