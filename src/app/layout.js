@@ -10,8 +10,19 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 import Image from "next/image";
 
+// Load CeraPro Font
 const CeraPro = localFont({
   src: [
+    {
+      path: "../../public/fonts/CeraPro-Thin.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/CeraPro-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
     {
       path: "../../public/fonts/CeraPro-Regular.woff2",
       weight: "400",
@@ -27,29 +38,33 @@ const CeraPro = localFont({
       weight: "700",
       style: "normal",
     },
+    {
+      path: "../../public/fonts/CeraPro-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
   ],
   variable: "--font-ceraPro",
   preload: true,
   display: "swap",
-  fallback: ["system-ui", "sans-serif"],
 });
 
-// Load Cormorant_Garamond Font - Optimized: reduced weights
+// Load Cormorant_Garamond Font
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
   variable: "--font-cormorant",
-  fallback: ["serif"],
 });
 
-// Load Raleway Font - Optimized: reduced weights
+// Load Raleway Font
 const raleway = Raleway({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
   display: "swap",
   variable: "--font-raleway",
-  fallback: ["sans-serif"],
 });
 
 export const metadata = {
