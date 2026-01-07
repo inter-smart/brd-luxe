@@ -1,20 +1,15 @@
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
+export const dynamic = "force-dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import MdMessageSection
-const MdMessageSection = dynamic(
-  () => import("@/components/features/md/MdMessageSection"),
-  { ssr: true }
-);
+const MdMessageSection = dynamicImport(() => import("@/components/features/md/MdMessageSection"), { ssr: true });
 
 // ✅ Reusable fetch
 async function getPageData() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/md-message`,
-    { next: { revalidate: 60 } }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/md-message`, { next: { revalidate: 60 } });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

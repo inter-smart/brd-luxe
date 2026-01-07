@@ -1,45 +1,25 @@
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
+export const dynamic = "force-dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import all below-the-fold sections
-const PremiumSection = dynamic(
-  () => import("@/components/features/showroom/PremiumSection"),
-  { ssr: true }
-);
+const PremiumSection = dynamicImport(() => import("@/components/features/showroom/PremiumSection"), { ssr: true });
 
-const WhatWitsSection = dynamic(
-  () => import("@/components/features/showroom/WhatWitsSection"),
-  { ssr: true }
-);
+const WhatWitsSection = dynamicImport(() => import("@/components/features/showroom/WhatWitsSection"), { ssr: true });
 
-const VisitUsSection = dynamic(
-  () => import("@/components/features/showroom/VisitUsSection"),
-  { ssr: true }
-);
+const VisitUsSection = dynamicImport(() => import("@/components/features/showroom/VisitUsSection"), { ssr: true });
 
-const FlagshipSection = dynamic(
-  () => import("@/components/features/showroom/FlagshipSection"),
-  { ssr: true }
-);
+const FlagshipSection = dynamicImport(() => import("@/components/features/showroom/FlagshipSection"), { ssr: true });
 
-const TestdriveeSection = dynamic(
-  () => import("@/components/features/showroom/TestdriveeSection"),
-  { ssr: true }
-);
+const TestdriveeSection = dynamicImport(() => import("@/components/features/showroom/TestdriveeSection"), { ssr: true });
 
-const EnquirySection = dynamic(
-  () => import("@/components/features/contact/EnquirySection"),
-  { ssr: true }
-);
+const EnquirySection = dynamicImport(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
 
 // 🔹 Reusable fetch
 async function getPageData() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/showroom`,
-    { next: { revalidate: 60 } }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/showroom`, { next: { revalidate: 60 } });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -99,9 +79,7 @@ export default async function Page() {
       <FlagshipSection data={data} />
       <TestdriveeSection data={data} />
 
-      {enquiry_section?.enable__disable_enquiry_section === true ? (
-        <EnquirySection data={enquiry_section} />
-      ) : null}
+      {enquiry_section?.enable__disable_enquiry_section === true ? <EnquirySection data={enquiry_section} /> : null}
     </>
   );
 }

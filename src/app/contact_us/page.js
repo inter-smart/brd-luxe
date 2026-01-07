@@ -1,25 +1,17 @@
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
+export const dynamic = "force-dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import below-the-fold sections
-const ContactInfoSection = dynamic(
-  () => import("@/components/features/contact/ContactInfoSection"),
-  { ssr: true }
-);
+const ContactInfoSection = dynamicImport(() => import("@/components/features/contact/ContactInfoSection"), { ssr: true });
 
-const EnquirySection = dynamic(
-  () => import("@/components/features/contact/EnquirySection"),
-  { ssr: true }
-);
+const EnquirySection = dynamicImport(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
 
 // ✅ Reusable fetch
 async function getPageData() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/contact`,
-    { next: { revalidate: 60 } }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/contact`, { next: { revalidate: 60 } });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -77,11 +69,7 @@ export default async function Page() {
       {enquiry_section?.enable__disable_enquiry_section === true ? (
         <EnquirySection
           data={enquiry_section}
-          socialMedia={
-            enquiry_section?.enable__disable_social_media_icons === true
-              ? enquiry_section?.social_media_icons
-              : []
-          }
+          socialMedia={enquiry_section?.enable__disable_social_media_icons === true ? enquiry_section?.social_media_icons : []}
         />
       ) : null}
     </>

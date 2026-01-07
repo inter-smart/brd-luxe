@@ -1,28 +1,18 @@
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
+
+export const dynamic = "force-dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import below-the-fold sections
-const AboutSection = dynamic(
-  () => import("@/components/features/about/AboutSection"),
-  { ssr: true }
-);
+const AboutSection = dynamicImport(() => import("@/components/features/about/AboutSection"), { ssr: true });
 
-const BrdAdvantageSection = dynamic(
-  () => import("@/components/common/BrdAdvantageSection"),
-  { ssr: true }
-);
+const BrdAdvantageSection = dynamicImport(() => import("@/components/common/BrdAdvantageSection"), { ssr: true });
 
-const CoreValueSection = dynamic(
-  () => import("@/components/features/about/CoreValueSection"),
-  { ssr: true }
-);
+const CoreValueSection = dynamicImport(() => import("@/components/features/about/CoreValueSection"), { ssr: true });
 
-const EnquirySection = dynamic(
-  () => import("@/components/features/contact/EnquirySection"),
-  { ssr: true }
-);
+const EnquirySection = dynamicImport(() => import("@/components/features/contact/EnquirySection"), { ssr: true });
 
 // ✅ Fetch API function (reuse for both metadata + page)
 async function getPageData() {
@@ -86,18 +76,10 @@ export default async function Page() {
           alt={banner.desktop_image?.alt || "About Us Hero"}
         />
       )}
-      {aboutSection.enable__disable_about_section && (
-        <AboutSection data={aboutSection} />
-      )}
-      {coreValuesData.enable__disable_core_value_section && (
-        <CoreValueSection data={coreValuesData} />
-      )}
-      {advantagesData.enable__disable_advantages_section && (
-        <BrdAdvantageSection data={advantagesData} />
-      )}
-      {enquiryData.enable__disable_enquiry_section && (
-        <EnquirySection data={enquiryData} />
-      )}
+      {aboutSection.enable__disable_about_section && <AboutSection data={aboutSection} />}
+      {coreValuesData.enable__disable_core_value_section && <CoreValueSection data={coreValuesData} />}
+      {advantagesData.enable__disable_advantages_section && <BrdAdvantageSection data={advantagesData} />}
+      {enquiryData.enable__disable_enquiry_section && <EnquirySection data={enquiryData} />}
     </>
   );
 }

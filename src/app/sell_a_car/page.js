@@ -1,40 +1,23 @@
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
+export const dynamic = "force-dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import all below-the-fold sections
-const SellInfoSection = dynamic(
-  () => import("@/components/features/sell/SellInfoSection"),
-  { ssr: true }
-);
+const SellInfoSection = dynamicImport(() => import("@/components/features/sell/SellInfoSection"), { ssr: true });
 
-const VideoSection = dynamic(
-  () => import("@/components/features/sell/VideoSection"),
-  { ssr: true }
-);
+const VideoSection = dynamicImport(() => import("@/components/features/sell/VideoSection"), { ssr: true });
 
-const HowWorkSection = dynamic(
-  () => import("@/components/features/sell/HowWorkSection"),
-  { ssr: true }
-);
+const HowWorkSection = dynamicImport(() => import("@/components/features/sell/HowWorkSection"), { ssr: true });
 
-const SellNowSection = dynamic(
-  () => import("@/components/features/sell/SellNowSection"),
-  { ssr: true }
-);
+const SellNowSection = dynamicImport(() => import("@/components/features/sell/SellNowSection"), { ssr: true });
 
-const FaqSection = dynamic(
-  () => import("@/components/features/sell/FaqSection"),
-  { ssr: true }
-);
+const FaqSection = dynamicImport(() => import("@/components/features/sell/FaqSection"), { ssr: true });
 
 // 🔹 Reusable fetch function
 async function getPageData() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/sellyourcar`,
-    { next: { revalidate: 60 } }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/sellyourcar`, { next: { revalidate: 60 } });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

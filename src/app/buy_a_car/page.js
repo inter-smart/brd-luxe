@@ -1,13 +1,11 @@
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
+export const dynamic = "force-dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import ProductListSection
-const ProductListSection = dynamic(
-  () => import("@/components/features/buy/ProductListSection"),
-  { ssr: true }
-);
+const ProductListSection = dynamicImport(() => import("@/components/features/buy/ProductListSection"), { ssr: true });
 
 // ✅ Fetch API function (reuse for both metadata + page)
 async function getPageData() {
@@ -62,14 +60,8 @@ export default async function Page() {
       {activeBanner ? (
         <InnerHero
           title={activeBanner.buy_a_car_banner_title ?? ""}
-          mobileImage={
-            activeBanner.buy_a_car_mobile_image?.url ||
-            "/images/placeholder.jpg"
-          }
-          desktopImage={
-            activeBanner.buy_a_car_desktop_image?.url ||
-            "/images/placeholder.jpg"
-          }
+          mobileImage={activeBanner.buy_a_car_mobile_image?.url || "/images/placeholder.jpg"}
+          desktopImage={activeBanner.buy_a_car_desktop_image?.url || "/images/placeholder.jpg"}
           alt={activeBanner.buy_a_car_desktop_image?.alt ?? "banner"}
         />
       ) : null}

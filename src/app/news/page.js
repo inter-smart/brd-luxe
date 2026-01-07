@@ -1,20 +1,15 @@
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
+export const dynamic = "force-dynamic";
 
 // Keep InnerHero static (above the fold)
 import InnerHero from "@/components/common/InnerHero";
 
 // Dynamically import NewsListSection
-const NewsListSection = dynamic(
-  () => import("@/components/features/news/NewsListSection"),
-  { ssr: true }
-);
+const NewsListSection = dynamicImport(() => import("@/components/features/news/NewsListSection"), { ssr: true });
 
 // ✅ Reusable fetch
 async function getPageData() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/custom/v1/news`,
-    { next: { revalidate: 60 } }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/custom/v1/news`, { next: { revalidate: 60 } });
 
   if (!res.ok) {
     throw new Error("Failed to fetch News Page data");
@@ -61,12 +56,8 @@ export default async function Page() {
       {banner.enable__disable_news_banner && (
         <InnerHero
           title={banner.news_banner_title}
-          mobileImage={
-            banner.news_mobile_image?.url || "/images/placeholder.jpg"
-          }
-          desktopImage={
-            banner.news_desktop_image?.url || "/images/placeholder.jpg"
-          }
+          mobileImage={banner.news_mobile_image?.url || "/images/placeholder.jpg"}
+          desktopImage={banner.news_desktop_image?.url || "/images/placeholder.jpg"}
           alt={banner.news_desktop_image?.alt ?? "banner"}
         />
       )}

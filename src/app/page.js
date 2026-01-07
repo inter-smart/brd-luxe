@@ -1,19 +1,19 @@
 export const revalidate = 3600;
 import dynamicImport from "next/dynamic";
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 import HeroSection from "@/components/features/home/HeroSection";
-import BestCarsSection from "@/components/features/home/BestCarsSection";
-import ProductSection from "@/components/features/home/ProductSection";
-import DealerSection from "@/components/features/home/DealerSection";
-import OfferSection from "@/components/features/home/OfferSection";
-import BrandSection from "@/components/features/home/BrandSection";
+const BestCarsSection = dynamicImport(() => import("@/components/features/home/BestCarsSection"));
+const ProductSection = dynamicImport(() => import("@/components/features/home/ProductSection"));
+const DealerSection = dynamicImport(() => import("@/components/features/home/DealerSection"));
+const OfferSection = dynamicImport(() => import("@/components/features/home/OfferSection"));
+const BrandSection = dynamicImport(() => import("@/components/features/home/BrandSection"));
 const BrdAdvantageSection = dynamicImport(() => import("@/components/common/BrdAdvantageSection"));
-import SellCarSection from "@/components/features/home/SellCarSection";
-import ExperienceSection from "@/components/features/home/TestimonialSection";
-import LatestBrdSection from "@/components/features/home/LatestBrdSection";
-import JourneyFrameSection from "@/components/features/home/JourneyFrameSection";
-import LetsTalkSection from "@/components/features/home/LetsTalkSection";
+const SellCarSection = dynamicImport(() => import("@/components/features/home/SellCarSection"));
+const ExperienceSection = dynamicImport(() => import("@/components/features/home/TestimonialSection"));
+const LatestBrdSection = dynamicImport(() => import("@/components/features/home/LatestBrdSection"));
+const JourneyFrameSection = dynamicImport(() => import("@/components/features/home/JourneyFrameSection"));
+const LetsTalkSection = dynamicImport(() => import("@/components/features/home/LetsTalkSection"));
 
 async function getPageData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/home`, {

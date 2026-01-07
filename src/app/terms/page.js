@@ -1,11 +1,9 @@
 import PrivacySection from "@/components/features/privacy/privacySection";
+export const dynamic = "force-dynamic";
 
 // 🔹 Reusable fetch
 async function getPageData() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/terms-conditions`,
-    { next: { revalidate: 60 } }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/terms-conditions`, { next: { revalidate: 60 } });
 
   if (!res.ok) {
     throw new Error("Failed to fetch Terms and Conditions data");
@@ -20,9 +18,8 @@ export async function generateMetadata() {
 
   return {
     title: data?.seo?.title,
-    description:
-      data?.seo?.description,
-      openGraph: {
+    description: data?.seo?.description,
+    openGraph: {
       title: data?.seo?.title,
       description: data?.seo?.description,
       images: [
