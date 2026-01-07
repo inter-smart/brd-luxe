@@ -92,15 +92,13 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      {process.env.NEXT_PUBLIC_GTAG_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />}
+      {/* {process.env.NEXT_PUBLIC_GTAG_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />}
       {process.env.GA_TRACKING_ID && <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />}
       <head>
-        {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://connect.facebook.net" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://app.alertspanel.com" />
 
-        {/* Meta Pixel Code - Deferred */}
         <Script id="fb-pixel" strategy="lazyOnload">
           {`
             !function(f,b,e,v,n,t,s)
@@ -126,8 +124,7 @@ export default async function RootLayout({ children }) {
             src="https://www.facebook.com/tr?id=833166408969081&ev=PageView&noscript=1"
           />
         </noscript>
-        {/* End Meta Pixel Code */}
-      </head>
+      </head> */}
 
       <body className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}>
         <Header header={header} />
@@ -139,7 +136,6 @@ export default async function RootLayout({ children }) {
           <Footer footer={footer} />
         </footer>
 
-        {/* ✅ Required for toast notifications */}
         <Toaster
           position="top-center"
           toastOptions={{
@@ -148,7 +144,7 @@ export default async function RootLayout({ children }) {
             },
           }}
         />
-
+        {/* 
         {process.env.NEXT_PUBLIC_GTAG_ID && (
           <noscript>
             <iframe
@@ -176,7 +172,7 @@ export default async function RootLayout({ children }) {
             server:"https://app.alertspanel.com",
             e:"p"
           });`}
-        </Script>
+        </Script> */}
       </body>
     </html>
   );
