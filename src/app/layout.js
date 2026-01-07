@@ -5,12 +5,11 @@ import LenisWrapper from "@/components/utils/LenisWrapper";
 import { Cormorant_Garamond, Raleway } from "next/font/google";
 import StickyWidget from "@/components/common/StickyWidget";
 import { Toaster } from "sonner";
-// import { GoogleTagManager } from "@next/third-parties/google";
-// import { GoogleAnalytics } from "@next/third-parties/google";
-// import Script from "next/script";
-// import Image from "next/image";
+import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
+import Image from "next/image";
 
-// Load CeraPro Font - Optimized: only load essential weights
 const CeraPro = localFont({
   src: [
     {
@@ -73,26 +72,26 @@ export const metadata = {
   },
 };
 
-// async function getLayoutData() {
-//   const [header, footer] = await Promise.all([
-//     fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`, {
-//       cache: "force-cache", // Cache indefinitely
-//     }).then((r) => r.json()),
+async function getLayoutData() {
+  const [header, footer] = await Promise.all([
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`, {
+      cache: "force-cache", // Cache indefinitely
+    }).then((r) => r.json()),
 
-//     fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`, {
-//       cache: "force-cache",
-//     }).then((r) => r.json()),
-//   ]);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`, {
+      cache: "force-cache",
+    }).then((r) => r.json()),
+  ]);
 
-//   return { header, footer };
-// }
+  return { header, footer };
+}
 
-export default function RootLayout({ children }) {
-  // const { header, footer } = await getLayoutData();
+export default async function RootLayout({ children }) {
+  const { header, footer } = await getLayoutData();
 
   return (
     <html lang="en">
-      {/* {process.env.NEXT_PUBLIC_GTAG_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />}
+      {process.env.NEXT_PUBLIC_GTAG_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />}
       {process.env.GA_TRACKING_ID && <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />}
       <head>
         <link rel="preconnect" href="https://connect.facebook.net" />
@@ -124,16 +123,16 @@ export default function RootLayout({ children }) {
             src="https://www.facebook.com/tr?id=833166408969081&ev=PageView&noscript=1"
           />
         </noscript>
-      </head> */}
+      </head>
 
       <body className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}>
-        <Header />
-        <StickyWidget />
+        <Header header={header} />
+        <StickyWidget footer={footer} />
         <main className="flex-grow">
           <LenisWrapper>{children}</LenisWrapper>
         </main>
         <footer className="w-full min-h-[80px] border-t border-[#202020]/50 py-[40px] lg:py-[40px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
-          <Footer />
+          <Footer footer={footer} />
         </footer>
 
         <Toaster
@@ -144,7 +143,7 @@ export default function RootLayout({ children }) {
             },
           }}
         />
-        {/* 
+
         {process.env.NEXT_PUBLIC_GTAG_ID && (
           <noscript>
             <iframe
@@ -172,7 +171,7 @@ export default function RootLayout({ children }) {
             server:"https://app.alertspanel.com",
             e:"p"
           });`}
-        </Script> */}
+        </Script>
       </body>
     </html>
   );

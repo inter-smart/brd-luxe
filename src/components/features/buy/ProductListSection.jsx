@@ -68,14 +68,6 @@ export default function ProductListSection({ data, whatsapp }) {
 
   const isMobile = useMedia({ maxWidth: "1279px" });
 
-  // const handleLoadMore = () => {
-  //   setVisibleCount((prev) => prev + 4);
-  // };
-
-  // const handleViewLess = () => {
-  //   setVisibleCount(8);
-  // };
-
   return (
     <section className="w-full h-auto py-[20px_50px] sm:py-[20px_60px] lg:py-[20px_80px] 2xl:py-[20px_100px] 3xl:py-[20px_125px] block">
       <div className="container">

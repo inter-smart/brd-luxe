@@ -74,7 +74,7 @@ export default function HeroSectionClient({ data }) {
           <div className="w-full h-full block absolute inset-0 -z-1">
             {firstSlide?.type === "video" ? (
               <Image
-                src={firstSlide?.video?.thumbnail || "/images/showroomBanner.jpg"}
+                src={firstSlide?.video?.thumbnail || "/images/home_banner_1.webp"}
                 alt={firstSlide?.image?.alt || "Hero banner"}
                 fill
                 sizes="100vw"
@@ -84,7 +84,7 @@ export default function HeroSectionClient({ data }) {
               />
             ) : (
               <Image
-                src={firstSlide?.image?.url || "/images/showroomBanner.jpg"}
+                src={firstSlide?.image?.url || "/images/home_banner_1.webp"}
                 alt={firstSlide?.image?.alt || "Hero banner"}
                 fill
                 sizes="100vw"
@@ -150,7 +150,7 @@ export default function HeroSectionClient({ data }) {
                     <>
                       {/* Poster image loads first for LCP */}
                       <Image
-                        src={item?.video?.thumbnail || "/images/showroomBanner.jpg"}
+                        src={item?.video?.thumbnail || "/images/home_banner_1.webp"}
                         alt={item?.image?.alt || "Video thumbnail"}
                         fill
                         sizes="100vw"
@@ -166,7 +166,7 @@ export default function HeroSectionClient({ data }) {
                         muted
                         playsInline
                         preload={index === 0 ? "metadata" : "none"}
-                        poster={item?.video?.thumbnail || "/images/showroomBanner.jpg"}
+                        poster={item?.video?.thumbnail || "/images/home_banner_1.webp"}
                         ref={(el) => {
                           videoRefs.current[index] = el;
                         }}
@@ -182,7 +182,7 @@ export default function HeroSectionClient({ data }) {
                     </>
                   ) : (
                     <Image
-                      src={item?.image?.url || "/images/showroomBanner.jpg"}
+                      src={item?.image?.url || "/images/home_banner_1.webp"}
                       alt={item?.image?.alt || "Hero banner"}
                       fill
                       sizes="100vw"
