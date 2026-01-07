@@ -5,10 +5,10 @@ import LenisWrapper from "@/components/utils/LenisWrapper";
 import { Cormorant_Garamond, Raleway } from "next/font/google";
 import StickyWidget from "@/components/common/StickyWidget";
 import { Toaster } from "sonner";
-import { GoogleTagManager } from "@next/third-parties/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import Script from "next/script";
-import Image from "next/image";
+// import { GoogleTagManager } from "@next/third-parties/google";
+// import { GoogleAnalytics } from "@next/third-parties/google";
+// import Script from "next/script";
+// import Image from "next/image";
 
 // Load CeraPro Font - Optimized: only load essential weights
 const CeraPro = localFont({
@@ -73,22 +73,22 @@ export const metadata = {
   },
 };
 
-async function getLayoutData() {
-  const [header, footer] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`, {
-      cache: "force-cache", // Cache indefinitely
-    }).then((r) => r.json()),
+// async function getLayoutData() {
+//   const [header, footer] = await Promise.all([
+//     fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`, {
+//       cache: "force-cache", // Cache indefinitely
+//     }).then((r) => r.json()),
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`, {
-      cache: "force-cache",
-    }).then((r) => r.json()),
-  ]);
+//     fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`, {
+//       cache: "force-cache",
+//     }).then((r) => r.json()),
+//   ]);
 
-  return { header, footer };
-}
+//   return { header, footer };
+// }
 
-export default async function RootLayout({ children }) {
-  const { header, footer } = await getLayoutData();
+export default function RootLayout({ children }) {
+  // const { header, footer } = await getLayoutData();
 
   return (
     <html lang="en">
@@ -127,13 +127,13 @@ export default async function RootLayout({ children }) {
       </head> */}
 
       <body className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}>
-        <Header header={header} />
-        <StickyWidget footer={footer} />
+        <Header />
+        <StickyWidget />
         <main className="flex-grow">
           <LenisWrapper>{children}</LenisWrapper>
         </main>
         <footer className="w-full min-h-[80px] border-t border-[#202020]/50 py-[40px] lg:py-[40px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
-          <Footer footer={footer} />
+          <Footer />
         </footer>
 
         <Toaster
