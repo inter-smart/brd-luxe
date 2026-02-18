@@ -3,21 +3,26 @@ import ListSection from "@/components/features/testimonial/ListSection";
 
 // ✅ Fetch API function (reuse for both metadata + page)
 async function getTestimonialData() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/testimonial`,
-    { next: { revalidate: 60 } } // ISR optional
-  );
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/testimonial`,
+      { next: { revalidate: 60 } } // ISR optional
+    );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    if (!res.ok) {
+      return null;
+    }
+
+    return res.json();
+  } catch (error) {
+    return null;
   }
-
-  return res.json();
 }
 
 // ✅ Dynamic Metadata
 export async function generateMetadata() {
   const data = await getTestimonialData();
+  if (!data) return {};
 
   return {
     title: data?.seo?.title,
@@ -45,6 +50,7 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const data = await getTestimonialData();
+  if (!data) return null;
 
   const banner = data?.testimonial_acf?.banner;
   const testimonials = data?.testimonial_acf?.testimonials;
