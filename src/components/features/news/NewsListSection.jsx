@@ -9,22 +9,6 @@ import { Suspense, useState } from "react";
 const INITIAL_VISIBLE_COUNT = 8;
 const LOAD_MORE_COUNT = 8;
 
-// export default function NewsListSection({ data }) {
-//   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
-//   // const news = data.posts;
-//   // const news = data?.posts ?? [];
-//   const handleLoadToggle = () => {
-//     if (visibleCount >= data.length) {
-//       // Collapse to initial count
-//       setVisibleCount(INITIAL_VISIBLE_COUNT);
-//     } else {
-//       // Load more items
-//       setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, data.length));
-//     }
-//   };
-
-//   const isAllLoaded = visibleCount >= data.length;
-
 export default function NewsListSection({ data = [], content }) {
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
 
@@ -50,11 +34,7 @@ export default function NewsListSection({ data = [], content }) {
             ]}
           />
         </div>
-        <Heading
-          as="h2"
-          size="heading1"
-          className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]"
-        >
+        <Heading as="h2" size="heading1" className="text-white mb-[15px] sm:mb-[15px] xl:mb-[20px] 2xl:mb-[30px]">
           {content?.main_title}
         </Heading>
         <div className="flex flex-wrap -mx-[10px] sm:-mx-[10px] xl:-mx-[20px] 2xl:-mx-[30px] [&>*]:p-[10px] sm:[&>*]:p-[10px] xl:[&>*]:p-[20px] 2xl:[&>*]:p-[30px]">

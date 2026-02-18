@@ -8,7 +8,7 @@ import { Toaster } from "sonner";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
-export const dynamic = "force-dynamic";
+import Image from "next/image";
 
 // Load CeraPro Font
 const CeraPro = localFont({
@@ -87,50 +87,33 @@ export const metadata = {
   },
 };
 
-async function getHeaderData() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`,
-      { cache: "no-store" }
-    );
-    if (!res.ok) throw new Error("Failed to fetch header");
-    const data = await res.json();
-    return data?.header_acf || null;
-  } catch (e) {
-    console.error("Header fetch failed", e);
-    return null;
-  }
-}
+async function getLayoutData() {
+  const [header, footer] = await Promise.all([
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/header`, {
+      cache: "force-cache", // Cache indefinitely
+    }).then((r) => r.json()),
 
-async function getFooterData() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`,
-      { cache: "no-store" }
-    );
-    if (!res.ok) throw new Error("Failed to fetch footer");
-    const data = await res.json();
-    return data?.footer_acf || null;
-  } catch (e) {
-    console.error("Footer fetch failed", e);
-    return null;
-  }
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/footer`, {
+      cache: "force-cache",
+    }).then((r) => r.json()),
+  ]);
+
+  return { header, footer };
 }
 
 export default async function RootLayout({ children }) {
-  const [headerData, footerData] = await Promise.all([
-    getHeaderData(),
-    getFooterData(),
-  ]);
+  const { header, footer } = await getLayoutData();
 
   return (
     <html lang="en">
-      {process.env.NEXT_PUBLIC_GTAG_ID && (
-        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />
-      )}
+      {process.env.NEXT_PUBLIC_GTAG_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTAG_ID} />}
+      {process.env.GA_TRACKING_ID && <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />}
       <head>
-        {/* Meta Pixel Code */}
-        <Script id="fb-pixel" strategy="afterInteractive">
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://app.alertspanel.com" />
+
+        <Script id="fb-pixel" strategy="lazyOnload">
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -153,33 +136,31 @@ export default async function RootLayout({ children }) {
 
 
         <noscript>
-          <img
+          <Image
+            alt="facebook"
             height="1"
             width="1"
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=833166408969081&ev=PageView&noscript=1"
           />
         </noscript>
-        {/* End Meta Pixel Code */}
       </head>
 
-      <body
-        className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}
-      >
-        <Header data={headerData} />
-        <StickyWidget data={footerData} />
+      <body className={`${cormorantGaramond.variable} ${raleway.variable} ${CeraPro.variable} bg-black antialiased min-h-screen flex flex-col`}>
+        <Header header={header} />
+        <StickyWidget footer={footer} />
         <main className="flex-grow">
           <LenisWrapper>{children}</LenisWrapper>
         </main>
-        <Footer data={footerData} />
+        <footer className="w-full min-h-[80px] border-t border-[#202020]/50 py-[40px] lg:py-[40px] 2xl:py-[60px] 3xl:py-[75px] overflow-hidden block">
+          <Footer footer={footer} />
+        </footer>
 
-        {/* ✅ Required for toast notifications */}
         <Toaster
           position="top-center"
           toastOptions={{
             classNames: {
-              toast:
-                "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
+              toast: "!fixed !top-1/2 !left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999]",
             },
           }}
         />
@@ -195,7 +176,7 @@ export default async function RootLayout({ children }) {
           </noscript>
         )}
 
-        <Script id="alertspanel-chatbot" strategy="afterInteractive">
+        <Script id="alertspanel-chatbot" strategy="lazyOnload">
           {`!function(e,t,a){
             var c=e.head||e.getElementsByTagName("head")[0],
             n=e.createElement("script");
@@ -213,9 +194,6 @@ export default async function RootLayout({ children }) {
           });`}
         </Script>
       </body>
-      {process.env.GA_TRACKING_ID && (
-        <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />
-      )}
     </html>
   );
 }
