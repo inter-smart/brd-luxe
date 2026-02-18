@@ -38,10 +38,18 @@ export default function FooterClient({ data: footerData }) {
     if (!validateEmail(trimmed)) return;
 
     try {
+      let recaptcha_token = "";
+      if (window.grecaptcha) {
+        recaptcha_token = await window.grecaptcha.execute(
+          process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+          { action: "newsletter" }
+        );
+      }
+
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp-json/brd/v1/newsletter`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: trimmed }), // ✅ always send trimmed email
+        body: JSON.stringify({ email: trimmed, recaptcha_token }),
       });
 
       const data = await res.json();
